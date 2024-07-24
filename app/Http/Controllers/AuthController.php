@@ -32,7 +32,10 @@ class AuthController extends Controller
 	    if ($responseCode !== SSOClient::$SUCCESS && $responseCode !== SSOClient::$SUCCESS_WITH_CHANGE_PASSWORD) {
 		    createLogActivity('Gagal login dengan username : ' . $request->username);
 			
-		    return redirect(route('auth.login'))->withInput()->with('response_code', $responseCode)->withErrors([$response['result']['response_message']]);
+		    return to_route('auth.login')
+			    ->withInput()
+			    ->with('response_code', $responseCode)
+			    ->withErrors([$response['result']['response_message']]);
 	    }
 		
 	    if($responseCode === SSOClient::$SUCCESS_WITH_CHANGE_PASSWORD){
@@ -51,15 +54,16 @@ class AuthController extends Controller
 	    }
 		
 	    Auth::login($user);
+	    sweetAlert('success','Selamat Datang!');
 		
 	    if($responseCode === SSOClient::$SUCCESS_WITH_CHANGE_PASSWORD){
 		    createLogActivity('Login With Change Password');
 			
-		    return redirect(route('auth.change-password'));
+		    return to_route('auth.change-password');
 	    } else {
 		    createLogActivity('Login');
 			
-		    return redirect(route('index'));
+		    return to_route('index');
 	    }
     }
 
@@ -77,7 +81,7 @@ class AuthController extends Controller
             Auth::logout();
         }
 
-        return redirect(route('auth.login'));
+        return to_route('auth.login');
     }
 
     public function changePassword()
@@ -104,39 +108,31 @@ class AuthController extends Controller
 			    createLogActivity('Ubah password');
 			    
 			    $user->update($responseJson['data']['user']);
-				
-			    return redirect(route('index'))
-				    ->with('alert.status', 'success')
-				    ->with('alert.message', "Password berhasil diperbarui");
+			    
+			    sweetAlert('success', 'Password berhasil diperbarui');
+			    return to_route('index');
 		    } else if($statusCode == 422) {
 				$errors = [];
 				foreach ($responseJson['data'] as $field => $value){
 					$errors[$field] = $value[0];
 				}
-			    return back()->withErrors($errors)->with([
-				    'alert.status' => 'error',
-				    'alert.message' => 'Perikasa kembali Inputan Anda!'
-			    ])->withInput();
+				
+				sweetAlert('error', 'Perikasa kembali Inputan Anda!');
+			    return back()->withErrors($errors)->withInput();
 		    } else {
-			    return back()->with([
-				    'alert.status' => 'warning',
-				    'alert.message' => $responseJson['message']
-			    ]);
+			    sweetAlert('warning', $responseJson['message']);
+			    return back();
 		    }
 	    } catch (\Exception $e) {
 		    Log::error($e->getMessage());
 		    
 		    if (App::environment(['local', 'development'])) {
-			    return back()->with([
-				    'alert.status' => 'error',
-				    'alert.message' => $e->getMessage()
-			    ]);
+			    sweetAlert('error', $e->getMessage());
+			    return back();
 		    }
-		    
-		    return back()->with([
-			    'alert.status' => 'error',
-			    'alert.message' => 'Terjadi Kesalahan, hubungi Administrator!'
-		    ]);
+			
+		    sweetAlert('error', 'Terjadi Kesalahan, hubungi Administrator!');
+		    return back();
 	    }
     }
 
@@ -163,35 +159,27 @@ class AuthController extends Controller
 			$statusCode = $response->status();
 			$responseJson = $response->json();
 			if($statusCode == 200 && $responseJson['success']){
-				return back()->with([
-					'alert.status' => 'success',
-					'alert.message' => 'Berhasil mengirim Password Baru ke Email Anda'
-				]);
+				sweetAlert('success', 'Berhasil mengirim Password Baru ke Email Anda');
+				return back();
 			} else if($statusCode == 422) {
-				return back()->withErrors(['email' => $responseJson['data']['email'][0]])->with([
-					'alert.status' => 'error',
-					'alert.message' => 'Perikasa kembali Inputan Anda!'
-				])->withInput();
+				sweetAlert('error', 'Perikasa kembali Inputan Anda!');
+				return back()
+					->withErrors(['email' => $responseJson['data']['email'][0]])
+					->withInput();
 			} else {
-				return back()->with([
-					'alert.status' => 'warning',
-					'alert.message' => $responseJson['message']
-				]);
+				sweetAlert('warning', $responseJson['message']);
+				return back();
 			}
 		} catch (\Exception $e) {
 			Log::error($e->getMessage());
 			
 			if (App::environment(['local', 'development'])) {
-				return back()->with([
-					'alert.status' => 'error',
-					'alert.message' => $e->getMessage()
-				]);
+				sweetAlert('error', $e->getMessage());
+				return back();
 			}
 			
-			return back()->with([
-				'alert.status' => 'error',
-				'alert.message' => 'Terjadi Kesalahan, hubungi Administrator!'
-			]);
+			sweetAlert('error', 'Terjadi Kesalahan, hubungi Administrator!');
+			return back();
 		}
 	}
 }

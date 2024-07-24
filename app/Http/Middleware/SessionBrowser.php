@@ -26,7 +26,7 @@ class SessionBrowser
 			Auth::logout();
 	        Session::forget('session_browser');
 			
-            return redirect(route('auth.login'));
+            return to_route('auth.login');
         }
 
         return $next($request);

@@ -22,7 +22,7 @@ class AuthenticateWithCheckUsersExpired
         $todayDate = Carbon::now()->toDateString();
         $expiredPassword = auth()->user()->expired_password;
         if ($todayDate >= $expiredPassword) { // jika password expired
-            return redirect(route('auth.expired-password'));
+            return to_route('auth.expired-password');
         }
         
         return $next($request);
