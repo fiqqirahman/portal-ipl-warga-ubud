@@ -22,50 +22,112 @@ class AuthController extends Controller
 
     public function loginSubmit(LoginRequest $request)
     {
-	    $ssoClient = new SSOClient();
-		   
-	    $request['username'] = strtoupper($request->username);
-	    
-	    $response = $ssoClient->loginViaPublic($request->username, $request->password);
-	    $responseCode = $response['result']['response_code'];
-		
-	    if ($responseCode !== SSOClient::$SUCCESS && $responseCode !== SSOClient::$SUCCESS_WITH_CHANGE_PASSWORD) {
-		    createLogActivity('Gagal login dengan username : ' . $request->username);
-			
-		    return to_route('auth.login')
-			    ->withInput()
-			    ->with('response_code', $responseCode)
-			    ->withErrors([$response['result']['response_message']]);
-	    }
-		
-	    if($responseCode === SSOClient::$SUCCESS_WITH_CHANGE_PASSWORD){
-			$sessionId = bin2hex(random_bytes(40));
-		    Session::put('session_browser', $sessionId);
-			$user = User::where('username', $request->username)->first();
-			$user->expired_password = '1970-01-01';
-			$user->is_blokir = null;
-			$user->session_id = $sessionId;
-			$user->save();
-	    } else {
-			// Response Code : 00
-	        $user = $ssoClient->updateOrCreateUserAfterAuthorize($response);
-		    $sessionId = $response['result']['detail_user']['session_id'] ?? null;
-		    Session::put('session_browser', $sessionId);
-	    }
-		
-	    Auth::login($user);
-	    sweetAlert('success','Selamat Datang!');
-		
-	    if($responseCode === SSOClient::$SUCCESS_WITH_CHANGE_PASSWORD){
-		    createLogActivity('Login With Change Password');
-			
-		    return to_route('auth.change-password');
-	    } else {
-		    createLogActivity('Login');
-			
-		    return to_route('index');
+	    try {
+		    $ssoClient = new SSOClient();
+		    
+		    $request['username'] = strtoupper($request->username);
+		    
+		    $response = $ssoClient->loginViaPublic($request->username, $request->password);
+		    $responseCode = $response['result']['response_code'];
+		    
+		    if ($responseCode !== SSOClient::$SUCCESS && $responseCode !== SSOClient::$SUCCESS_WITH_CHANGE_PASSWORD) {
+			    createLogActivity('Gagal login dengan username : ' . $request->username);
+			    
+			    return to_route('auth.login')
+				    ->withInput()
+				    ->with('response_code', $responseCode)
+				    ->withErrors([$response['result']['response_message']]);
+		    }
+		    
+		    if($responseCode === SSOClient::$SUCCESS_WITH_CHANGE_PASSWORD){
+			    $sessionId = bin2hex(random_bytes(40));
+			    Session::put('session_browser', $sessionId);
+			    $user = User::where('username', $request->username)->first();
+			    $user->expired_password = '1970-01-01';
+			    $user->is_blokir = null;
+			    $user->session_id = $sessionId;
+			    $user->save();
+		    } else {
+			    // Response Code : 00
+			    $user = $ssoClient->updateOrCreateUserAfterAuthorize($response);
+			    $sessionId = $response['result']['detail_user']['session_id'] ?? null;
+			    Session::put('session_browser', $sessionId);
+		    }
+		    
+		    Auth::login($user);
+		    sweetAlert('success','Selamat Datang!');
+		    
+		    if($responseCode === SSOClient::$SUCCESS_WITH_CHANGE_PASSWORD){
+			    createLogActivity('Login With Change Password');
+			    
+			    return to_route('auth.change-password');
+		    } else {
+			    createLogActivity('Login');
+			    
+			    return to_route('index');
+		    }
+	    } catch (\Exception $e) {
+		    Log::error('[loginSubmit AuthController] Exception', [
+			    'message' => $e->getMessage()
+		    ]);
+		    
+		    if (App::environment(['local', 'development'])) {
+			    sweetAlert('error', $e->getMessage());
+			    return to_route('auth.login');
+		    }
+		    
+		    sweetAlert('error', 'Terjadi Kesalahan, hubungi Administrator!');
+		    return to_route('auth.login');
 	    }
     }
+	
+	public function loginViaPortalSSO(string $email, string $username, string $kodeAplikasi, string $time)
+	{
+		try {
+			$ssoClient = new SSOClient();
+			
+			$params = [
+				'email' => $email,
+				'username' => $username,
+				'kode_aplikasi' => $kodeAplikasi,
+				'time' => $time
+			];
+			
+			$ssoClient->validateLoginViaPortalSSO($params);
+			
+			$response = $ssoClient->loginViaPortalSSO($params);
+			
+			if ($response['result']['response_code'] !== SSOClient::$SUCCESS) {
+				createLogActivity('Gagal login via Portal SSO');
+				
+				return to_route('auth.login')
+					->withInput()
+					->with('response_code', $response['result']['response_code'])
+					->withErrors([$response['result']['response_message']]);
+			}
+			
+			$user = $ssoClient->updateOrCreateUserAfterAuthorize($response);
+			
+			Auth::login($user);
+			createLogActivity('Login via Portal SSO');
+			Session::put('session_browser', $user->session_id);
+			
+			sweetAlert('success', 'Selamat Datang!');
+			return to_route('index');
+		} catch (\Exception $e) {
+			Log::error('[loginViaPortalSSO AuthController] Exception', [
+				'message' => $e->getMessage()
+			]);
+			
+			if (App::environment(['local', 'development'])) {
+				sweetAlert('error', $e->getMessage());
+				return to_route('auth.login');
+			}
+			
+			sweetAlert('error', 'Terjadi Kesalahan, hubungi Administrator!');
+			return to_route('auth.login');
+		}
+	}
 
     public function logout()
     {
@@ -124,7 +186,9 @@ class AuthController extends Controller
 			    return back();
 		    }
 	    } catch (\Exception $e) {
-		    Log::error($e->getMessage());
+		    Log::error('[changePasswordSubmit AuthController] Exception', [
+			    'message' => $e->getMessage()
+		    ]);
 		    
 		    if (App::environment(['local', 'development'])) {
 			    sweetAlert('error', $e->getMessage());
@@ -171,7 +235,9 @@ class AuthController extends Controller
 				return back();
 			}
 		} catch (\Exception $e) {
-			Log::error($e->getMessage());
+			Log::error('[forgotPasswordValidate AuthController] Exception', [
+				'message' => $e->getMessage()
+			]);
 			
 			if (App::environment(['local', 'development'])) {
 				sweetAlert('error', $e->getMessage());

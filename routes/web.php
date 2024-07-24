@@ -10,6 +10,7 @@ Route::name('auth.')->middleware('guest')->group(function () {
     Route::post('/login-submit', [AuthController::class, 'loginSubmit'])->name('login-submit');
 	Route::get('/forgot-password', [AuthController::class, 'forgotPassword'])->name('forgot-password');
 	Route::post('/forgot-password-validate', [AuthController::class, 'forgotPasswordValidate'])->name('forgot-password-validate');
+	Route::get('/login-via-portal-sso/{email}/{username}/{kode_aplikasi}/{time}', [AuthController::class, 'loginViaPortalSSO'])->name('login-via-portal-sso');
 });
 
 Route::middleware('auth')->group(function () {

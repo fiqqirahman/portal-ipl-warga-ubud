@@ -65,7 +65,7 @@ function createLogActivity(string $activity, string $dataBefore = null, string $
 	try {
 		$log = [
 			'ip_access' => Illuminate\Support\Facades\Request::ip(),
-			'user_id' => Illuminate\Support\Facades\Auth::check() ? Illuminate\Support\Facades\Auth::id() : 0,
+			'user_id' => Illuminate\Support\Facades\Auth::check() ? Illuminate\Support\Facades\Auth::id() : null,
 			'activity_content' => $activity,
 			'url' => Illuminate\Support\Facades\Request::fullUrl(),
 			'operating_system' => hisorange\BrowserDetect\Parser::platformName(),

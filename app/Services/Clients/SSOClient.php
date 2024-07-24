@@ -96,9 +96,10 @@ class SSOClient
 	public function loginViaPortalSSO(array $params): mixed
 	{
 		try {
-			$response = Http::post($this->url . '/service-sso/login-via-portal-sso', array_merge($params, [
+			$response = Http::post($this->url . '/service-sso/login-via-portal-sso', [
+				...$params,
 				'ip_address_client' => Request::ip()
-			]));
+			]);
 			
 			if ($response->status() != 200)
 				return [
@@ -336,6 +337,35 @@ class SSOClient
 					'response_message' => 'Error Occured',
 				]
 			];
+		}
+	}
+	
+	/**
+	 * @param array $data
+	 * @return bool
+	 * @throws Exception
+	 */
+	public function validateLoginViaPortalSSO(array $data): bool
+	{
+		try {
+			$expectedKeys = ['email', 'username', 'kode_aplikasi', 'time'];
+			if (array_keys($data) !== $expectedKeys) {
+				return throw new Exception('Required key : email, username, kode_aplikasi, time');
+			}
+			
+			foreach ($data as $key => $val) {
+				if(!$val){
+					return throw new Exception(ucwords(str_replace('_',' ', $key)) . ' is empty!');
+				}
+			}
+			
+			return true;
+		} catch (Exception $e) {
+			Log::error('[Validate Params Login SSO] Error', [
+				'message' => $e->getMessage()
+			]);
+			
+			return throw new Exception($e->getMessage());
 		}
 	}
 }
