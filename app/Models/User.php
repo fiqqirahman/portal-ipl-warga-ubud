@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Master\UnitKerja;
+use App\Traits\Model\Scope\IsActive;
 use Eloquent;
 use Iatstuti\Database\Support\NullableFields;
 use Illuminate\Database\Eloquent\Builder;
@@ -36,6 +37,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static Builder|User searchByName(array $filters)
  * @method static Builder|User withoutPermission($permissions)
  * @method static Builder|User withoutRole($roles, $guard = null)
+ * @method static Builder|User isActive(bool $boolean = TRUE, string $orderBy = 'id', string $direction = 'ASC')
  * @property int $id
  * @property string|null $sso_user_id
  * @property int $id_peg
@@ -89,7 +91,7 @@ use Spatie\Permission\Traits\HasRoles;
  */
 class User extends Authenticatable
 {
-    use Notifiable, HasRoles, NullableFields;
+    use Notifiable, HasRoles, NullableFields, IsActive;
 
     /**
      * The attributes that are mass assignable.

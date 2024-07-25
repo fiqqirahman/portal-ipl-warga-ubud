@@ -26,7 +26,9 @@ class RoleSeeder extends Seeder
 		
         // Create permissions
         $permissions = [
-            // ['id' => StaticPermission::$SOME_MENU_ACCESS, 'name' => 'some_menu_access'],
+            // ['id' => StaticPermission::$SOME_MENU_ACCESS, 'name' => 'Some Menu Access'],
+	        
+            ['id' => StaticPermission::$DEBUG_EAGLE_EYE_ACCESS, 'name' => 'Debug Eagle Eye Access'],
         ];
 
         collect($permissions)->each(function ($data) {
@@ -40,10 +42,12 @@ class RoleSeeder extends Seeder
 	        // ['id' => StaticMenu::$PARENT_X, 'name' => 'Parent X', 'route' => 'prefix.parent.x', 'icon' => 'fa-dashboard', 'parent_id' => 0, 'order' => 2],
 	        // ['id' => StaticMenu::$CHILD_1, 'name' => 'Child 1', 'route' => 'prefix.child.1', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$PARENT_X, 'order' => 1],
 	        // ['id' => StaticMenu::$CHILD_2, 'name' => 'Child 2', 'route' => 'prefix.child.2', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$PARENT_X, 'order' => 2],
-	        //
+
 	        // ['id' => StaticMenu::$PARENT_Y, 'name' => 'Parent Y', 'route' => 'prefix.parent.y', 'icon' => 'fa-dashboard', 'parent_id' => 0, 'order' => 3],
-	        //
+	
 	        // ['id' => StaticMenu::$PARENT_Z, 'name' => 'Parent Z', 'route' => 'prefix.parent.z', 'icon' => 'fa-dashboard', 'parent_id' => 0, 'order' => 4],
+	        
+	        ['id' => StaticMenu::$DEBUG_EAGLE_EYE, 'name' => 'Debug', 'route' => 'telescope', 'icon' => 'fa-dashboard', 'parent_id' => 0, 'order' => 99999],
         ];
 
         collect($menus)->each(function ($data) {

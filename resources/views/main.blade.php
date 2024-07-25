@@ -9,7 +9,7 @@
     <meta name="description" content="{{ config('app.name') }}." />
     <meta name="keywords" content="bank-dki, dki, bank" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta property="og:locale" content="{{ config('app.faker_locale') }}" />
+    <meta property="og:locale" content="{{ config('app.locale') }}" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="{{ config('app.name') }} | Bank DKI" />
     <meta property="og:url" content="{{ config('app.url') }}" />

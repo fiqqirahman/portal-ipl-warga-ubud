@@ -23,9 +23,11 @@ class Role
                 'name' => 'Super Admin',
                 'permissions' => [
 	                // Permission::$SOME_MENU_ACCESS
+	                Permission::$DEBUG_EAGLE_EYE_ACCESS
                 ],
                 'menus' => [
-                    Menu::$DASHBOARD
+                    Menu::$DASHBOARD,
+	                Menu::$DEBUG_EAGLE_EYE
                 ],
             ],
             [
@@ -33,9 +35,11 @@ class Role
                 'name' => 'Developer',
                 'permissions' => [
 	                // Permission::$SOME_MENU_ACCESS
+	                Permission::$DEBUG_EAGLE_EYE_ACCESS
                 ],
                 'menus' => [
-                    Menu::$DASHBOARD
+                    Menu::$DASHBOARD,
+	                Menu::$DEBUG_EAGLE_EYE
                 ],
             ],
 	        // [
