@@ -7,6 +7,7 @@ use App\Models\Menu;
 use App\Models\MenuHasRole;
 use App\Models\Permission;
 use App\Models\Role;
+use App\Statics\User\Role as StaticRole;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
@@ -29,12 +30,19 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
         $isWatch = config('telescope.watch');
 
         Telescope::filter(function (IncomingEntry $entry) use ($isWatch) {
-			if($entry->type === EntryType::MODEL && in_array(Str::before($entry->content['model'], ':'), [
-					Role::class, Menu::class, Permission::class, MenuHasRole::class, LogActivity::class, \Spatie\Permission\Models\Role::class
-				])
+	        if ($entry->type === EntryType::QUERY) {
+		        if($this->filterQueries($entry->content['sql'])){
+					return false;
+		        }
+	        }
+			
+			if($entry->type === EntryType::MODEL && in_array(
+				Str::before($entry->content['model'], ':'),
+				$this->filterModelsList())
 			){
 				return false;
 			}
+			
             return $isWatch;
         });
 	    
@@ -101,6 +109,10 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
 			    ];
 		    }
 		    
+		    if ($entry->type === EntryType::QUERY) {
+				info('QUERY', $entryContent);
+		    }
+		    
 		    return [];
 	    });
     }
@@ -133,7 +145,37 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
     protected function gate(): void
     {
         Gate::define('viewTelescope', function ($user) {
-            return $user->hasRole([Role::$DEVELOPER, Role::$SUPER_ADMIN]);
+            return $user->hasRole([StaticRole::$DEVELOPER, StaticRole::$SUPER_ADMIN]);
         });
     }
+	
+	private function filterQueriesList(): array
+	{
+		return [
+			/** @lang text */ 'select * from "menus" where',
+			/** @lang text */ 'select "roles".*, "menu_has_role"."menu_id" as',
+			/** @lang text */ 'select a.attname as name, t.typname as type_name',
+			/** @lang text */ 'select "roles".*, "model_has_roles"."model_id"',
+			/** @lang text */ 'select * from "users" where "id"',
+			/** @lang text */ 'select * from "users" where ("sso_user_id"',
+			/** @lang text */ 'insert into "users_log_activities" ("ip_access", "user_id", "activity_content",',
+		];
+	}
+	
+	private function filterQueries(string $text): bool
+	{
+		foreach ($this->filterQueriesList() as $searchText) {
+			if (str_contains($text, $searchText)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private function filterModelsList(): array
+	{
+		return [
+			Role::class, Menu::class, Permission::class, MenuHasRole::class, LogActivity::class, \Spatie\Permission\Models\Role::class
+		];
+	}
 }
