@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Laravel\Telescope\Telescope;
 
 class UserActivity
 {
@@ -20,11 +21,9 @@ class UserActivity
     public function handle(Request $request, Closure $next)
     {
         if (Auth::check()) {
-            $expiresAt = now()->addMinutes(2); /* already given time here we already set 2 min. */
-            Cache::put('user-is-online-' . Auth::user()->id, true, $expiresAt);
-
-            /* user last seen */
-            User::where('id', Auth::user()->id)->update(['last_seen' => now()]);
+			Telescope::withoutRecording(function () {
+                User::where('id', Auth::user()->id)->update(['last_seen' => now()]);
+			});
         }
 
         return $next($request);

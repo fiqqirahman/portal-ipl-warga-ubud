@@ -21,8 +21,8 @@ class SessionBrowser
     public function handle(Request $request, Closure $next): mixed
     {
         $session = Session::get('session_browser');
-        $sessionUsers = auth()->user()->session_id;
-        if ($session != $sessionUsers) {
+        $sessionUsers = auth()->user()->session_id ?? false;
+        if (!$sessionUsers || $session != $sessionUsers) {
 			Auth::logout();
 	        Session::forget('session_browser');
 			
