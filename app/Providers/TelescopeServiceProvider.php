@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
-use App\Statics\User\Role;
+use App\Models\LogActivity;
+use App\Models\Menu;
+use App\Models\MenuHasRole;
+use App\Models\Permission;
+use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
@@ -24,7 +28,13 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
 
         $isWatch = config('telescope.watch');
 
-        Telescope::filter(function () use ($isWatch) {
+        Telescope::filter(function (IncomingEntry $entry) use ($isWatch) {
+			if($entry->type === EntryType::MODEL && in_array(Str::before($entry->content['model'], ':'), [
+					Role::class, Menu::class, Permission::class, MenuHasRole::class, LogActivity::class, \Spatie\Permission\Models\Role::class
+				])
+			){
+				return false;
+			}
             return $isWatch;
         });
 	    
