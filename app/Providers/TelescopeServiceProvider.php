@@ -109,10 +109,6 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
 			    ];
 		    }
 		    
-		    if ($entry->type === EntryType::QUERY) {
-				info('QUERY', $entryContent);
-		    }
-		    
 		    return [];
 	    });
     }
@@ -157,8 +153,7 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
 			/** @lang text */ 'select a.attname as name, t.typname as type_name',
 			/** @lang text */ 'select "roles".*, "model_has_roles"."model_id"',
 			/** @lang text */ 'select * from "users" where "id"',
-			/** @lang text */ 'select * from "users" where ("sso_user_id"',
-			/** @lang text */ 'insert into "users_log_activities" ("ip_access", "user_id", "activity_content",',
+			/** @lang text */ 'select * from "users" where ("sso_user_id"'
 		];
 	}
 	

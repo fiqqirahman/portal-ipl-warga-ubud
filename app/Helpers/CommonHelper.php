@@ -1,4 +1,6 @@
 <?php
+	
+use Laravel\Telescope\Telescope;
 
 /**
  * Format number to Rupiah Currency Format
@@ -76,7 +78,9 @@ function createLogActivity(string $activity, string $dataBefore = null, string $
 			'data_after' => $dataAfter,
 		];
 		
-		App\Models\LogActivity::create($log);
+		Telescope::withoutRecording(function () use($log) {
+			App\Models\LogActivity::create($log);
+		});
 	} catch (Exception $exception) {
 		\Illuminate\Support\Facades\Log::error('Error creating log activity : ' . $exception->getMessage());
 	}
