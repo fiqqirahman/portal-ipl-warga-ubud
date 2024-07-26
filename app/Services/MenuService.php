@@ -15,6 +15,9 @@ class MenuService
         if (count($menus) == 0) return [];
 
         foreach ($menus as $menu) {
+			if($menu->id === \App\Statics\User\Menu::$DEBUG_EAGLE_EYE && config('telescope.enabled') !== true){
+				continue;
+			}
             $childrenMenu = self::getMenus($menu->id, $roles);
             $arrMenu[] = [
                 'id' => $menu->id,

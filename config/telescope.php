@@ -17,6 +17,17 @@ return [
     */
 
     'enabled' => env('TELESCOPE_ENABLED', true),
+	
+	/*
+    |--------------------------------------------------------------------------
+    | Telescope Watch
+    |--------------------------------------------------------------------------
+    |
+    | Determinate if Telescope is watch events or not
+    |
+    */
+	
+    'watch' => env('TELESCOPE_WATCH', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -172,7 +183,7 @@ return [
 
         Watchers\LogWatcher::class => [
             'enabled' => env('TELESCOPE_LOG_WATCHER', true),
-            'level' => 'error',
+            'level' => '',
         ],
 
         Watchers\MailWatcher::class => env('TELESCOPE_MAIL_WATCHER', true),

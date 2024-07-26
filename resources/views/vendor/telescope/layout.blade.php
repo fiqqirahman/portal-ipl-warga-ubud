@@ -32,7 +32,7 @@
                 <h4 class="mb-0 ml-3"><strong>Debug</strong> - Eagle Eye</h4>
             </div>
 
-            <div class="ml-auto mr-3 d-flex align-items-center py-2" title="User">
+            <div class="ml-auto mr-3 d-flex align-items-center py-2" title="User" onclick="confirmAndNavigate()">
                 <strong class="text-muted">Hi, {{ Auth::user()->name }}</strong>
             </div>
 
@@ -231,6 +231,12 @@
 <!-- Global Telescope Object -->
 <script>
     window.Telescope = @json($telescopeScriptVariables);
+
+    function confirmAndNavigate() {
+        if (confirm('Back to Dashboard ?')) {
+            window.location.href = '/dashboard';
+        }
+    }
 </script>
 
 <script src="{{ asset(mix('app.js', 'vendor/telescope')) }}"></script>
