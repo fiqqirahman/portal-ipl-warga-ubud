@@ -10,7 +10,6 @@
   "require": {
     "php": "^8.2 || ^8.3",
     "ext-openssl": "*",
-    "dyrynda/laravel-nullable-fields": "^0.1.0",
     "guzzlehttp/guzzle": "^7.0.1",
     "hisorange/browser-detect": "^4.5",
     "laravel/framework": "^11",

@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Models\Master\UnitKerja;
 use App\Traits\Model\Scope\IsActive;
 use Eloquent;
-use Iatstuti\Database\Support\NullableFields;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -91,7 +90,7 @@ use Spatie\Permission\Traits\HasRoles;
  */
 class User extends Authenticatable
 {
-    use Notifiable, HasRoles, NullableFields, IsActive;
+    use Notifiable, HasRoles, IsActive;
 
     /**
      * The attributes that are mass assignable.
@@ -117,10 +116,6 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-    ];
-
-    protected array $nullable = [
-        'ip_address'
     ];
 
     function unitKerja(): BelongsTo
