@@ -106,7 +106,8 @@ return [
         'web',
         Authorize::class,
 	    \App\Http\Middleware\SessionBrowser::class,
-	    \App\Http\Middleware\AuthenticateWithCheckUsersExpired::class
+	    \App\Http\Middleware\AuthenticateWithCheckUsersExpired::class,
+	    \Spatie\Permission\Middleware\PermissionMiddleware::using(\App\Enums\PermissionEnum::DebugEagleEyeAccess->value)
     ],
 
     /*

@@ -41,8 +41,6 @@ class Permission extends SpatiePermission
 {
     protected $table = 'permissions';
 
-    public $incrementing = false;
-
     protected $fillable = ['id', 'name'];
 
     protected $guard_name = 'web';

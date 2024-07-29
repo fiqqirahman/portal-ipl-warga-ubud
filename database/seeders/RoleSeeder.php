@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Enums\PermissionEnum;
 use App\Models\Menu;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
 use App\Statics\User\Role as StaticRole;
-use App\Statics\User\Permission as StaticPermission;
 use App\Statics\User\Menu as StaticMenu;
 use App\Statics\User\NRIK as StaticNRIK;
 use Illuminate\Database\Seeder;
@@ -26,9 +26,11 @@ class RoleSeeder extends Seeder
 		
         // Create permissions
         $permissions = [
-            // ['id' => StaticPermission::$SOME_MENU_ACCESS, 'name' => 'Some Menu Access'],
+            // ['name' => PermissionEnum::SomeMenuAccess->value],
 	        
-            ['id' => StaticPermission::$DEBUG_EAGLE_EYE_ACCESS, 'name' => 'Debug Eagle Eye Access'],
+            ['name' => PermissionEnum::UtilityAccess->value],
+            ['name' => PermissionEnum::DebugEagleEyeAccess->value],
+            ['name' => PermissionEnum::MasterConfigAccess->value],
         ];
 
         collect($permissions)->each(function ($data) {
@@ -47,7 +49,9 @@ class RoleSeeder extends Seeder
 	
 	        // ['id' => StaticMenu::$PARENT_Z, 'name' => 'Parent Z', 'route' => 'prefix.parent.z', 'icon' => 'fa-dashboard', 'parent_id' => 0, 'order' => 4],
 	        
-	        ['id' => StaticMenu::$DEBUG_EAGLE_EYE, 'name' => 'Debug', 'route' => 'telescope', 'icon' => 'fa-dashboard', 'parent_id' => 0, 'order' => 99999],
+	        ['id' => StaticMenu::$UTILITY, 'name' => 'Utility', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => 0, 'order' => 99999],
+	        ['id' => StaticMenu::$DEBUG_EAGLE_EYE, 'name' => 'Debug', 'route' => 'telescope', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$UTILITY, 'order' => 1],
+	        ['id' => StaticMenu::$MASTER_CONFIG, 'name' => 'Master Config', 'route' => 'utility.master-config.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$UTILITY, 'order' => 2],
         ];
 
         collect($menus)->each(function ($data) {

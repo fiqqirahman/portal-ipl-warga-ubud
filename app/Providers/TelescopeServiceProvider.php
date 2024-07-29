@@ -7,9 +7,7 @@ use App\Models\Menu;
 use App\Models\MenuHasRole;
 use App\Models\Permission;
 use App\Models\Role;
-use App\Statics\User\Role as StaticRole;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Laravel\Telescope\EntryType;
 use Laravel\Telescope\IncomingEntry;
@@ -135,18 +133,6 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
         ]);
 		
 		return true;
-    }
-
-    /**
-     * Register the Telescope gate.
-     *
-     * This gate determines who can access Telescope in non-local environments.
-     */
-    protected function gate(): void
-    {
-        Gate::define('viewTelescope', function ($user) {
-            return $user->hasRole([StaticRole::$DEVELOPER, StaticRole::$SUPER_ADMIN]);
-        });
     }
 	
 	private function filterQueriesList(): array

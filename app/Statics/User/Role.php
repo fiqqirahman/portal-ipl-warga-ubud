@@ -2,6 +2,8 @@
 
 namespace App\Statics\User;
 
+use App\Enums\PermissionEnum;
+
 class Role
 {
     static int $SUPER_ADMIN = 1;
@@ -22,31 +24,41 @@ class Role
                 'id' => self::$SUPER_ADMIN,
                 'name' => 'Super Admin',
                 'permissions' => [
-	                // Permission::$SOME_MENU_ACCESS
-	                Permission::$DEBUG_EAGLE_EYE_ACCESS
+	                // Permission::SomeMenuAccess->value
+	                
+	                PermissionEnum::UtilityAccess->value,
+	                PermissionEnum::DebugEagleEyeAccess->value,
+	                PermissionEnum::MasterConfigAccess->value
                 ],
                 'menus' => [
                     Menu::$DASHBOARD,
-	                Menu::$DEBUG_EAGLE_EYE
+	                Menu::$UTILITY,
+	                Menu::$DEBUG_EAGLE_EYE,
+	                Menu::$MASTER_CONFIG,
                 ],
             ],
             [
                 'id' => self::$DEVELOPER,
                 'name' => 'Developer',
                 'permissions' => [
-	                // Permission::$SOME_MENU_ACCESS
-	                Permission::$DEBUG_EAGLE_EYE_ACCESS
+	                // Permission::SomeMenuAccess->value
+	                
+	                PermissionEnum::UtilityAccess->value,
+	                PermissionEnum::DebugEagleEyeAccess->value,
+	                PermissionEnum::MasterConfigAccess->value
                 ],
                 'menus' => [
-                    Menu::$DASHBOARD,
-	                Menu::$DEBUG_EAGLE_EYE
+	                Menu::$DASHBOARD,
+	                Menu::$UTILITY,
+	                Menu::$DEBUG_EAGLE_EYE,
+	                Menu::$MASTER_CONFIG,
                 ],
             ],
 	        // [
 		    //     'id' => self::$EXAMPLE_ROLE,
 		    //     'name' => 'Example Role Name',
 		    //     'permissions' => [
-			//         // Permission::$SOME_MENU_ACCESS
+			//         PermissionEnum::SomeMenuAccess->value,
 		    //     ],
 		    //     'menus' => [
 			//         Menu::$EXAMPLE_MENU

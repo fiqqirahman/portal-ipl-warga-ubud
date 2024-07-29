@@ -1,10 +1,13 @@
 <?php
-
-use App\Http\Controllers\AuthController;
+	
+	use App\Enums\PermissionEnum;
+	use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
-use Illuminate\Support\Facades\Route;
-
-// login
+	use App\Http\Controllers\Utility\MasterConfigController;
+	use Illuminate\Support\Facades\Route;
+	use Spatie\Permission\Middleware\PermissionMiddleware;
+	
+	// login
 Route::name('auth.')->middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/login-submit', [AuthController::class, 'loginSubmit'])->name('login-submit');
@@ -34,6 +37,18 @@ Route::middleware('auth')->group(function () {
 	        // dashboard
 	        Route::redirect('/', '/dashboard');
 	        Route::get('/dashboard', [HomeController::class, 'index'])->name('index');
+			
+			Route::prefix('/utility')
+				->as('utility.')
+				->middleware(PermissionMiddleware::using(PermissionEnum::UtilityAccess->value))
+				->group(function (){
+					Route::prefix('/master-config')
+						->as('master-config.')
+						->middleware(PermissionMiddleware::using(PermissionEnum::MasterConfigAccess->value))
+						->group(function (){
+							Route::get('/', [MasterConfigController::class, 'index'])->name('index');
+						});
+			});
 			
 			// another menus here
         });
