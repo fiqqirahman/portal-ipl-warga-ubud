@@ -30,6 +30,10 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
         $isWatch = config('telescope.watch');
 
         Telescope::filter(function (IncomingEntry $entry) use ($isWatch) {
+			if(!$isWatch) {
+				return false;
+			}
+			
 	        if ($entry->type === EntryType::QUERY) {
 		        if($this->filterQueries($entry->content['sql'])){
 					return false;

@@ -88,7 +88,7 @@ return [
 
     'queue' => [
         'connection' => env('TELESCOPE_QUEUE_CONNECTION', 'database'),
-        'queue' => env('TELESCOPE_QUEUE', 'telescope'),
+        'queue' => env('TELESCOPE_QUEUE', 'default'),
     ],
 
     /*
