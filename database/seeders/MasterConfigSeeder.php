@@ -34,7 +34,7 @@ class MasterConfigSeeder extends Seeder
         ];
 		
         collect($collections)->each(function ($data) {
-            MasterConfig::updateOrCreate(['key' => $data['key']], $data);
+            MasterConfig::firstOrCreate(['key' => $data['key']], $data);
         });
     }
 }
