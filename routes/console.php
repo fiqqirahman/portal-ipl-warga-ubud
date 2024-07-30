@@ -17,3 +17,19 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
+	
+Artisan::command('logs:clear {date?}', function ($date = null) {
+	if($date){
+		if(File::exists(storage_path('logs/laravel-'. $date .'.log'))){
+			exec('echo "-----CLEAR at '. now()->format('d-m-Y H:i:s') .'-----" > ' .
+				storage_path('logs/laravel-'. $date .'.log'));
+			$this->info('Logs have been cleared ' . $date);
+		} else {
+			$this->error('Logs ' . $date . ' not found!');
+		}
+	} else {
+		exec('echo "-----CLEAR at '. now()->format('d-m-Y H:i:s') .'-----" > ' .
+			storage_path('logs/laravel.log'));
+		$this->info('Logs have been cleared');
+	}
+})->purpose('Clear log files');
