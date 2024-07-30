@@ -8,6 +8,7 @@ use App\Models\MenuHasRole;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Laravel\Telescope\EntryType;
 use Laravel\Telescope\IncomingEntry;
@@ -41,9 +42,15 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
 			if($entry->type === EntryType::MODEL && in_array(
 				Str::before($entry->content['model'], ':'),
 				$this->filterModelsList())
-			){
+			) {
 				return false;
 			}
+	        
+	        if ($entry->type === EntryType::CACHE) {
+		       if(in_array($entry->content['key'], $this->filterCacheList())){
+				   return false;
+		       }
+	        }
 			
             return $isWatch;
         });
@@ -114,6 +121,13 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
 		    return [];
 	    });
     }
+	
+	protected function gate(): void
+	{
+		Gate::define('viewTelescope', function ($user) {
+			return true;
+		});
+	}
 
     /**
      * Prevent sensitive request details from being logged by Telescope.
@@ -143,7 +157,10 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
 			/** @lang text */ 'select a.attname as name, t.typname as type_name',
 			/** @lang text */ 'select "roles".*, "model_has_roles"."model_id"',
 			/** @lang text */ 'select * from "users" where "id"',
-			/** @lang text */ 'select * from "users" where ("sso_user_id"'
+			/** @lang text */ 'select * from "users" where ("sso_user_id"',
+			/** @lang text */ 'select * from "permissions"',
+			/** @lang text */ 'select "roles".*, "role_has_permissions"."permission_id" as "pivot_permission_id',
+			/** @lang text */ 'select "permissions".*, "model_has_permissions"."model_id" as "pivot_model_id"',
 		];
 	}
 	
@@ -161,6 +178,14 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
 	{
 		return [
 			Role::class, Menu::class, Permission::class, MenuHasRole::class, LogActivity::class, \Spatie\Permission\Models\Role::class
+		];
+	}
+	
+	private function filterCacheList(): array
+	{
+		return [
+			'master_config',
+			'spatie.permission.cache'
 		];
 	}
 }

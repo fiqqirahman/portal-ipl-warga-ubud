@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use App\Services\MenuService;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,6 +28,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+		if(empty(config('session.lifetime'))){
+			Artisan::call('config:cache');
+		}
+		
         Paginator::useBootstrap();
 
         view()->composer('layouts.navbar', function ($view) {

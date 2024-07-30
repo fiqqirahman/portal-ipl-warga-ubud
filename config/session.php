@@ -32,7 +32,7 @@ return [
     */
 
     // 'lifetime' => env('SESSION_LIFETIME', 120),
-    'lifetime' => config('secure.APP_SEKURITI_SESSION_TIME'),
+    'lifetime' => \App\Helpers\CacheForeverHelper::getSingle(\App\Enums\MasterConfigKeyEnum::SecuritySessionLifetime->value),
 
 
     'expire_on_close' => false,

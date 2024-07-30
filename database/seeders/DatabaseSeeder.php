@@ -30,6 +30,9 @@ class DatabaseSeeder extends Seeder
 			// Spatie Permission, Role and Menu
 	        RoleSeeder::class,
 	        
+			// Master Config Seeder
+	        MasterConfigSeeder::class
+	        
 	        // Another Seeders here
         ]);
     }

@@ -1,11 +1,11 @@
 <?php
 	
-	use App\Enums\PermissionEnum;
-	use App\Http\Controllers\AuthController;
+use App\Enums\PermissionEnum;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
-	use App\Http\Controllers\Utility\MasterConfigController;
-	use Illuminate\Support\Facades\Route;
-	use Spatie\Permission\Middleware\PermissionMiddleware;
+use App\Http\Controllers\Utility\MasterConfigController;
+use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Middleware\PermissionMiddleware;
 	
 	// login
 Route::name('auth.')->middleware('guest')->group(function () {

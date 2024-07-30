@@ -30,17 +30,10 @@ class ChangePasswordRequest extends FormRequest
 	        ],
 	        'password_baru' => [
 		        'required',
-		        PasswordRule::min(config('secure.APP_SEKURITI_LENGTH_PASS_MIN'))
-			        ->mixedCase()
-			        ->letters()
-			        ->numbers()
-			        ->symbols(),
-		        'different:password',
 		        'string'
 	        ],
 	        'konfirmasi_password' => [
 		        'required',
-		        'same:password_baru',
 		        'string'
 	        ],
         ];

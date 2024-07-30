@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\CacheClearHistory;
+use App\Http\Middleware\ValidateToken;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 use Spatie\Permission\Middleware\RoleMiddleware;
@@ -70,5 +71,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'role' => RoleMiddleware::class,
         'permission' => PermissionMiddleware::class,
+	    'api.validate-token' => ValidateToken::class
     ];
 }
