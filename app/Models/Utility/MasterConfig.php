@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Master\MasterConfig
+ * App\Models\Utility\MasterConfig
  *
  * @property int $id
  * @property string $key
