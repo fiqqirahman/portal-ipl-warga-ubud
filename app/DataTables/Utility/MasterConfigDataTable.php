@@ -25,7 +25,7 @@ class MasterConfigDataTable extends DataTable
 	        ->eloquent($query)
             ->addIndexColumn()
             ->editColumn('created_at', function ($row) {
-                return dateWithFullMonthAndTimeFormat($row->created_at);
+                return dateWithFullMonthAndTimeFormat($row->created_at, FALSE);
             })
 	        ->editColumn('updated_at', function ($row) {
 		        return ($row->created_at != $row->updated_at) ? dateWithFullMonthAndTimeFormat($row->created_at, FALSE) : '-';
