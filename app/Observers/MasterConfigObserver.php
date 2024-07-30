@@ -18,7 +18,7 @@ class MasterConfigObserver
 		CacheForeverHelper::syncMasterConfig();
 		if(in_array($masterConfig->key, MasterConfig::isConfig())){
 			dispatch(function (){
-				Artisan::call('config:cache');
+				Artisan::call('optimize');
 			});
 		}
 	}

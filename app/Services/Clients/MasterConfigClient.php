@@ -21,7 +21,7 @@ class MasterConfigClient
 				CacheForeverHelper::syncMasterConfig();
 				if(!empty(array_intersect($keys, MasterConfig::isConfig()))){
 					dispatch(function (){
-						Artisan::call('config:cache');
+						Artisan::call('optimize');
 					});
 				}
 				return response()->json([

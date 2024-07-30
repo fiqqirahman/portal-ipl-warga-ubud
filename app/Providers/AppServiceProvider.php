@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
 		if(empty(config('session.lifetime'))){
-			Artisan::call('config:cache');
+			Artisan::call('optimize');
 		}
 		
         Paginator::useBootstrap();
