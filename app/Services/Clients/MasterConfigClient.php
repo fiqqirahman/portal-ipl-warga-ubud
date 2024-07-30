@@ -18,9 +18,7 @@ class MasterConfigClient
 		try {
 			$keys = $request->keys;
 			if($keys && count($keys) > 0){
-				dispatch(function (){
-					CacheForeverHelper::syncMasterConfig();
-				});
+				CacheForeverHelper::syncMasterConfig();
 				if(!empty(array_intersect($keys, MasterConfig::isConfig()))){
 					dispatch(function (){
 						Artisan::call('config:cache');

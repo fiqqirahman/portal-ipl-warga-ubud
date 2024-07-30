@@ -103,3 +103,8 @@ function createHistoryFile(string $kodeFile, string $pathFile, string $keteranga
         'created_by' => Illuminate\Support\Facades\Auth::check() ? Illuminate\Support\Facades\Auth::id() : null,
     ]);
 }
+
+function getLayoutIsFullWidth(): string
+{
+	return \App\Helpers\CacheForeverHelper::getSingle(\App\Enums\MasterConfigKeyEnum::StyleIsLayoutFullWidth->value) == '1' ? 'container-fluid' : 'container-xxl';
+}

@@ -23,7 +23,13 @@
         <div class="page d-flex flex-row flex-column-fluid">
             <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
                 @include('layouts.header')
-                @yield('content')
+
+                <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start {{ getLayoutIsFullWidth() }}">
+                    <div class="content flex-row-fluid" id="kt_content">
+                        @yield('content')
+                    </div>
+                </div>
+
                 @include('layouts.footer')
             </div>
         </div>

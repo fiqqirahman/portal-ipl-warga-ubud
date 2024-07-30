@@ -2,6 +2,7 @@
 
 namespace App\DataTables\Utility;
 
+use App\Enums\MasterConfigTypeEnum;
 use App\Models\Utility\MasterConfig;
 use Yajra\DataTables\DataTableAbstract;
 use Yajra\DataTables\Exceptions\Exception;
@@ -28,6 +29,13 @@ class MasterConfigDataTable extends DataTable
             })
 	        ->editColumn('updated_at', function ($row) {
 		        return ($row->created_at != $row->updated_at) ? dateWithFullMonthAndTimeFormat($row->created_at, FALSE) : '-';
+	        })
+	        ->editColumn('value', function ($row) {
+		        if($row->type === MasterConfigTypeEnum::Boolean){
+					return $row->value == '0' ? 'Tidak' : 'Ya';
+		        }
+				
+				return $row->value;
 	        })
 	        ->addColumn('aksi', function ($row) {
 				if($row->is_private) {

@@ -23,7 +23,14 @@ class MasterConfigSeeder extends Seeder
 	            'description' => 'Session Timeout. Lamanya durasi sebuah session (*dalam menit)',
 		        'type' => MasterConfigTypeEnum::Number,
 		        'is_private' => true
-            ]
+            ],
+	        [
+		        'key' => MasterConfigKeyEnum::StyleIsLayoutFullWidth->value,
+		        'value' => '0',
+		        'description' => 'Apakah lebar Layout full width atau tidak',
+		        'type' => MasterConfigTypeEnum::Boolean,
+		        'is_private' => false
+	        ]
         ];
 		
         collect($collections)->each(function ($data) {

@@ -1,5 +1,5 @@
 <div class="toolbar py-5 py-lg-15" id="kt_toolbar">
-    <div id="kt_toolbar_container" class="container-xxl d-flex flex-stack flex-wrap">
+    <div id="kt_toolbar_container" class="{{ getLayoutIsFullWidth() }} d-flex flex-stack flex-wrap">
         <div class="page-title d-flex flex-column me-3">
             <h1 class="d-flex text-white fw-bold my-1 fs-3">{{ $title ?? 'No Title' }}</h1>
             <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
