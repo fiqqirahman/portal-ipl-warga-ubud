@@ -42,12 +42,9 @@ Route::middleware('auth')->group(function () {
 				->as('utility.')
 				->middleware(PermissionMiddleware::using(PermissionEnum::UtilityAccess->value))
 				->group(function (){
-					Route::prefix('/master-config')
-						->as('master-config.')
+					Route::resource('/master-config', MasterConfigController::class)
 						->middleware(PermissionMiddleware::using(PermissionEnum::MasterConfigAccess->value))
-						->group(function (){
-							Route::get('/', [MasterConfigController::class, 'index'])->name('index');
-						});
+						->only(['edit', 'index', 'update']);
 			});
 			
 			// another menus here

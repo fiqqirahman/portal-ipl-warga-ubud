@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Helpers\CacheForeverHelper;
 use App\Models\Utility\MasterConfig;
 use Exception;
+use Illuminate\Support\Facades\Artisan;
 
 class MasterConfigObserver
 {
@@ -16,7 +17,9 @@ class MasterConfigObserver
 	{
 		CacheForeverHelper::syncMasterConfig();
 		if(in_array($masterConfig->key, MasterConfig::isConfig())){
-			\Artisan::call('config:cache');
+			dispatch(function (){
+				Artisan::call('config:cache');
+			});
 		}
 	}
 }
