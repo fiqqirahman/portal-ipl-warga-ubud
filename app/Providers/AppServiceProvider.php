@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Utility\MasterConfig;
 use App\Services\MenuService;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Artisan;
@@ -28,9 +29,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-		if(empty(config('session.lifetime'))){
-			Artisan::call('optimize');
-		}
+	    if(empty(config('session.lifetime'))) {
+		    if(MasterConfig::query()->exists()) {
+			    Artisan::call('optimize');
+		    }
+	    }
 		
         Paginator::useBootstrap();
 
