@@ -9,6 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 
 class MasterConfigClient
@@ -16,13 +17,17 @@ class MasterConfigClient
 	public function handle(Request $request): JsonResponse
 	{
 		try {
-			$keys = $request->keys;
-			if($keys && count($keys) > 0){
+			$key = $request->key;
+			if($key){
 				CacheForeverHelper::syncMasterConfig();
-				if(!empty(array_intersect($keys, MasterConfigKeyEnum::isConfig()))){
-					dispatch(function (){
-						Artisan::call('optimize');
-					});
+				if($key === MasterConfigKeyEnum::SecuritySessionLifetime->value){
+					if (File::exists(base_path('bootstrap/cache/config.php'))) {
+						dispatch(function (){
+							Artisan::call('config:cache');
+						});
+					} else {
+						config(['session.lifetime' => (int) CacheForeverHelper::getSingle(MasterConfigKeyEnum::SecuritySessionLifetime->value)]);
+					}
 				}
 				return response()->json([
 					'success' => true,
@@ -31,7 +36,7 @@ class MasterConfigClient
 			}
 			return response()->json([
 				'success' => false,
-				'message' => 'Failed sync Master Config. Empty Keys!'
+				'message' => 'Failed sync Master Config. Empty Key!'
 			], 400);
 		} catch (Exception $e) {
 			Log::error('[API] Sync Master Config : ' . $e->getMessage());

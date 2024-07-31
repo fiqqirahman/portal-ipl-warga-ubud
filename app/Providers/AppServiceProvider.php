@@ -2,12 +2,11 @@
 
 namespace App\Providers;
 
-use App\Models\Utility\MasterConfig;
+use App\Enums\MasterConfigKeyEnum;
+use App\Helpers\CacheForeverHelper;
 use App\Services\MenuService;
 use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -29,11 +28,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-	    if(empty(config('session.lifetime'))) {
-		    if(MasterConfig::query()->exists()) {
-			    Artisan::call('optimize');
-		    }
-	    }
+	    config(['session.lifetime' => (int) CacheForeverHelper::getSingle(MasterConfigKeyEnum::SecuritySessionLifetime->value)]);
 		
         Paginator::useBootstrap();
 

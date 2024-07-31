@@ -13,11 +13,4 @@ enum MasterConfigKeyEnum: string {
 			self::StyleIsLayoutFullWidth => 'Style Is Layout Full Width',
 		};
 	}
-	
-	public static function isConfig(): array
-	{
-		return [
-			self::SecuritySessionLifetime->value
-		];
-	}
 }

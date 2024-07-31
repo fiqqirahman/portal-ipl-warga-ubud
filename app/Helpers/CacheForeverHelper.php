@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use App\Enums\MasterConfigKeyEnum;
 use App\Models\Utility\MasterConfig;
 use Illuminate\Support\Facades\Cache;
 use Exception;
@@ -29,7 +30,13 @@ class CacheForeverHelper
 			
 			if($modelKey === self::$defaultModelKey
 				AND !Cache::driver(self::getDriver())->has(self::$defaultModelKey)) {
-				self::syncMasterConfig();
+				if(MasterConfig::query()->exists()){
+					self::syncMasterConfig();
+				} else {
+					if($key === MasterConfigKeyEnum::SecuritySessionLifetime->value){
+						return 120;
+					}
+				}
 			}
 			
 			if(Cache::driver(self::getDriver())->has($modelKey)){
@@ -60,7 +67,11 @@ class CacheForeverHelper
 			
 			if($modelKey === self::$defaultModelKey
 				AND !Cache::driver(self::getDriver())->has(self::$defaultModelKey)) {
-				self::syncMasterConfig();
+				if(MasterConfig::query()->exists()){
+					self::syncMasterConfig();
+				} else {
+					return collect([]);
+				}
 			}
 			
 			if(Cache::driver(self::getDriver())->has($modelKey)){

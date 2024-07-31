@@ -7,6 +7,7 @@ use App\Helpers\CacheForeverHelper;
 use App\Models\Utility\MasterConfig;
 use Exception;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\File;
 
 class MasterConfigObserver
 {
@@ -17,10 +18,15 @@ class MasterConfigObserver
 	public function updated(MasterConfig $masterConfig): void
 	{
 		CacheForeverHelper::syncMasterConfig();
-		if(in_array($masterConfig->key, MasterConfigKeyEnum::isConfig())){
-			dispatch(function (){
-				Artisan::call('optimize');
-			});
+		
+		if($masterConfig->key === MasterConfigKeyEnum::SecuritySessionLifetime->value){
+			if (File::exists(base_path('bootstrap/cache/config.php'))) {
+				dispatch(function (){
+					Artisan::call('config:cache');
+				});
+			} else {
+				config(['session.lifetime' => (int) $masterConfig->value]);
+			}
 		}
 	}
 }
