@@ -9,6 +9,7 @@ enum MasterConfigTypeEnum: string {
 	case Boolean = 'boolean';
 	case Color = 'color';
 	case Email = 'email';
+	case TextArea = 'textarea';
 	
 	public function label(): string
 	{
@@ -18,7 +19,18 @@ enum MasterConfigTypeEnum: string {
 			self::RichText => 'Rich Text',
 			self::Boolean => 'Boolean',
 			self::Color => 'Color',
-			self::Email => 'Email'
+			self::Email => 'Email',
+			self::TextArea => 'Text Area'
 		};
+	}
+	
+	public static function isCommonText(): array
+	{
+		return [
+			self::Number->value,
+			self::Text->value,
+			self::Color->value,
+			self::Email->value
+		];
 	}
 }

@@ -52,11 +52,4 @@ class MasterConfig extends Model
 			abort(404);
 		}
 	}
-	
-	public static function isConfig(): array
-	{
-		return [
-			MasterConfigKeyEnum::SecuritySessionLifetime->value
-		];
-	}
 }

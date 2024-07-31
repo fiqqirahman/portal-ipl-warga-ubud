@@ -2,8 +2,8 @@
 
 namespace App\Services\Clients;
 
+use App\Enums\MasterConfigKeyEnum;
 use App\Helpers\CacheForeverHelper;
-use App\Models\Utility\MasterConfig;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -19,7 +19,7 @@ class MasterConfigClient
 			$keys = $request->keys;
 			if($keys && count($keys) > 0){
 				CacheForeverHelper::syncMasterConfig();
-				if(!empty(array_intersect($keys, MasterConfig::isConfig()))){
+				if(!empty(array_intersect($keys, MasterConfigKeyEnum::isConfig()))){
 					dispatch(function (){
 						Artisan::call('optimize');
 					});

@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Enums\MasterConfigKeyEnum;
 use App\Helpers\CacheForeverHelper;
 use App\Models\Utility\MasterConfig;
 use Exception;
@@ -16,7 +17,7 @@ class MasterConfigObserver
 	public function updated(MasterConfig $masterConfig): void
 	{
 		CacheForeverHelper::syncMasterConfig();
-		if(in_array($masterConfig->key, MasterConfig::isConfig())){
+		if(in_array($masterConfig->key, MasterConfigKeyEnum::isConfig())){
 			dispatch(function (){
 				Artisan::call('optimize');
 			});
