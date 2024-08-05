@@ -42,6 +42,20 @@
                                 </div>
                                 @enderror
                             </div>
+                        @elseif($masterConfig->type === \App\Enums\MasterConfigTypeEnum::Double)
+                            <div class="fv-row mb-7">
+                                <label for="value" class="fs-6 fw-semibold form-label mt-3">
+                                    <span class="required">Value</span>
+                                </label>
+                                <input class="form-control form-control-solid @error('value') is-invalid @enderror"
+                                       id="value" type="text" onkeypress="isDecimal(event)" value="{{ old('value', $masterConfig->value) }}"
+                                       name="value" required>
+                                @error('value')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
                         @elseif($masterConfig->type === \App\Enums\MasterConfigTypeEnum::Boolean)
                             <div class="fv-row mb-7">
                                 <label for="value" class="fs-6 fw-semibold form-label mt-3">
@@ -162,5 +176,19 @@
                 KTTinymce.init();
             @endif
         });
+
+        @if($masterConfig->type === \App\Enums\MasterConfigTypeEnum::Double)
+            const isDecimal = (event) => {
+                const key = event.key;
+                const input = event.target.value;
+
+                if ((key >= '0' && key <= '9') || (key === '.' && !input.includes('.'))) {
+                    return true;
+                } else {
+                    event.preventDefault();
+                    return false;
+                }
+            }
+        @endif
     </script>
 @endsection

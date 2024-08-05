@@ -10,6 +10,7 @@ enum MasterConfigTypeEnum: string {
 	case Color = 'color';
 	case Email = 'email';
 	case TextArea = 'textarea';
+	case Double = 'double';
 	
 	public function label(): string
 	{
@@ -20,7 +21,8 @@ enum MasterConfigTypeEnum: string {
 			self::Boolean => 'Boolean',
 			self::Color => 'Color',
 			self::Email => 'Email',
-			self::TextArea => 'Text Area'
+			self::TextArea => 'Text Area',
+			self::Double => 'Double'
 		};
 	}
 	

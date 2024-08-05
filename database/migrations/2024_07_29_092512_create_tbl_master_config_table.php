@@ -20,7 +20,7 @@ class CreateTblMasterConfigTable extends Migration
 			$table->string('key', 255)->unique();
 			$table->text('value');
 			$table->text('description');
-			$table->enum('type', ['number','text','richtext','boolean','color','email','textarea']);
+			$table->enum('type', ['number','text','richtext','boolean','color','email','textarea','double']);
 			$table->boolean('is_private')->default(false);
             $table->timestamps();
         });
