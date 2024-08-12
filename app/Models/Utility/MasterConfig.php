@@ -26,6 +26,14 @@ use Illuminate\Support\Carbon;
  * @method static Builder|MasterConfig newModelQuery()
  * @method static Builder|MasterConfig newQuery()
  * @method static Builder|MasterConfig query()
+ * @method static Builder|MasterConfig whereCreatedAt($value)
+ * @method static Builder|MasterConfig whereDescription($value)
+ * @method static Builder|MasterConfig whereId($value)
+ * @method static Builder|MasterConfig whereIsPrivate($value)
+ * @method static Builder|MasterConfig whereKey($value)
+ * @method static Builder|MasterConfig whereType($value)
+ * @method static Builder|MasterConfig whereUpdatedAt($value)
+ * @method static Builder|MasterConfig whereValue($value)
  * @mixin Eloquent
  */
 
