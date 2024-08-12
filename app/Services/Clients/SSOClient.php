@@ -45,7 +45,7 @@ class SSOClient
 
             return $response->json();
         } catch (Exception $ex) {
-            Log::error($ex);
+            logException('[login] SSOClient', $ex);
 
             return [
                 'status' => true,
@@ -80,7 +80,7 @@ class SSOClient
 
             return $response->json();
         } catch (Exception $ex) {
-            Log::error($ex);
+	        logException('[loginViaPublic] SSOClient', $ex);
 
             return [
                 'status' => true,
@@ -113,10 +113,7 @@ class SSOClient
 			
 			return $response->json();
 		} catch (Exception $e) {
-			Log::error('[loginViaPortalSSO] Exception HTTP Request', [
-				'message' => $e->getMessage(),
-				'errors' => $e->getTraceAsString()
-			]);
+			logException('[loginViaPortalSSO] SSOClient', $e);
 			
 			return [
 				'status' => true,
@@ -146,7 +143,7 @@ class SSOClient
 
             return $response->json();
         } catch (Exception $ex) {
-            Log::error($ex);
+	        logException('[getJabatan] SSOClient', $ex);
 
             return [
                 'status' => false,
@@ -176,7 +173,7 @@ class SSOClient
 
             return $response->json();
         } catch (Exception $ex) {
-            Log::error($ex);
+	        logException('[getTingkatan] SSOClient', $ex);
 
             return [
                 'status' => false,
@@ -206,7 +203,7 @@ class SSOClient
 
             return $response->json();
         } catch (Exception $ex) {
-            Log::error($ex);
+	        logException('[getUnitKerja] SSOClient', $ex);
 
             return [
                 'status' => false,
@@ -264,7 +261,7 @@ class SSOClient
 			
 			return $response->json();
 		} catch (Exception $ex) {
-			Log::error($ex);
+			logException('[getDepartemen] SSOClient', $ex);
 			
 			return [
 				'status' => false,
@@ -294,7 +291,7 @@ class SSOClient
 			
 			return $response->json();
 		} catch (Exception $ex) {
-			Log::error($ex);
+			logException('[getDivisi] SSOClient', $ex);
 			
 			return [
 				'status' => false,
@@ -327,7 +324,7 @@ class SSOClient
 			
 			return $response;
 		} catch (Exception $ex) {
-			Log::error($ex);
+			logException('[getUserByNRIK] SSOClient', $ex);
 			
 			return [
 				'status' => false,
@@ -361,9 +358,7 @@ class SSOClient
 			
 			return true;
 		} catch (Exception $e) {
-			Log::error('[Validate Params Login SSO] Error', [
-				'message' => $e->getMessage()
-			]);
+			logException('[validateLoginViaPortalSSO] SSOClient', $e);
 			
 			return throw new Exception($e->getMessage());
 		}

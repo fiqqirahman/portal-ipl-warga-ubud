@@ -9,7 +9,6 @@ use App\Http\Requests\Utility\MasterConfigUpdateRequest;
 use App\Models\Utility\MasterConfig;
 use Exception;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class MasterConfigController extends Controller
 {
@@ -88,7 +87,7 @@ class MasterConfigController extends Controller
 			sweetAlert('success','Master Config Key ' . $masterConfig->key . ' berhasil diperbarui');
 			return to_route('utility.master-config.index');
 		} catch (Exception $e) {
-			sweetAlert('error',!app()->environment('production') ? $e->getMessage() : "Master Config gagal diperbarui");
+			sweetAlertException('Master Config gagal diperbarui', $e);
 			return to_route('utility.master-config.edit', ['master_config' => enkrip($masterConfig->id)]);
 		}
 	}

@@ -113,6 +113,13 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+	    
+	    'exception' => [
+		    'driver' => env('LOG_CHANNEL', 'daily'),
+		    'level' => 'error',
+		    'days' => 7,
+            'path' => storage_path('logs/exceptions/exception.log'),
+        ],
     ],
 
 ];

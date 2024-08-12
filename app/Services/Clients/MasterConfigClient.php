@@ -39,7 +39,7 @@ class MasterConfigClient
 				'message' => 'Failed sync Master Config. Empty Key!'
 			], 400);
 		} catch (Exception $e) {
-			Log::error('[API] Sync Master Config : ' . $e->getMessage());
+			logException('[handle] MasterConfigClient', $e);
 			
 			if (App::environment(['local', 'development'])) {
 				return response()->json([

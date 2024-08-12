@@ -1,6 +1,4 @@
 <?php
-	
-use Laravel\Telescope\Telescope;
 
 /**
  * Format number to Rupiah Currency Format
@@ -78,11 +76,11 @@ function createLogActivity(string $activity, string $dataBefore = null, string $
 			'data_after' => $dataAfter,
 		];
 		
-		Telescope::withoutRecording(function () use($log) {
+		\Laravel\Telescope\Telescope::withoutRecording(function () use($log) {
 			App\Models\LogActivity::create($log);
 		});
 	} catch (Exception $exception) {
-		\Illuminate\Support\Facades\Log::error('Error creating log activity : ' . $exception->getMessage());
+		logException('Error creating log activity', $exception);
 	}
 }
 
@@ -107,4 +105,30 @@ function createHistoryFile(string $kodeFile, string $pathFile, string $keteranga
 function getLayoutIsFullWidth(): string
 {
 	return \App\Helpers\CacheForeverHelper::getSingle(\App\Enums\MasterConfigKeyEnum::StyleIsLayoutFullWidth->value) == '1' ? 'container-fluid' : 'container-xxl';
+}
+
+/**
+ * @param string $message
+ * @param string|Throwable|null $throw
+ * @param array|null $context
+ * @return void
+ */
+function logException(string $message, string|null|Throwable $throw = null, array|null $context = []): void
+{
+	$throwMessage = '-';
+	if($throw instanceof Throwable){
+		$relativeFilePath = Str::after($throw->getFile(), base_path() . DIRECTORY_SEPARATOR);
+		$context = [
+			'context' => $context,
+			'trace' => [
+				'file' => $relativeFilePath,
+				'line' => $throw->getLine()
+			]
+		];
+		$throwMessage = $throw->getMessage();
+	} else if(is_string($throw)){
+		$throwMessage = $throw;
+	}
+	
+	Log::channel('exception')->error(trim($message) . ' [' . $throwMessage . ']', $context);
 }

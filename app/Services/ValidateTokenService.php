@@ -19,6 +19,8 @@ class ValidateTokenService
 			
 			return true;
 		} catch (\Exception $e) {
+			logException('[validate] ValidateTokenService', $e);
+			
 			return false;
 		}
 	}

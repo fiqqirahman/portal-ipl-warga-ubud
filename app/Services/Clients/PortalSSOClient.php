@@ -30,6 +30,8 @@ class PortalSSOClient
 				'email' => $email
 			]);
 		} catch (Exception $e) {
+			logException('[forgotPassword] PortalSSOClient', $e);
+			
 			throw new Exception($e->getMessage());
 		}
     }
@@ -49,6 +51,8 @@ class PortalSSOClient
 				'konfirmasi_password' => $request->konfirmasi_password,
 			]);
 		} catch (Exception $e) {
+			logException('[changePassword] PortalSSOClient', $e);
+			
 			throw new Exception($e->getMessage());
 		}
 	}

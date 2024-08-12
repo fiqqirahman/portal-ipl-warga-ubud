@@ -67,16 +67,7 @@ class AuthController extends Controller
 			    return to_route('index');
 		    }
 	    } catch (\Exception $e) {
-		    Log::error('[loginSubmit AuthController] Exception', [
-			    'message' => $e->getMessage()
-		    ]);
-		    
-		    if (App::environment(['local', 'development'])) {
-			    sweetAlert('error', $e->getMessage());
-			    return to_route('auth.login');
-		    }
-		    
-		    sweetAlert('error', 'Terjadi Kesalahan, hubungi Administrator!');
+			sweetAlertException('Terjadi Kesalahan, hubungi Administrator!', $e);
 		    return to_route('auth.login');
 	    }
     }
@@ -115,16 +106,7 @@ class AuthController extends Controller
 			sweetAlert('success', 'Selamat Datang!');
 			return to_route('index');
 		} catch (\Exception $e) {
-			Log::error('[loginViaPortalSSO AuthController] Exception', [
-				'message' => $e->getMessage()
-			]);
-			
-			if (App::environment(['local', 'development'])) {
-				sweetAlert('error', $e->getMessage());
-				return to_route('auth.login');
-			}
-			
-			sweetAlert('error', 'Terjadi Kesalahan, hubungi Administrator!');
+			sweetAlertException('Terjadi Kesalahan, hubungi Administrator!', $e);
 			return to_route('auth.login');
 		}
 	}
@@ -186,16 +168,7 @@ class AuthController extends Controller
 			    return back();
 		    }
 	    } catch (\Exception $e) {
-		    Log::error('[changePasswordSubmit AuthController] Exception', [
-			    'message' => $e->getMessage()
-		    ]);
-		    
-		    if (App::environment(['local', 'development'])) {
-			    sweetAlert('error', $e->getMessage());
-			    return back();
-		    }
-			
-		    sweetAlert('error', 'Terjadi Kesalahan, hubungi Administrator!');
+			sweetAlertException('Terjadi Kesalahan, hubungi Administrator!', $e);
 		    return back();
 	    }
     }
@@ -235,16 +208,7 @@ class AuthController extends Controller
 				return back();
 			}
 		} catch (\Exception $e) {
-			Log::error('[forgotPasswordValidate AuthController] Exception', [
-				'message' => $e->getMessage()
-			]);
-			
-			if (App::environment(['local', 'development'])) {
-				sweetAlert('error', $e->getMessage());
-				return back();
-			}
-			
-			sweetAlert('error', 'Terjadi Kesalahan, hubungi Administrator!');
+			sweetAlertException('Terjadi Kesalahan, hubungi Administrator!', $e);
 			return back();
 		}
 	}
