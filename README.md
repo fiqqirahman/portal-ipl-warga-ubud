@@ -13,6 +13,11 @@ Laravel 11 Requires PHP ^8.2 || ^8.3
 - php artisan serve
 - php artisan queue:work --queue=default,telescope
 
+**Master Config**
+
+This used to caching records `tbl_master_config` _(auto caching when you run migration)_, however you can sync manually with _tinker_ then run `CacheForeverHelper::syncMasterConfig()`
+**if you not do this, you won't be able to Login** 
+
 **Telescope (Eagle Eye)**
 - /debug/eagle-eye
 - Queue on `telescope`
