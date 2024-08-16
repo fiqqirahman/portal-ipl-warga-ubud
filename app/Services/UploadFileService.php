@@ -139,7 +139,7 @@ class UploadFileService {
 	public static function disk(string $disk = 'public'): UploadFileService
 	{
 		if(!in_array($disk, ['public', 'local'])){
-			self::$disk = 'public';
+			$disk = 'public';
 		}
 		self::$disk = $disk;
 		
