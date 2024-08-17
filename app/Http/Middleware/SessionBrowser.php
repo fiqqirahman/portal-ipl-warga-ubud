@@ -23,8 +23,8 @@ class SessionBrowser
         $session = Session::get('session_browser');
         $sessionUsers = auth()->user()->session_id ?? false;
         if (!$sessionUsers || $session != $sessionUsers) {
+	        Session::flush();
 			Auth::logout();
-	        Session::forget('session_browser');
 			
             return to_route('auth.login');
         }
