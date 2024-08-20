@@ -42,6 +42,7 @@ _Non Schedule_
 - `enkripSHA256` and `dekripSHA256` for encryption with **KEY** and **IV**, commonly to secure communication with Portal SSO
 - `enkrip` and `dekrip` is default encryption for secure data in this application
 - `php artisan ide-helper:models` for generate model helpers, its very help you especially when you use **PhpStrom** :)
+- `UploadFileService` in app/Services is usage for upload file, example : `UploadFileService::create($request->file('image'), 'save/to/path')`
 
 **NOTES AND DON'T FORGET TO DO IT**
 
