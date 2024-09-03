@@ -9,7 +9,6 @@
 /public/assets/media/*
 !public/js/
 !public/css/
-/storage
 Homestead.json
 Homestead.yaml
 npm-debug.log
@@ -23,3 +22,4 @@ composer.lock
 package-lock.json
 .phpstorm.meta.php
 _ide_helper.php
+/storage

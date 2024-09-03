@@ -33,7 +33,7 @@
    ```
 2. Copy the example environment file and set up your environment:
    ```bash
-   cp .env.example .env.{development|production}
+   cp .env.example .env
    ```
 3. Set up **environment variables**.
 4. Generate an application key:
