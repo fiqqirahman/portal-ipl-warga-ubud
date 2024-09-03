@@ -9,7 +9,6 @@
 /public/assets/media/*
 !public/js/
 !public/css/
-/storage
 Homestead.json
 Homestead.yaml
 npm-debug.log
