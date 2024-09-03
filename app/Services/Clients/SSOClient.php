@@ -347,12 +347,12 @@ class SSOClient
 		try {
 			$expectedKeys = ['email', 'username', 'kode_aplikasi', 'time'];
 			if (array_keys($data) !== $expectedKeys) {
-				return throw new Exception('Required key : email, username, kode_aplikasi, time');
+				throw new Exception('Required key : email, username, kode_aplikasi, time');
 			}
 			
 			foreach ($data as $key => $val) {
 				if(!$val){
-					return throw new Exception(ucwords(str_replace('_',' ', $key)) . ' is empty!');
+					throw new Exception(ucwords(str_replace('_',' ', $key)) . ' is empty!');
 				}
 			}
 			
@@ -360,7 +360,7 @@ class SSOClient
 		} catch (Exception $e) {
 			logException('[validateLoginViaPortalSSO] SSOClient', $e);
 			
-			return throw new Exception($e->getMessage());
+			throw new Exception($e->getMessage());
 		}
 	}
 }
