@@ -1,52 +1,85 @@
-**Setup**
+# Project Setup
 
-Laravel 11 Requires PHP ^8.2 || ^8.3
+## Requirements
+- **Laravel 11** requires **PHP ^8.2 || ^8.3**
 
-- composer install
-- copy `.env.examnple` to `.env.{development|production}`
-- setup **environment variables**
-- php artisan key:generate
-- php artisan storage:link
-- php artisan migrate --seed
+## Installation Steps
+1. Install dependencies:
+   ```bash
+   composer install
+   ```
+2. Copy the example environment file and set up your environment:
+   ```bash
+   cp .env.example .env.{development|production}
+   ```
+3. Set up **environment variables**.
+4. Generate an application key:
+   ```bash
+   php artisan key:generate
+   ```
+5. Create a symbolic link to storage:
+   ```bash
+   php artisan storage:link
+   ```
+6. Run migrations and seed the database:
+   ```bash
+   php artisan migrate --seed
+   ```
 
-**Running Application**
-- php artisan serve
-- php artisan queue:work --queue=default,telescope
+## Running the Application
+1. Serve the application:
+   ```bash
+   php artisan serve
+   ```
+2. Run the queue worker:
+   ```bash
+   php artisan queue:work --queue=default,telescope
+   ```
 
-**Master Config**
+# Master Config
 
-This used to caching records `tbl_master_config` _(auto caching when you run migration)_, however you can sync manually with _tinker_ then run `CacheForeverHelper::syncMasterConfig()`
-**if you not do this, you won't be able to Login** 
+The `tbl_master_config` records are cached automatically during migration. However, you can sync them manually using **Tinker**:
 
-**Telescope (Eagle Eye)**
-- /debug/eagle-eye
+```php
+CacheForeverHelper::syncMasterConfig();
+```
+
+> **Note:** If you do not perform this sync, you **won't be able to log in**.
+
+# Telescope (Eagle Eye)
+- Access Telescope at: `/debug/eagle-eye`
 - Queue on `telescope`
 
-**Jobs**
+# Jobs
+- Currently, there are **no jobs** defined.
 
-- currently no jobs
+# Commands
 
-**Commands**
+### Scheduled Commands
+- `telescope:prune` (runs daily)
 
-_Schedule_
-- telescope:prune (daily)
+### Non-Scheduled Commands
+- Clear logs:
+  ```bash
+  php artisan logs:clear {date?}
+  ```
 
-_Non Schedule_
-- php artisan logs:clear {date?}
+# Helpful Functions
 
-**Helpful Functions**
+- **`logException`**: Use this in a `catch` block to log exceptions to the **exception** channel.
+- **`sweetAlertException`**: Similar to `logException`, but also sets up a session for a SweetAlert popup message.
+- **`sweetAlert`**: Sets up a session for a SweetAlert popup message. You can choose from statuses: _success_, _warning_, _error_, _info_.
+- **`enkripSHA256` and `dekripSHA256`**: Used for encryption with **KEY** and **IV**, typically for secure communication with Portal SSO.
+- **`enkrip` and `dekrip`**: Default encryption methods used for securing data in this application.
+- **`php artisan ide-helper:models`**: Generates model helpers, which are especially useful when using **PhpStorm**.
+- **`UploadFileService`**: Located in `app/Services`, this service handles file uploads. Example usage:
+  ```php
+  UploadFileService::create($request->file('image'), 'save/to/path');
+  ```
 
-- `logException` when you have try catch, better to use that function on catch for logging to channel _exception_
-- `sweetAlertException` same as `logException` but also setup session for SweetAlert popup message
-- `sweetAlert` only setup session for SweetAlert popup message, you can choose _success | warning | error | info_ for status
-- `enkripSHA256` and `dekripSHA256` for encryption with **KEY** and **IV**, commonly to secure communication with Portal SSO
-- `enkrip` and `dekrip` is default encryption for secure data in this application
-- `php artisan ide-helper:models` for generate model helpers, its very help you especially when you use **PhpStrom** :)
-- `UploadFileService` in app/Services is usage for upload file, example : `UploadFileService::create($request->file('image'), 'save/to/path')`
+# Notes
 
-**NOTES AND DON'T FORGET TO DO IT**
-
-- When you add new **env vars**, don't forget to make it integrate with `config`, so call `config('configFile.configVar')` instead `getenv()` or `env()`
-- Always use `try catch` to anything process that possible to make this app **Broke** and store **Logging** in `catch` arguments
-- Don't use Auto Reformat Code in whole files, because it will make changes to code line whose not wrote by you, and also make commit changes messy
-- Always documented anything about jobs, schedule and any which other peoples won't be known if they are not asked first
+- When adding new **env vars**, ensure they are integrated with `config`, so use `config('configFile.configVar')` instead of `getenv()` or `env()`.
+- Always use `try catch` for any process that might cause the app to break, and store **logs** in the `catch` block.
+- Avoid using auto-reformatting tools on the entire codebase, as it may change code lines not authored by you and create messy commit changes.
+- Document everything about jobs, schedules, and anything else that others won't know unless they ask.
