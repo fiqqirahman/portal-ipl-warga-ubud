@@ -3,11 +3,17 @@
 use App\Enums\PermissionEnum;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\Utility\MasterConfigController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Middleware\PermissionMiddleware;
-	
-	// login
+
+// landing-page
+Route::name('landing-page.')->group(function () {
+    Route::get('/', [LandingPageController::class, 'index'])->name('index');
+});
+
+// login
 Route::name('auth.')->middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/login-submit', [AuthController::class, 'loginSubmit'])->name('login-submit');
@@ -35,7 +41,6 @@ Route::middleware('auth')->group(function () {
 	        Route::get('/change-password', [AuthController::class, 'changePassword'])->name('auth.change-password');
 	
 	        // dashboard
-	        Route::redirect('/', '/dashboard');
 	        Route::get('/dashboard', [HomeController::class, 'index'])->name('index');
 			
 			Route::prefix('/utility')
