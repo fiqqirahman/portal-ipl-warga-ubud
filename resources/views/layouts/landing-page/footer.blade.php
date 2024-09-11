@@ -18,24 +18,34 @@
                     <!--begin::Block-->
                     <div class="rounded landing-dark-border p-9 mb-10">
                         <!--begin::Title-->
-                        <h2 class="text-white">Would you need a Custom License?</h2>
+                        <img alt="Logo" src="{{asset('assets/images/Bank_DKI_white_text.svg')}}" class="logo-default h-25px h-lg-30px" />
                         <!--end::Title-->
                         <!--begin::Text-->
-                        <span class="fw-normal fs-4 text-gray-700">Email us to
+                        <br/>
+                        <span class="fw-normal fs-4 text-gray-700">
 									<a href="https://keenthemes.com/support"
-                                       class="text-white opacity-50 text-hover-primary">support@keenthemes.com</a></span>
+                                       class="text-white opacity-50 text-hover-primary">Gedung Prasada Sasana Karya
+                                        <br/>
+                                        Jl. Suryopranoto No.8 Jakarta Pusat 10130
+                                    </a></span>
                         <!--end::Text-->
                     </div>
                     <!--end::Block-->
                     <!--begin::Block-->
                     <div class="rounded landing-dark-border p-9">
                         <!--begin::Title-->
-                        <h2 class="text-white">How About a Custom Project?</h2>
+                        <h2 class="text-white">Hubungi Kami</h2>
                         <!--end::Title-->
                         <!--begin::Text-->
-                        <span class="fw-normal fs-4 text-gray-700">Use Our Custom Development Service.
-									<a href="../../demo2/dist/pages/user-profile/overview.html"
-                                       class="text-white opacity-50 text-hover-primary">Click to Get a Quote</a></span>
+                        <span class="fw-normal fs-4 text-gray-700">Email : corsec@bankdki.co.id
+                            <br/>
+                                                                    Telepon : 021-80655555
+                            <br/>
+                                                                    Faksimili : 021-80655000
+                            <br/>
+                                                                    Call Center : 1500-351
+									<a href="#"
+                                       class="text-white opacity-50 text-hover-primary"></a></span>
                         <!--end::Text-->
                     </div>
                     <!--end::Block-->
@@ -130,28 +140,15 @@
                 <div class="d-flex align-items-center order-2 order-md-1">
                     <!--begin::Logo-->
                     <a href="../../demo2/dist/landing.html">
-                        <img alt="Logo" src="{{asset('metronic/demo2/assets/media/logos/landing.svg')}}"
+                        <img alt="Logo" src="{{asset('assets/images/Bank_DKI_white_text.svg')}}"
                              class="h-15px h-md-20px"/>
                     </a>
                     <!--end::Logo image-->
                     <!--begin::Logo image-->
-                    <span class="mx-5 fs-6 fw-semibold text-gray-600 pt-1" href="https://keenthemes.com">&copy; 2022 Keenthemes Inc.</span>
+                    <span class="mx-5 fs-6 fw-semibold text-gray-600 pt-1" href="#">&copy; 2024 PT. BANK DKI</span>
                     <!--end::Logo image-->
                 </div>
                 <!--end::Copyright-->
-                <!--begin::Menu-->
-                <ul class="menu menu-gray-600 menu-hover-primary fw-semibold fs-6 fs-md-5 order-1 mb-5 mb-md-0">
-                    <li class="menu-item">
-                        <a href="https://keenthemes.com" target="_blank" class="menu-link px-2">About</a>
-                    </li>
-                    <li class="menu-item mx-5">
-                        <a href="https://devs.keenthemes.com" target="_blank" class="menu-link px-2">Support</a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="" target="_blank" class="menu-link px-2">Purchase</a>
-                    </li>
-                </ul>
-                <!--end::Menu-->
             </div>
             <!--end::Wrapper-->
         </div>

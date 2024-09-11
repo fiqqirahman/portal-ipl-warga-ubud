@@ -65,4 +65,13 @@ class LandingPageController extends Controller
     {
         //
     }
+
+    public function registrasi()
+    {
+        $data = [
+            'title' => 'Registrasi'
+        ];
+
+        return view('landing-page.registrasi', $data);
+    }
 }

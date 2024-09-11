@@ -11,6 +11,7 @@ use Spatie\Permission\Middleware\PermissionMiddleware;
 // landing-page
 Route::name('landing-page.')->group(function () {
     Route::get('/', [LandingPageController::class, 'index'])->name('index');
+    Route::get('/registrasi', [LandingPageController::class, 'registrasi'])->name('registrasi');
 });
 
 // login

@@ -19,7 +19,7 @@
                 </button>
                 <!--end::Mobile menu toggle-->
                 <!--begin::Logo image-->
-                <a href="#">
+                <a href="/">
                     <img alt="Logo" src="{{asset('assets/images/Bank_DKI_white_text.svg')}}" class="logo-default h-25px h-lg-30px" />
                     <img alt="Logo" src="{{asset('assets/images/logo_bank_dki.png')}}" class="logo-sticky h-20px h-lg-25px" />
                 </a>
@@ -80,7 +80,7 @@
             <!--end::Menu wrapper-->
             <!--begin::Toolbar-->
             <div class="flex-equal text-end ms-1">
-                <a href="#" class="btn btn-primary btn-sm">Vendor Registration</a>
+                <a href="/registrasi" class="btn btn-primary btn-sm">Vendor Registration</a>
                 <a href="/login" class="btn btn-success btn-sm">Sign In</a>
             </div>
             <!--end::Toolbar-->
