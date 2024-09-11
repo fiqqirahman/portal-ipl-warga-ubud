@@ -92,6 +92,7 @@ class AuthController extends Controller
 			Auth::login($user);
 			createLogActivity('[ViaLocal] Login');
 			Session::put('session_browser', $sessionId);
+			sweetAlert('success','Selamat Datang!');
 			
 			return to_route('index');
 		} catch (\Exception $e) {
