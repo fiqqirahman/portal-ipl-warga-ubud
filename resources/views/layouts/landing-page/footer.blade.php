@@ -82,35 +82,28 @@
                             <h4 class="fw-bold text-gray-400 mb-6">Stay Connected</h4>
                             <!--end::Subtitle-->
                             <!--begin::Link-->
-                            <a href="https://www.facebook.com/keenthemes" class="mb-6">
+                            <a href="https://www.facebook.com/bank.dki.10" class="mb-6">
                                 <img src="{{asset('metronic/demo2/assets/media/svg/brand-logos/facebook-4.svg')}}"
                                      class="h-20px me-2" alt=""/>
                                 <span class="text-white opacity-50 text-hover-primary fs-5 mb-6">Facebook</span>
                             </a>
                             <!--end::Link-->
                             <!--begin::Link-->
-                            <a href="https://github.com/KeenthemesHub" class="mb-6">
-                                <img src="{{asset('metronic/demo2/assets/media/svg/brand-logos/github.svg')}}"
-                                     class="h-20px me-2" alt=""/>
-                                <span class="text-white opacity-50 text-hover-primary fs-5 mb-6">Github</span>
-                            </a>
-                            <!--end::Link-->
-                            <!--begin::Link-->
-                            <a href="https://twitter.com/keenthemes" class="mb-6">
+                            <a href="https://x.com/bank_dki?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor" class="mb-6">
                                 <img src="{{asset('metronic/demo2/assets/media/svg/brand-logos/twitter.svg')}}"
                                      class="h-20px me-2" alt=""/>
                                 <span class="text-white opacity-50 text-hover-primary fs-5 mb-6">Twitter</span>
                             </a>
                             <!--end::Link-->
                             <!--begin::Link-->
-                            <a href="https://dribbble.com/keenthemes" class="mb-6">
-                                <img src="{{asset('metronic/demo2/assets/media/svg/brand-logos/dribbble-icon-1.svg')}}"
+                            <a href="https://www.youtube.com/channel/UCLZlDLYywZBpQMQtvD0VJZw" class="mb-6">
+                                <img src="{{asset('metronic/demo2/assets/media/svg/brand-logos/youtube-3.svg')}}"
                                      class="h-20px me-2" alt=""/>
-                                <span class="text-white opacity-50 text-hover-primary fs-5 mb-6">Dribbble</span>
+                                <span class="text-white opacity-50 text-hover-primary fs-5 mb-6">YouTube</span>
                             </a>
                             <!--end::Link-->
                             <!--begin::Link-->
-                            <a href="https://www.instagram.com/keenthemes" class="mb-6">
+                            <a href="https://www.instagram.com/bank.dki/" class="mb-6">
                                 <img src="{{asset('metronic/demo2/assets/media/svg/brand-logos/instagram-2-1.svg')}}"
                                      class="h-20px me-2" alt=""/>
                                 <span class="text-white opacity-50 text-hover-primary fs-5 mb-6">Instagram</span>

@@ -12,8 +12,7 @@ class LandingPageController extends Controller
     public function index()
     {
         $data = [
-            'title' => 'Welcome',
-            'showHeroImage' => true
+            'title' => 'Welcome'
         ];
 
         return view('landing-page.index', $data);
