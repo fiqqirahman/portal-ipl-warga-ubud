@@ -57,11 +57,15 @@
                                 <input type="password" placeholder="Password" name="password" autocomplete="off"
                                     class="form-control bg-transparent" />
                             </div>
-                            <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
-                                <div></div>
-                                <!--begin::Link-->
-                                <a href="{{ route('auth.forgot-password') }}" class="link-primary">Forgot Password ?</a>
-                                <!--end::Link-->
+                            <div class="fv-row mb-8">
+                                @if(!(boolean) \App\Helpers\CacheForeverHelper::getSingle(App\Enums\MasterConfigKeyEnum::SSOIsLocal))
+                                    <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold" style="margin-bottom: -16px">
+                                        <div></div>
+                                        <!--begin::Link-->
+                                        <a href="{{ route('auth.forgot-password') }}" class="link-primary">Forgot Password ?</a>
+                                        <!--end::Link-->
+                                    </div>
+                                @endif
                             </div>
                             <div class="d-grid mb-10">
                                 <button type="submit" id="kt_sign_in_submit" class="btn btn-primary">

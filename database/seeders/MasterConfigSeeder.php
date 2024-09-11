@@ -30,6 +30,13 @@ class MasterConfigSeeder extends Seeder
 		        'description' => 'Apakah lebar Layout full width atau tidak',
 		        'type' => MasterConfigTypeEnum::Boolean,
 		        'is_private' => false
+	        ],
+	        [
+		        'key' => MasterConfigKeyEnum::SSOIsLocal->value,
+		        'value' => '1',
+		        'description' => 'Apakah authentication menggunakan SSO local atau public',
+		        'type' => MasterConfigTypeEnum::Boolean,
+		        'is_private' => true
 	        ]
         ];
 		
