@@ -8,9 +8,7 @@ use App\Services\Clients\PortalSSOClient;
 use App\Services\Clients\SSOClient;
 use App\Http\Requests\ForgotPasswordRequest;
 use App\Models\User;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
@@ -20,7 +18,7 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function loginSubmit(LoginRequest $request)
+    public function loginViaPublicSSO(LoginRequest $request)
     {
 	    try {
 		    $ssoClient = new SSOClient();
@@ -31,7 +29,7 @@ class AuthController extends Controller
 		    $responseCode = $response['result']['response_code'];
 		    
 		    if ($responseCode !== SSOClient::$SUCCESS && $responseCode !== SSOClient::$SUCCESS_WITH_CHANGE_PASSWORD) {
-			    createLogActivity('Gagal login dengan username : ' . $request->username);
+			    createLogActivity('[ViaPublic] Gagal login dengan username : ' . $request->username);
 			    
 			    return to_route('auth.login')
 				    ->withInput()
@@ -58,11 +56,11 @@ class AuthController extends Controller
 		    sweetAlert('success','Selamat Datang!');
 		    
 		    if($responseCode === SSOClient::$SUCCESS_WITH_CHANGE_PASSWORD){
-			    createLogActivity('Login With Change Password');
+			    createLogActivity('[ViaPublic] Login With Change Password');
 			    
 			    return to_route('auth.change-password');
 		    } else {
-			    createLogActivity('Login');
+			    createLogActivity('[ViaPublic] Login');
 			    
 			    return to_route('index');
 		    }
@@ -71,6 +69,36 @@ class AuthController extends Controller
 		    return to_route('auth.login');
 	    }
     }
+	
+	public function loginViaLocalSSO(LoginRequest $request)
+	{
+		try {
+			$ssoClient = new SSOClient();
+			
+			$request['username'] = strtoupper($request->username);
+			
+			$response = $ssoClient->login($request->username, $request->password);
+			if ($response['result']['response_code'] != SSOClient::$SUCCESS) {
+				createLogActivity('[ViaLocal] Gagal login dengan username : ' . $request->username);
+				return to_route('auth.login')
+					->withInput()->with('response_code', $response['result']['response_code'])
+					->withErrors([$response['result']['response_message']]);
+			}
+			
+			$sessionId = $response['result']['detail_user']['session_id'] ?? null;
+			
+			$user = $ssoClient->updateOrCreateUserAfterAuthorize($response);
+			
+			Auth::login($user);
+			createLogActivity('[ViaLocal] Login');
+			Session::put('session_browser', $sessionId);
+			
+			return to_route('index');
+		} catch (\Exception $e) {
+			sweetAlertException('Terjadi Kesalahan, hubungi Administrator!', $e);
+			return to_route('auth.login');
+		}
+	}
 	
 	public function loginViaPortalSSO(string $email, string $username, string $kodeAplikasi, string $time)
 	{
@@ -89,7 +117,7 @@ class AuthController extends Controller
 			$response = $ssoClient->loginViaPortalSSO($params);
 			
 			if ($response['result']['response_code'] !== SSOClient::$SUCCESS) {
-				createLogActivity('Gagal login via Portal SSO');
+				createLogActivity('[ViaPortal] Gagal login');
 				
 				return to_route('auth.login')
 					->withInput()
@@ -100,7 +128,7 @@ class AuthController extends Controller
 			$user = $ssoClient->updateOrCreateUserAfterAuthorize($response);
 			
 			Auth::login($user);
-			createLogActivity('Login via Portal SSO');
+			createLogActivity('[ViaPortal] Login');
 			Session::put('session_browser', $user->session_id);
 			
 			sweetAlert('success', 'Selamat Datang!');
