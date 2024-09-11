@@ -19,9 +19,11 @@
         {{-- <div class="menu-item px-5 my-1">
             <a href="{{ route('manajemen-user.change-profile') }}" class="menu-link px-5">Ubah Profile</a>
         </div> --}}
-        <div class="menu-item px-5 my-1">
-            <a href="{{ route('auth.change-password') }}" class="menu-link px-5">Ganti Password</a>
-        </div>
+        @if(!(boolean) \App\Helpers\CacheForeverHelper::getSingle(App\Enums\MasterConfigKeyEnum::SSOIsLocal))
+            <div class="menu-item px-5 my-1">
+                <a href="{{ route('auth.change-password') }}" class="menu-link px-5">Ganti Password</a>
+            </div>
+        @endif
         <div class="menu-item px-5">
             <a href="#" id="btn-global-logout" class="menu-link px-5">Log Out</a>
         </div>

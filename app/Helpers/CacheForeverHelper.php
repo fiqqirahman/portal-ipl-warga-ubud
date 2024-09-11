@@ -17,15 +17,19 @@ class CacheForeverHelper
 	/**
 	 * Fetch single Cached Key ($key) by $modelKey
 	 *
-	 * @param string $key
+	 * @param string|object $key
 	 * @param string|null $modelKey
 	 * @return string|NULL
 	 */
-	public static function getSingle(string $key, string|null $modelKey = null): ?string
+	public static function getSingle(string|object $key, string|null $modelKey = null): ?string
 	{
 		try {
 			if(empty($modelKey)){
 				$modelKey = self::$defaultModelKey;
+			}
+			
+			if($key instanceof MasterConfigKeyEnum){
+				$key = $key->value;
 			}
 			
 			if($modelKey === self::$defaultModelKey
@@ -144,11 +148,14 @@ class CacheForeverHelper
 	
 	/**
 	 * Sync Master Config rows to Cache
+	 * @return Collection
 	 * @throws Exception
 	 */
-	public static function syncMasterConfig(): void
+	public static function syncMasterConfig(): Collection
 	{
 		self::store(MasterConfig::select(['key','value'])->get());
+		
+		return self::getAll();
 	}
 	
 	private static function getDriver(): string
