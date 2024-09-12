@@ -48,6 +48,10 @@
    ```bash
    php artisan migrate --seed
    ```
+7. Install Telescope assets:
+   ```bash
+   php artisan telescope:install
+   ```
 
 <p align="right">(<a href="#project-setup">back to top</a>)</p>
 
