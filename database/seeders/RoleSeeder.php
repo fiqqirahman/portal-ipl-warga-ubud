@@ -48,9 +48,9 @@ class RoleSeeder extends Seeder
 
             ['id' => StaticMenu::$MASTER_DATA, 'name' => 'Master Data', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => 0, 'order' => 2],
             ['id' => StaticMenu::$MASTER_JENIS_VENDOR, 'name' => 'Master Jenis Vendor', 'route' => 'master.jenis-vendor.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 1],
-            ['id' => StaticMenu::$MASTER_BENTUK_BADAN_USAHA, 'name' => 'Master Bentuk Badan Usaha', 'route' => 'master.bentuk-badan-usaha.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 2],
-            ['id' => StaticMenu::$MASTER_STATUS_PERUSAHAAN, 'name' => 'Master Status Perusahaan', 'route' => 'master.status-perusahaan.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 3],
-            ['id' => StaticMenu::$MASTER_KATEGORI_VENDOR, 'name' => 'Master Kategori Vendor', 'route' => 'master.kategori-vendor.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 4],
+            ['id' => StaticMenu::$MASTER_BENTUK_BADAN_USAHA, 'name' => 'Master Bentuk Badan Usaha', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 2],
+            ['id' => StaticMenu::$MASTER_STATUS_PERUSAHAAN, 'name' => 'Master Status Perusahaan', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 3],
+            ['id' => StaticMenu::$MASTER_KATEGORI_VENDOR, 'name' => 'Master Kategori Vendor', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 4],
 
             ['id' => StaticMenu::$UTILITY, 'name' => 'Utility', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => 0, 'order' => 99999],
 	        ['id' => StaticMenu::$DEBUG_EAGLE_EYE, 'name' => 'Debug', 'route' => 'telescope', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$UTILITY, 'order' => 1],

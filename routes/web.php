@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\Master\JenisVendorController;
 use App\Http\Controllers\Utility\MasterConfigController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Middleware\PermissionMiddleware;
@@ -77,8 +78,14 @@ Route::middleware('auth')->group(function () use($SSOIsLocal) {
 						->middleware(PermissionMiddleware::using(PermissionEnum::MasterConfigAccess->value))
 						->only(['edit', 'index', 'update']);
 			});
-			
-			// another menus here
+
+            Route::prefix('master')->name('master.')->group(function () {
+                // Kode Bank
+                Route::resource('/jenis-vendor', JenisVendorController::class, ['parameters' => ['jenis-vendor' => 'id']])->except(['show', 'destroy']);
+                Route::get('/jenis-vendor/{id}/nonaktif', [JenisVendorController::class, 'nonaktif'])->name('jenis-vendor.nonaktif');
+                Route::get('/jenis-vendor/{id}/aktif', [JenisVendorController::class, 'aktif'])->name('jenis-vendor.aktif');
+
+            });
         });
     });
 });
