@@ -39,7 +39,7 @@
                 <!--begin::Wrapper-->
                 <div class="w-lg-500px p-10">
                     <!--begin::Form-->
-                    <form class="form w-100" action="{{ route('auth.forgot-password-validate') }}" method="POST">
+                    <form class="form w-100" action="{{ route('landing-page.password.email') }}" method="POST">
                         @csrf
                         <!--begin::Heading-->
                         <div class="text-center mb-10">
@@ -73,6 +73,7 @@
                         <!--begin::Actions-->
                         <div class="d-flex flex-wrap justify-content-center pb-lg-0">
                             <button type="submit" id="kt_password_reset_submit" class="btn btn-primary me-4">
+                                {{ __('Send Password Reset Link') }}
                                 <!--begin::Indicator label-->
                                 <span class="indicator-label">Submit</span>
                                 <!--end::Indicator label-->

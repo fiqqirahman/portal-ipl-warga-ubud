@@ -3,6 +3,7 @@
 use App\Enums\MasterConfigKeyEnum;
 use App\Enums\PermissionEnum;
 use App\Helpers\CacheForeverHelper;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandingPageController;
@@ -16,7 +17,18 @@ $SSOIsLocal = (boolean) CacheForeverHelper::getSingle(MasterConfigKeyEnum::SSOIs
 Route::name('landing-page.')->group(function () {
     Route::get('/', [LandingPageController::class, 'index'])->name('index');
     Route::get('/registrasi', [LandingPageController::class, 'registrasi'])->name('registrasi');
+    Route::post('/register', [LandingPageController::class, 'registerVendor'])->name('register-submit');
+    Route::post('/login-submit-vendor', [LandingPageController::class, 'loginSubmitVendor'])->name('login-submit-vendor');
+
+    //reset password
+    Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+    Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+    Route::get('password/reset/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset');
+    Route::post('password/reset', [ForgotPasswordController::class, 'resetPassword'])->name('password.update');
+
+
 });
+
 	
 	// login
 Route::name('auth.')->middleware('guest')->group(function () use($SSOIsLocal) {

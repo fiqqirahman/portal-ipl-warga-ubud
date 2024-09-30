@@ -25,7 +25,7 @@ class NRIK
             $userDev = [
                 ['nrik' => self::$DEVELOPER, 'roles' => [Role::$DEVELOPER, Role::$SUPER_ADMIN]],
                 ['nrik' => self::$ADI, 'roles' => [Role::$DEVELOPER]],
-                ['nrik' => self::$RENDY, 'roles' => [Role::$DEVELOPER]],
+                ['nrik' => self::$RENDY, 'roles' => [Role::$OP_VENDOR_MANAJEMEN]],
                 ['nrik' => self::$KUSDHIAN, 'roles' => [Role::$DEVELOPER]],
                 ['nrik' => self::$FIQQI, 'roles' => [Role::$DEVELOPER]],
                 ['nrik' => self::$KAUTSAR, 'roles' => [Role::$DEVELOPER]],

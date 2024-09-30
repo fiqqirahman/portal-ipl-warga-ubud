@@ -3,7 +3,6 @@
 <html lang="en">
 <!--begin::Head-->
 <head>
-    <base href=""/>
     <title>{{ $title ? $title . ' | ' . config('app.name') : config('app.name') }}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="utf-8"/>

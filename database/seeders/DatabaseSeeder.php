@@ -31,9 +31,13 @@ class DatabaseSeeder extends Seeder
 	        RoleSeeder::class,
 	        
 			// Master Config Seeder
-	        MasterConfigSeeder::class
+	        MasterConfigSeeder::class,
 	        
-	        // Another Seeders here
+	        // Master Data Seeder
+            JenisVendorSeeder::class,
+            BentukBadanUsahaSeeder::class,
+            StatusPerusahaanSeeder::class,
+            KategoriVendorSeeder::class,
         ]);
     }
 }
