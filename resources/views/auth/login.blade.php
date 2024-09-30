@@ -43,7 +43,7 @@
             <div class="d-flex flex-column-fluid flex-lg-row-auto justify-content-center justify-content-lg-end p-12">
                 <div class="bg-body d-flex flex-center rounded-4 w-md-600px p-10">
                     <div class="w-md-400px">
-                        <form action="{{ route('auth.login-submit') }}" method="POST" class="form">
+                        <form action="{{ route('landing-page.login-submit-vendor') }}" method="POST" class="form">
                             @csrf
                             <div class="text-center mb-11">
                                 <h1 class="text-dark fw-bolder mb-3">Sign In</h1>
@@ -58,14 +58,12 @@
                                     class="form-control bg-transparent" />
                             </div>
                             <div class="fv-row mb-8">
-                                @if(!(boolean) \App\Helpers\CacheForeverHelper::getSingle(App\Enums\MasterConfigKeyEnum::SSOIsLocal))
                                     <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold" style="margin-bottom: -16px">
                                         <div></div>
                                         <!--begin::Link-->
-                                        <a href="{{ route('auth.forgot-password') }}" class="link-primary">Forgot Password ?</a>
+                                        <a href="{{ route('landing-page.password.request') }}" class="link-primary">Forgot Password ?</a>
                                         <!--end::Link-->
                                     </div>
-                                @endif
                             </div>
                             <div class="d-grid mb-10">
                                 <button type="submit" id="kt_sign_in_submit" class="btn btn-primary">

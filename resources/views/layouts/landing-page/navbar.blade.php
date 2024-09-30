@@ -80,7 +80,7 @@
             <!--end::Menu wrapper-->
             <!--begin::Toolbar-->
             <div class="flex-equal text-end ms-1">
-                <a href="/registrasi" class="btn btn-primary btn-sm">Vendor Registration</a>
+                <a href="/registrasi" class="btn btn-primary btn-sm">Sign Up</a>
                 <a href="/login" class="btn btn-success btn-sm">Sign In</a>
             </div>
             <!--end::Toolbar-->
