@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\Master\BentukBadanUsahaController;
 use App\Http\Controllers\Master\JenisVendorController;
+use App\Http\Controllers\Master\StatusPerusahaanController;
 use App\Http\Controllers\Utility\MasterConfigController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Middleware\PermissionMiddleware;
@@ -89,6 +90,10 @@ Route::middleware('auth')->group(function () use($SSOIsLocal) {
                 Route::resource('/bentuk-badan-usaha', BentukBadanUsahaController::class, ['parameters' => ['bentuk-badan-usaha' => 'id']])->except(['show', 'destroy']);
                 Route::get('/bentuk-badan-usaha/{id}/nonaktif', [BentukBadanUsahaController::class, 'nonaktif'])->name('bentuk-badan-usaha.nonaktif');
                 Route::get('/bentuk-badan-usaha/{id}/aktif', [BentukBadanUsahaController::class, 'aktif'])->name('bentuk-badan-usaha.aktif');
+                // status perusahaan
+                Route::resource('/status-perusahaan', StatusPerusahaanController::class, ['parameters' => ['status-perusahaan' => 'id']])->except(['show', 'destroy']);
+                Route::get('/status-perusahaan/{id}/nonaktif', [StatusPerusahaanController::class, 'nonaktif'])->name('status-perusahaan.nonaktif');
+                Route::get('/status-perusahaan/{id}/aktif', [StatusPerusahaanController::class, 'aktif'])->name('status-perusahaan.aktif');
 
             });
         });
