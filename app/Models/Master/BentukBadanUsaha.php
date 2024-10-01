@@ -29,4 +29,5 @@ class BentukBadanUsaha extends Model
     function scopeAktif($query)
     {
         return $query->where('status_data', 1);
-    }}
+    }
+}
