@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
 use App\Http\Requests\JenisVendorRequest;
 use App\Models\Master\JenisVendor;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -21,8 +22,10 @@ class JenisVendorController extends Controller
             self::$title, route('master.jenis-vendor.index')
         ];
     }
+
     /**
      * Display a listing of the resource.
+     * @throws AuthorizationException
      */
     public function index(JenisVendorDataTable $dataTable)
     {
@@ -39,6 +42,7 @@ class JenisVendorController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     * @throws AuthorizationException
      */
     public function create()
     {
@@ -56,6 +60,7 @@ class JenisVendorController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * @throws AuthorizationException
      */
     public function store(JenisVendorRequest $request)
     {
@@ -79,6 +84,7 @@ class JenisVendorController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     * @throws AuthorizationException
      */
     public function edit(string $id)
     {
@@ -99,6 +105,7 @@ class JenisVendorController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * @throws AuthorizationException
      */
     public function update(JenisVendorRequest $request, string $id)
     {
