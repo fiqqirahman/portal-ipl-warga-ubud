@@ -36,6 +36,21 @@ class RoleSeeder extends Seeder
             ['name' => PermissionEnum::MasterJenisVendorAccess->value],
             ['name' => PermissionEnum::MasterJenisVendorCreate->value],
             ['name' => PermissionEnum::MasterJenisVendorEdit->value],
+
+            //master bentuk badan usaha
+            ['name' => PermissionEnum::MasterBentukBadanUsahaAccess->value],
+            ['name' => PermissionEnum::MasterBentukBadanUsahaCreate->value],
+            ['name' => PermissionEnum::MasterBentukBadanUsahaEdit->value],
+
+            //master kategori vendor
+            ['name' => PermissionEnum::MasterKategoriVendorAccess->value],
+            ['name' => PermissionEnum::MasterKategoriVendorCreate->value],
+            ['name' => PermissionEnum::MasterKategoriVendorEdit->value],
+
+            //master status perusahaan
+            ['name' => PermissionEnum::MasterStatusPerusahaanAccess->value],
+            ['name' => PermissionEnum::MasterStatusPerusahaanCreate->value],
+            ['name' => PermissionEnum::MasterStatusPerusahaanEdit->value],
         ];
 
         collect($permissions)->each(function ($data) {
@@ -48,7 +63,7 @@ class RoleSeeder extends Seeder
 
             ['id' => StaticMenu::$MASTER_DATA, 'name' => 'Master Data', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => 0, 'order' => 2],
             ['id' => StaticMenu::$MASTER_JENIS_VENDOR, 'name' => 'Master Jenis Vendor', 'route' => 'master.jenis-vendor.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 1],
-            ['id' => StaticMenu::$MASTER_BENTUK_BADAN_USAHA, 'name' => 'Master Bentuk Badan Usaha', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 2],
+            ['id' => StaticMenu::$MASTER_BENTUK_BADAN_USAHA, 'name' => 'Master Bentuk Badan Usaha', 'route' => 'master.bentuk-badan-usaha.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 2],
             ['id' => StaticMenu::$MASTER_STATUS_PERUSAHAAN, 'name' => 'Master Status Perusahaan', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 3],
             ['id' => StaticMenu::$MASTER_KATEGORI_VENDOR, 'name' => 'Master Kategori Vendor', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 4],
 

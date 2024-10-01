@@ -37,7 +37,7 @@ class BentukBadanUsahaSeeder extends Seeder
         ];
 
         collect($collections)->each(function ($data) {
-            BentukBadanUsaha::updateOrCreate($data);
+            BentukBadanUsaha::query()->updateOrCreate(['id'=>$data['id']], $data);
         });
     }
 }

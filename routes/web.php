@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\Master\BentukBadanUsahaController;
 use App\Http\Controllers\Master\JenisVendorController;
 use App\Http\Controllers\Utility\MasterConfigController;
 use Illuminate\Support\Facades\Route;
@@ -80,10 +81,14 @@ Route::middleware('auth')->group(function () use($SSOIsLocal) {
 			});
 
             Route::prefix('master')->name('master.')->group(function () {
-                // Kode Bank
+                // jenis vendor
                 Route::resource('/jenis-vendor', JenisVendorController::class, ['parameters' => ['jenis-vendor' => 'id']])->except(['show', 'destroy']);
                 Route::get('/jenis-vendor/{id}/nonaktif', [JenisVendorController::class, 'nonaktif'])->name('jenis-vendor.nonaktif');
                 Route::get('/jenis-vendor/{id}/aktif', [JenisVendorController::class, 'aktif'])->name('jenis-vendor.aktif');
+                // bentuk badan usaha
+                Route::resource('/bentuk-badan-usaha', BentukBadanUsahaController::class, ['parameters' => ['bentuk-badan-usaha' => 'id']])->except(['show', 'destroy']);
+                Route::get('/bentuk-badan-usaha/{id}/nonaktif', [BentukBadanUsahaController::class, 'nonaktif'])->name('bentuk-badan-usaha.nonaktif');
+                Route::get('/bentuk-badan-usaha/{id}/aktif', [BentukBadanUsahaController::class, 'aktif'])->name('bentuk-badan-usaha.aktif');
 
             });
         });
