@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\Master\BentukBadanUsahaController;
 use App\Http\Controllers\Master\JenisVendorController;
+use App\Http\Controllers\Master\KategoriVendorController;
 use App\Http\Controllers\Master\StatusPerusahaanController;
 use App\Http\Controllers\Utility\MasterConfigController;
 use Illuminate\Support\Facades\Route;
@@ -94,7 +95,10 @@ Route::middleware('auth')->group(function () use($SSOIsLocal) {
                 Route::resource('/status-perusahaan', StatusPerusahaanController::class, ['parameters' => ['status-perusahaan' => 'id']])->except(['show', 'destroy']);
                 Route::get('/status-perusahaan/{id}/nonaktif', [StatusPerusahaanController::class, 'nonaktif'])->name('status-perusahaan.nonaktif');
                 Route::get('/status-perusahaan/{id}/aktif', [StatusPerusahaanController::class, 'aktif'])->name('status-perusahaan.aktif');
-
+                // status perusahaan
+                Route::resource('/kategori-vendor', KategoriVendorController::class, ['parameters' => ['kategori-vendor' => 'id']])->except(['show', 'destroy']);
+                Route::get('/kategori-vendor/{id}/nonaktif', [KategoriVendorController::class, 'nonaktif'])->name('kategori-vendor.nonaktif');
+                Route::get('/kategori-vendor/{id}/aktif', [KategoriVendorController::class, 'aktif'])->name('kategori-vendor.aktif');
             });
         });
     });
