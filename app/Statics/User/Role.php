@@ -45,6 +45,9 @@ class Role
                     PermissionEnum::MasterKategoriVendorAccess->value,
                     PermissionEnum::MasterKategoriVendorCreate->value,
                     PermissionEnum::MasterKategoriVendorEdit->value,
+                    PermissionEnum::RegistrasiVendorAccess->value,
+                    PermissionEnum::RegistrasiVendorCreate->value,
+                    PermissionEnum::RegistrasiVendorEdit->value,
                 ],
                 'menus' => [
                     Menu::$DASHBOARD,
@@ -54,6 +57,10 @@ class Role
                     Menu::$MASTER_BENTUK_BADAN_USAHA,
                     Menu::$MASTER_STATUS_PERUSAHAAN,
                     Menu::$MASTER_KATEGORI_VENDOR,
+
+                    Menu::$REGISTRASI_VENDOR,
+                    Menu::$VENDOR_PERUSAHAAN,
+                    Menu::$VENDOR_PERORANGAN,
 
 	                Menu::$UTILITY,
 	                Menu::$DEBUG_EAGLE_EYE,
@@ -81,6 +88,9 @@ class Role
                     PermissionEnum::MasterKategoriVendorAccess->value,
                     PermissionEnum::MasterKategoriVendorCreate->value,
                     PermissionEnum::MasterKategoriVendorEdit->value,
+                    PermissionEnum::RegistrasiVendorAccess->value,
+                    PermissionEnum::RegistrasiVendorCreate->value,
+                    PermissionEnum::RegistrasiVendorEdit->value,
                 ],
                 'menus' => [
 	                Menu::$DASHBOARD,
@@ -90,6 +100,10 @@ class Role
                     Menu::$MASTER_BENTUK_BADAN_USAHA,
                     Menu::$MASTER_STATUS_PERUSAHAAN,
                     Menu::$MASTER_KATEGORI_VENDOR,
+
+                    Menu::$REGISTRASI_VENDOR,
+                    Menu::$VENDOR_PERUSAHAAN,
+                    Menu::$VENDOR_PERORANGAN,
 
 	                Menu::$UTILITY,
 	                Menu::$DEBUG_EAGLE_EYE,
@@ -112,6 +126,9 @@ class Role
                      PermissionEnum::MasterKategoriVendorAccess->value,
                      PermissionEnum::MasterKategoriVendorCreate->value,
                      PermissionEnum::MasterKategoriVendorEdit->value,
+                     PermissionEnum::RegistrasiVendorAccess->value,
+                     PermissionEnum::RegistrasiVendorCreate->value,
+                     PermissionEnum::RegistrasiVendorEdit->value,
                      ],
 		         'menus' => [
                      Menu::$DASHBOARD,
@@ -121,8 +138,28 @@ class Role
                      Menu::$MASTER_BENTUK_BADAN_USAHA,
                      Menu::$MASTER_STATUS_PERUSAHAAN,
                      Menu::$MASTER_KATEGORI_VENDOR,
+
+                     Menu::$REGISTRASI_VENDOR,
+                     Menu::$VENDOR_PERUSAHAAN,
+                     Menu::$VENDOR_PERORANGAN,
 		         ],
-	         ]
+	         ],
+            [
+                'id' => self::$VENDOR,
+                'name' => 'Vendor',
+                'permissions' => [
+                    PermissionEnum::RegistrasiVendorAccess->value,
+                    PermissionEnum::RegistrasiVendorCreate->value,
+                    PermissionEnum::RegistrasiVendorEdit->value,
+                ],
+                'menus' => [
+                    Menu::$DASHBOARD,
+
+                    Menu::$REGISTRASI_VENDOR,
+                    Menu::$VENDOR_PERUSAHAAN,
+                    Menu::$VENDOR_PERORANGAN,
+                ],
+            ]
         ];
     }
 }

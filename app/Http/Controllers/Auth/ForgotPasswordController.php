@@ -41,6 +41,11 @@ class ForgotPasswordController extends Controller
             // Mencari pengguna berdasarkan email
             $user = User::where('email', $request->email)->first();
 
+            if(!str_starts_with((string) $user->username, '9999')){
+                sweetAlert('warning', 'wkwk');
+
+                return to_route('landing-page.password.request');
+            }
             // Membuat token reset password
             $token = Str::random(60);
 
@@ -107,7 +112,10 @@ class ForgotPasswordController extends Controller
 
             // Update password pengguna
             $user = User::where('email', $request->email)->first();
-            $user->update(['password' => Hash::make($request->password)]);
+            $user->update(['password' => Hash::make($request->password),
+                'is_blokir' => null,
+                'expired_password' => Carbon::now()->addMonths()
+            ]);
 
             // Hapus token reset password dari database
             DB::table('password_resets')->where('email', $request->email)->delete();

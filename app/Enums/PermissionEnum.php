@@ -19,5 +19,9 @@ enum PermissionEnum: string
     case MasterKategoriVendorAccess = 'master_kategori_vendor_access';
     case MasterKategoriVendorCreate = 'master_kategori_vendor_create';
     case MasterKategoriVendorEdit = 'master_kategori_vendor_edit';
+    case RegistrasiVendorAccess = 'registrasi_vendor_access';
+    case RegistrasiVendorCreate = 'registrasi_vendor_create';
+    case RegistrasiVendorEdit = 'registrasi_vendor_edit';
+
 
 }

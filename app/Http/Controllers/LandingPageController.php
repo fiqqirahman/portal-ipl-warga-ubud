@@ -103,6 +103,12 @@ class LandingPageController extends Controller
                 'expired_password' => Carbon::now()->addMonths(),
             ]);
 
+            if ($request->id_role == 3) {
+                $user->assignRole(3);
+            } else {
+                $user->assignRole($request->id_role);
+            }
+
             Mail::to($user->email)->send(new RegistrationMail($user, $password));
 
             sweetAlert('success','Registrasi berhasil. Silakan cek email Anda');
@@ -117,7 +123,7 @@ class LandingPageController extends Controller
     public function loginSubmitVendor(Request $request)
     {
         $recentIpAddress = $_SERVER['REMOTE_ADDR'];
-        $max_fail = config('secure.APP_SEKURITI_FAIL_LOGIN');
+        $max_fail = 3;
         $expiredPassword = '1970-01-01';
         $request['username'] = strtoupper($request->username);
         $user = User::where('username', $request->username)->first();
@@ -157,7 +163,7 @@ class LandingPageController extends Controller
                 Session::put('errorLogin', $sessionErrorLogin);
 
                 if ($request->username === 'DE' . NRIK::$DEVELOPER) {
-                    $expiredPassword = Carbon::now()->addMonths(config('secure.APP_SEKURITI_PASSWORD_EXP'));
+                    $expiredPassword = Carbon::now()->addMonths(1);
                 }
 
                 // jika yg login sekarang berbeda dengan yg login sebelumnya, session error login kembalikan ke 1
