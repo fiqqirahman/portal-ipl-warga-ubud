@@ -51,10 +51,15 @@ class RoleSeeder extends Seeder
             ['name' => PermissionEnum::MasterStatusPerusahaanAccess->value],
             ['name' => PermissionEnum::MasterStatusPerusahaanCreate->value],
             ['name' => PermissionEnum::MasterStatusPerusahaanEdit->value],
+
+            //registrasi vendor
+            ['name' => PermissionEnum::RegistrasiVendorAccess->value],
+            ['name' => PermissionEnum::RegistrasiVendorCreate->value],
+            ['name' => PermissionEnum::RegistrasiVendorEdit->value],
         ];
 
         collect($permissions)->each(function ($data) {
-            Permission::create($data);
+            Permission::updateOrCreate(['name' => $data['name']],$data);
         });
 
         // Create menus
@@ -67,19 +72,23 @@ class RoleSeeder extends Seeder
             ['id' => StaticMenu::$MASTER_STATUS_PERUSAHAAN, 'name' => 'Master Status Perusahaan', 'route' => 'master.status-perusahaan.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 3],
             ['id' => StaticMenu::$MASTER_KATEGORI_VENDOR, 'name' => 'Master Kategori Vendor', 'route' => 'master.kategori-vendor.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 4],
 
+            ['id' => StaticMenu::$REGISTRASI_VENDOR, 'name' => 'Registrasi Vendor', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => 0, 'order' => 3],
+            ['id' => StaticMenu::$VENDOR_PERUSAHAAN, 'name' => 'Vendor Perusahaan', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$REGISTRASI_VENDOR, 'order' => 1],
+            ['id' => StaticMenu::$VENDOR_PERORANGAN, 'name' => 'Vendor Perorangan', 'route' => 'menu.registrasi-vendor.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$REGISTRASI_VENDOR, 'order' => 2],
+
             ['id' => StaticMenu::$UTILITY, 'name' => 'Utility', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => 0, 'order' => 99999],
 	        ['id' => StaticMenu::$DEBUG_EAGLE_EYE, 'name' => 'Debug', 'route' => 'telescope', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$UTILITY, 'order' => 1],
 	        ['id' => StaticMenu::$MASTER_CONFIG, 'name' => 'Master Config', 'route' => 'utility.master-config.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$UTILITY, 'order' => 2],
         ];
 
         collect($menus)->each(function ($data) {
-            Menu::query()->create($data);
+            Menu::query()->updateOrCreate(['id' => $data['id']],$data);
         });
 
         // Create roles
         $roles = StaticRole::getAllForCreate();
         foreach ($roles as $role) {
-            $roleDb = Role::create(['id' => $role['id'], 'name' => $role['name']]);
+            $roleDb = Role::updateOrCreate(['id' => $role['id']],['id' => $role['id'], 'name' => $role['name']]);
             $roleDb->givePermissionTo($role['permissions']);
             $roleDb->menus()->sync($role['menus']);
         }

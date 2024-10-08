@@ -69,6 +69,7 @@
                     <!--begin::Form-->
                     <form class="form" method="POST" novalidate="novalidate" id="kt_sign_up_form" action="{{ route('landing-page.register-submit') }}">
                         @csrf
+                        <input type="hidden" id="id_role" name="id_role" value="3">
                         <!--begin::Heading-->
                         <div class="text-start mb-10">
                             <!--begin::Title-->

@@ -13,4 +13,7 @@ class Menu
     static int $MASTER_BENTUK_BADAN_USAHA = 1000005;
     static int $MASTER_STATUS_PERUSAHAAN = 1000006;
     static int $MASTER_KATEGORI_VENDOR = 1000007;
+    static int $REGISTRASI_VENDOR = 1000008;
+    static int $VENDOR_PERUSAHAAN = 1000009;
+    static int $VENDOR_PERORANGAN = 10000010;
 }

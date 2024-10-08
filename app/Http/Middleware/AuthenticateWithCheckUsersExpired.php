@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use function Symfony\Component\String\s;
 
 class AuthenticateWithCheckUsersExpired
 {
@@ -28,10 +29,14 @@ class AuthenticateWithCheckUsersExpired
         if (!$expiredPassword || $todayDate >= $expiredPassword) { // jika password expired
 			if((boolean) CacheForeverHelper::getSingle(MasterConfigKeyEnum::SSOIsLocal)){
 				Session::flush();
-				Auth::logout();
-				sweetAlert('warning', 'Password Anda sudah Expired, mohon ganti Password Anda di Portal SSO');
-				
-				return to_route('auth.login');
+                if(str_starts_with((string) auth()->user()->username, '9999')){
+                    sweetAlert('warning', 'Password Anda sudah Expired, mohon ganti Password Anda');
+                } else {
+				    sweetAlert('warning', 'Password Anda sudah Expired, mohon ganti Password Anda di Portal SSO');
+                }
+                Auth::logout();
+
+                return to_route('auth.login');
 			}
             return to_route('auth.expired-password');
         }

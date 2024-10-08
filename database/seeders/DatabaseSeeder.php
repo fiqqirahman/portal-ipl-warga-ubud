@@ -38,6 +38,10 @@ class DatabaseSeeder extends Seeder
             BentukBadanUsahaSeeder::class,
             StatusPerusahaanSeeder::class,
             KategoriVendorSeeder::class,
+            ProvinsiSeeder::class,
+            KabKotaSeeder::class,
+            KecamatanSeeder::class,
+            KelurahanSeeder::class,
         ]);
     }
 }
