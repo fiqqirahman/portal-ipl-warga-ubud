@@ -30,8 +30,6 @@ Route::name('landing-page.')->group(function () {
     Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
     Route::get('password/reset/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset');
     Route::post('password/reset', [ForgotPasswordController::class, 'resetPassword'])->name('password.update');
-
-
 });
 
 	

@@ -109,7 +109,7 @@ class LandingPageController extends Controller
                 $user->assignRole($request->id_role);
             }
 
-            Mail::to($user->email)->send(new RegistrationMail($user, $password));
+            Mail::to($user->email)->queue(new RegistrationMail($user, $password));
 
             sweetAlert('success','Registrasi berhasil. Silakan cek email Anda');
             return to_route('landing-page.registrasi');

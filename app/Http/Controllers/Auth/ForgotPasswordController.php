@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Exception;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -11,15 +13,16 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Models\User;
+use Illuminate\View\View;
 
 class ForgotPasswordController extends Controller
 {
     /**
      * Menampilkan form untuk meminta link reset password.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
-    public function showLinkRequestForm()
+    public function showLinkRequestForm(): View
     {
         return view('auth.forgot-password');
     }
@@ -27,29 +30,22 @@ class ForgotPasswordController extends Controller
     /**
      * Mengirimkan link reset password ke email.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function sendResetLinkEmail(Request $request)
+    public function sendResetLinkEmail(Request $request): RedirectResponse
     {
         try {
-// Validasi input email
             $request->validate([
                 'email' => 'required|email|exists:users,email'
             ]);
-
-            // Mencari pengguna berdasarkan email
             $user = User::where('email', $request->email)->first();
-
             if(!str_starts_with((string) $user->username, '9999')){
-                sweetAlert('warning', 'wkwk');
+                sweetAlert('warning', 'Email Tidak Terdaftar');
 
                 return to_route('landing-page.password.request');
             }
-            // Membuat token reset password
             $token = Str::random(60);
-
-            // Simpan token reset password di database
             DB::table('password_resets')->updateOrInsert(
                 ['email' => $user->email],
                 [
@@ -78,9 +74,9 @@ class ForgotPasswordController extends Controller
      * Menampilkan form reset password.
      *
      * @param string $token
-     * @return \Illuminate\View\View
+     * @return View
      */
-    public function showResetForm($token)
+    public function showResetForm(string $token): View
     {
         return view('auth.reset', ['token' => $token]);
     }
@@ -88,10 +84,10 @@ class ForgotPasswordController extends Controller
     /**
      * Mereset password pengguna.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function resetPassword(Request $request)
+    public function resetPassword(Request $request): RedirectResponse
     {
         try {
             // Validasi input
