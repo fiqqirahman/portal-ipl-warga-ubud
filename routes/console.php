@@ -33,3 +33,7 @@ Artisan::command('logs:clear {date?}', function ($date = null) {
 		$this->info('Logs have been cleared');
 	}
 })->purpose('Clear log files');
+
+Artisan::command('trigger:retry-fail-jobs', function () {
+    Artisan::call('queue:retry all');
+})->purpose('Retry All Fail Jobs')->everyMinute();
