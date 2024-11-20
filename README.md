@@ -75,6 +75,12 @@ The `tbl_master_config` records are cached automatically during migration. Howev
 CacheForeverHelper::syncMasterConfig();
 ```
 
+Or you can execute command with **Artisan**:
+
+```php
+php artisan master-config:sync
+```
+
 > **Note:** If you do not perform this sync, you **won't be able to log in**.
 
 <p align="right">(<a href="#project-setup">back to top</a>)</p>
@@ -93,7 +99,7 @@ CacheForeverHelper::syncMasterConfig();
 ## Commands
 
 ### Scheduled Commands
-- `telescope:prune` (runs daily)
+- `telescope:prune --hours=72` (runs daily)
 
 <p align="right">(<a href="#project-setup">back to top</a>)</p>
 
@@ -101,6 +107,12 @@ CacheForeverHelper::syncMasterConfig();
 - Clear logs:
   ```bash
   php artisan logs:clear {date?}
+  ```
+- Master Config:
+  ```bash
+  php artisan master-config:get {key?}
+  php artisan master-config:sync
+  php artisan master-config:clear
   ```
 
 <p align="right">(<a href="#project-setup">back to top</a>)</p>
