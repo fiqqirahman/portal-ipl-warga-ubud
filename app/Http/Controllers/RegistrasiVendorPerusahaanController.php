@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\Menu\VendorPerusahaanDataTable;
+use App\Models\Master\KategoriVendor;
+use App\Models\Provinsi;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
@@ -22,7 +24,7 @@ class RegistrasiVendorPerusahaanController extends Controller
      */
     public function index(VendorPerusahaanDataTable $dataTable)
     {
-        $this->authorize('registrasi_vendor_access');
+        $this->authorize('registrasi_vendor_perusahaan_access');
         $title = 'Data ' . self::$title;
 
         $breadcrumbs = [
@@ -30,15 +32,28 @@ class RegistrasiVendorPerusahaanController extends Controller
             self::breadcrumb(),
         ];
 
-        return $dataTable->render('menu.vendor-perorangan.index', compact('title', 'breadcrumbs'));
+        return $dataTable->render('menu.vendor-perusahaan.index', compact('title', 'breadcrumbs'));
     }
 
     /**
      * Show the form for creating a new resource.
+     * @throws AuthorizationException
      */
     public function create()
     {
-        //
+        $this->authorize('registrasi_vendor_perusahaan_access');
+        $title = ' ' . self::$title;
+
+        $breadcrumbs = [
+            HomeController::breadcrumb(),
+            self::breadcrumb(),
+            [$title, route('menu.registrasi-vendor-perusahaan.create')],
+        ];
+        $stmtKategoriVendor = KategoriVendor::isActive()->orderBy('nama')->get();
+        $stmtProvinsi = Provinsi::isActive()->orderBy('nama')->get();
+
+
+        return view('menu.vendor-perusahaan.create', compact('title', 'breadcrumbs','stmtKategoriVendor','stmtProvinsi'));
     }
 
     /**
