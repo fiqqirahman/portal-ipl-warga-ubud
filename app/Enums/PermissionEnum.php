@@ -22,6 +22,9 @@ enum PermissionEnum: string
     case RegistrasiVendorAccess = 'registrasi_vendor_access';
     case RegistrasiVendorCreate = 'registrasi_vendor_create';
     case RegistrasiVendorEdit = 'registrasi_vendor_edit';
+    case RegistrasiVendorPerusahaanAccess = 'registrasi_vendor_perusahaan_access';
+    case RegistrasiVendorPerusahaanCreate = 'registrasi_vendor_perusahaan_create';
+    case RegistrasiVendorPerusahaanEdit = 'registrasi_vendor_perusahaan_edit';
 
 
 }
