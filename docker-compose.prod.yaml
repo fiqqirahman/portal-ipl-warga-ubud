@@ -1,0 +1,31 @@
+version: '3.7'
+services:
+  app:
+    container_name: CONTAINER_NAME #Change it to project name
+    image: nexusrepo.bankdki.co.id/stg/IMAGE_NAME:TAG #For production use build image to deploy
+    user: "1000:1000" #Default uid & gid for permission check in host first
+    volumes:
+        - DIRECTORY_PATH/storage:/var/www/html/storage
+        - DIRECTORY_PATH/public:/var/www/html/public
+        - DIRECTORY_PATH/vendor:/var/www/html/vendor
+        - DIRECTORY_PATH/composer.lock:/var/www/html/composer.lock
+        - DIRECTORY_PATH/.env:/var/www/html/.env
+    networks:
+      - NETWORK_NAME #Change it to project name
+
+  nginx:
+    container_name: nginx-PROJECT_NAME #CHANGE IT nginx-PROJECT_NAME
+    image: nexusrepo.bankdki.co.id/tools/laravel-docker-kit/nginx:alpine #DONT CHANGE IT
+    ports:
+      - "18001:80"
+    volumes:
+      - DIRECTORY_PATH:/var/www/html #Path to project
+      - DIRECTORY_PATH/docker/nginx/default.conf:/etc/nginx/conf.d/default.conf #Path Nginx Config
+    depends_on:
+      - app
+    networks:
+      - NETWORK_NAME #Change it to project name
+
+networks:
+  NETWORK_NAME: #Change it to project name
+

@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+  app:
+    container_name: CONTAINER_NAME #Change it to project name
+    image: 10.32.4.229:6969/laravel-dev-kit/webapp-laravel-docker:dev-x.x.x #Use universal image for development
+    extra_hosts:
+      - "host.docker.internal:HOST_IP" #Change to host ip
+    user: "1000:1000" #Default uid & gid for permission
+    volumes:
+      - DIRECTORY_PATH:/var/www/html #Path to project
+    networks:
+      - NETWORK_NAME #Change it to project name
+
+  nginx:
+    container_name: nginx-PROJECT_NAME #CHANGE IT nginx-PROJECT_NAME
+    image: 10.32.4.229:6969/laravel-dev-kit/nginx:alpine #Use universal image for development
+    ports:
+      - "18001:80" #Default port is 8080 change it
+    volumes:
+      - DIRECTORY_PATH:/var/www/html #Path to project
+      - DIRECTORY_PATH/docker/nginx/default.conf:/etc/nginx/conf.d/default.conf #Path Nginx Config
+    depends_on:
+      - app
+    networks:
+      - NETWORK_NAME #Change it to project name
+
+networks:
+  NETWORK_NAME: #Change it to project name
+
