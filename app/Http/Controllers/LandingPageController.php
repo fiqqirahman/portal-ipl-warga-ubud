@@ -3,19 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterVendorRequest;
-use App\Mail\ForgotPasswordMail;
 use App\Mail\RegistrationMail;
 use App\Models\User;
 use App\Statics\User\NRIK;
+use App\Statics\User\Role;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Str;
 
 class LandingPageController extends Controller
 {
@@ -99,15 +96,10 @@ class LandingPageController extends Controller
                 'email' => $request->input('email'),
                 'password' => bcrypt($password),
                 'username' => $username,
-                'created_by' => Auth::id(),
                 'expired_password' => Carbon::now()->addMonths(),
             ]);
 
-            if ($request->id_role == 3) {
-                $user->assignRole(3);
-            } else {
-                $user->assignRole($request->id_role);
-            }
+            $user->assignRole(Role::$VENDOR);
 
             Mail::to($user->email)->queue(new RegistrationMail($user, $password));
 

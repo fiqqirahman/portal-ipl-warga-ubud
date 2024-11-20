@@ -67,9 +67,8 @@
                 <!--begin::Body-->
                 <div class="py-20">
                     <!--begin::Form-->
-                    <form class="form" method="POST" novalidate="novalidate" id="kt_sign_up_form" action="{{ route('landing-page.register-submit') }}">
+                    <form class="form" method="POST" id="kt_sign_up_form" action="{{ route('landing-page.register-submit') }}">
                         @csrf
-                        <input type="hidden" id="id_role" name="id_role" value="3">
                         <!--begin::Heading-->
                         <div class="text-start mb-10">
                             <!--begin::Title-->
@@ -81,11 +80,17 @@
                         </div>
                         <!--end::Heading-->
                         <div class="fv-row mb-10">
-                            <input class="form-control form-control-lg" type="text" placeholder="Full Name" name="name" autocomplete="off" data-kt-translate="sign-up-input-name" />
+                            <input class="form-control form-control-lg"
+                                   required
+                                   value="{{ old('name') }}"
+                                   type="text" placeholder="Full Name" name="name" autocomplete="off" data-kt-translate="sign-up-input-name" />
                         </div>
                         <!--begin::Input group-->
                         <div class="fv-row mb-10">
-                            <input class="form-control form-control-lg" type="email" placeholder="Email" name="email" autocomplete="off" data-kt-translate="sign-up-input-email" />
+                            <input class="form-control form-control-lg"
+                                   required
+                                   value="{{ old('email') }}"
+                                   type="email" placeholder="Email" name="email" autocomplete="off" data-kt-translate="sign-up-input-email" />
                         </div>
                         <!--end::Input group-->
                         <!--begin::Input group-->
@@ -94,7 +99,7 @@
                             <div class="mb-1">
                                 <!--begin::Input wrapper-->
                                 <div class="position-relative mb-3">
-                                    <input class="form-control form-control-lg" type="password" placeholder="Password" name="password" autocomplete="off" data-kt-translate="sign-up-input-password" />
+                                    <input class="form-control form-control-lg" minlength="8" required type="password" placeholder="Password" name="password" autocomplete="off" data-kt-translate="sign-up-input-password" />
                                     <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" data-kt-password-meter-control="visibility">
 												<i class="bi bi-eye-slash fs-2"></i>
 												<i class="bi bi-eye fs-2 d-none"></i>
@@ -118,7 +123,7 @@
                         <!--end::Input group=-->
                         <!--begin::Input group-->
                         <div class="fv-row mb-10">
-                            <input class="form-control form-control-lg" type="password" placeholder="Confirm Password" name="confirm_password" autocomplete="off" data-kt-translate="sign-up-input-confirm-password" />
+                            <input class="form-control form-control-lg" required type="password" placeholder="Confirm Password" name="password_confirmation" autocomplete="off" data-kt-translate="sign-up-input-confirm-password" />
                         </div>
                         <!--end::Input group-->
                         <!--begin::Actions-->
