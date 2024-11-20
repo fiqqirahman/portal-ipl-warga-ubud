@@ -56,6 +56,11 @@ class RoleSeeder extends Seeder
             ['name' => PermissionEnum::RegistrasiVendorAccess->value],
             ['name' => PermissionEnum::RegistrasiVendorCreate->value],
             ['name' => PermissionEnum::RegistrasiVendorEdit->value],
+
+            //registrasi vendor perusahaan
+            ['name' => PermissionEnum::RegistrasiVendorPerusahaanAccess->value],
+            ['name' => PermissionEnum::RegistrasiVendorPerusahaanCreate->value],
+            ['name' => PermissionEnum::RegistrasiVendorPerusahaanEdit->value],
         ];
 
         collect($permissions)->each(function ($data) {
@@ -73,7 +78,7 @@ class RoleSeeder extends Seeder
             ['id' => StaticMenu::$MASTER_KATEGORI_VENDOR, 'name' => 'Master Kategori Vendor', 'route' => 'master.kategori-vendor.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 4],
 
             ['id' => StaticMenu::$REGISTRASI_VENDOR, 'name' => 'Registrasi Vendor', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => 0, 'order' => 3],
-            ['id' => StaticMenu::$VENDOR_PERUSAHAAN, 'name' => 'Vendor Perusahaan', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$REGISTRASI_VENDOR, 'order' => 1],
+            ['id' => StaticMenu::$VENDOR_PERUSAHAAN, 'name' => 'Vendor Perusahaan', 'route' => 'menu.registrasi-vendor-perusahaan.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$REGISTRASI_VENDOR, 'order' => 1],
             ['id' => StaticMenu::$VENDOR_PERORANGAN, 'name' => 'Vendor Perorangan', 'route' => 'menu.registrasi-vendor.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$REGISTRASI_VENDOR, 'order' => 2],
 
             ['id' => StaticMenu::$UTILITY, 'name' => 'Utility', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => 0, 'order' => 99999],

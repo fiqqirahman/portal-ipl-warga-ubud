@@ -121,7 +121,7 @@
                                         <span class="required">Alamat</span>
                                     </label>
                                     <textarea class="form-control form-control @error('alamat') is-invalid @enderror" id="alamat"
-                                            name="alamat" rows="15">{{ old('alamat') }}</textarea>
+                                              name="alamat" rows="15">{{ old('alamat') }}</textarea>
                                     @error('alamat')
                                     <div class="invalid-feedback">
                                         {{ $message }}

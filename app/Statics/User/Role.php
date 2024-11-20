@@ -48,6 +48,10 @@ class Role
                     PermissionEnum::RegistrasiVendorAccess->value,
                     PermissionEnum::RegistrasiVendorCreate->value,
                     PermissionEnum::RegistrasiVendorEdit->value,
+                    PermissionEnum::RegistrasiVendorPerusahaanAccess->value,
+                    PermissionEnum::RegistrasiVendorPerusahaanCreate->value,
+                    PermissionEnum::RegistrasiVendorPerusahaanEdit->value,
+
                 ],
                 'menus' => [
                     Menu::$DASHBOARD,
@@ -91,6 +95,9 @@ class Role
                     PermissionEnum::RegistrasiVendorAccess->value,
                     PermissionEnum::RegistrasiVendorCreate->value,
                     PermissionEnum::RegistrasiVendorEdit->value,
+                    PermissionEnum::RegistrasiVendorPerusahaanAccess->value,
+                    PermissionEnum::RegistrasiVendorPerusahaanCreate->value,
+                    PermissionEnum::RegistrasiVendorPerusahaanEdit->value,
                 ],
                 'menus' => [
 	                Menu::$DASHBOARD,
@@ -129,6 +136,9 @@ class Role
                      PermissionEnum::RegistrasiVendorAccess->value,
                      PermissionEnum::RegistrasiVendorCreate->value,
                      PermissionEnum::RegistrasiVendorEdit->value,
+                     PermissionEnum::RegistrasiVendorPerusahaanAccess->value,
+                     PermissionEnum::RegistrasiVendorPerusahaanCreate->value,
+                     PermissionEnum::RegistrasiVendorPerusahaanEdit->value,
                      ],
 		         'menus' => [
                      Menu::$DASHBOARD,
@@ -151,6 +161,9 @@ class Role
                     PermissionEnum::RegistrasiVendorAccess->value,
                     PermissionEnum::RegistrasiVendorCreate->value,
                     PermissionEnum::RegistrasiVendorEdit->value,
+                    PermissionEnum::RegistrasiVendorPerusahaanAccess->value,
+                    PermissionEnum::RegistrasiVendorPerusahaanCreate->value,
+                    PermissionEnum::RegistrasiVendorPerusahaanEdit->value,
                 ],
                 'menus' => [
                     Menu::$DASHBOARD,
