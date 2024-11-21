@@ -16,4 +16,6 @@ class Menu
     static int $REGISTRASI_VENDOR = 1000008;
     static int $VENDOR_PERUSAHAAN = 1000009;
     static int $VENDOR_PERORANGAN = 10000010;
+    static int $MASTER_DOKUMEN = 10000011;
+
 }

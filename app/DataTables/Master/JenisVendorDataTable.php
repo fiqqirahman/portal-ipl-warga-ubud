@@ -27,6 +27,7 @@ class JenisVendorDataTable extends DataTable
             ->eloquent(
                 $query->with(['createdBy', 'updatedBy'])
             )
+            ->addIndexColumn()
             ->editColumn('created_by', function ($row) {
                 return $row->createdBy->name ?? '-';
             })
@@ -104,8 +105,7 @@ class JenisVendorDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->title('No.')
-                ->searchable(false)
+            Column::make('DT_RowIndex')->title('No.')->searchable(false)->orderable(false)
                 ->addClass('text-center'),
             Column::make('nama'),
             Column::make('kode'),

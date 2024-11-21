@@ -8,6 +8,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\Master\BentukBadanUsahaController;
+use App\Http\Controllers\Master\DokumenController;
 use App\Http\Controllers\Master\JenisVendorController;
 use App\Http\Controllers\Master\KategoriVendorController;
 use App\Http\Controllers\Master\StatusPerusahaanController;
@@ -99,6 +100,10 @@ Route::middleware('auth')->group(function () use($SSOIsLocal) {
                 Route::resource('/kategori-vendor', KategoriVendorController::class, ['parameters' => ['kategori-vendor' => 'id']])->except(['show', 'destroy']);
                 Route::get('/kategori-vendor/{id}/nonaktif', [KategoriVendorController::class, 'nonaktif'])->name('kategori-vendor.nonaktif');
                 Route::get('/kategori-vendor/{id}/aktif', [KategoriVendorController::class, 'aktif'])->name('kategori-vendor.aktif');
+                // dokumen
+                Route::resource('/dokumen', DokumenController::class, ['parameters' => ['dokumen' => 'id']])->except(['show', 'destroy']);
+                Route::get('/dokumen/{id}/nonaktif', [DokumenController::class, 'nonaktif'])->name('dokumen.nonaktif');
+                Route::get('/dokumen/{id}/aktif', [DokumenController::class, 'aktif'])->name('dokumen.aktif');
             });
 
             Route::prefix('menu')->name('menu.')->group(function () {
