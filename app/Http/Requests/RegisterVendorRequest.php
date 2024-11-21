@@ -22,10 +22,10 @@ class RegisterVendorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|string|email',
-            'password' => 'required|string',
+            'email' => 'required|string|email|unique:users,email|max:100',
+            'password' => 'required|string|min:8|confirmed',
             'name' => 'required|string|max:255',
-            'confirm_password' => 'required|string',
+            'password_confirmation' => 'required|string',
         ];
     }
 
@@ -34,7 +34,7 @@ class RegisterVendorRequest extends FormRequest
         return [
             'email' => 'Email',
             'password' => 'Password baru',
-            'confirm_password' => 'Konfirmasi password baru',
+            'password_confirmation' => 'Konfirmasi password baru',
         ];
     }
 }

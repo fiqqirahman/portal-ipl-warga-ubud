@@ -34,6 +34,38 @@ Artisan::command('logs:clear {date?}', function ($date = null) {
 	}
 })->purpose('Clear log files');
 
-Artisan::command('trigger:retry-fail-jobs', function () {
-    Artisan::call('queue:retry all');
-})->purpose('Retry All Fail Jobs')->everyMinute();
+Artisan::command('master-config:get {key?}', function ($key = null) {
+	try {
+		if($key !== NULL){
+			$this->info(\App\Helpers\CacheForeverHelper::getSingle($key));
+		} else {
+			$this->info(\App\Helpers\CacheForeverHelper::getAll());
+		}
+		
+		$this->info('Success get Master Config stored Cache');
+	} catch (Exception $e) {
+		$this->error('Failed get Master Config stored Cache : ' . $e->getMessage());
+	}
+})->purpose('Get Master Config stored Cache');
+
+Artisan::command('master-config:sync', function () {
+	try {
+		$this->info(\App\Helpers\CacheForeverHelper::syncMasterConfig());
+		
+		$this->info('Success synchronize Master Config to Cache');
+	} catch (Exception $e) {
+		$this->error('Failed synchronize Master Config to Cache : ' . $e->getMessage());
+	}
+})->purpose('Synchronize Master Config to Cache');
+
+Artisan::command('master-config:clear', function () {
+	try {
+		\App\Helpers\CacheForeverHelper::destroy();
+		
+		$this->info(\App\Helpers\CacheForeverHelper::getAll());
+		
+		$this->info('Success clear Master Config Cache');
+	} catch (Exception $e) {
+		$this->error('Failed clear Master Config Cache : ' . $e->getMessage());
+	}
+})->purpose('Clear Master Config Cache');

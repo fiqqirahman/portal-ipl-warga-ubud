@@ -45,6 +45,20 @@ class UserSeeder extends Seeder
 				    'id_jabatan' => StaticJabatan::$ASISTEN_MANAJER,
 				    'id_tingkatan' => StaticTingkatan::$ASISTEN_MANAJER,
 				    'id_unit_kerja' => StaticUnitKerja::$GRUP_TEKNOLOGI_INFORMASI,
+				    'expired_password' => '2030-09-01'
+			    ],
+			    [
+				    'id_peg' => 3,
+				    'name' => 'Operator Vendor',
+				    'nrik' => NRIK::$RENDY,
+				    'username' => 'OV' . NRIK::$RENDY,
+				    'email' => 'operator_vendor_bdki@yopmail.com',
+				    'tanggal_lahir' => '1999-01-09',
+				    'id_jabatan' => StaticJabatan::$ASISTEN_MANAJER,
+				    'id_tingkatan' => StaticTingkatan::$ASISTEN_MANAJER,
+				    'id_unit_kerja' => StaticUnitKerja::$GRUP_TEKNOLOGI_INFORMASI,
+				    'password' => '$2y$10$W.tOb.bMYNlsvX0KaJxBlO.Hf9UUd06ONV3t1v5HpTEJYqRYV7Wvm', // Lenovoa706!
+				    'expired_password' => '2030-09-01'
 			    ],
 		    ];
 		    
