@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @method static create(array $param)
+ * @method static updateOrCreate(array $array, $data)
+ */
 class Dokumen extends Model
 {
     use IsActive;
