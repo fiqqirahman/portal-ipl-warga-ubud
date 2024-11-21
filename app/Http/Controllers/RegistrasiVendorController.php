@@ -58,7 +58,7 @@ class RegistrasiVendorController extends Controller
         $stmtProvinsi = Provinsi::isActive()->orderBy('nama')->get();
 
 
-        return view('menu.vendor-perorangan.create', compact('title', 'breadcrumbs','stmtKategoriVendor','stmtProvinsi'));
+        return view('menu.vendor-perorangan.create-new', compact('title', 'breadcrumbs','stmtKategoriVendor','stmtProvinsi'));
     }
 
     /**

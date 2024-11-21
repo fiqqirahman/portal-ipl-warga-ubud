@@ -6,4 +6,5 @@
     type="text/css" />
 <link href="{{ asset('metronic/demo2/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('metronic/demo2/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('css/loader.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" />
