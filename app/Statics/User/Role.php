@@ -51,6 +51,9 @@ class Role
                     PermissionEnum::RegistrasiVendorPerusahaanAccess->value,
                     PermissionEnum::RegistrasiVendorPerusahaanCreate->value,
                     PermissionEnum::RegistrasiVendorPerusahaanEdit->value,
+                    PermissionEnum::MasterDokumenAccess->value,
+                    PermissionEnum::MasterDokumenCreate->value,
+                    PermissionEnum::MasterDokumenEdit->value,
 
                 ],
                 'menus' => [
@@ -61,6 +64,7 @@ class Role
                     Menu::$MASTER_BENTUK_BADAN_USAHA,
                     Menu::$MASTER_STATUS_PERUSAHAAN,
                     Menu::$MASTER_KATEGORI_VENDOR,
+                    Menu::$MASTER_DOKUMEN,
 
                     Menu::$REGISTRASI_VENDOR,
                     Menu::$VENDOR_PERUSAHAAN,
@@ -98,6 +102,9 @@ class Role
                     PermissionEnum::RegistrasiVendorPerusahaanAccess->value,
                     PermissionEnum::RegistrasiVendorPerusahaanCreate->value,
                     PermissionEnum::RegistrasiVendorPerusahaanEdit->value,
+                    PermissionEnum::MasterDokumenAccess->value,
+                    PermissionEnum::MasterDokumenCreate->value,
+                    PermissionEnum::MasterDokumenEdit->value,
                 ],
                 'menus' => [
 	                Menu::$DASHBOARD,
@@ -107,6 +114,7 @@ class Role
                     Menu::$MASTER_BENTUK_BADAN_USAHA,
                     Menu::$MASTER_STATUS_PERUSAHAAN,
                     Menu::$MASTER_KATEGORI_VENDOR,
+                    Menu::$MASTER_DOKUMEN,
 
                     Menu::$REGISTRASI_VENDOR,
                     Menu::$VENDOR_PERUSAHAAN,
@@ -139,6 +147,9 @@ class Role
                      PermissionEnum::RegistrasiVendorPerusahaanAccess->value,
                      PermissionEnum::RegistrasiVendorPerusahaanCreate->value,
                      PermissionEnum::RegistrasiVendorPerusahaanEdit->value,
+                     PermissionEnum::MasterDokumenAccess->value,
+                     PermissionEnum::MasterDokumenCreate->value,
+                     PermissionEnum::MasterDokumenEdit->value,
                      ],
 		         'menus' => [
                      Menu::$DASHBOARD,
