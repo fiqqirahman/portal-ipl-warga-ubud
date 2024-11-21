@@ -68,8 +68,8 @@ class DocumentService
 	{
 		try {
 			$isCompany = $model->is_company ? 'company' : 'individual';
-			$vendorName = Str::slug($model->nama_singkatan . '-' . date('Ymd-hs'));
-			$pathFile =  $isCompany . '/' . $vendorName;
+			$prefix = $model->created_at->format('Ymd-His');
+			$pathFile =  $isCompany . '/' . $prefix;
 			
 			foreach($files as $key => $file) {
 				$idDocument = str_replace('document_', '', $key);

@@ -92,8 +92,6 @@ class RegistrasiVendorController extends Controller
 				'is_draft' => !$isDraft
 			]);
 			
-			$create->refresh();
-			
 	        $create->storeDocuments($request->file());
 			
 			if(!$isDraft){
