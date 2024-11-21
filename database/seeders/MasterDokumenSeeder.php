@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Enums\MasterConfigKeyEnum;
 use App\Enums\MasterConfigTypeEnum;
 use App\Enums\MasterDokumenEnum;
+use App\Models\Master\Dokumen;
+use App\Models\Utility\MasterConfig;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -329,5 +331,8 @@ class MasterDokumenSeeder extends Seeder
                 'allowed_file_types' => json_encode(['pdf'])
             ],
         ];
+        collect($collections)->each(function ($data) {
+            Dokumen::updateOrCreate(['id' => $data['id']], $data);
+        });
     }
 }

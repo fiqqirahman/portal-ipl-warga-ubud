@@ -18,7 +18,7 @@ return new class extends Migration
             $table->boolean('is_required')->default(false);
             $table->string('max_file_size');
             $table->json('allowed_file_types')->nullable();
-            $table->boolean('status_data')->default(false);
+            $table->boolean('status_data')->default(true);
             $table->foreignId('created_by')->nullable()->references('id')->on('users');
             $table->foreignId('updated_by')->nullable()->references('id')->on('users');
             $table->timestamps();

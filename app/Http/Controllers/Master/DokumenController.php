@@ -5,11 +5,17 @@ namespace App\Http\Controllers\Master;
 use App\DataTables\Master\DokumenDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
+use App\Http\Requests\DokumenRequest;
+use App\Models\Master\Dokumen;
+use App\Models\Master\JenisVendor;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class DokumenController extends Controller
 {
@@ -58,10 +64,18 @@ class DokumenController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * @throws AuthorizationException
      */
-    public function store(Request $request)
+    public function store(DokumenRequest $request): RedirectResponse
     {
-        //
+        $this->authorize('master_dokumen_create');
+        Dokumen::create($request->validated() + ['created_by' => Auth::id()]);
+
+        createLogActivity('Membuat Master Data Dokumen');
+
+        return Redirect::route('master.dokumen.index')
+            ->with('alert.status', '00')
+            ->with('alert.message', "Master Data Dokumen berhasil dibuat");
     }
 
     /**

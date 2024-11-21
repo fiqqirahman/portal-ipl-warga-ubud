@@ -8,6 +8,10 @@ use App\Http\Controllers\HomeController;
 use App\Http\Requests\JenisVendorRequest;
 use App\Models\Master\JenisVendor;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -44,7 +48,7 @@ class JenisVendorController extends Controller
      * Show the form for creating a new resource.
      * @throws AuthorizationException
      */
-    public function create()
+    public function create(): View|Factory|Application
     {
         $this->authorize('master_jenis_vendor_access');
         $title = 'Tambah ' . self::$title;
@@ -62,7 +66,7 @@ class JenisVendorController extends Controller
      * Store a newly created resource in storage.
      * @throws AuthorizationException
      */
-    public function store(JenisVendorRequest $request)
+    public function store(JenisVendorRequest $request): RedirectResponse
     {
         $this->authorize('master_jenis_vendor_create');
         JenisVendor::create($request->validated() + ['created_by' => Auth::id()]);
