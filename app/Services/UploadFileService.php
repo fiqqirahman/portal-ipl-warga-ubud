@@ -207,4 +207,25 @@ class UploadFileService {
 			return null;
 		}
 	}
+	
+	/**
+	 * Make File Additional Info
+	 *
+	 * @param UploadedFile $requestFile
+	 * @return array
+	 */
+	public static function getAdditionalInfo(UploadedFile $requestFile): array
+	{
+		$guessExtension = strtolower($requestFile->guessExtension());
+		$fileName = pathinfo(
+			$requestFile->getClientOriginalName(), PATHINFO_FILENAME
+		);
+		
+		return [
+			'uuid' => Str::uuid(),
+			'original_name' => $fileName,
+			'size' => $requestFile->getSize(),
+			'extension' => $guessExtension
+		];
+	}
 }

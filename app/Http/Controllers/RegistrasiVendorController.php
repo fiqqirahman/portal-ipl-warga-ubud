@@ -11,8 +11,11 @@ use App\Models\Master\KategoriVendor;
 use App\Models\Provinsi;
 use App\Models\RegistrasiVendor;
 use App\Services\DocumentService;
+use DB;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Throwable;
 
 class RegistrasiVendorController extends Controller
 {
@@ -49,7 +52,7 @@ class RegistrasiVendorController extends Controller
     public function create()
     {
         $this->authorize('registrasi_vendor_access');
-        $title = ' ' . self::$title;
+        $title = self::$title;
 
         $breadcrumbs = [
             HomeController::breadcrumb(),
@@ -70,13 +73,45 @@ class RegistrasiVendorController extends Controller
 
         return view('menu.vendor-perorangan.create-new', $data);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+	
+	/**
+	 * Store a newly created resource in storage.
+	 * @throws Throwable
+	 */
     public function store(RegistrasiVendorIndividualStoreRequest $request)
     {
-        dd($request->all());
+        try {
+			DB::beginTransaction();
+			
+			$isDraft = $request->confirm_done_checkbox === 'on';
+			
+			$create = RegistrasiVendor::create([
+				'nama' => $request->nama,
+				'nama_singkatan' => $request->nama_singkatan,
+				'is_company' => false,
+				'is_draft' => !$isDraft
+			]);
+			
+			$create->refresh();
+			
+	        $create->storeDocuments($request->file());
+			
+			if(!$isDraft){
+				sweetAlert('success', 'Berhasil Submit Data');
+			} else {
+				sweetAlert('success', 'Berhasil Menyimpan Data ke Draft');
+			}
+			
+			DB::commit();
+			
+			return to_route('menu.registrasi-vendor.index');
+        } catch (Throwable $th) {
+			DB::rollBack();
+			
+			sweetAlertException('Gagal Menyimpan Data', $th);
+			
+			return to_route('menu.registrasi-vendor.create');
+        }
     }
 
     /**
@@ -111,17 +146,17 @@ class RegistrasiVendorController extends Controller
         //
     }
 
-    public function getKabKotaByProvinsi(Request $request): \Illuminate\Http\JsonResponse
+    public function getKabKotaByProvinsi(Request $request): JsonResponse
     {
         $kabKota = KabKota::where('kode_provinsi', $request->kode_provinsi)->aktif()->get();
         return response()->json($kabKota);
     }
-    public function getKecamatanByKabKota(Request $request): \Illuminate\Http\JsonResponse
+    public function getKecamatanByKabKota(Request $request): JsonResponse
     {
         $kecamatan = Kecamatan::where('kode_kab_kota', $request->kode_kabupaten_kota)->aktif()->get();
         return response()->json($kecamatan);
     }
-    public function getKelurahanByKecamatan(Request $request): \Illuminate\Http\JsonResponse
+    public function getKelurahanByKecamatan(Request $request): JsonResponse
     {
         $kelurahan = Kelurahan::where('kode_kecamatan', $request->kode_kecamatan)->aktif()->get();
         return response()->json($kelurahan);

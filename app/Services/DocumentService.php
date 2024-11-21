@@ -4,6 +4,10 @@ namespace App\Services;
 
 use App\Enums\MasterDokumenEnum;
 use App\Models\Master\Dokumen;
+use App\Models\RegistrasiVendor;
+use Exception;
+use Str;
+use Throwable;
 
 class DocumentService
 {
@@ -55,5 +59,36 @@ class DocumentService
 		});
 		
 		return $attributes;
+	}
+	
+	/**
+	 * @throws Exception
+	 */
+	public static function store(RegistrasiVendor $model, array $files): bool
+	{
+		try {
+			$isCompany = $model->is_company ? 'company' : 'individual';
+			$vendorName = Str::slug($model->nama_singkatan . '-' . date('Ymd-hs'));
+			$pathFile =  $isCompany . '/' . $vendorName;
+			
+			foreach($files as $key => $file) {
+				$idDocument = str_replace('document_', '', $key);
+				$document = Dokumen::query()->find($idDocument);
+				
+				$model->documents()->create([
+					'id_master_dokumen' => str_replace('document_', '', $key),
+					'nama_dokumen' => $document->nama_dokumen,
+					'keterangan_dokumen' => $document->keterangan,
+					'additional_info' => json_encode(UploadFileService::getAdditionalInfo($file)),
+					'path' => UploadFileService::create($file, $pathFile),
+				]);
+			}
+			
+			return true;
+		} catch (Throwable $th) {
+			logException('[DocumentService] store Failed Store', $th);
+			
+			throw new Exception($th->getMessage());
+		}
 	}
 }

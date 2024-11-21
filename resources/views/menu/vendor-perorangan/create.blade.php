@@ -34,13 +34,13 @@
                                     @enderror
                                 </div>
                                 <div class="fv-row">
-                                    <label for="nama_singkat" class="fs-6 fw-semibold form-label mt-3">
-                                        <span class="required">Nama Singkat</span>
+                                    <label for="nama_singkatan" class="fs-6 fw-semibold form-label mt-3">
+                                        <span class="required">Nama Singkatan</span>
                                     </label>
                                     <input type="text"
-                                           class="form-control @error('nama_singkat') is-invalid @enderror"
-                                           name="nama_singkat" value="{{ old('nama_singkat') }}" id="nama_singkat" />
-                                    @error('nama_singkat')
+                                           class="form-control @error('nama_singkatan') is-invalid @enderror"
+                                           name="nama_singkatan" value="{{ old('nama_singkatan') }}" id="nama_singkatan" />
+                                    @error('nama_singkatan')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>

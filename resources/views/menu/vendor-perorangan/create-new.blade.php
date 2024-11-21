@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="card-body pt-5">
-                    <form action="{{ route('menu.registrasi-vendor.store') }}" method="POST" id="form-store">
+                    <form action="{{ route('menu.registrasi-vendor.store') }}" method="POST" id="form-store" enctype="multipart/form-data">
                         @csrf
                         <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x fs-6 fw-semibold mt-6 mb-8" role="tablist">
                             <li class="nav-item" role="presentation">
@@ -63,7 +63,7 @@
                                         <label for="nama" class="fs-6 fw-semibold form-label mt-3">
                                             <span>Nama Perorangan</span>
                                         </label>
-                                        <input type="text"
+                                        <input type="text" required maxlength="255"
                                                class="form-control @error('nama') is-invalid @enderror"
                                                name="nama" value="{{ old('nama') }}" id="nama" />
                                         @error('nama')
@@ -73,13 +73,13 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-4 col-sm-12 mb-4">
-                                        <label for="nama_singkat" class="fs-6 fw-semibold form-label mt-3">
-                                            <span>Nama Singkat</span>
+                                        <label for="nama_singkatan" class="fs-6 fw-semibold form-label mt-3">
+                                            <span>Nama Singkatan</span>
                                         </label>
-                                        <input type="text"
-                                               class="form-control @error('nama_singkat') is-invalid @enderror"
-                                               name="nama_singkat" value="{{ old('nama_singkat') }}" id="nama_singkat" />
-                                        @error('nama_singkat')
+                                        <input type="text" required maxlength="255"
+                                               class="form-control @error('nama_singkatan') is-invalid @enderror"
+                                               name="nama_singkatan" value="{{ old('nama_singkatan') }}" id="nama_singkatan" />
+                                        @error('nama_singkatan')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
