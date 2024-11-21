@@ -1,8 +1,8 @@
 <?php
 
-namespace App\DataTables\Master;
+namespace App\DataTables\Menu;
 
-use App\Models\BentukBadanUsaha;
+use App\Models\RegistrasiVendor;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Gate;
@@ -14,7 +14,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class BentukBadanUsahaDataTable extends DataTable
+class VendorPerusahaanDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -27,7 +27,6 @@ class BentukBadanUsahaDataTable extends DataTable
             ->eloquent(
                 $query->with(['createdBy', 'updatedBy'])
             )
-            ->addIndexColumn()
             ->editColumn('created_by', function ($row) {
                 return $row->createdBy->name ?? '-';
             })
@@ -36,9 +35,9 @@ class BentukBadanUsahaDataTable extends DataTable
                 return $row->updatedBy->name ?? '-';
             })
             ->addColumn('aksi', function ($row) {
-                $routeEdit = route('master.bentuk-badan-usaha.edit', enkrip($row->id));
+                $routeEdit = route('master.jenis-vendor.edit', enkrip($row->id));
                 $button = '<div class="d-flex justify-content-start">';
-                $routeUpdateStatus = route($row->status_data == 1 ? 'master.bentuk-badan-usaha.nonaktif' : 'master.bentuk-badan-usaha.aktif', enkrip($row->id));
+                $routeUpdateStatus = route($row->status_data == 1 ? 'master.jenis-vendor.nonaktif' : 'master.jenis-vendor.aktif', enkrip($row->id));
                 $btnUpdate = '<a href="' . $routeEdit . '" class="btn btn-secondary btn-sm me-4">Ubah</a>';
                 if ($row->status_data == 1) {
                     $btnStatus = '<a href="' . $routeUpdateStatus . '" class="btn btn-danger btn-sm">Nonaktifkan</a>';
@@ -47,7 +46,7 @@ class BentukBadanUsahaDataTable extends DataTable
                 }
                 $button .= $btnUpdate . $btnStatus;
                 $button .= '</div>';
-                if (!Gate::allows('master_bentuk_badan_usaha_edit')) {
+                if (!Gate::allows('master_jenis_vendor_edit')) {
                     $button = '-';
                 }
                 return $button;
@@ -69,7 +68,7 @@ class BentukBadanUsahaDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      */
-    public function query(\App\Models\Master\BentukBadanUsaha $model): QueryBuilder
+    public function query(RegistrasiVendor $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -80,7 +79,7 @@ class BentukBadanUsahaDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('bentuk-badan-usaha')
+            ->setTableId('vendor-perorangan')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->dom("<'row'<'col-sm-2'f><'col-sm-10'>>" . "<'row'<'col-sm-12'tr>>" . "<'row'<'col-sm-1 mt-1'l><'col-sm-4 mt-3'i><'col-sm-7'p>>")
@@ -105,16 +104,14 @@ class BentukBadanUsahaDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('DT_RowIndex')->title('No.')->searchable(false)->orderable(false)
+            Column::make('id')->title('No.')
+                ->searchable(false)
                 ->addClass('text-center'),
             Column::make('nama'),
-            Column::make('kode'),
-            Column::make('keterangan')->title('Keterangan'),
-            Column::make('status_data')
-                ->searchable(false)
-                ->orderable(false)
-                ->width(100)
-                ->addClass('text-center min-w-100px'),
+            Column::make('id_master_jenis_vendor')->title('Jenis Vendor'),
+            Column::make('id_master_status_perusahaan')->title('Satuan Perusahaan'),
+            Column::make('id_master_kategori_vendor')->title('Kategori Vendor'),
+            Column::make('id_master_bentuk_badan_usaha')->title('Badan Usaha'),
             Column::make('created_by')
                 ->title('Dibuat Oleh')
                 ->searchable(false)
@@ -142,6 +139,6 @@ class BentukBadanUsahaDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'BentukBadanUsaha_' . date('YmdHis');
+        return 'VendorPerusahaan_' . date('YmdHis');
     }
 }

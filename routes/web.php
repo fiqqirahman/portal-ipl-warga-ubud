@@ -8,10 +8,12 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\Master\BentukBadanUsahaController;
+use App\Http\Controllers\Master\DokumenController;
 use App\Http\Controllers\Master\JenisVendorController;
 use App\Http\Controllers\Master\KategoriVendorController;
 use App\Http\Controllers\Master\StatusPerusahaanController;
 use App\Http\Controllers\RegistrasiVendorController;
+use App\Http\Controllers\RegistrasiVendorPerusahaanController;
 use App\Http\Controllers\Utility\MasterConfigController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Middleware\PermissionMiddleware;
@@ -98,11 +100,16 @@ Route::middleware('auth')->group(function () use($SSOIsLocal) {
                 Route::resource('/kategori-vendor', KategoriVendorController::class, ['parameters' => ['kategori-vendor' => 'id']])->except(['show', 'destroy']);
                 Route::get('/kategori-vendor/{id}/nonaktif', [KategoriVendorController::class, 'nonaktif'])->name('kategori-vendor.nonaktif');
                 Route::get('/kategori-vendor/{id}/aktif', [KategoriVendorController::class, 'aktif'])->name('kategori-vendor.aktif');
+                // dokumen
+                Route::resource('/dokumen', DokumenController::class, ['parameters' => ['dokumen' => 'id']])->except(['show', 'destroy']);
+                Route::get('/dokumen/{id}/nonaktif', [DokumenController::class, 'nonaktif'])->name('dokumen.nonaktif');
+                Route::get('/dokumen/{id}/aktif', [DokumenController::class, 'aktif'])->name('dokumen.aktif');
             });
 
             Route::prefix('menu')->name('menu.')->group(function () {
                 // registrasi vendor
                 Route::resource('/registrasi-vendor', RegistrasiVendorController::class, ['parameters' => ['registrasi-vendor' => 'id']])->except(['show', 'destroy']);
+                Route::resource('/registrasi-vendor-perusahaan', RegistrasiVendorPerusahaanController::class, ['parameters' => ['registrasi-vendor-perusahaan' => 'id']])->except(['show', 'destroy']);
                 Route::get('/getKabKotaByProvinsi', [RegistrasiVendorController::class, 'getKabKotaByProvinsi'])->name('getKabKotaByProvinsi');
                 Route::get('/getKecamatanByKabKota', [RegistrasiVendorController::class, 'getKecamatanByKabKota'])->name('getKecamatanByKabKota');
                 Route::get('/getKelurahanByKecamatan', [RegistrasiVendorController::class, 'getKelurahanByKecamatan'])->name('getKelurahanByKecamatan');

@@ -42,6 +42,7 @@ class DatabaseSeeder extends Seeder
             KabKotaSeeder::class,
             KecamatanSeeder::class,
             KelurahanSeeder::class,
+            MasterDokumenSeeder::class,
         ]);
     }
 }

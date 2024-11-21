@@ -48,6 +48,13 @@ class Role
                     PermissionEnum::RegistrasiVendorAccess->value,
                     PermissionEnum::RegistrasiVendorCreate->value,
                     PermissionEnum::RegistrasiVendorEdit->value,
+                    PermissionEnum::RegistrasiVendorPerusahaanAccess->value,
+                    PermissionEnum::RegistrasiVendorPerusahaanCreate->value,
+                    PermissionEnum::RegistrasiVendorPerusahaanEdit->value,
+                    PermissionEnum::MasterDokumenAccess->value,
+                    PermissionEnum::MasterDokumenCreate->value,
+                    PermissionEnum::MasterDokumenEdit->value,
+
                 ],
                 'menus' => [
                     Menu::$DASHBOARD,
@@ -57,6 +64,7 @@ class Role
                     Menu::$MASTER_BENTUK_BADAN_USAHA,
                     Menu::$MASTER_STATUS_PERUSAHAAN,
                     Menu::$MASTER_KATEGORI_VENDOR,
+                    Menu::$MASTER_DOKUMEN,
 
                     Menu::$REGISTRASI_VENDOR,
                     Menu::$VENDOR_PERUSAHAAN,
@@ -91,6 +99,12 @@ class Role
                     PermissionEnum::RegistrasiVendorAccess->value,
                     PermissionEnum::RegistrasiVendorCreate->value,
                     PermissionEnum::RegistrasiVendorEdit->value,
+                    PermissionEnum::RegistrasiVendorPerusahaanAccess->value,
+                    PermissionEnum::RegistrasiVendorPerusahaanCreate->value,
+                    PermissionEnum::RegistrasiVendorPerusahaanEdit->value,
+                    PermissionEnum::MasterDokumenAccess->value,
+                    PermissionEnum::MasterDokumenCreate->value,
+                    PermissionEnum::MasterDokumenEdit->value,
                 ],
                 'menus' => [
 	                Menu::$DASHBOARD,
@@ -100,6 +114,7 @@ class Role
                     Menu::$MASTER_BENTUK_BADAN_USAHA,
                     Menu::$MASTER_STATUS_PERUSAHAAN,
                     Menu::$MASTER_KATEGORI_VENDOR,
+                    Menu::$MASTER_DOKUMEN,
 
                     Menu::$REGISTRASI_VENDOR,
                     Menu::$VENDOR_PERUSAHAAN,
@@ -129,6 +144,12 @@ class Role
                      PermissionEnum::RegistrasiVendorAccess->value,
                      PermissionEnum::RegistrasiVendorCreate->value,
                      PermissionEnum::RegistrasiVendorEdit->value,
+                     PermissionEnum::RegistrasiVendorPerusahaanAccess->value,
+                     PermissionEnum::RegistrasiVendorPerusahaanCreate->value,
+                     PermissionEnum::RegistrasiVendorPerusahaanEdit->value,
+                     PermissionEnum::MasterDokumenAccess->value,
+                     PermissionEnum::MasterDokumenCreate->value,
+                     PermissionEnum::MasterDokumenEdit->value,
                      ],
 		         'menus' => [
                      Menu::$DASHBOARD,
@@ -151,6 +172,9 @@ class Role
                     PermissionEnum::RegistrasiVendorAccess->value,
                     PermissionEnum::RegistrasiVendorCreate->value,
                     PermissionEnum::RegistrasiVendorEdit->value,
+                    PermissionEnum::RegistrasiVendorPerusahaanAccess->value,
+                    PermissionEnum::RegistrasiVendorPerusahaanCreate->value,
+                    PermissionEnum::RegistrasiVendorPerusahaanEdit->value,
                 ],
                 'menus' => [
                     Menu::$DASHBOARD,
