@@ -49,11 +49,11 @@ class UploadFileService {
     {
         try {
 	        if ($requestFile && $requestFile->isFile()) {
-		            $filename = self::makeFilename($requestFile);
-		            
-		            $requestFile->storeAs($destinationPath, $filename, self::$disk);
-	
-	                return trim($destinationPath, '/') . '/' . $filename;
+	            $filename = self::makeFilename($requestFile);
+	            
+	            $requestFile->storeAs($destinationPath, $filename, self::$disk);
+
+                return trim($destinationPath, '/') . '/' . $filename;
 	        } else {
 				if(self::$required){
 					throw new Exception('Request File is empty!');
