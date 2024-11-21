@@ -107,3 +107,27 @@ $("#kt_default_daterangepicker").on(
     $(this).val('');
   }
 );
+
+function onDocumentChange(input, allowedMimes, maxFileSize) {
+    const FileName = input.files[0] ? input.files[0].name : null;
+    if (FileName) {
+        const FileMime = FileName.substring(FileName.lastIndexOf('.') + 1).toLowerCase();
+        if (allowedMimes.includes(FileMime)) {
+            const maxSize = maxFileSize * 1024
+            if (input.files[0].size > maxSize) {
+                Swal.fire(`File Size Dokumen tidak boleh lebih dari ${convertToReadableSize(maxSize)}!`);
+                input.value = null;
+            }
+        } else {
+            Swal.fire(`Dokumen hanya boleh dalam format ${allowedMimes.join(', ').toUpperCase()}!`);
+            input.value = null;
+        }
+    }
+}
+
+function convertToReadableSize(size) {
+    const base = Math.log(size) / Math.log(1024);
+    const suffix = ['', 'KB', 'MB', 'GB', 'TB'];
+    const fBase = Math.floor(base);
+    return ((Math.pow(1024, base - fBase)).toFixed(1) + ' ' + suffix[fBase]).replace('.0','');
+}

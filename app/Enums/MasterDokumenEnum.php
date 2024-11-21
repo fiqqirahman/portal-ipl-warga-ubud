@@ -42,5 +42,31 @@ enum MasterDokumenEnum: int {
     case DataKapasitasProduksiPerusahaan = 37; //tidak mandatory
     case DaftarPemasok = 38; //tidak mandatory
     case FotoCopyKontrakAtauPODenganPemasok = 39; //tidak mandatory
-
+    case NPWPPerorangan = 40; //tidak mandatory
+    case KTPPerorangan = 41; //tidak mandatory
+    case KartuTandaAnggotaHPI = 42; //tidak mandatory
+    case BukuTabungan = 43; //tidak mandatory
+    case SuratPermohonan = 44; //tidak mandatory
+	
+	public static function groupIndividual(): array
+	{
+		return [
+			self::KTPPerorangan,
+			self::NPWPPerorangan,
+			self::KartuTandaAnggotaHPI,
+			self::BukuTabungan,
+			self::SuratPermohonan
+		];
+	}
+	
+	public static function groupCompany(): array
+	{
+		return [
+			self::KTPPerorangan,
+			self::NPWPPerorangan,
+			self::KartuTandaAnggotaHPI,
+			self::BukuTabungan,
+			self::SuratPermohonan
+		];
+	}
 }

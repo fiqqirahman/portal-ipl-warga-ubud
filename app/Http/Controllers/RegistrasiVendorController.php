@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\Menu\VendorPeroranganDataTable;
+use App\Http\Requests\RegistrasiVendor\Individual\RegistrasiVendorIndividualStoreRequest;
 use App\Models\KabKota;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 use App\Models\Master\KategoriVendor;
 use App\Models\Provinsi;
 use App\Models\RegistrasiVendor;
+use App\Services\DocumentService;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
@@ -54,19 +56,27 @@ class RegistrasiVendorController extends Controller
             self::breadcrumb(),
             [$title, route('menu.registrasi-vendor.create')],
         ];
+		
         $stmtKategoriVendor = KategoriVendor::isActive()->orderBy('nama')->get();
         $stmtProvinsi = Provinsi::isActive()->orderBy('nama')->get();
+		
+		$data = [
+			'title' => $title,
+			'breadcrumbs' => $breadcrumbs,
+			'stmtKategoriVendor' => $stmtKategoriVendor,
+			'stmtProvinsi' => $stmtProvinsi,
+			'documentsField' => DocumentService::makeFields(true)
+		];
 
-
-        return view('menu.vendor-perorangan.create-new', compact('title', 'breadcrumbs','stmtKategoriVendor','stmtProvinsi'));
+        return view('menu.vendor-perorangan.create-new', $data);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(RegistrasiVendorIndividualStoreRequest $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
