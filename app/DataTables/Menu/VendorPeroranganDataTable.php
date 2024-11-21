@@ -3,16 +3,10 @@
 namespace App\DataTables\Menu;
 
 use App\Models\RegistrasiVendor;
-use App\Models\VendorPerorangan;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class VendorPeroranganDataTable extends DataTable
@@ -24,46 +18,30 @@ class VendorPeroranganDataTable extends DataTable
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
-        return datatables()
-            ->eloquent(
-                $query->with(['createdBy', 'updatedBy'])
-            )
-            ->editColumn('created_by', function ($row) {
-                return $row->createdBy->name ?? '-';
+	    return (new EloquentDataTable($query))
+		    ->addIndexColumn()
+            ->editColumn('nama', function ($row) {
+                return $row->nama ?? '-';
             })
-
+		    ->editColumn('nama_singkatan', function ($row) {
+                return $row->nama_singkatan ?? '-';
+            })
+		    ->editColumn('created_by', function ($row) {
+                return $row->createdBy?->name ?? '-';
+            })
             ->editColumn('updated_by', function ($row) {
-                return $row->updatedBy->name ?? '-';
+                return $row->updatedBy?->name ?? '-';
             })
+		    ->editColumn('created_at', function ($row) {
+			    return dateWithFullMonthAndTimeFormat($row->created_at, FALSE);
+		    })
+		    ->editColumn('updated_at', function ($row) {
+			    return ($row->created_at != $row->updated_at) ? dateWithFullMonthAndTimeFormat($row->updated_at, FALSE) : '-';
+		    })
             ->addColumn('aksi', function ($row) {
-                $routeEdit = route('master.jenis-vendor.edit', enkrip($row->id));
-                $button = '<div class="d-flex justify-content-start">';
-                $routeUpdateStatus = route($row->status_data == 1 ? 'master.jenis-vendor.nonaktif' : 'master.jenis-vendor.aktif', enkrip($row->id));
-                $btnUpdate = '<a href="' . $routeEdit . '" class="btn btn-secondary btn-sm me-4">Ubah</a>';
-                if ($row->status_data == 1) {
-                    $btnStatus = '<a href="' . $routeUpdateStatus . '" class="btn btn-danger btn-sm">Nonaktifkan</a>';
-                } else {
-                    $btnStatus = '<a href="' . $routeUpdateStatus . '" class="btn btn-primary btn-sm">Aktifkan</a>';
-                }
-                $button .= $btnUpdate . $btnStatus;
-                $button .= '</div>';
-                if (!Gate::allows('master_jenis_vendor_edit')) {
-                    $button = '-';
-                }
-                return $button;
+                return 'Aksi';
             })
-            ->editColumn('status_data', function ($row) {
-                if ($row->status_data === 1) {
-                    $btnUnblock = '<span class="badge badge-light-primary">Aktif<span>';
-                } else {
-                    $btnUnblock = '<span class="badge badge-light-danger">Tidak Aktif<span>';
-                }
-                return $btnUnblock;
-            })
-            ->editColumn('created_at', function ($row) {
-                return Carbon::parse($row->created_at)->locale(config('app.locale'))->translatedFormat('j F Y, H:i:s');
-            })
-            ->rawColumns(['aksi', 'status_data', 'color']);
+            ->rawColumns(['aksi']);
     }
 
     /**
@@ -71,7 +49,7 @@ class VendorPeroranganDataTable extends DataTable
      */
     public function query(RegistrasiVendor $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->with(['updatedBy','createdBy']);
     }
 
     /**
@@ -87,7 +65,7 @@ class VendorPeroranganDataTable extends DataTable
             ->buttons([''])
             ->scrollX(true)
             ->scrollY('500px')
-            ->fixedColumns(['left' => 2, 'right' => 2])
+            ->fixedColumns(['left' => 1, 'right' => 1])
             ->language(['processing' => '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>'])
             ->orderBy(0, 'asc')
             ->parameters([
@@ -105,14 +83,9 @@ class VendorPeroranganDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->title('No.')
-                ->searchable(false)
-                ->addClass('text-center'),
+	        Column::make('DT_RowIndex')->title('No.')->searchable(false)->orderable(false)->addClass('text-center'),
             Column::make('nama'),
-            Column::make('id_master_jenis_vendor')->title('Jenis Vendor'),
-            Column::make('id_master_status_perusahaan')->title('Satuan Perusahaan'),
-            Column::make('id_master_kategori_vendor')->title('Kategori Vendor'),
-            Column::make('id_master_bentuk_badan_usaha')->title('Badan Usaha'),
+            Column::make('nama_singkatan'),
             Column::make('created_by')
                 ->title('Dibuat Oleh')
                 ->searchable(false)
@@ -125,6 +98,8 @@ class VendorPeroranganDataTable extends DataTable
                 ->orderable(false)
                 ->width(100)
                 ->addClass('text-center min-w-100px'),
+	        Column::make('created_at')->title('Dibuat Pada'),
+	        Column::make('updated_at')->title('Diupdate Pada'),
             Column::computed('aksi')
                 ->searchable(false)
                 ->orderable(false)

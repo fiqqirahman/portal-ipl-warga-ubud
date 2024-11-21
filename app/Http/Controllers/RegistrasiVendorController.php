@@ -11,6 +11,7 @@ use App\Models\Master\KategoriVendor;
 use App\Models\Provinsi;
 use App\Models\RegistrasiVendor;
 use App\Services\DocumentService;
+use Auth;
 use DB;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
@@ -89,7 +90,8 @@ class RegistrasiVendorController extends Controller
 				'nama' => $request->nama,
 				'nama_singkatan' => $request->nama_singkatan,
 				'is_company' => false,
-				'is_draft' => !$isDraft
+				'is_draft' => !$isDraft,
+				'created_by' => Auth::id()
 			]);
 			
 	        $create->storeDocuments($request->file());
