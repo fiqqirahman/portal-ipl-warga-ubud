@@ -8,137 +8,157 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 /**
- * The UploadFileService class provides methods for handling file uploads, including creating new uploads
- * and updating existing files. It supports customizable options such as disk selection, nullable file uploads,
- * and removing old files upon update.
+ * The UploadFileService class handles file upload operations, providing methods to create, update, and manage files
+ * with customizable options like disk selection, nullable file uploads, and automatic deletion of old files.
+ *
+ * Features:
+ * - Customizable disk storage (`public` by default).
+ * - Optional nullable file uploads, meaning files are not required for certain operations.
+ * - Ability to retain or remove old files when updating with a new file.
+ * - Supports custom file names, with optional random string generation for uniqueness.
+ * - Extracts the original file name from a stored file path.
  *
  * Methods:
  * - `create(UploadedFile|null $requestFile, string $destinationPath): ?string`
  *   Uploads a new file to the specified destination path. Returns the file path or throws an exception if the file is required but not provided.
  *
  * - `update(UploadedFile|null $requestFile, string $destinationPath, ?string $oldFile = null): ?string`
- *   Updates an existing file upload. If a new file is provided, it replaces the old file and optionally deletes the old file. Returns the new file path or the old file path.
+ *   Updates an existing file. If a new file is provided, it replaces the old one and optionally deletes the previous file.
+ *   Returns the new file path or the old file path if no new file is uploaded.
  *
  * - `nullable(): UploadFileService`
- *   Sets the service to nullable file uploads.
+ *   Configures the service to allow nullable file uploads (i.e., the file is not required).
  *
  * - `keepOldFile(): UploadFileService`
- *   Configures the service to retain the old file upon update, rather than deleting it.
+ *   Configures the service to keep the old file when updating, instead of deleting it.
+ *
+ * - `customFilename(?string $customFilename = null, bool $withRandomString = false): UploadFileService`
+ *   Sets a custom name for the file, with an optional random string for uniqueness.
  *
  * - `disk(string $disk = 'public'): UploadFileService`
- *   Specifies the disk to be used for file storage. Defaults to 'public'.
+ *   Sets the storage disk for file uploads. Defaults to 'public'.
  *
- * - `extractFilename(string $path): string`
- *   Extract path to origin filename. Example : path/to/images/image-{someRandomString}.{extension} => image.{extension}
+ * - `extractFilename(string $path): ?string`
+ *   Extracts the original filename from the given file path (e.g., 'path/to/images/image-{randomString}.{extension}' returns 'image.{extension}').
  */
 class UploadFileService {
 	
 	private static string $disk = 'public';
-	private static bool $required = TRUE;
-	private static bool $removeOldFile = TRUE;
+	private static bool $required = true;
+	private static bool $removeOldFile = true;
+	private static ?string $customFilename = null;
+	private static bool $withRandomString = false;
 	
 	/**
 	 * Create a new file upload.
 	 *
 	 * @param UploadedFile|null $requestFile
-	 * @param $destinationPath
-	 * @return string|null path uploaded file
+	 * @param string $destinationPath
+	 * @return string|null Uploaded file path or null if file is not required and not provided.
 	 * @throws Exception
 	 */
-    public static function create(?UploadedFile $requestFile, $destinationPath): ?string
-    {
-        try {
-	        if ($requestFile && $requestFile->isFile()) {
-	            $filename = self::makeFilename($requestFile);
-	            
-	            $requestFile->storeAs($destinationPath, $filename, self::$disk);
-
-                return trim($destinationPath, '/') . '/' . $filename;
-	        } else {
-				if(self::$required){
-					throw new Exception('Request File is empty!');
-				}
+	public static function create(?UploadedFile $requestFile, string $destinationPath): ?string
+	{
+		try {
+			if ($requestFile && $requestFile->isFile()) {
+				$filename = self::makeFilename($requestFile);
+				$requestFile->storeAs($destinationPath, $filename, self::$disk);
 				
-	            return NULL;
-	        }
-        } catch (Exception $e) {
+				return trim($destinationPath, '/') . '/' . $filename;
+			} elseif (self::$required) {
+				throw new Exception('Request File is empty!');
+			}
+			
+			return null;
+		} catch (Exception $e) {
 			logException('[create] UploadFile', $e);
-            throw new Exception($e->getMessage());
-        }
-    }
+			
+			throw new Exception($e->getMessage());
+		}
+	}
 	
 	/**
-	 * Update an existing file upload, if empty will return old file.
+	 * Update an existing file, keeping or deleting the old file as needed.
 	 *
 	 * @param UploadedFile|null $requestFile
-	 * @param $destinationPath
+	 * @param string $destinationPath
 	 * @param string|null $oldFile
-	 * @return string|null path uploaded file or path old file
+	 * @return string|null New or old file path.
 	 * @throws Exception
 	 */
-    public static function update(?UploadedFile $requestFile, $destinationPath, ?string $oldFile = null): ?string
-    {
-        try {
-	        if ($requestFile && $requestFile->isFile()) {
-		        $filename = self::makeFilename($requestFile);
-	            
-	            $requestFile->storeAs($destinationPath, $filename, self::$disk);
-				
-                if(self::$removeOldFile && !empty($oldFile) && Storage::disk(self::$disk)->exists($oldFile)){
-                    Storage::disk(self::$disk)->delete($oldFile);
-                }
-
-                return trim($destinationPath, '/') . '/' . $filename;
-	        } else {
-				if(!self::$required && empty($oldFile)){
-					throw new Exception('Old File is empty!');
+	public static function update(?UploadedFile $requestFile, string $destinationPath, ?string $oldFile = null): ?string
+	{
+		try {
+			if ($requestFile && $requestFile->isFile()) {
+				$filename = self::makeFilename($requestFile);
+				$requestFile->storeAs($destinationPath, $filename, self::$disk);
+				if (self::$removeOldFile && !empty($oldFile) && Storage::disk(self::$disk)->exists($oldFile)) {
+					Storage::disk(self::$disk)->delete($oldFile);
 				}
 				
-		        if(self::$required){
-			        throw new Exception('Request File is empty!');
-		        }
-				
-	            return $oldFile;
-	        }
-        } catch (Exception $e) {
-            logException('[update] UploadFile', $e);
-            throw new Exception($e->getMessage());
-        }
-    }
+				return trim($destinationPath, '/') . '/' . $filename;
+			} elseif (!self::$required && empty($oldFile)) {
+				throw new Exception('Old file is empty!');
+			} elseif (self::$required) {
+				throw new Exception('Request File is empty!');
+			}
+			
+			return $oldFile;
+		} catch (Exception $e) {
+			logException('[update] UploadFile', $e);
+			
+			throw new Exception($e->getMessage());
+		}
+	}
 	
 	/**
-	 * Make file request is nullable
+	 * Set the file upload to be nullable (not required).
 	 *
 	 * @return UploadFileService
 	 */
 	public static function nullable(): UploadFileService
 	{
-		self::$required = FALSE;
+		self::$required = false;
 		
 		return new static;
 	}
 	
 	/**
-	 * Keep the old file on update.
+	 * Keep the old file when updating.
 	 *
 	 * @return UploadFileService
 	 */
 	public static function keepOldFile(): UploadFileService
 	{
-		self::$removeOldFile = FALSE;
+		self::$removeOldFile = false;
 		
 		return new static;
 	}
 	
 	/**
-	 * Set the storage disk.
+	 * Set a custom file name with an optional random string.
+	 *
+	 * @param string|null $customFilename
+	 * @param bool $withRandomString
+	 * @return UploadFileService
+	 */
+	public static function customFilename(?string $customFilename = null, bool $withRandomString = false): UploadFileService
+	{
+		self::$customFilename = $customFilename;
+		self::$withRandomString = $withRandomString;
+		
+		return new static;
+	}
+	
+	/**
+	 * Set the storage disk for file uploads.
 	 *
 	 * @param string $disk
 	 * @return UploadFileService
 	 */
 	public static function disk(string $disk = 'public'): UploadFileService
 	{
-		if(!in_array($disk, ['public', 'local'])){
+		if (!in_array($disk, ['public', 'local'])) {
 			$disk = 'public';
 		}
 		self::$disk = $disk;
@@ -147,26 +167,31 @@ class UploadFileService {
 	}
 	
 	/**
-     * Generate a filename.
+	 * Generate a filename based on the original name or a custom name.
 	 *
 	 * @param UploadedFile $file
-     * @return string
+	 * @return string
 	 */
 	private static function makeFilename(UploadedFile $file): string
 	{
-		$filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-		$extension = strtolower($file->guessExtension());
+		if (!is_null(self::$customFilename) && self::$withRandomString) {
+			return self::$customFilename . '-' . Str::random(6) . '.' . strtolower($file->guessExtension());
+		} elseif (!is_null(self::$customFilename)) {
+			return self::$customFilename . '.' . strtolower($file->guessExtension());
+		}
 		
-		return strtolower(Str::slug(substr($filename, 0, 200)) . '-' . Str::random(6)) . '.' . $extension;
+		$filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+		
+		return strtolower(Str::slug(substr($filename, 0, 200)) . '-' . Str::random(6)) . '.' . strtolower($file->guessExtension());
 	}
 	
 	/**
-	 * Extract path to origin filename. Example : path/to/images/image-{someRandomString}.{extension} => image.{extension}
+	 * Extract the original filename from a stored file path.
 	 *
-	 * @param $path
-	 * @return string|null
+	 * @param string $path
+	 * @return string|null Original filename.
 	 */
-	public static function extractFilename($path): ?string
+	public static function extractFilename(string $path): ?string
 	{
 		try {
 			$arrayPath = explode('.', $path);
@@ -174,7 +199,6 @@ class UploadFileService {
 			$extension = $arrayPath[1];
 			
 			$lastPath = last(explode('/', $beforeExtension));
-			
 			$split = explode('-', $lastPath);
 			$randomString = last($split);
 			
