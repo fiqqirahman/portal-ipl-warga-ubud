@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers\Master;
 
+use App\DataTables\Master\DokumenDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 
 class DokumenController extends Controller
@@ -18,10 +23,11 @@ class DokumenController extends Controller
     }
     /**
      * Display a listing of the resource.
+     * @throws AuthorizationException
      */
-    public function index($dataTable)
+    public function index(DokumenDataTable $dataTable)
     {
-        $this->authorize('master_jenis_vendor_access');
+        $this->authorize('master_dokumen_access');
         $title = 'Data ' . self::$title;
 
         $breadcrumbs = [
@@ -29,15 +35,25 @@ class DokumenController extends Controller
             self::breadcrumb(),
         ];
 
-        return $dataTable->render('master.jenis-vendor.index', compact('title', 'breadcrumbs'));
+        return $dataTable->render('master.dokumen.index', compact('title', 'breadcrumbs'));
     }
 
     /**
      * Show the form for creating a new resource.
+     * @throws AuthorizationException
      */
-    public function create()
+    public function create(): View|Factory|Application
     {
-        //
+        $this->authorize('master_dokumen_access');
+        $title = 'Tambah ' . self::$title;
+
+        $breadcrumbs = [
+            HomeController::breadcrumb(),
+            self::breadcrumb(),
+            [$title, route('master.dokumen.create')],
+        ];
+
+        return view('master.dokumen.create', compact('title', 'breadcrumbs'));
     }
 
     /**

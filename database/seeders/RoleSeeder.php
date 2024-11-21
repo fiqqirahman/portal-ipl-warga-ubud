@@ -81,7 +81,7 @@ class RoleSeeder extends Seeder
             ['id' => StaticMenu::$MASTER_BENTUK_BADAN_USAHA, 'name' => 'Master Bentuk Badan Usaha', 'route' => 'master.bentuk-badan-usaha.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 2],
             ['id' => StaticMenu::$MASTER_STATUS_PERUSAHAAN, 'name' => 'Master Status Perusahaan', 'route' => 'master.status-perusahaan.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 3],
             ['id' => StaticMenu::$MASTER_KATEGORI_VENDOR, 'name' => 'Master Kategori Vendor', 'route' => 'master.kategori-vendor.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 4],
-            ['id' => StaticMenu::$MASTER_DOKUMEN, 'name' => 'Master Dokumen', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 5],
+            ['id' => StaticMenu::$MASTER_DOKUMEN, 'name' => 'Master Dokumen', 'route' => 'master.dokumen.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 5],
 
             ['id' => StaticMenu::$REGISTRASI_VENDOR, 'name' => 'Registrasi Vendor', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => 0, 'order' => 3],
             ['id' => StaticMenu::$VENDOR_PERUSAHAAN, 'name' => 'Vendor Perusahaan', 'route' => 'menu.registrasi-vendor-perusahaan.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$REGISTRASI_VENDOR, 'order' => 1],
