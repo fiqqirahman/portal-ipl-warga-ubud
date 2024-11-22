@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterVendorRequest;
-use App\Mail\ForgotPasswordMail;
 use App\Mail\RegistrationMail;
 use App\Models\User;
 use App\Statics\User\NRIK;
+use App\Statics\User\Role;
 use Carbon\Carbon;
+use Exception;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
@@ -88,32 +88,32 @@ class LandingPageController extends Controller
         return view('landing-page.registrasi-v1', $data);
     }
 
-    public function registerVendor(RegisterVendorRequest $request)
+    public function registerVendor(RegisterVendorRequest $request): RedirectResponse
     {
         try {
             $createdAt = User::whereMonth('created_at', date('m'))->whereYear('created_at', date('Y'))->count() + 1;
             $username = '9999' . str_pad($createdAt, 6, "0", STR_PAD_LEFT);
             $password = $request->input('password');
+            $activationToken = Str::random(64);
+
             $user = User::create([
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
+                'is_company' => $request->input('is_company'),
                 'password' => bcrypt($password),
                 'username' => $username,
-                'created_by' => Auth::id(),
+                'activation_token' => $activationToken,
                 'expired_password' => Carbon::now()->addMonths(),
+                'is_actived' => false,
             ]);
 
-            if ($request->id_role == 3) {
-                $user->assignRole(3);
-            } else {
-                $user->assignRole($request->id_role);
-            }
+            $user->assignRole(Role::$VENDOR);
 
-            Mail::to($user->email)->queue(new RegistrationMail($user, $password));
+            Mail::to($user->email)->queue(new RegistrationMail($user, $password, $activationToken));
 
             sweetAlert('success','Registrasi berhasil. Silakan cek email Anda');
             return to_route('landing-page.registrasi');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             sweetAlertException('Terjadi Kesalahan, hubungi Administrator!', $e);
 
             return redirect()->back()->with('error', 'Terjadi kesalahan saat registrasi. Silakan coba lagi.')->withInput();
@@ -212,4 +212,36 @@ class LandingPageController extends Controller
 
         return Redirect(route('auth.login'));
     }
+    public function activateAccount($token)
+    {
+        $user = User::where('activation_token', $token)->first();
+
+        if (!$user) {
+            sweetAlert('error', 'Token aktivasi tidak valid.');
+            return redirect()->route('auth.login');
+        }
+        // Periksa apakah akun sudah diaktifkan
+        if ($user->is_activated) {
+            sweetAlert('info', 'Akun Anda sudah diaktifkan sebelumnya.');
+            return redirect()->route('auth.login');
+        }
+
+        // Periksa apakah token telah kedaluwarsa (24 jam)
+        $tokenExpiration = Carbon::parse($user->created_at)->addHours(1);
+        if (Carbon::now()->greaterThan($tokenExpiration)) {
+            sweetAlert('error', 'Token aktivasi telah kedaluwarsa.');
+            return redirect()->route('landing-page.registrasi')
+                ->with('error', 'Token telah kedaluwarsa. Silakan mendaftar ulang.');
+        }
+
+        // Hapus token dan aktifkan akun
+        $user->update([
+            'activation_token' => null,
+            'is_activated' => true,
+        ]);
+
+        sweetAlert('success', 'Akun Anda berhasil diaktifkan. Silakan login.');
+        return redirect()->route('auth.login');
+    }
+
 }

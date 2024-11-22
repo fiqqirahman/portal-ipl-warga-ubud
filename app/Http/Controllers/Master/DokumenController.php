@@ -3,13 +3,20 @@
 namespace App\Http\Controllers\Master;
 
 use App\DataTables\Master\DokumenDataTable;
+use App\Enums\PermissionEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
+use App\Http\Requests\DokumenRequest;
+use App\Models\Master\Dokumen;
+use App\Models\Master\JenisVendor;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class DokumenController extends Controller
 {
@@ -58,10 +65,31 @@ class DokumenController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * @throws AuthorizationException
      */
-    public function store(Request $request)
+    public function store(DokumenRequest $request): RedirectResponse
     {
-        //
+        try {
+            $this->authorize(PermissionEnum::MasterDokumenCreate->value);
+
+            $validatedData['allowed_file_types'] = json_encode(['allowed_file_types']);
+
+            $masterDokumen = Dokumen::create($request->safe()->all() + [
+                    'nama_dokumen' => $request->input('nama_dokumen'),
+                    'keterangan' => $request->input('keterangan'),
+                    'is_required' => $request->input('is_required'),
+                    'max_file_size' => $request->input('max_file_size'),
+                    'allowed_file_types' => $validatedData,
+                    'created_by' => Auth::id(),
+                ]);
+            createLogActivity('Membuat Master Data Dokumen');
+
+            sweetAlert('success', 'Master Data Dokumen Berhasil di Simpan');
+            return to_route('master.dokumen.index');
+        } catch (\Exception $e) {
+            sweetAlertException('Terjadi Kesalahan, hubungi Administrator!', $e);
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat registrasi. Silakan coba lagi.')->withInput();
+        }
     }
 
     /**

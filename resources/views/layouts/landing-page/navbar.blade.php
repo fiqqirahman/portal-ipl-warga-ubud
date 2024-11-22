@@ -41,13 +41,6 @@
                         <!--begin::Menu item-->
                         <div class="menu-item">
                             <!--begin::Menu link-->
-                            <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#how-it-works" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Berita</a>
-                            <!--end::Menu link-->
-                        </div>
-                        <!--end::Menu item-->
-                        <!--begin::Menu item-->
-                        <div class="menu-item">
-                            <!--begin::Menu link-->
                             <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#achievements" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Kebijakan Vendor</a>
                             <!--end::Menu link-->
                         </div>

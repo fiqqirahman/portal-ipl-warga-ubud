@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Enums\MasterConfigKeyEnum;
 use App\Enums\MasterConfigTypeEnum;
 use App\Enums\MasterDokumenEnum;
+use App\Models\Master\Dokumen;
+use App\Models\Utility\MasterConfig;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -328,6 +330,49 @@ class MasterDokumenSeeder extends Seeder
                 'max_file_size' => '5120',
                 'allowed_file_types' => json_encode(['pdf'])
             ],
+	        [
+                'id' => MasterDokumenEnum::NPWPPerorangan->value,
+                'nama_dokumen' => 'NPWP Perorangan',
+                'keterangan' => 'NPWP Perorangan',
+                'is_required' => true,
+                'max_file_size' => '5120',
+                'allowed_file_types' => json_encode(['pdf'])
+            ],
+	        [
+                'id' => MasterDokumenEnum::KTPPerorangan->value,
+                'nama_dokumen' => 'KTP Perorangan',
+                'keterangan' => 'KTP Perorangan',
+                'is_required' => true,
+                'max_file_size' => '5120',
+                'allowed_file_types' => json_encode(['pdf'])
+            ],
+	        [
+                'id' => MasterDokumenEnum::KartuTandaAnggotaHPI->value,
+                'nama_dokumen' => 'Kartu Anggota HPI',
+                'keterangan' => 'Kartu Anggota HPI',
+                'is_required' => true,
+                'max_file_size' => '5120',
+                'allowed_file_types' => json_encode(['pdf'])
+            ],
+	        [
+                'id' => MasterDokumenEnum::BukuTabungan->value,
+                'nama_dokumen' => 'Buku Tabungan',
+                'keterangan' => 'Buku Tabungan',
+                'is_required' => true,
+                'max_file_size' => '5120',
+                'allowed_file_types' => json_encode(['pdf'])
+            ],
+	        [
+                'id' => MasterDokumenEnum::SuratPermohonan->value,
+                'nama_dokumen' => 'Surat Permohonan',
+                'keterangan' => 'Surat Permohonan',
+                'is_required' => true,
+                'max_file_size' => '5120',
+                'allowed_file_types' => json_encode(['pdf'])
+            ],
         ];
+        collect($collections)->each(function ($data) {
+            Dokumen::updateOrCreate(['id' => $data['id']], $data);
+        });
     }
 }

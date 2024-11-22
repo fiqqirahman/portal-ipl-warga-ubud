@@ -26,6 +26,7 @@ Route::name('landing-page.')->group(function () {
     Route::get('/registrasi', [LandingPageController::class, 'registrasi'])->name('registrasi');
     Route::post('/register', [LandingPageController::class, 'registerVendor'])->name('register-submit');
     Route::post('/login-submit-vendor', [LandingPageController::class, 'loginSubmitVendor'])->name('login-submit-vendor');
+    Route::get('/activate/{token}', [LandingPageController::class, 'activateAccount'])->name('user.activate');
 
     //reset password
     Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
@@ -65,7 +66,7 @@ Route::middleware('auth')->group(function () use($SSOIsLocal) {
 		    });
 	    }
 	    
-	    Route::middleware('auth.check-users-expired')->group(function () use($SSOIsLocal) {
+	    Route::middleware(['auth.check-users-expired','activated'])->group(function () use($SSOIsLocal) {
 		    if(!$SSOIsLocal){
 		        // form ganti password
 		        Route::get('/change-password', [AuthController::class, 'changePassword'])->name('auth.change-password');
@@ -108,7 +109,7 @@ Route::middleware('auth')->group(function () use($SSOIsLocal) {
 
             Route::prefix('menu')->name('menu.')->group(function () {
                 // registrasi vendor
-                Route::resource('/registrasi-vendor', RegistrasiVendorController::class, ['parameters' => ['registrasi-vendor' => 'id']])->except(['show', 'destroy']);
+                Route::resource('/registrasi-vendor', RegistrasiVendorController::class)->except(['show', 'destroy']);
                 Route::resource('/registrasi-vendor-perusahaan', RegistrasiVendorPerusahaanController::class, ['parameters' => ['registrasi-vendor-perusahaan' => 'id']])->except(['show', 'destroy']);
                 Route::get('/getKabKotaByProvinsi', [RegistrasiVendorController::class, 'getKabKotaByProvinsi'])->name('getKabKotaByProvinsi');
                 Route::get('/getKecamatanByKabKota', [RegistrasiVendorController::class, 'getKecamatanByKabKota'])->name('getKecamatanByKabKota');

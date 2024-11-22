@@ -45,6 +45,8 @@ return new class extends Migration
             $table->foreignId('updated_by')->nullable()->references('id')->on('users');
             $table->foreignId('approve_by')->nullable()->references('id')->on('users');
             $table->timestamp('approved_at')->nullable();
+            $table->boolean('is_draft')->default(true);
+            $table->boolean('is_company')->default(false);
             $table->timestamps();
         });
     }
