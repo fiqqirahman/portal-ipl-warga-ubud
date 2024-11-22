@@ -132,3 +132,8 @@ function logException(string $message, string|null|Throwable $throw = null, arra
 	
 	Log::channel('exception')->error(trim($message) . ' [' . $throwMessage . ']', $context);
 }
+
+function allowCreateRegistration(): bool
+{
+	return auth()->user()->registrationsVendor()->count() == 0;
+}

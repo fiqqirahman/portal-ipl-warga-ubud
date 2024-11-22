@@ -109,7 +109,7 @@ Route::middleware('auth')->group(function () use($SSOIsLocal) {
 
             Route::prefix('menu')->name('menu.')->group(function () {
                 // registrasi vendor
-                Route::resource('/registrasi-vendor', RegistrasiVendorController::class, ['parameters' => ['registrasi-vendor' => 'id']])->except(['show', 'destroy']);
+                Route::resource('/registrasi-vendor', RegistrasiVendorController::class)->except(['show', 'destroy']);
                 Route::resource('/registrasi-vendor-perusahaan', RegistrasiVendorPerusahaanController::class, ['parameters' => ['registrasi-vendor-perusahaan' => 'id']])->except(['show', 'destroy']);
                 Route::get('/getKabKotaByProvinsi', [RegistrasiVendorController::class, 'getKabKotaByProvinsi'])->name('getKabKotaByProvinsi');
                 Route::get('/getKecamatanByKabKota', [RegistrasiVendorController::class, 'getKecamatanByKabKota'])->name('getKecamatanByKabKota');

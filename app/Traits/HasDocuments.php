@@ -21,4 +21,18 @@ trait HasDocuments
 			throw new Exception($th->getMessage());
 		}
     }
+	
+	/**
+	 * @throws Exception
+	 */
+	public function updateDocuments(array $files): bool
+	{
+		try {
+			DocumentService::update($this, $files);
+			
+			return true;
+		} catch (Throwable $th) {
+			throw new Exception($th->getMessage());
+		}
+    }
 }

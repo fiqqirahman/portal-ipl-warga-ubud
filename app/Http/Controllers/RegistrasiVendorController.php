@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\Menu\VendorPeroranganDataTable;
+use App\Enums\PermissionEnum;
 use App\Http\Requests\RegistrasiVendor\Individual\RegistrasiVendorIndividualStoreRequest;
 use App\Models\KabKota;
 use App\Models\Kecamatan;
@@ -35,7 +36,7 @@ class RegistrasiVendorController extends Controller
      */
     public function index(VendorPeroranganDataTable $dataTable)
     {
-        $this->authorize('registrasi_vendor_access');
+        $this->authorize(PermissionEnum::RegistrasiVendorAccess->value);
         $title = 'Data ' . self::$title;
 
         $breadcrumbs = [
@@ -52,13 +53,18 @@ class RegistrasiVendorController extends Controller
      */
     public function create()
     {
-        $this->authorize('registrasi_vendor_access');
+        $this->authorize(PermissionEnum::RegistrasiVendorCreate->value);
+		
+		if(!allowCreateRegistration()){
+			abort(403, 'You has already have filled form!');
+		}
+		
         $title = self::$title;
 
         $breadcrumbs = [
             HomeController::breadcrumb(),
             self::breadcrumb(),
-            [$title, route('menu.registrasi-vendor.create')],
+            ['Create', route('menu.registrasi-vendor.create')],
         ];
 		
         $stmtKategoriVendor = KategoriVendor::isActive()->orderBy('nama')->get();
@@ -72,7 +78,7 @@ class RegistrasiVendorController extends Controller
 			'documentsField' => DocumentService::makeFields(true)
 		];
 
-        return view('menu.vendor-perorangan.create-new', $data);
+        return view('menu.vendor-perorangan.create', $data);
     }
 	
 	/**
@@ -82,6 +88,12 @@ class RegistrasiVendorController extends Controller
     public function store(RegistrasiVendorIndividualStoreRequest $request)
     {
         try {
+	        $this->authorize(PermissionEnum::RegistrasiVendorCreate->value);
+	        
+	        if(!allowCreateRegistration()){
+		        abort(403, 'You has already have filled form!');
+	        }
+			
 			DB::beginTransaction();
 			
 			$isDraft = $request->confirm_done_checkbox === 'on';
@@ -127,15 +139,78 @@ class RegistrasiVendorController extends Controller
      */
     public function edit(RegistrasiVendor $registrasiVendor)
     {
-        //
+	    $this->authorize(PermissionEnum::RegistrasiVendorEdit->value);
+		
+		if(!$registrasiVendor->is_draft){
+			abort(403, 'Registration Already Submitted! Can\'t be edited.');
+		}
+		
+	    $title =  'Edit ' . self::$title;
+	    
+	    $breadcrumbs = [
+		    HomeController::breadcrumb(),
+		    self::breadcrumb(),
+		    ['Edit', route('menu.registrasi-vendor.edit', ['registrasi_vendor' => enkrip($registrasiVendor->id)])],
+	    ];
+	    
+	    $stmtKategoriVendor = KategoriVendor::isActive()->orderBy('nama')->get();
+	    $stmtProvinsi = Provinsi::isActive()->orderBy('nama')->get();
+	    
+	    $data = [
+		    'title' => $title,
+		    'breadcrumbs' => $breadcrumbs,
+		    'stmtKategoriVendor' => $stmtKategoriVendor,
+		    'stmtProvinsi' => $stmtProvinsi,
+		    'documentsField' => DocumentService::makeFields(true, $registrasiVendor),
+		    'registrasiVendor' => $registrasiVendor
+	    ];
+	    
+	    return view('menu.vendor-perorangan.edit', $data);
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
+	
+	/**
+	 * Update the specified resource in storage.
+	 * @throws Throwable
+	 */
     public function update(Request $request, RegistrasiVendor $registrasiVendor)
     {
-        //
+	    try {
+		    $this->authorize(PermissionEnum::RegistrasiVendorEdit->value);
+		    
+		    if(!$registrasiVendor->is_draft){
+			    abort(403, 'Registration Already Submitted! Can\'t be edited.');
+		    }
+			
+		    DB::beginTransaction();
+		    
+		    $isDraft = $request->confirm_done_checkbox === 'on';
+		    
+		    $registrasiVendor->update([
+			    'nama' => $request->nama,
+			    'nama_singkatan' => $request->nama_singkatan,
+			    'is_draft' => !$isDraft,
+			    'updated_by' => Auth::id()
+		    ]);
+			
+		    $registrasiVendor->updateDocuments($request->file());
+		    
+		    DB::commit();
+			
+		    if($registrasiVendor->is_draft){
+			    sweetAlert('success', 'Berhasil Mengupdate Data');
+			    
+			    return to_route('menu.registrasi-vendor.edit', ['registrasi_vendor' => enkrip($registrasiVendor->id)]);
+		    }
+		    sweetAlert('success', 'Berhasil Submit Data');
+		    
+		    return to_route('menu.registrasi-vendor.index');
+	    } catch (Throwable $th) {
+		    DB::rollBack();
+		    
+		    sweetAlertException('Gagal Mengupdate Data', $th);
+		    
+		    return to_route('menu.registrasi-vendor.edit', ['registrasi_vendor' => enkrip($registrasiVendor->id)]);
+	    }
     }
 
     /**
