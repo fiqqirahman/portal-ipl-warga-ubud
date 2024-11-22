@@ -26,6 +26,7 @@ class RegisterVendorRequest extends FormRequest
             'password' => 'required|string|min:8|confirmed',
             'name' => 'required|string|max:255',
             'password_confirmation' => 'required|string',
+            'g-recaptcha-response' => 'required|captcha',
         ];
     }
 

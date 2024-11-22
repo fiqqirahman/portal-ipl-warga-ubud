@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Master;
 
 use App\DataTables\Master\DokumenDataTable;
+use App\Enums\PermissionEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
 use App\Http\Requests\DokumenRequest;
@@ -68,14 +69,27 @@ class DokumenController extends Controller
      */
     public function store(DokumenRequest $request): RedirectResponse
     {
-        $this->authorize('master_dokumen_create');
-        Dokumen::create($request->validated() + ['created_by' => Auth::id()]);
+        try {
+            $this->authorize(PermissionEnum::MasterDokumenCreate->value);
 
-        createLogActivity('Membuat Master Data Dokumen');
+            $validatedData['allowed_file_types'] = json_encode(['allowed_file_types']);
 
-        return Redirect::route('master.dokumen.index')
-            ->with('alert.status', '00')
-            ->with('alert.message', "Master Data Dokumen berhasil dibuat");
+            $masterDokumen = Dokumen::create($request->safe()->all() + [
+                    'nama_dokumen' => $request->input('nama_dokumen'),
+                    'keterangan' => $request->input('keterangan'),
+                    'is_required' => $request->input('is_required'),
+                    'max_file_size' => $request->input('max_file_size'),
+                    'allowed_file_types' => $validatedData,
+                    'created_by' => Auth::id(),
+                ]);
+            createLogActivity('Membuat Master Data Dokumen');
+
+            sweetAlert('success', 'Master Data Dokumen Berhasil di Simpan');
+            return to_route('master.dokumen.index');
+        } catch (\Exception $e) {
+            sweetAlertException('Terjadi Kesalahan, hubungi Administrator!', $e);
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat registrasi. Silakan coba lagi.')->withInput();
+        }
     }
 
     /**

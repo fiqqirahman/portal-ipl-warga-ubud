@@ -92,6 +92,13 @@
                                    value="{{ old('email') }}"
                                    type="email" placeholder="Email" name="email" autocomplete="off" data-kt-translate="sign-up-input-email" />
                         </div>
+                        <div class="fv-row mb-10">
+                            <select class="form-select form-select-lg" name="is_company" required>
+                                <option value="" disabled selected>Pilih Tipe</option>
+                                <option value="true" {{ old('is_company') === 'true' ? 'selected' : '' }}>Perusahaan</option>
+                                <option value="false" {{ old('is_company') === 'false' ? 'selected' : '' }}>Perorangan</option>
+                            </select>
+                        </div>
                         <!--end::Input group-->
                         <!--begin::Input group-->
                         <div class="fv-row mb-10" data-kt-password-meter="true">
@@ -126,10 +133,17 @@
                             <input class="form-control form-control-lg" required type="password" placeholder="Confirm Password" name="password_confirmation" autocomplete="off" data-kt-translate="sign-up-input-confirm-password" />
                         </div>
                         <!--end::Input group-->
+                        <div class="fv-row mb-3">
+                            {!! NoCaptcha::renderJs() !!}
+                            {!! NoCaptcha::display() !!}
+                            @error('g-recaptcha-response')
+                            <div class="text-danger mt-2">{{ $message }}</div>
+                            @enderror
+                        </div>
                         <!--begin::Actions-->
                         <div class="d-flex flex-stack">
                             <!--begin::Submit-->
-                            <button type="submit" id="kt_sign_up_submit" class="btn btn-primary" data-kt-translate="sign-up-submit">
+                            <button type="submit" id="kt_sign_in_submit" class="btn btn-primary" data-kt-translate="sign-up-submit">
                                 <!--begin::Indicator label-->
                                 <span class="indicator-label">Submit</span>
                                 <!--end::Indicator label-->
@@ -154,7 +168,9 @@
         </div>
         <!--end::Aside-->
         <!--begin::Body-->
-        <div class="d-none d-lg-flex flex-lg-row-fluid w-50 bgi-size-cover bgi-position-y-center bgi-position-x-start bgi-no-repeat" style="background-image: url('{{asset('metronic/demo2/assets/media/auth/bg11.png')}}')"></div>
+        <div class="d-none d-lg-flex flex-lg-row-fluid w-50 bgi-size-cover bgi-position-y-center
+        bgi-position-x-start bgi-no-repeat"
+             style="background-image: url('{{asset('metronic/demo2/assets/media/auth/back.jpg')}}')"></div>
         <!--begin::Body-->
     </div>
     <!--end::Authentication - Sign-up-->
@@ -164,6 +180,7 @@
 <!--begin::Javascript-->
 <script>var hostUrl = "assets/";</script>
 <!--begin::Global Javascript Bundle(used by all pages)-->
+<script src="{{ asset('metronic/demo2/assets/js/custom/crypto-js.min.js') }}"></script>
 <script src="{{asset('metronic/demo2/assets/plugins/global/plugins.bundle.js')}}"></script>
 <script src="{{asset('metronic/demo2/assets/js/scripts.bundle.js')}}"></script>
 <!--end::Global Javascript Bundle-->

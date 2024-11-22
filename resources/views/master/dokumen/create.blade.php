@@ -89,24 +89,6 @@
                                                title="Pilih tipe dokumen yang diizinkan untuk diunggah"></i>
                                         </label>
                                         <div id="allowed_file_types">
-{{--                                            <div class="form-check">--}}
-{{--                                                <input class="form-check-input" type="checkbox" name="allowed_file_types[]" value="jpg" id="fileTypeJpg">--}}
-{{--                                                <label class="form-check-label" for="fileTypeJpg">--}}
-{{--                                                    .jpg--}}
-{{--                                                </label>--}}
-{{--                                            </div>--}}
-{{--                                            <div class="form-check">--}}
-{{--                                                <input class="form-check-input" type="checkbox" name="allowed_file_types[]" value="jpeg" id="fileTypeJpeg">--}}
-{{--                                                <label class="form-check-label" for="fileTypeJpeg">--}}
-{{--                                                    .jpeg--}}
-{{--                                                </label>--}}
-{{--                                            </div>--}}
-{{--                                            <div class="form-check">--}}
-{{--                                                <input class="form-check-input" type="checkbox" name="allowed_file_types[]" value="png" id="fileTypePng">--}}
-{{--                                                <label class="form-check-label" for="fileTypePng">--}}
-{{--                                                    .png--}}
-{{--                                                </label>--}}
-{{--                                            </div>--}}
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="allowed_file_types[]" value="pdf" id="fileTypePdf">
                                                 <label class="form-check-label" for="fileTypePdf">

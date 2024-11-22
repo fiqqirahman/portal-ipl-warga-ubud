@@ -15,13 +15,16 @@ class RegistrationMail extends Mailable
 
     public $user;
     public $password;
+    private $activationToken;
+
     /**
      * Create a new message instance.
      */
-    public function __construct($user, $password)
+    public function __construct($user, $password, $activationToken)
     {
         $this->user = $user;
         $this->password = $password;
+        $this->activationToken = $activationToken;
     }
 
     /**
@@ -30,7 +33,7 @@ class RegistrationMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Registration Mail',
+            subject: 'Aktivasi Akun Anda',
         );
     }
 
@@ -39,8 +42,16 @@ class RegistrationMail extends Mailable
      */
     public function content(): Content
     {
+        $activationLink = route('landing-page.user.activate', ['token' => $this->activationToken]);
+
         return new Content(
-            view: 'emails.registration',
+
+            view: 'emails.registration', // Gunakan view yang sudah Anda buat
+            with: [
+                'user' => $this->user,
+                'password' => $this->password,
+                'activationLink' => $activationLink,
+            ],
         );
     }
 
@@ -52,15 +63,5 @@ class RegistrationMail extends Mailable
     public function attachments(): array
     {
         return [];
-    }
-
-    public function build()
-    {
-        return $this->view('emails.registration')
-            ->subject('Registrasi Berhasil')
-            ->with([
-                'user' => $this->user,
-                'password' => $this->password,
-            ]);
     }
 }

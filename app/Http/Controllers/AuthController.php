@@ -15,7 +15,9 @@ class AuthController extends Controller
 {
     public function login()
     {
-        return view('auth.login');
+//        return view('auth.login');
+        return view('landing-page.sign-in');
+
     }
 
     public function loginViaPublicSSO(LoginRequest $request)
