@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\StatusRegistrasiEnum;
+use App\Enums\UserVendorTypeEnum;
 use App\Models\Master\DokumenVendor;
 use App\Traits\HasDocuments;
 use App\Traits\Model\Scope\IsActive;
@@ -25,6 +27,13 @@ class RegistrasiVendor extends Model
 		} catch (Exception $exception) {
 			abort(404);
 		}
+	}
+	
+	protected function casts(): array
+	{
+		return [
+			'status_registrasi' => StatusRegistrasiEnum::class,
+		];
 	}
 
     public function createdBy(): BelongsTo

@@ -27,12 +27,12 @@ class RegistrasiVendorIndividualUpdateRequest extends FormRequest
     {
 		$isRequired = $this->input('confirm_done_checkbox') === 'on' ? 'required' : 'nullable';
 		
-		$registrasiVendor = RegistrasiVendor::findOrFail($this->input('registrasi_vendor_id'));
+		$registrasiVendor = $this->route('registrasi_vendor');
 		
         return [
 			'nama' => [$isRequired, 'string', 'max:255'],
 			'nama_singkatan' => [$isRequired, 'string', 'max:255'],
-			'npwp' => [$isRequired, 'numeric', 'digits:16'],
+			'npwp' => [$isRequired, 'numeric', 'digits_between:15,16'],
 	        'confirm_done_checkbox' => ['nullable', Rule::in(['on'])],
 	        ...DocumentService::makeValidationRules(true, $isRequired, $registrasiVendor)
         ];

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\Menu\VendorPeroranganDataTable;
 use App\Enums\PermissionEnum;
+use App\Enums\StatusRegistrasiEnum;
 use App\Http\Requests\RegistrasiVendor\Individual\RegistrasiVendorIndividualStoreRequest;
 use App\Http\Requests\RegistrasiVendor\Individual\RegistrasiVendorIndividualUpdateRequest;
 use App\Models\KabKota;
@@ -37,7 +38,6 @@ class RegistrasiVendorController extends Controller
      */
     public function index(VendorPeroranganDataTable $dataTable)
     {
-        $this->authorize(PermissionEnum::RegistrasiVendorAccess->value);
         $title = 'Data ' . self::$title;
 
         $breadcrumbs = [
@@ -96,20 +96,20 @@ class RegistrasiVendorController extends Controller
 	        }
 			
 			DB::beginTransaction();
-			
-			$isDraft = $request->confirm_done_checkbox === 'on';
+	        
+	        $statusRegistrasi = $request->confirm_done_checkbox === 'on' ? StatusRegistrasiEnum::Analysis : StatusRegistrasiEnum::Draft;
 			
 			$create = RegistrasiVendor::create([
 				'nama' => $request->nama,
 				'nama_singkatan' => $request->nama_singkatan,
-				'is_company' => false,
-				'is_draft' => !$isDraft,
+				'npwp' => $request->npwp,
+				'status_registrasi' => $statusRegistrasi,
 				'created_by' => Auth::id()
 			]);
 			
 	        $create->storeDocuments($request->file());
 			
-			if(!$isDraft){
+			if($create->status_registrasi === StatusRegistrasiEnum::Analysis){
 				sweetAlert('success', 'Berhasil Submit Data');
 			} else {
 				sweetAlert('success', 'Berhasil Menyimpan Data ke Draft');
@@ -126,23 +126,15 @@ class RegistrasiVendorController extends Controller
 			return to_route('menu.registrasi-vendor.create');
         }
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(RegistrasiVendor $registrasiVendor)
-    {
-        //
-    }
-
+	
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(RegistrasiVendor $registrasiVendor)
     {
 	    $this->authorize(PermissionEnum::RegistrasiVendorEdit->value);
-		
-		if(!$registrasiVendor->is_draft){
+	    
+	    if(!in_array($registrasiVendor->status_registrasi->value, [StatusRegistrasiEnum::Draft->value, StatusRegistrasiEnum::RevisionDocuments->value])){
 			abort(403, 'Registration Already Submitted! Can\'t be edited.');
 		}
 		
@@ -178,18 +170,19 @@ class RegistrasiVendorController extends Controller
 	    try {
 		    $this->authorize(PermissionEnum::RegistrasiVendorEdit->value);
 		    
-		    if(!$registrasiVendor->is_draft){
+		    if(!in_array($registrasiVendor->status_registrasi->value, [StatusRegistrasiEnum::Draft->value, StatusRegistrasiEnum::RevisionDocuments->value])){
 			    abort(403, 'Registration Already Submitted! Can\'t be edited.');
 		    }
 			
 		    DB::beginTransaction();
 		    
-		    $isDraft = $request->confirm_done_checkbox === 'on';
+		    $statusRegistrasi = $request->confirm_done_checkbox === 'on' ? StatusRegistrasiEnum::Analysis : StatusRegistrasiEnum::Draft;
 		    
 		    $registrasiVendor->update([
 			    'nama' => $request->nama,
 			    'nama_singkatan' => $request->nama_singkatan,
-			    'is_draft' => !$isDraft,
+			    'npwp' => $request->npwp,
+			    'status_registrasi' => $statusRegistrasi,
 			    'updated_by' => Auth::id()
 		    ]);
 			
@@ -197,7 +190,7 @@ class RegistrasiVendorController extends Controller
 		    
 		    DB::commit();
 			
-		    if($registrasiVendor->is_draft){
+		    if($registrasiVendor->status_registrasi == StatusRegistrasiEnum::Draft){
 			    sweetAlert('success', 'Berhasil Mengupdate Data');
 			    
 			    return to_route('menu.registrasi-vendor.edit', ['registrasi_vendor' => enkrip($registrasiVendor->id)]);
@@ -213,25 +206,19 @@ class RegistrasiVendorController extends Controller
 		    return to_route('menu.registrasi-vendor.edit', ['registrasi_vendor' => enkrip($registrasiVendor->id)]);
 	    }
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(RegistrasiVendor $registrasiVendor)
-    {
-        //
-    }
-
+	
     public function getKabKotaByProvinsi(Request $request): JsonResponse
     {
         $kabKota = KabKota::where('kode_provinsi', $request->kode_provinsi)->aktif()->get();
         return response()->json($kabKota);
     }
+	
     public function getKecamatanByKabKota(Request $request): JsonResponse
     {
         $kecamatan = Kecamatan::where('kode_kab_kota', $request->kode_kabupaten_kota)->aktif()->get();
         return response()->json($kecamatan);
     }
+	
     public function getKelurahanByKecamatan(Request $request): JsonResponse
     {
         $kelurahan = Kelurahan::where('kode_kecamatan', $request->kode_kecamatan)->aktif()->get();

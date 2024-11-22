@@ -13,8 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('tbl_history_registrasi_vendor', function (Blueprint $table) {
-            $table->enum('status_dokumen', StatusRegistrasiEnum::getAll())
-                ->nullable()
+            $table->enum('status_registrasi', StatusRegistrasiEnum::getAll())
                 ->default(StatusRegistrasiEnum::Draft);
         });
     }
@@ -25,7 +24,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('tbl_history_registrasi_vendor', function (Blueprint $table) {
-            //
+            $table->dropColumn('status_registrasi');
         });
     }
 };

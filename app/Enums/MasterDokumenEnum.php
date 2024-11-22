@@ -53,9 +53,6 @@ enum MasterDokumenEnum: int {
 		return [
 			self::KTPPerorangan,
 			self::NPWPPerorangan,
-			self::KartuTandaAnggotaHPI,
-			self::BukuTabungan,
-			self::SuratPermohonan
 		];
 	}
 	

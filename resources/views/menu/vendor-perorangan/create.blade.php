@@ -87,10 +87,11 @@
                                     </div>
                                     <div class="col-md-4 col-sm-12 mb-4">
                                         <label for="npwp" class="fs-6 fw-semibold form-label mt-3">
-                                            <span>NPWP</span>
+                                            <span class="required">NPWP</span>
                                         </label>
                                         <input type="text"
                                                class="form-control @error('npwp') is-invalid @enderror positive-numeric"
+                                               required minlength="15"
                                                name="npwp" value="{{ old('npwp') }}" id="npwp" maxlength="16" />
                                         @error('npwp')
                                         <div class="invalid-feedback">

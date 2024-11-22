@@ -97,14 +97,14 @@ class LandingPageController extends Controller
             $activationToken = Str::random(64);
 
             $user = User::create([
-                'name' => $request->input('name'),
-                'email' => $request->input('email'),
-                'is_company' => $request->input('is_company'),
+                'name' => trim(e($request->input('name'))),
+                'email' => strtolower(trim($request->input('email'))),
                 'password' => bcrypt($password),
                 'username' => $username,
                 'activation_token' => $activationToken,
                 'expired_password' => Carbon::now()->addMonths(),
-                'is_actived' => false,
+				'vendor_type' => $request->vendor_type,
+                'is_activated' => false
             ]);
 
             $user->assignRole(Role::$VENDOR);

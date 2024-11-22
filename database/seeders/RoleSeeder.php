@@ -25,48 +25,7 @@ class RoleSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 		
         // Create permissions
-        $permissions = [
-            // ['name' => PermissionEnum::SomeMenuAccess->value],
-	        
-            ['name' => PermissionEnum::UtilityAccess->value],
-            ['name' => PermissionEnum::DebugEagleEyeAccess->value],
-            ['name' => PermissionEnum::MasterConfigAccess->value],
-
-            //MasterJenisVendor
-            ['name' => PermissionEnum::MasterJenisVendorAccess->value],
-            ['name' => PermissionEnum::MasterJenisVendorCreate->value],
-            ['name' => PermissionEnum::MasterJenisVendorEdit->value],
-
-            //master bentuk badan usaha
-            ['name' => PermissionEnum::MasterBentukBadanUsahaAccess->value],
-            ['name' => PermissionEnum::MasterBentukBadanUsahaCreate->value],
-            ['name' => PermissionEnum::MasterBentukBadanUsahaEdit->value],
-
-            //master kategori vendor
-            ['name' => PermissionEnum::MasterKategoriVendorAccess->value],
-            ['name' => PermissionEnum::MasterKategoriVendorCreate->value],
-            ['name' => PermissionEnum::MasterKategoriVendorEdit->value],
-
-            //master status perusahaan
-            ['name' => PermissionEnum::MasterStatusPerusahaanAccess->value],
-            ['name' => PermissionEnum::MasterStatusPerusahaanCreate->value],
-            ['name' => PermissionEnum::MasterStatusPerusahaanEdit->value],
-
-            //master status Dokumen
-            ['name' => PermissionEnum::MasterDokumenAccess->value],
-            ['name' => PermissionEnum::MasterDokumenCreate->value],
-            ['name' => PermissionEnum::MasterDokumenEdit->value],
-
-            //registrasi vendor
-            ['name' => PermissionEnum::RegistrasiVendorAccess->value],
-            ['name' => PermissionEnum::RegistrasiVendorCreate->value],
-            ['name' => PermissionEnum::RegistrasiVendorEdit->value],
-
-            //registrasi vendor perusahaan
-            ['name' => PermissionEnum::RegistrasiVendorPerusahaanAccess->value],
-            ['name' => PermissionEnum::RegistrasiVendorPerusahaanCreate->value],
-            ['name' => PermissionEnum::RegistrasiVendorPerusahaanEdit->value],
-        ];
+        $permissions = PermissionEnum::getAll(true);
 
         collect($permissions)->each(function ($data) {
             Permission::updateOrCreate(['name' => $data['name']],$data);

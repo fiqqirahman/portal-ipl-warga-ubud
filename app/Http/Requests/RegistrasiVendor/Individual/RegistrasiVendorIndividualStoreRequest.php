@@ -29,7 +29,7 @@ class RegistrasiVendorIndividualStoreRequest extends FormRequest
         return [
 			'nama' => [$isRequired, 'string', 'max:255'],
 			'nama_singkatan' => [$isRequired, 'string', 'max:255'],
-			'npwp' => [$isRequired, 'numeric', 'digits:16'],
+			'npwp' => [$isRequired, 'numeric', 'digits_between:15,16'],
 	        'confirm_done_checkbox' => ['nullable', Rule::in(['on'])],
 	        ...DocumentService::makeValidationRules(true, $isRequired)
         ];

@@ -21,7 +21,7 @@ use Spatie\Permission\Middleware\PermissionMiddleware;
 $SSOIsLocal = (boolean) CacheForeverHelper::getSingle(MasterConfigKeyEnum::SSOIsLocal);
 
 	// landing-page
-Route::name('landing-page.')->group(function () {
+Route::name('landing-page.')->middleware('guest')->group(function () {
     Route::get('/', [LandingPageController::class, 'index'])->name('index');
     Route::get('/registrasi', [LandingPageController::class, 'registrasi'])->name('registrasi');
     Route::post('/register', [LandingPageController::class, 'registerVendor'])->name('register-submit');
@@ -107,14 +107,22 @@ Route::middleware('auth')->group(function () use($SSOIsLocal) {
                 Route::get('/dokumen/{id}/aktif', [DokumenController::class, 'aktif'])->name('dokumen.aktif');
             });
 
-            Route::prefix('menu')->name('menu.')->group(function () {
-                // registrasi vendor
-                Route::resource('/registrasi-vendor', RegistrasiVendorController::class)->except(['show', 'destroy']);
-                Route::resource('/registrasi-vendor-perusahaan', RegistrasiVendorPerusahaanController::class, ['parameters' => ['registrasi-vendor-perusahaan' => 'id']])->except(['show', 'destroy']);
-                Route::get('/getKabKotaByProvinsi', [RegistrasiVendorController::class, 'getKabKotaByProvinsi'])->name('getKabKotaByProvinsi');
-                Route::get('/getKecamatanByKabKota', [RegistrasiVendorController::class, 'getKecamatanByKabKota'])->name('getKecamatanByKabKota');
-                Route::get('/getKelurahanByKecamatan', [RegistrasiVendorController::class, 'getKelurahanByKecamatan'])->name('getKelurahanByKecamatan');
-            });
+            Route::prefix('menu')
+	            ->middleware([PermissionMiddleware::using(PermissionEnum::RegistrasiVendorAccess->value), 'vendor.registration-type'])
+	            ->name('menu.')
+	            ->group(function () {
+	                // registrasi vendor perorangan
+	                Route::resource('/registrasi-vendor', RegistrasiVendorController::class)
+		                ->except(['show', 'destroy']);
+					
+		            // registrasi vendor perorangan
+	                Route::resource('/registrasi-vendor-perusahaan', RegistrasiVendorPerusahaanController::class)
+		                ->except(['show', 'destroy']);
+					
+	                Route::get('/getKabKotaByProvinsi', [RegistrasiVendorController::class, 'getKabKotaByProvinsi'])->name('getKabKotaByProvinsi');
+	                Route::get('/getKecamatanByKabKota', [RegistrasiVendorController::class, 'getKecamatanByKabKota'])->name('getKecamatanByKabKota');
+	                Route::get('/getKelurahanByKecamatan', [RegistrasiVendorController::class, 'getKelurahanByKecamatan'])->name('getKelurahanByKecamatan');
+	            });
         });
     });
 });

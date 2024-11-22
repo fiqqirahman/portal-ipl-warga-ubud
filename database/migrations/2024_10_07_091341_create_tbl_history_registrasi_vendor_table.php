@@ -37,7 +37,6 @@ return new class extends Migration
             $table->string('jabatan')->nullable();
             $table->string('kode_divisi_vendor')->nullable();
             $table->foreignId('file_id')->nullable()->references('id')->on('tbl_history_file');
-            $table->foreignId('kode_status_approval')->nullable();
             $table->string('nama_pic')->nullable();
             $table->string('no_hp_pic')->nullable();
             $table->string('email_pic')->nullable();
@@ -45,8 +44,6 @@ return new class extends Migration
             $table->foreignId('updated_by')->nullable()->references('id')->on('users');
             $table->foreignId('approve_by')->nullable()->references('id')->on('users');
             $table->timestamp('approved_at')->nullable();
-            $table->boolean('is_draft')->default(true);
-            $table->boolean('is_company')->default(false);
             $table->timestamps();
         });
     }

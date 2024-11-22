@@ -74,9 +74,8 @@ class DocumentService
 	public static function store(RegistrasiVendor $model, array $files): bool
 	{
 		try {
-			$isCompany = $model->is_company ? 'company' : 'individual';
-			$prefix = $model->created_at->format('Ymd-His');
-			$pathFile =  $isCompany . '/' . $prefix;
+			$prefix = $model->createdBy->username;
+			$pathFile = 'vendor-registration/' . $model->createdBy->vendor_type->value . '/' . $prefix;
 			
 			foreach($files as $key => $file) {
 				$idDocument = str_replace('document_', '', $key);
@@ -105,9 +104,8 @@ class DocumentService
 	public static function update(RegistrasiVendor $model, array $files): bool
 	{
 		try {
-			$isCompany = $model->is_company ? 'company' : 'individual';
-			$prefix = $model->created_at->format('Ymd-His');
-			$pathFile =  $isCompany . '/' . $prefix;
+			$prefix = $model->createdBy->username;
+			$pathFile = 'vendor-registration/' . $model->createdBy->vendor_type->value . '/' . $prefix;
 			
 			foreach($files as $key => $file) {
 				$idDocument = str_replace('document_', '', $key);

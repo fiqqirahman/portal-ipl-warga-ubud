@@ -27,35 +27,7 @@ class Role
             [
                 'id' => self::$SUPER_ADMIN,
                 'name' => 'Super Admin',
-                'permissions' => [
-	                // Permission::SomeMenuAccess->value
-	                
-	                PermissionEnum::UtilityAccess->value,
-	                PermissionEnum::DebugEagleEyeAccess->value,
-	                PermissionEnum::MasterConfigAccess->value,
-                    PermissionEnum::MasterJenisVendorAccess->value,
-                    PermissionEnum::MasterJenisVendorEdit->value,
-                    PermissionEnum::MasterJenisVendorCreate->value,
-                    PermissionEnum::MasterBentukBadanUsahaAccess->value,
-                    PermissionEnum::MasterBentukBadanUsahaCreate->value,
-                    PermissionEnum::MasterBentukBadanUsahaEdit->value,
-                    PermissionEnum::MasterStatusPerusahaanAccess->value,
-                    PermissionEnum::MasterStatusPerusahaanCreate->value,
-                    PermissionEnum::MasterStatusPerusahaanEdit->value,
-                    PermissionEnum::MasterKategoriVendorAccess->value,
-                    PermissionEnum::MasterKategoriVendorCreate->value,
-                    PermissionEnum::MasterKategoriVendorEdit->value,
-                    PermissionEnum::RegistrasiVendorAccess->value,
-                    PermissionEnum::RegistrasiVendorCreate->value,
-                    PermissionEnum::RegistrasiVendorEdit->value,
-                    PermissionEnum::RegistrasiVendorPerusahaanAccess->value,
-                    PermissionEnum::RegistrasiVendorPerusahaanCreate->value,
-                    PermissionEnum::RegistrasiVendorPerusahaanEdit->value,
-                    PermissionEnum::MasterDokumenAccess->value,
-                    PermissionEnum::MasterDokumenCreate->value,
-                    PermissionEnum::MasterDokumenEdit->value,
-
-                ],
+	            'permissions' => PermissionEnum::getAll(),
                 'menus' => [
                     Menu::$DASHBOARD,
 
@@ -78,34 +50,7 @@ class Role
             [
                 'id' => self::$DEVELOPER,
                 'name' => 'Developer',
-                'permissions' => [
-	                // Permission::SomeMenuAccess->value
-	                
-	                PermissionEnum::UtilityAccess->value,
-	                PermissionEnum::DebugEagleEyeAccess->value,
-	                PermissionEnum::MasterConfigAccess->value,
-                    PermissionEnum::MasterJenisVendorAccess->value,
-                    PermissionEnum::MasterJenisVendorEdit->value,
-                    PermissionEnum::MasterJenisVendorCreate->value,
-                    PermissionEnum::MasterBentukBadanUsahaAccess->value,
-                    PermissionEnum::MasterBentukBadanUsahaCreate->value,
-                    PermissionEnum::MasterBentukBadanUsahaEdit->value,
-                    PermissionEnum::MasterStatusPerusahaanAccess->value,
-                    PermissionEnum::MasterStatusPerusahaanCreate->value,
-                    PermissionEnum::MasterStatusPerusahaanEdit->value,
-                    PermissionEnum::MasterKategoriVendorAccess->value,
-                    PermissionEnum::MasterKategoriVendorCreate->value,
-                    PermissionEnum::MasterKategoriVendorEdit->value,
-                    PermissionEnum::RegistrasiVendorAccess->value,
-                    PermissionEnum::RegistrasiVendorCreate->value,
-                    PermissionEnum::RegistrasiVendorEdit->value,
-                    PermissionEnum::RegistrasiVendorPerusahaanAccess->value,
-                    PermissionEnum::RegistrasiVendorPerusahaanCreate->value,
-                    PermissionEnum::RegistrasiVendorPerusahaanEdit->value,
-                    PermissionEnum::MasterDokumenAccess->value,
-                    PermissionEnum::MasterDokumenCreate->value,
-                    PermissionEnum::MasterDokumenEdit->value,
-                ],
+                'permissions' => PermissionEnum::getAll(),
                 'menus' => [
 	                Menu::$DASHBOARD,
 
@@ -125,65 +70,58 @@ class Role
 	                Menu::$MASTER_CONFIG,
                 ],
             ],
-	         [
-		         'id' => self::$OP_VENDOR_MANAJEMEN,
-		         'name' => 'Operator Vendor Manajemen',
-		         'permissions' => [
-                     PermissionEnum::MasterJenisVendorAccess->value,
-                     PermissionEnum::MasterJenisVendorEdit->value,
-                     PermissionEnum::MasterJenisVendorCreate->value,
-                     PermissionEnum::MasterBentukBadanUsahaAccess->value,
-                     PermissionEnum::MasterBentukBadanUsahaCreate->value,
-                     PermissionEnum::MasterBentukBadanUsahaEdit->value,
-                     PermissionEnum::MasterStatusPerusahaanAccess->value,
-                     PermissionEnum::MasterStatusPerusahaanCreate->value,
-                     PermissionEnum::MasterStatusPerusahaanEdit->value,
-                     PermissionEnum::MasterKategoriVendorAccess->value,
-                     PermissionEnum::MasterKategoriVendorCreate->value,
-                     PermissionEnum::MasterKategoriVendorEdit->value,
-                     PermissionEnum::RegistrasiVendorAccess->value,
-                     PermissionEnum::RegistrasiVendorCreate->value,
-                     PermissionEnum::RegistrasiVendorEdit->value,
-                     PermissionEnum::RegistrasiVendorPerusahaanAccess->value,
-                     PermissionEnum::RegistrasiVendorPerusahaanCreate->value,
-                     PermissionEnum::RegistrasiVendorPerusahaanEdit->value,
-                     PermissionEnum::MasterDokumenAccess->value,
-                     PermissionEnum::MasterDokumenCreate->value,
-                     PermissionEnum::MasterDokumenEdit->value,
-                     ],
-		         'menus' => [
-                     Menu::$DASHBOARD,
-
-                     Menu::$MASTER_DATA,
-                     Menu::$MASTER_JENIS_VENDOR,
-                     Menu::$MASTER_BENTUK_BADAN_USAHA,
-                     Menu::$MASTER_STATUS_PERUSAHAAN,
-                     Menu::$MASTER_KATEGORI_VENDOR,
-
-                     Menu::$REGISTRASI_VENDOR,
-                     Menu::$VENDOR_PERUSAHAAN,
-                     Menu::$VENDOR_PERORANGAN,
-		         ],
-	         ],
+	        [
+		        'id' => self::$VENDOR,
+		        'name' => 'Vendor',
+		        'permissions' => [
+			        PermissionEnum::RegistrasiVendorAccess->value,
+			        PermissionEnum::RegistrasiVendorCreate->value,
+			        PermissionEnum::RegistrasiVendorEdit->value,
+		        ],
+		        'menus' => [
+			        Menu::$DASHBOARD,
+			        
+			        Menu::$REGISTRASI_VENDOR,
+			        Menu::$VENDOR_PERUSAHAAN,
+			        Menu::$VENDOR_PERORANGAN,
+		        ],
+	        ],
             [
-                'id' => self::$VENDOR,
-                'name' => 'Vendor',
-                'permissions' => [
-                    PermissionEnum::RegistrasiVendorAccess->value,
+	            'id' => self::$OP_VENDOR_MANAJEMEN,
+	            'name' => 'Operator Vendor Manajemen',
+	            'permissions' => [
+                    PermissionEnum::MasterJenisVendorAccess->value,
+                    PermissionEnum::MasterJenisVendorEdit->value,
+                    PermissionEnum::MasterJenisVendorCreate->value,
+                    PermissionEnum::MasterBentukBadanUsahaAccess->value,
+                    PermissionEnum::MasterBentukBadanUsahaCreate->value,
+                    PermissionEnum::MasterBentukBadanUsahaEdit->value,
+
+                    PermissionEnum::MasterKategoriVendorAccess->value,
+                    PermissionEnum::MasterKategoriVendorCreate->value,
+                    PermissionEnum::MasterKategoriVendorEdit->value,
+					PermissionEnum::RegistrasiVendorAccess->value,
                     PermissionEnum::RegistrasiVendorCreate->value,
                     PermissionEnum::RegistrasiVendorEdit->value,
-                    PermissionEnum::RegistrasiVendorPerusahaanAccess->value,
-                    PermissionEnum::RegistrasiVendorPerusahaanCreate->value,
-                    PermissionEnum::RegistrasiVendorPerusahaanEdit->value,
-                ],
-                'menus' => [
+
+                    PermissionEnum::MasterDokumenAccess->value,
+                    PermissionEnum::MasterDokumenCreate->value,
+                    PermissionEnum::MasterDokumenEdit->value,
+                 ],
+	            'menus' => [
                     Menu::$DASHBOARD,
+
+                    Menu::$MASTER_DATA,
+                    Menu::$MASTER_JENIS_VENDOR,
+                    Menu::$MASTER_BENTUK_BADAN_USAHA,
+                    Menu::$MASTER_STATUS_PERUSAHAAN,
+                    Menu::$MASTER_KATEGORI_VENDOR,
 
                     Menu::$REGISTRASI_VENDOR,
                     Menu::$VENDOR_PERUSAHAAN,
                     Menu::$VENDOR_PERORANGAN,
-                ],
-            ]
+	            ],
+	         ]
         ];
     }
 }
