@@ -33,15 +33,20 @@ class DocumentService
 		return $fields;
 	}
 	
-	public static function makeValidationRules(bool $isIndividual, string $isRequired): array
+	public static function makeValidationRules(bool $isIndividual, string $isRequired, ?RegistrasiVendor $registrasiVendor = null): array
 	{
 		$rules = [];
 		$ids = $isIndividual ? MasterDokumenEnum::groupIndividual() : MasterDokumenEnum::groupCompany();
 		$documents = Dokumen::isActive()->whereIn('id', $ids)->get();
 		
-		$documents->map(function ($document) use (&$rules, $isRequired) {
+		$registrasiVendorId = $registrasiVendor?->id ?? null;
+		
+		$documents->map(function ($document) use (&$rules, $isRequired, $registrasiVendorId) {
+			$existsOldValue = DokumenVendor::where('id_history_registrasi_vendor', $registrasiVendorId)
+				->where('id_master_dokumen', $document->id)->exists();
+			
 			$rules['document_' . $document->id] = [
-				$document->is_required ? $isRequired : 'nullable',
+				($document->is_required) ? ($existsOldValue) ? 'nullable' : $isRequired : 'nullable',
 				'mimes:' . implode(',', $document->allowed_file_types),
 				'max:' . $document->max_file_size
 			];

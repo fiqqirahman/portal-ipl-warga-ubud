@@ -256,7 +256,7 @@
                                             <div class="row">
                                                 <div class="col-md-{{ $field['old_value'] ? '6' : '12' }}">
                                                     <label for="{{ $field['id'] }}" class="fs-6 fw-semibold form-label mt-3">
-                                                        <span class="{{ $field['is_required'] ? 'has_required_label' : '' }}">{{ $field['label'] }}</span>
+                                                        <span class="{{ (empty($field['old_value']) && $field['is_required']) ? 'has_required_label' : '' }}">{{ $field['label'] }}</span>
                                                     </label>
                                                 </div>
                                                 @if($field['old_value'])
@@ -268,7 +268,7 @@
                                                 @endif
                                             </div>
                                             <input type="file" accept="{{ implode(',', array_map(fn($item) => 'application/' . $item, $field['allowed_file_types'])) }}"
-                                                   class="form-control @error($field['name']) is-invalid @enderror {{ $field['is_required'] ? 'has_required_input' : '' }}"
+                                                   class="form-control @error($field['name']) is-invalid @enderror {{ (empty($field['old_value']) && $field['is_required']) ? 'has_required_input' : '' }}"
                                                    onchange="onDocumentChange(this, '{{ implode(',', $field['allowed_file_types']) }}', '{{ $field['max_file_size'] }}')"
                                                    name="{{ $field['name'] }}" id="{{ $field['id'] }}" />
                                             @error($field['name'])

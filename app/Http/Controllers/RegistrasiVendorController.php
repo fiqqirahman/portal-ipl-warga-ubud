@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\Menu\VendorPeroranganDataTable;
 use App\Enums\PermissionEnum;
 use App\Http\Requests\RegistrasiVendor\Individual\RegistrasiVendorIndividualStoreRequest;
+use App\Http\Requests\RegistrasiVendor\Individual\RegistrasiVendorIndividualUpdateRequest;
 use App\Models\KabKota;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
@@ -172,7 +173,7 @@ class RegistrasiVendorController extends Controller
 	 * Update the specified resource in storage.
 	 * @throws Throwable
 	 */
-    public function update(Request $request, RegistrasiVendor $registrasiVendor)
+    public function update(RegistrasiVendorIndividualUpdateRequest $request, RegistrasiVendor $registrasiVendor)
     {
 	    try {
 		    $this->authorize(PermissionEnum::RegistrasiVendorEdit->value);
