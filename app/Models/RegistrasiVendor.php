@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Master\DokumenVendor;
 use App\Traits\HasDocuments;
 use App\Traits\Model\Scope\IsActive;
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -16,6 +17,15 @@ class RegistrasiVendor extends Model
     protected $table = 'tbl_history_registrasi_vendor';
 
     protected $guarded = ['id'];
+	
+	public function resolveRouteBinding($value, $field = null)
+	{
+		try {
+			return $this->where($field ?? $this->getRouteKeyName(), dekrip($value))->firstOrFail();
+		} catch (Exception $exception) {
+			abort(404);
+		}
+	}
 
     public function createdBy(): BelongsTo
     {

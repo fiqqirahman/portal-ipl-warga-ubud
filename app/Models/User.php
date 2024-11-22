@@ -8,6 +8,7 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
@@ -150,4 +151,9 @@ class User extends Authenticatable
             return $query->where('is_blokir', $status);
         });
     }
+	
+	public function registrationsVendor(): HasMany
+	{
+		return $this->hasMany(RegistrasiVendor::class, 'created_by', 'id');
+	}
 }

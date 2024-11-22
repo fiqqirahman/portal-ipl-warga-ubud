@@ -13,17 +13,19 @@
                         </span>
                         <h2>{{ $title }}</h2>
                     </div>
-                    @can('registrasi_vendor_create')
-                        <div class="card-toolbar">
-                            <div class="d-flex justify-content-end">
-                                <a href="{{ route('menu.registrasi-vendor.create') }}" type="button" class="btn btn-primary">
-                                    <span class="svg-icon svg-icon-2">
-                                        {!! file_get_contents('metronic/demo2/assets/media/icons/duotune/arrows/arr075.svg') !!}
-                                    </span>
-                                    Tambah Data
-                                </a>
+                    @can(\App\Enums\PermissionEnum::RegistrasiVendorCreate->value)
+                        @if(allowCreateRegistration())
+                            <div class="card-toolbar">
+                                <div class="d-flex justify-content-end">
+                                    <a href="{{ route('menu.registrasi-vendor.create') }}" type="button" class="btn btn-primary">
+                                        <span class="svg-icon svg-icon-2">
+                                            {!! file_get_contents('metronic/demo2/assets/media/icons/duotune/arrows/arr075.svg') !!}
+                                        </span>
+                                        Tambah Data
+                                    </a>
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     @endcan
                 </div>
                 <div class="card-body py-4">

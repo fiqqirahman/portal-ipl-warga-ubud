@@ -2,8 +2,10 @@
 
 namespace App\DataTables\Menu;
 
+use App\Enums\PermissionEnum;
 use App\Models\RegistrasiVendor;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Column;
@@ -26,6 +28,12 @@ class VendorPeroranganDataTable extends DataTable
 		    ->editColumn('nama_singkatan', function ($row) {
                 return $row->nama_singkatan ?? '-';
             })
+		    ->editColumn('is_draft', function ($row) {
+                return $row->is_draft ? '<span class="badge badge-warning">Draft</span>' : '<span class="badge badge-primary">Submitted</span>';
+            })
+		    ->addColumn('status_approval', function ($row) {
+                return '-';
+            })
 		    ->editColumn('created_by', function ($row) {
                 return $row->createdBy?->name ?? '-';
             })
@@ -39,9 +47,19 @@ class VendorPeroranganDataTable extends DataTable
 			    return ($row->created_at != $row->updated_at) ? dateWithFullMonthAndTimeFormat($row->updated_at, FALSE) : '-';
 		    })
             ->addColumn('aksi', function ($row) {
-                return 'Aksi';
+	            $buttonEdit = '-';
+				if(Auth::user()->hasPermissionTo(PermissionEnum::RegistrasiVendorEdit)){
+	                if($row->is_draft){
+		                $buttonEdit = '<a href="'. route('menu.registrasi-vendor.edit', ['registrasi_vendor' => enkrip($row->id)]) .'">
+							<button type="button" class="btn btn-sm btn-info me-3">
+								<i class="fa fa-pencil"></i> Edit
+							</button>
+						</a>';
+	                }
+				}
+				return $buttonEdit;
             })
-            ->rawColumns(['aksi']);
+            ->rawColumns(['aksi','is_draft','status_approval']);
     }
 
     /**
@@ -49,7 +67,10 @@ class VendorPeroranganDataTable extends DataTable
      */
     public function query(RegistrasiVendor $model): QueryBuilder
     {
-        return $model->newQuery()->with(['updatedBy','createdBy']);
+        return $model->newQuery()
+	        ->where('created_by', Auth::id())
+	        ->where('is_company', false)
+	        ->with(['updatedBy','createdBy']);
     }
 
     /**
@@ -86,6 +107,8 @@ class VendorPeroranganDataTable extends DataTable
 	        Column::make('DT_RowIndex')->title('No.')->searchable(false)->orderable(false)->addClass('text-center'),
             Column::make('nama'),
             Column::make('nama_singkatan'),
+            Column::computed('is_draft'),
+            Column::computed('status_approval'),
             Column::make('created_by')
                 ->title('Dibuat Oleh')
                 ->searchable(false)
