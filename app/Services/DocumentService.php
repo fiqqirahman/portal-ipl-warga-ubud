@@ -38,6 +38,9 @@ class DocumentService
 		return $fields;
 	}
 	
+	/**
+	 * @throws Exception
+	 */
 	public static function makeValidationRules(DocumentForEnum $for, string $isRequired, ?RegistrasiVendor $registrasiVendor = null): array
 	{
 		$rules = [];
@@ -49,6 +52,8 @@ class DocumentService
 		}
 		
 		$registrasiVendorId = $registrasiVendor?->id ?? null;
+		
+		$isRequired = self::allowedParamIsRequired($isRequired);
 		
 		$documents->map(function ($document) use (&$rules, $isRequired, $registrasiVendorId) {
 			$existsOldValue = $registrasiVendorId ? DokumenVendor::where('id_history_registrasi_vendor', $registrasiVendorId)
@@ -151,5 +156,19 @@ class DocumentService
 			
 			throw new Exception($th->getMessage());
 		}
+	}
+	
+	/**
+	 * @throws Exception
+	 */
+	private static function allowedParamIsRequired(string $param): string
+	{
+		$param = strtolower($param);
+		
+		if(!in_array($param, ['required','nullable'])){
+			throw new Exception('Invalid param, only Required or Nullable allowed!');
+		}
+		
+		return $param;
 	}
 }
