@@ -257,7 +257,14 @@
                                             <div class="row">
                                                 <div class="col-md-{{ $field['old_value'] ? '6' : '12' }}">
                                                     <label for="{{ $field['id'] }}" class="fs-6 fw-semibold form-label mt-3">
-                                                        <span class="{{ (empty($field['old_value']) && $field['is_required']) ? 'has_required_label' : '' }}">{{ $field['label'] }}</span>
+                                                        <span class="{{ ($field['is_required']) ? 'has_required_label' : '' }}">{{ $field['label'] }}</span>
+                                                        @if($field['old_value'])
+                                                            @php
+                                                                $additionalInfo = $field['old_value']['additional_info'];
+                                                            @endphp
+                                                            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" data-bs-html="true"
+                                                               title="{{ $additionalInfo->original_name . '.' . $additionalInfo->extension . ' <b>(' . convertToReadableSize($additionalInfo->size) . ')</b>' }} "></i>
+                                                        @endif
                                                     </label>
                                                 </div>
                                                 @if($field['old_value'])
