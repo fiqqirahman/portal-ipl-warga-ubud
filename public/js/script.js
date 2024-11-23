@@ -131,3 +131,36 @@ function convertToReadableSize(size) {
     const fBase = Math.floor(base);
     return ((Math.pow(1024, base - fBase)).toFixed(1) + ' ' + suffix[fBase]).replace('.0','');
 }
+
+function convertToFormatRupiah(amount, includeCents = false) {
+    return new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+        minimumFractionDigits: includeCents ? 2 : 0,
+        maximumFractionDigits: includeCents ? 2 : 0,
+    }).format(amount);
+}
+
+function formatRupiah(element) {
+    let value = element.value.replace(/[^,\d]/g, '').toString();
+    let splitValue = value.split(',');
+    let sisa = splitValue[0].length % 3;
+    let rupiah = splitValue[0].substr(0, sisa);
+    let ribuan = splitValue[0].substr(sisa).match(/\d{3}/gi);
+
+    if (ribuan) {
+        let separator = sisa ? '.' : '';
+        rupiah += separator + ribuan.join('.');
+    }
+
+    rupiah = splitValue[1] !== undefined ? rupiah + ',' + splitValue[1] : rupiah;
+    element.value = rupiah ? 'Rp ' + rupiah : '';
+}
+
+function cleanFormatRupiah(formattedRupiah) {
+    if (!formattedRupiah) {
+        return 0;
+    }
+
+    return parseInt(formattedRupiah.replace(/\D/g, ''), 10);
+}

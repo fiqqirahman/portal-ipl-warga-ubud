@@ -56,3 +56,47 @@ html:not([data-theme="dark"]) body:not(.app-blank) {
   body.loading .overlay {
     display: block;
   } */
+
+/*table.dataTable thead th {*/
+/*    white-space: nowrap;*/
+/*    text-align: left;*/
+/*    background-color: #f6f5ed !important;*/
+/*    padding-left: 12px !important;*/
+/*    padding-right: 12px !important;*/
+/*    font-weight: bold;*/
+/*    border-right: #0b0e18 1px;*/
+/*}*/
+
+/*table.dataTable tbody td {*/
+/*    padding-right: 12px !important;*/
+/*    padding-left: 12px !important;*/
+/*}*/
+
+/*table.dataTable tbody td .action {*/
+/*    text-align: center;*/
+/*}*/
+
+/*.table-td-nowrap {*/
+/*    white-space: nowrap;*/
+/*}*/
+
+.modal-background-blur {
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.mr-1 {
+    margin-right: 4px !important;
+}
+
+.mr-2 {
+    margin-right: 8px !important;
+}
+
+.mr-3 {
+    margin-right: 12px !important;
+}
+
+.mr-4 {
+    margin-right: 16px !important;
+}

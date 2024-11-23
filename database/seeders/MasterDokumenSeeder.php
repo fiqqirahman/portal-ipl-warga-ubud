@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\DocumentForEnum;
 use App\Enums\MasterConfigKeyEnum;
 use App\Enums\MasterConfigTypeEnum;
 use App\Enums\MasterDokumenEnum;
@@ -24,7 +25,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Surat Permohonan Rekanan',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::SuratPernyataanKebenaran->value,
@@ -32,7 +34,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Surat Pernyataan Kebenaran',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::CompanyProfilePerusahaan->value,
@@ -40,7 +43,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Company Profile',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::AktaPendirianPerusahaan->value,
@@ -48,7 +52,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Akta Pendirian Perusahaan',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::SkMenhukhamAtasAktaPendirian->value,
@@ -56,7 +61,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'SK Menhukham Atas Akta Pendirian',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::AktaPerubahanPerusahaanTerakhir->value,
@@ -64,7 +70,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Akta Perubahan Perusahaan Terakhir',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::SkMenhukhamAktePerubahanTerakhir->value,
@@ -72,7 +79,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'SK Menhukham Akte Perubahan Terakhir',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::SuratIzinUsaha->value,
@@ -80,7 +88,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Surat Izin Usaha',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::KtpPengurusPerusahaan->value,
@@ -88,7 +97,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'KTP Pengurus Perusahaan',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::TdpNomorIndukBerusaha->value,
@@ -96,7 +106,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'TDP Nomor Induk Berusaha (NIB)',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::SuratKeteranganDomisili->value,
@@ -104,7 +115,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Surat KeteranganDomisili',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::NpwpPerusahaan->value,
@@ -112,7 +124,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'NPWP Perusahaan',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::SuratPengukuganPengusahaKenaPajak->value,
@@ -120,7 +133,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Surat Pengukuhan Pengusaha Kena Pajak',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::SuratPernyataanTidakSedangBerpekaraHukum->value,
@@ -128,7 +142,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Surat Pernyataan Tidak Sedang Berpekara Hukum (Asli Bermaterai)',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::SuratPernyataanBahwaSeluruhDataYangDisampaikanMerupakanDataYangTerbaru->value,
@@ -136,7 +151,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Surat Pernyataan Bahwa Seluruh Data yang disampaikan merupakan data yang terbaru',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::StrukturOrganisasiPerusahaan->value,
@@ -144,7 +160,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Struktur Organisasi Perusahaan',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::DaftarPengurusPerusahaan->value,
@@ -152,7 +169,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Daftar Pengurus Perusahaan',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::LaporanKeuangan->value,
@@ -160,7 +178,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Laporan Keuangan',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::RekeningKoranBank->value,
@@ -168,7 +187,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Rekening Koran Bank 3 (tiga) Bulan Terakhir',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::DaftarPengalamanPerusahaan->value,
@@ -176,7 +196,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Daftar Pengalaman Perusahaan',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::SuratPernyataanTidakSendangDiBlacklist->value,
@@ -184,7 +205,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Surat Pernyataan Tidak Sedang Di Blacklist',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::SuratPernyataanVendor->value,
@@ -192,7 +214,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Surat Pernyataan Vendor',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::DokumenRekanan->value,
@@ -200,7 +223,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Dokumen Rekanan',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::SuratDrtYangSudahAtauAkanJatuhTempo->value,
@@ -208,7 +232,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Surat DRT yang sudah atau akan jatuh tempo',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::BeritaNegaraRiAtasAktePendirianPerusahaan->value,
@@ -216,7 +241,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Berita Negara RI Atas Akte Pendirian Perusahan',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::BeritaNegaraRiAktePerubahanTerakhir->value,
@@ -224,7 +250,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Berita Negara RI Akte Perubahan Terakhir',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::SIUJK->value,
@@ -232,7 +259,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'SIUJK',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::SuratIjinUsahaPenyediaJasaTenagaKerjaDariInstansiKetenagakerjaanSetempat->value,
@@ -240,7 +268,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Surat Ijin Usaha Penyedia Jasa Tenaga Kerja dari Instansi Ketenagakerjaan Setempat',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::SuratSertifikatKompetensiDanKualifikasiAtauSBU->value,
@@ -248,7 +277,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Surat Sertifikat Kompetensi dan Kualifikasi atau SBU',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::KartuTandaAnggotaAsosiasi->value,
@@ -256,7 +286,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Kartu Tanda Anggota Asosiasi',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::SuratKeteranganReferensiBankDariBankDki->value,
@@ -264,7 +295,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Surat Keterangan Referensi Bank Dari Bank DKI',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::SuratIzinUsahaKhusus->value,
@@ -272,7 +304,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Surat Izin Usaha Khusus',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::DataPegawaiTetapDanTidakTetap->value,
@@ -280,7 +313,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Data Pegawai Tetap dan Tidak Tetap',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::DaftarDanCVTenagaAhli->value,
@@ -288,7 +322,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Daftar dan CV Tenaga Ahli',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::DataGedungKantorDanAtauWorkshop->value,
@@ -296,7 +331,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Data Gedung Kantor dan atau Workshop',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::DataMesinAtauPeralatanUtama->value,
@@ -304,7 +340,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Data Mesin atau Peralatan Utama',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::DataKapasitasProduksiPerusahaan->value,
@@ -312,7 +349,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Data Kapasitas Produksi Perusahaan',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::DaftarPemasok->value,
@@ -320,7 +358,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Daftar Pemasok',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
             [
                 'id' => MasterDokumenEnum::FotoCopyKontrakAtauPODenganPemasok->value,
@@ -328,7 +367,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Foto Copy Kontrak atau PO Dengan Pemasok',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+	            'for' => DocumentForEnum::Company
             ],
 	        [
                 'id' => MasterDokumenEnum::NPWPPerorangan->value,
@@ -336,7 +376,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'NPWP Perorangan',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+		        'for' => DocumentForEnum::Individual
             ],
 	        [
                 'id' => MasterDokumenEnum::KTPPerorangan->value,
@@ -344,7 +385,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'KTP Perorangan',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+		        'for' => DocumentForEnum::Individual
             ],
 	        [
                 'id' => MasterDokumenEnum::KartuTandaAnggotaHPI->value,
@@ -352,7 +394,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Kartu Anggota HPI',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+		        'for' => DocumentForEnum::Individual
             ],
 	        [
                 'id' => MasterDokumenEnum::BukuTabungan->value,
@@ -360,7 +403,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Buku Tabungan',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+		        'for' => DocumentForEnum::Individual
             ],
 	        [
                 'id' => MasterDokumenEnum::SuratPermohonan->value,
@@ -368,7 +412,8 @@ class MasterDokumenSeeder extends Seeder
                 'keterangan' => 'Surat Permohonan',
                 'is_required' => true,
                 'max_file_size' => '5120',
-                'allowed_file_types' => json_encode(['pdf'])
+                'allowed_file_types' => json_encode(['pdf']),
+		        'for' => DocumentForEnum::Individual
             ],
         ];
         collect($collections)->each(function ($data) {
