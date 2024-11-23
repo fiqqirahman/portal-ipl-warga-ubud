@@ -13,9 +13,10 @@
             </div>
         </div>
         <div class="card-body pt-5">
-            <form action="{{ route('master.dokumen.store') }}" class="form" method="POST"
+            <form action="{{ route('master.dokumen.update', ['dokumen' => enkrip($dokumen->id)]) }}" class="form" method="POST"
                   id="form">
                 @csrf
+                @method('PUT')
                 <div class="row">
                     <div class="col-md-9 mb-4">
                         <label for="nama_dokumen" class="fs-6 fw-semibold form-label mt-3">
@@ -23,7 +24,7 @@
                         </label>
                         <input type="text" maxlength="255" required
                                class="form-control @error('nama_dokumen') is-invalid @enderror"
-                               name="nama_dokumen" value="{{ old('nama_dokumen') }}" id="nama_dokumen" />
+                               name="nama_dokumen" value="{{ old('nama_dokumen', $dokumen->nama_dokumen) }}" id="nama_dokumen" />
                         @error('nama_dokumen')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -37,8 +38,8 @@
                         <select class="form-select @error('is_required') is-invalid @enderror"
                                 id="is_required" name="is_required" data-control="select2" required
                                 data-placeholder="--- Pilih Dokumen Mandatory ---">
-                            <option value="1" {{ old('is_required') == '1' ? 'selected' : '' }}>Mandatory</option>
-                            <option value="0" {{ old('is_required') == '0' ? 'selected' : '' }}>Tidak Mandatory</option>
+                            <option value="1" {{ old('is_required', (int) $dokumen->is_required) == '1' ? 'selected' : '' }}>Mandatory</option>
+                            <option value="0" {{ old('is_required', (int) $dokumen->is_required) == '0' ? 'selected' : '' }}>Tidak Mandatory</option>
                         </select>
                         @error('is_required')
                         <div class="invalid-feedback">
@@ -54,7 +55,7 @@
                         </label>
                         <textarea class="form-control @error('keterangan') is-invalid @enderror"
                                   rows="3" maxlength="500" required
-                                  name="keterangan" id="keterangan">{{ old('keterangan') }}</textarea>
+                                  name="keterangan" id="keterangan">{{ old('keterangan', $dokumen->keterangan) }}</textarea>
                         @error('keterangan')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -77,7 +78,7 @@
                         </label>
                         <input type="text" maxlength="5" placeholder="5120 (5 MB)" required
                                class="form-control @error('max_file_size') is-invalid @enderror positive-numeric"
-                               name="max_file_size" value="{{ old('max_file_size', '5120') }}" id="max_file_size" />
+                               name="max_file_size" value="{{ old('max_file_size', $dokumen->max_file_size) }}" id="max_file_size" />
                         @error('max_file_size')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -93,16 +94,9 @@
                                 id="allowed_file_types" name="allowed_file_types[]" data-control="select2"
                                 data-placeholder="--- Pilih ---">
                             @foreach(\App\Enums\DocumentAllowedTypesEnum::getAll() as $type)
-                                @if($type === \App\Enums\DocumentAllowedTypesEnum::PDF->value)
-                                    <option value="{{ \App\Enums\DocumentAllowedTypesEnum::PDF->value }}"
-                                        {{ old('allowed_file_types') ? in_array(\App\Enums\DocumentAllowedTypesEnum::PDF->value, old('allowed_file_types', [])) ? 'selected' : '' : 'selected' }}>
-                                        {{ \App\Enums\DocumentAllowedTypesEnum::PDF->label() }}
-                                    </option>
-                                @else
-                                    <option value="{{ $type }}" {{ in_array($type, old('allowed_file_types', [])) ? 'selected' : '' }}>
-                                        {{ \App\Enums\DocumentAllowedTypesEnum::from($type)->label() }}
-                                    </option>
-                                @endif
+                                <option value="{{ $type }}" {{ in_array($type, old('allowed_file_types', $dokumen->allowed_file_types)) ? 'selected' : '' }}>
+                                    {{ \App\Enums\DocumentAllowedTypesEnum::from($type)->label() }}
+                                </option>
                             @endforeach
                         </select>
                         @error('allowed_file_types')
@@ -117,10 +111,10 @@
                         </label>
                         <select class="form-select form-select-lg" name="for" data-control="select2"
                                 data-placeholder="--- Pilih Dokumen Untuk ---" required>
-                            <option value="{{ \App\Enums\DocumentForEnum::Company->value }}" {{ old('for') == \App\Enums\DocumentForEnum::Company->value ? 'selected' : '' }}>
+                            <option value="{{ \App\Enums\DocumentForEnum::Company->value }}" {{ old('for', $dokumen->for->value) == \App\Enums\DocumentForEnum::Company->value ? 'selected' : '' }}>
                                 {{ \App\Enums\DocumentForEnum::Company->label() }}
                             </option>
-                            <option value="{{ \App\Enums\DocumentForEnum::Individual->value }}" {{ old('for') == \App\Enums\DocumentForEnum::Individual->value ? 'selected' : '' }}>
+                            <option value="{{ \App\Enums\DocumentForEnum::Individual->value }}" {{ old('for', $dokumen->for->value) == \App\Enums\DocumentForEnum::Individual->value ? 'selected' : '' }}>
                                 {{ \App\Enums\DocumentForEnum::Individual->label() }}
                             </option>
                         </select>
@@ -135,7 +129,7 @@
                     <div class="d-flex justify-content-center">
                         <button type="reset" class="btn btn-light me-3">Reset</button>
                         <button type="submit" class="btn btn-primary">
-                            <span class="indicator-label">Simpan</span>
+                            <span class="indicator-label">Update</span>
                         </button>
                     </div>
                 </div>

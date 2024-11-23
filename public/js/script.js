@@ -112,14 +112,15 @@ function onDocumentChange(input, allowedMimes, maxFileSize) {
     const FileName = input.files[0] ? input.files[0].name : null;
     if (FileName) {
         const FileMime = FileName.substring(FileName.lastIndexOf('.') + 1).toLowerCase();
-        if (allowedMimes.includes(FileMime)) {
+        const fileTypes = allowedMimes.split(',');
+        if (fileTypes.includes(FileMime)) {
             const maxSize = maxFileSize * 1024
             if (input.files[0].size > maxSize) {
                 Swal.fire(`File Size Dokumen tidak boleh lebih dari ${convertToReadableSize(maxSize)}!`);
                 input.value = null;
             }
         } else {
-            Swal.fire(`Dokumen hanya boleh dalam format ${allowedMimes.join(', ').toUpperCase()}!`);
+            Swal.fire(`Dokumen hanya boleh dalam format ${fileTypes.join(', ').toUpperCase()}!`);
             input.value = null;
         }
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\Menu\VendorPeroranganDataTable;
+use App\Enums\DocumentForEnum;
 use App\Enums\PermissionEnum;
 use App\Enums\StatusRegistrasiEnum;
 use App\Http\Requests\RegistrasiVendor\Individual\RegistrasiVendorIndividualStoreRequest;
@@ -76,7 +77,7 @@ class RegistrasiVendorController extends Controller
 			'breadcrumbs' => $breadcrumbs,
 			'stmtKategoriVendor' => $stmtKategoriVendor,
 			'stmtProvinsi' => $stmtProvinsi,
-			'documentsField' => DocumentService::makeFields(true)
+			'documentsField' => DocumentService::makeFields(DocumentForEnum::Individual)
 		];
 
         return view('menu.vendor-perorangan.create', $data);
@@ -138,6 +139,10 @@ class RegistrasiVendorController extends Controller
 			abort(403, 'Registration Already Submitted! Can\'t be edited.');
 		}
 		
+		if($registrasiVendor->created_by !== Auth::id()){
+			abort(403);
+		}
+		
 	    $title =  'Edit ' . self::$title;
 	    
 	    $breadcrumbs = [
@@ -154,7 +159,7 @@ class RegistrasiVendorController extends Controller
 		    'breadcrumbs' => $breadcrumbs,
 		    'stmtKategoriVendor' => $stmtKategoriVendor,
 		    'stmtProvinsi' => $stmtProvinsi,
-		    'documentsField' => DocumentService::makeFields(true, $registrasiVendor),
+		    'documentsField' => DocumentService::makeFields(DocumentForEnum::Individual, $registrasiVendor),
 		    'registrasiVendor' => $registrasiVendor
 	    ];
 	    
@@ -172,6 +177,10 @@ class RegistrasiVendorController extends Controller
 		    
 		    if(!in_array($registrasiVendor->status_registrasi->value, [StatusRegistrasiEnum::Draft->value, StatusRegistrasiEnum::RevisionDocuments->value])){
 			    abort(403, 'Registration Already Submitted! Can\'t be edited.');
+		    }
+		    
+		    if($registrasiVendor->created_by !== Auth::id()){
+			    abort(403);
 		    }
 			
 		    DB::beginTransaction();

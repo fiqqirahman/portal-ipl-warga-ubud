@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\RegistrasiVendor\Individual;
 
-use App\Models\RegistrasiVendor;
+use App\Enums\DocumentForEnum;
 use App\Services\DocumentService;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -34,7 +34,7 @@ class RegistrasiVendorIndividualUpdateRequest extends FormRequest
 			'nama_singkatan' => [$isRequired, 'string', 'max:255'],
 			'npwp' => [$isRequired, 'numeric', 'digits_between:15,16'],
 	        'confirm_done_checkbox' => ['nullable', Rule::in(['on'])],
-	        ...DocumentService::makeValidationRules(true, $isRequired, $registrasiVendor)
+	        ...DocumentService::makeValidationRules(DocumentForEnum::Individual, $isRequired, $registrasiVendor)
         ];
     }
 	
@@ -44,7 +44,7 @@ class RegistrasiVendorIndividualUpdateRequest extends FormRequest
 			'nama' => 'Nama',
 			'nama_singkatan' => 'Nama Singkatan',
 			'npwp' => 'NPWP',
-			...DocumentService::makeValidationAttributes(true),
+			...DocumentService::makeValidationAttributes(DocumentForEnum::Individual),
 		];
 	}
 }

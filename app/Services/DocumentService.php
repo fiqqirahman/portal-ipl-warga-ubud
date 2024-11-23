@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enums\DocumentForEnum;
 use App\Enums\MasterDokumenEnum;
 use App\Models\Master\Dokumen;
 use App\Models\Master\DokumenVendor;
@@ -11,11 +12,15 @@ use Throwable;
 
 class DocumentService
 {
-	public static function makeFields(bool $isIndividual, ?RegistrasiVendor $registrasiVendor = null): array
+	public static function makeFields(DocumentForEnum $for, ?RegistrasiVendor $registrasiVendor = null): array
 	{
 		$fields = [];
-		$ids = $isIndividual ? MasterDokumenEnum::groupIndividual() : MasterDokumenEnum::groupCompany();
-		$documents = Dokumen::isActive()->whereIn('id', $ids)->get();
+		
+		if($for === DocumentForEnum::Individual) {
+			$documents = Dokumen::isActive()->individual()->get();
+		} else {
+			$documents = Dokumen::isActive()->company()->get();
+		}
 		
 		$documents->map(function ($document) use (&$fields, $registrasiVendor) {
 			$fields[] = [
@@ -33,17 +38,21 @@ class DocumentService
 		return $fields;
 	}
 	
-	public static function makeValidationRules(bool $isIndividual, string $isRequired, ?RegistrasiVendor $registrasiVendor = null): array
+	public static function makeValidationRules(DocumentForEnum $for, string $isRequired, ?RegistrasiVendor $registrasiVendor = null): array
 	{
 		$rules = [];
-		$ids = $isIndividual ? MasterDokumenEnum::groupIndividual() : MasterDokumenEnum::groupCompany();
-		$documents = Dokumen::isActive()->whereIn('id', $ids)->get();
+		
+		if($for === DocumentForEnum::Individual) {
+			$documents = Dokumen::isActive()->individual()->get();
+		} else {
+			$documents = Dokumen::isActive()->company()->get();
+		}
 		
 		$registrasiVendorId = $registrasiVendor?->id ?? null;
 		
 		$documents->map(function ($document) use (&$rules, $isRequired, $registrasiVendorId) {
-			$existsOldValue = DokumenVendor::where('id_history_registrasi_vendor', $registrasiVendorId)
-				->where('id_master_dokumen', $document->id)->exists();
+			$existsOldValue = $registrasiVendorId ? DokumenVendor::where('id_history_registrasi_vendor', $registrasiVendorId)
+				->where('id_master_dokumen', $document->id)->exists() : null;
 			
 			$rules['document_' . $document->id] = [
 				($document->is_required) ? ($existsOldValue) ? 'nullable' : $isRequired : 'nullable',
@@ -55,11 +64,15 @@ class DocumentService
 		return $rules;
 	}
 	
-	public static function makeValidationAttributes(bool $isIndividual): array
+	public static function makeValidationAttributes(DocumentForEnum $for): array
 	{
 		$attributes = [];
-		$ids = $isIndividual ? MasterDokumenEnum::groupIndividual() : MasterDokumenEnum::groupCompany();
-		$documents = Dokumen::isActive()->whereIn('id', $ids)->get();
+		
+		if($for === DocumentForEnum::Individual) {
+			$documents = Dokumen::isActive()->individual()->get();
+		} else {
+			$documents = Dokumen::isActive()->company()->get();
+		}
 		
 		$documents->map(function ($document) use (&$attributes) {
 			$attributes['document_' . $document->id] = $document->nama_dokumen;

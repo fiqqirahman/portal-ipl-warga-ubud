@@ -3,12 +3,8 @@
 namespace Database\Seeders;
 
 use App\Enums\DocumentForEnum;
-use App\Enums\MasterConfigKeyEnum;
-use App\Enums\MasterConfigTypeEnum;
 use App\Enums\MasterDokumenEnum;
 use App\Models\Master\Dokumen;
-use App\Models\Utility\MasterConfig;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class MasterDokumenSeeder extends Seeder
@@ -416,8 +412,9 @@ class MasterDokumenSeeder extends Seeder
 		        'for' => DocumentForEnum::Individual
             ],
         ];
+		
         collect($collections)->each(function ($data) {
-            Dokumen::updateOrCreate(['id' => $data['id']], $data);
+            Dokumen::query()->updateOrCreate(['nama_dokumen' => $data['nama_dokumen']], $data);
         });
     }
 }

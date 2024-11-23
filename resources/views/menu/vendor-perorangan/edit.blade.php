@@ -275,7 +275,7 @@
                                                     </div>
                                                 @endif
                                             </div>
-                                            <input type="file" accept="{{ implode(',', array_map(fn($item) => 'application/' . $item, $field['allowed_file_types'])) }}"
+                                            <input type="file" accept="{{ implode(',', array_map(fn($item) => '.' . $item, $field['allowed_file_types'])) }}"
                                                    class="form-control @error($field['name']) is-invalid @enderror {{ (empty($field['old_value']) && $field['is_required']) ? 'has_required_input' : '' }}"
                                                    onchange="onDocumentChange(this, '{{ implode(',', $field['allowed_file_types']) }}', '{{ $field['max_file_size'] }}')"
                                                    name="{{ $field['name'] }}" id="{{ $field['id'] }}" />

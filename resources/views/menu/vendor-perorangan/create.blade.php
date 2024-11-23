@@ -266,7 +266,7 @@
                                             <label for="{{ $field['id'] }}" class="fs-6 fw-semibold form-label mt-3">
                                                 <span class="{{ $field['is_required'] ? 'has_required_label' : '' }}">{{ $field['label'] }}</span>
                                             </label>
-                                            <input type="file" accept="{{ implode(',', array_map(fn($item) => 'application/' . $item, $field['allowed_file_types'])) }}"
+                                            <input type="file" accept="{{ implode(',', array_map(fn($item) => '.' . $item, $field['allowed_file_types'])) }}"
                                                    class="form-control @error($field['name']) is-invalid @enderror {{ $field['is_required'] ? 'has_required_input' : '' }}"
                                                    onchange="onDocumentChange(this, '{{ implode(',', $field['allowed_file_types']) }}', '{{ $field['max_file_size'] }}')"
                                                    name="{{ $field['name'] }}" id="{{ $field['id'] }}" />
