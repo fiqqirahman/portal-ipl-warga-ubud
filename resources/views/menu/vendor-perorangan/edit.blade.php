@@ -271,6 +271,10 @@
                                                     <div class="col-md-6 text-md-end">
                                                         <label class="fs-6 fw-semibold form-label mt-3">
                                                             <a href="{{ \Illuminate\Support\Facades\Storage::url($field['old_value']['path']) }}">Download</a>
+                                                            <a href="#"
+                                                               data-field-name="{{ $field['label'] }}"
+                                                               data-route="{{ route('menu.registrasi-vendor.remove-document', ['dokumen_vendor' => enkrip($field['old_value']['id'])]) }}"
+                                                               class="text-danger btn-remove-document">Hapus</a>
                                                         </label>
                                                     </div>
                                                 @endif
@@ -279,11 +283,22 @@
                                                    class="form-control @error($field['name']) is-invalid @enderror {{ (empty($field['old_value']) && $field['is_required']) ? 'has_required_input' : '' }}"
                                                    onchange="onDocumentChange(this, '{{ implode(',', $field['allowed_file_types']) }}', '{{ $field['max_file_size'] }}')"
                                                    name="{{ $field['name'] }}" id="{{ $field['id'] }}" />
-                                            @error($field['name'])
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
+                                            @if (!$errors->has($field['name']))
+                                                <div class="row text-success mt-2" style="font-size: 12px">
+                                                    <div class="col-6">
+                                                        <span class="text-black">Format :</span> {{ strtoupper(implode(', ', $field['allowed_file_types'])) }}
+                                                    </div>
+                                                    <div class="col-6 text-end">
+                                                        <span class="text-black">Max :</span> {{ convertToReadableSize($field['max_file_size'] * 1024) }}
+                                                    </div>
+                                                </div>
+                                            @else
+                                                @error($field['name'])
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                            @endif
                                         </div>
                                     @endforeach
                                 </div>
@@ -311,6 +326,11 @@
             </div>
         </div>
     </div>
+
+    <form action="" id="form-remove-document" method="POST">
+        @csrf
+        @method('DELETE')
+    </form>
 @endsection
 
 @section('scripts')
@@ -431,6 +451,27 @@
                     $('#btn-submit').text('Save to Draft');
                 }
             });
+
+            $('.btn-remove-document').click(function (){
+                const route = $(this).data('route')
+                const fieldName = $(this).data('field-name')
+
+                Swal.fire({
+                    title: 'Anda Yakin?',
+                    html: `Ingin menghapus dokumen ${fieldName} ?`,
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#loader-overlay').show();
+                        $('#form-remove-document').attr('action', route).submit()
+                    }
+                })
+            })
 
             function updateActionForm(){
                 const hrefValue = $('.nav-link.text-active-primary.pb-4.active').attr('href');

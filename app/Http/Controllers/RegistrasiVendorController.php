@@ -11,12 +11,15 @@ use App\Http\Requests\RegistrasiVendor\Individual\RegistrasiVendorIndividualUpda
 use App\Models\KabKota;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
+use App\Models\Master\DokumenVendor;
 use App\Models\Master\KategoriVendor;
 use App\Models\Provinsi;
 use App\Models\RegistrasiVendor;
 use App\Services\DocumentService;
+use App\Services\UploadFileService;
 use Auth;
 use DB;
+use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -215,6 +218,25 @@ class RegistrasiVendorController extends Controller
 		    return to_route('menu.registrasi-vendor.edit', ['registrasi_vendor' => enkrip($registrasiVendor->id)]);
 	    }
     }
+	
+	public function removeDocument(DokumenVendor $dokumenVendor)
+	{
+		try {
+			$dokumenVendor->delete();
+			
+			UploadFileService::delete($dokumenVendor->path);
+			
+			session()->flash('last_opened_tab', 'kt_contact_view_documents');
+			
+			sweetAlert('success', 'Berhasil Menghapus Dokumen ' . $dokumenVendor->nama_dokumen);
+			
+			return to_route('menu.registrasi-vendor.edit', ['registrasi_vendor' => enkrip($dokumenVendor->vendor->id)]);
+		} catch (Exception $e) {
+			sweetAlertException('Gagal Menghapus Dokumen ' . $dokumenVendor->nama_dokumen, $e);
+			
+			return to_route('menu.registrasi-vendor.edit', ['registrasi_vendor' => enkrip($dokumenVendor->vendor->id)]);
+		}
+	}
 	
     public function getKabKotaByProvinsi(Request $request): JsonResponse
     {

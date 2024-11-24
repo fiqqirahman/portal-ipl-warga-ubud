@@ -71,7 +71,7 @@ class UploadFileService {
 			
 			return null;
 		} catch (Exception $e) {
-			logException('[create] UploadFile', $e);
+			logException('[create] UploadFileService', $e);
 			
 			throw new Exception($e->getMessage());
 		}
@@ -105,7 +105,7 @@ class UploadFileService {
 			
 			return $oldFile;
 		} catch (Exception $e) {
-			logException('[update] UploadFile', $e);
+			logException('[update] UploadFileService', $e);
 			
 			throw new Exception($e->getMessage());
 		}
@@ -227,5 +227,28 @@ class UploadFileService {
 			'size' => $requestFile->getSize(),
 			'extension' => $guessExtension
 		];
+	}
+	
+	/**
+	 * Delete file from storage
+	 *
+	 * @param string|null $path
+	 * @return bool
+	 */
+	public static function delete(?string $path): bool
+	{
+		try {
+			if (!empty($path) && Storage::disk(self::$disk)->exists($path)) {
+				Storage::disk(self::$disk)->delete($path);
+				
+				return true;
+			}
+			
+			return false;
+		} catch (Exception $e) {
+			logException('[delete] UploadFileService failed delete file from storage', $e);
+			
+			return false;
+		}
 	}
 }

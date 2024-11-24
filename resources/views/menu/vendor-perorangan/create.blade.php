@@ -270,11 +270,22 @@
                                                    class="form-control @error($field['name']) is-invalid @enderror {{ $field['is_required'] ? 'has_required_input' : '' }}"
                                                    onchange="onDocumentChange(this, '{{ implode(',', $field['allowed_file_types']) }}', '{{ $field['max_file_size'] }}')"
                                                    name="{{ $field['name'] }}" id="{{ $field['id'] }}" />
-                                            @error($field['name'])
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
+                                            @if (!$errors->has($field['name']))
+                                                <div class="row text-success mt-2" style="font-size: 12px">
+                                                    <div class="col-6">
+                                                        <span class="text-black">Format :</span> {{ strtoupper(implode(', ', $field['allowed_file_types'])) }}
+                                                    </div>
+                                                    <div class="col-6 text-end">
+                                                        <span class="text-black">Max :</span> {{ convertToReadableSize($field['max_file_size'] * 1024) }}
+                                                    </div>
+                                                </div>
+                                            @else
+                                                @error($field['name'])
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                            @endif
                                         </div>
                                     @endforeach
                                 </div>

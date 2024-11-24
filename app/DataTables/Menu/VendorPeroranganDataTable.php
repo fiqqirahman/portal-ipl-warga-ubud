@@ -32,12 +32,6 @@ class VendorPeroranganDataTable extends DataTable
 		    ->editColumn('status_registrasi', function ($row) {
                 return $row->status_registrasi->badge();
             })
-		    ->editColumn('created_by', function ($row) {
-                return $row->createdBy?->name ?? '-';
-            })
-            ->editColumn('updated_by', function ($row) {
-                return $row->updatedBy?->name ?? '-';
-            })
 		    ->editColumn('created_at', function ($row) {
 			    return dateWithFullMonthAndTimeFormat($row->created_at, FALSE);
 		    })
@@ -85,7 +79,7 @@ class VendorPeroranganDataTable extends DataTable
             ->scrollY('500px')
             ->fixedColumns(['left' => 1, 'right' => 1])
             ->language(['processing' => '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>'])
-            ->orderBy(0, 'asc')
+            ->orderBy(4, 'asc')
             ->parameters([
                 "lengthMenu" => [
                     [10, 25, 50, 100],
@@ -105,18 +99,6 @@ class VendorPeroranganDataTable extends DataTable
             Column::make('nama'),
             Column::make('nama_singkatan'),
             Column::computed('status_registrasi'),
-            Column::make('created_by')
-                ->title('Dibuat Oleh')
-                ->searchable(false)
-                ->orderable(false)
-                ->width(100)
-                ->addClass('text-center min-w-100px'),
-            Column::make('updated_by')
-                ->title('Diubah Oleh')
-                ->searchable(false)
-                ->orderable(false)
-                ->width(100)
-                ->addClass('text-center min-w-100px'),
 	        Column::make('created_at')->title('Dibuat Pada'),
 	        Column::make('updated_at')->title('Diupdate Pada'),
             Column::computed('aksi')

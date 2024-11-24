@@ -110,7 +110,7 @@ class DocumentService
 			
 			return true;
 		} catch (Throwable $th) {
-			logException('[DocumentService] store Failed Store', $th);
+			logException('[store] DocumentService Failed Store', $th);
 			
 			throw new Exception($th->getMessage());
 		}
@@ -152,7 +152,7 @@ class DocumentService
 			
 			return true;
 		} catch (Throwable $th) {
-			logException('[DocumentService] update Failed Update', $th);
+			logException('[update] DocumentService Failed Update', $th);
 			
 			throw new Exception($th->getMessage());
 		}
