@@ -8,15 +8,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
 use App\Http\Requests\DokumenRequest;
 use App\Models\Master\Dokumen;
-use App\Models\Master\JenisVendor;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 
 class DokumenController extends Controller
 {
@@ -99,7 +96,7 @@ class DokumenController extends Controller
      */
     public function edit(Dokumen $dokumen)
     {
-	    $this->authorize(PermissionEnum::MasterDokumenCreate->value);
+	    $this->authorize(PermissionEnum::MasterDokumenEdit->value);
 	    $title = 'Edit ' . self::$title;
 		
 	    $breadcrumbs = [
@@ -116,16 +113,64 @@ class DokumenController extends Controller
      */
     public function update(DokumenRequest $request, Dokumen $dokumen)
     {
-        //
+	    try {
+		    $this->authorize(PermissionEnum::MasterDokumenEdit->value);
+		    
+		    $dokumen->update([
+			    'nama_dokumen' => trim($request->input('nama_dokumen')),
+			    'keterangan' => trim($request->input('keterangan')),
+			    'is_required' => (int) $request->input('is_required'),
+			    'max_file_size' => trim($request->input('max_file_size')),
+			    'allowed_file_types' => json_encode($request->allowed_file_types),
+			    'for' => $request->for,
+			    'updated_by' => Auth::id(),
+		    ]);
+		    
+		    createLogActivity('Mengupdate Master Data Dokumen');
+		    
+		    sweetAlert('success', 'Master Data Dokumen Berhasil di Update');
+		    
+		    return to_route('master.dokumen.index');
+	    } catch (\Exception $e) {
+		    sweetAlertException('Terjadi Kesalahan, hubungi Administrator!', $e);
+		    
+		    return to_route('master.dokumen.edit', ['dokumen' => enkrip($dokumen->id)])->withInput();
+	    }
     }
 	
-	public function nonaktif()
+	public function nonaktif(Dokumen $dokumen)
 	{
-	
+		try {
+			$dokumen->status_data = false;
+			$dokumen->save();
+			
+			createLogActivity('Aktifkan Master Data Dokumen');
+			
+			sweetAlert('success', 'Master Data Dokumen Berhasil di Nonaktifkan');
+			
+			return to_route('master.dokumen.index');
+		} catch (\Exception $e) {
+			sweetAlertException('Terjadi Kesalahan, hubungi Administrator!', $e);
+			
+			return to_route('master.dokumen.index');
+		}
 	}
 	
-	public function aktif()
+	public function aktif(Dokumen $dokumen)
 	{
-	
+		try {
+			$dokumen->status_data = true;
+			$dokumen->save();
+			
+			createLogActivity('Aktifkan Master Data Dokumen');
+			
+			sweetAlert('success', 'Master Data Dokumen Berhasil di Aktifkan');
+			
+			return to_route('master.dokumen.index');
+		} catch (\Exception $e) {
+			sweetAlertException('Terjadi Kesalahan, hubungi Administrator!', $e);
+			
+			return to_route('master.dokumen.index');
+		}
 	}
 }

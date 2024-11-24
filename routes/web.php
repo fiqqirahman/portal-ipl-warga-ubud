@@ -107,7 +107,7 @@ Route::middleware('auth')->group(function () use($SSOIsLocal) {
 	                ->middleware(PermissionMiddleware::using(PermissionEnum::MasterDokumenAccess->value))
 	                ->parameters(['dokumen' => 'dokumen'])
 	                ->except(['show', 'destroy']);
-				Route::middleware(PermissionEnum::MasterDokumenEdit->value)->group(function (){
+				Route::middleware(PermissionMiddleware::using(PermissionEnum::MasterDokumenEdit->value))->group(function (){
 	                Route::get('/dokumen/{dokumen}/nonaktif', [DokumenController::class, 'nonaktif'])->name('dokumen.nonaktif');
 	                Route::get('/dokumen/{dokumen}/aktif', [DokumenController::class, 'aktif'])->name('dokumen.aktif');
 				});
