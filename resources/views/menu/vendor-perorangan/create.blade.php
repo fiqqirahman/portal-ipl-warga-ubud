@@ -372,6 +372,16 @@
                 });
             })
 
+            $('div.invalid-feedback', '#form-update').each(function () {
+                let id = $(this).closest('.tab-pane').attr('id');
+
+                if (id) {
+                    $(`.nav a[href="#${id}"]`).tab('show');
+
+                    return false
+                }
+            });
+
             $(document).on('submit', '#form-store', function (e) {
                 e.preventDefault()
 

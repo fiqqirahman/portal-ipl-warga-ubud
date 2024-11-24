@@ -381,7 +381,17 @@
                 });
             })
 
-            @if(session()->has('last_opened_tab'))
+            $('div.invalid-feedback', '#form-update').each(function () {
+                let id = $(this).closest('.tab-pane').attr('id');
+
+                if (id) {
+                    $(`.nav a[href="#${id}"]`).tab('show');
+
+                    return false
+                }
+            });
+
+            @if(session()->has('last_opened_tab') && !$errors->any())
                 $(`.nav a[href="#` + '{{ session()->get('last_opened_tab') }}' + `"]`).tab('show');
             @endif
 
