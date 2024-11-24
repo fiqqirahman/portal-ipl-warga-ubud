@@ -92,7 +92,7 @@ php artisan master-config:sync
 <p align="right">(<a href="#project-setup">back to top</a>)</p>
 
 ## Jobs
-- Currently, there are **no jobs** defined.
+- `RegistrationJob` Send the activation link, username, and password to the vendor after successful sign-up
 
 <p align="right">(<a href="#project-setup">back to top</a>)</p>
 

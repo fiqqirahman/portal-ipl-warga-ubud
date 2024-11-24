@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterVendorRequest;
-use App\Mail\RegistrationMail;
+use App\Jobs\RegistrationJob;
 use App\Models\User;
 use App\Statics\User\NRIK;
 use App\Statics\User\Role;
@@ -13,7 +13,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
@@ -108,8 +107,8 @@ class LandingPageController extends Controller
             ]);
 
             $user->assignRole(Role::$VENDOR);
-
-            Mail::to($user->email)->queue(new RegistrationMail($user, $password, $activationToken));
+	        
+	        dispatch(new RegistrationJob($user, $password, $activationToken));
 
             sweetAlert('success','Registrasi berhasil. Silakan cek email Anda');
             return to_route('landing-page.registrasi');

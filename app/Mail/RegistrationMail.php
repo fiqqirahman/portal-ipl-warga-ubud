@@ -2,20 +2,20 @@
 
 namespace App\Mail;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Models\User;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
 class RegistrationMail extends Mailable
 {
-    use Queueable, SerializesModels;
+    use SerializesModels;
 
-    public $user;
-    public $password;
-    private $activationToken;
+    public User $user;
+    public string $password;
+    private string $activationToken;
 
     /**
      * Create a new message instance.
@@ -58,7 +58,7 @@ class RegistrationMail extends Mailable
     /**
      * Get the attachments for the message.
      *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
+     * @return array<int, Attachment>
      */
     public function attachments(): array
     {
