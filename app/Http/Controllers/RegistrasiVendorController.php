@@ -221,12 +221,13 @@ class RegistrasiVendorController extends Controller
 	
 	public function removeDocument(DokumenVendor $dokumenVendor)
 	{
+		session()->flash('last_opened_tab', 'kt_contact_view_documents');
+		
 		try {
 			$dokumenVendor->delete();
 			
 			UploadFileService::delete($dokumenVendor->path);
 			
-			session()->flash('last_opened_tab', 'kt_contact_view_documents');
 			
 			sweetAlert('success', 'Berhasil Menghapus Dokumen ' . $dokumenVendor->nama_dokumen);
 			
