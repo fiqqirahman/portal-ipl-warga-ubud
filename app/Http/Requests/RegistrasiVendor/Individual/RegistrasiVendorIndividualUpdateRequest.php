@@ -4,6 +4,7 @@ namespace App\Http\Requests\RegistrasiVendor\Individual;
 
 use App\Enums\DocumentForEnum;
 use App\Services\DocumentService;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -17,14 +18,19 @@ class RegistrasiVendorIndividualUpdateRequest extends FormRequest
     {
         return true;
     }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array|string>
-     */
+	
+	/**
+	 * Get the validation rules that apply to the request.
+	 *
+	 * @return array<string, ValidationRule|array|string>
+	 * @throws Exception
+	 */
     public function rules(): array
     {
+		if($this->query('tab')){
+			session()->flash('last_opened_tab', $this->query('tab'));
+		}
+		
 		$isRequired = $this->input('confirm_done_checkbox') === 'on' ? 'required' : 'nullable';
 		
 		$registrasiVendor = $this->route('registrasi_vendor');

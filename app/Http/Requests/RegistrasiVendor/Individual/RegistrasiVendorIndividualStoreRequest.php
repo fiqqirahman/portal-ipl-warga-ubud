@@ -4,6 +4,7 @@ namespace App\Http\Requests\RegistrasiVendor\Individual;
 
 use App\Enums\DocumentForEnum;
 use App\Services\DocumentService;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -17,12 +18,13 @@ class RegistrasiVendorIndividualStoreRequest extends FormRequest
     {
         return true;
     }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array|string>
-     */
+	
+	/**
+	 * Get the validation rules that apply to the request.
+	 *
+	 * @return array<string, ValidationRule|array|string>
+	 * @throws Exception
+	 */
     public function rules(): array
     {
 		$isRequired = $this->input('confirm_done_checkbox') === 'on' ? 'required' : 'nullable';
