@@ -124,12 +124,12 @@ class LandingPageController extends Controller
         $recentIpAddress = $_SERVER['REMOTE_ADDR'];
         $max_fail = 3;
         $expiredPassword = '1970-01-01';
-        $request['username'] = strtoupper($request->username);
+        $request['username'] = strtoupper(e($request->username));
         $user = User::where('username', $request->username)->first();
 
         $this->validate($request, [
-            'username' => 'required',
-            'password' => 'required',
+            'username' => 'required|string',
+            'password' => 'required|string',
         ], [], [
             'username' => 'Username',
             'password' => 'Password',
