@@ -23,6 +23,8 @@ enum PermissionEnum: string
     case RegistrasiVendorAccess = 'registrasi_vendor_access';
     case RegistrasiVendorCreate = 'registrasi_vendor_create';
     case RegistrasiVendorEdit = 'registrasi_vendor_edit';
+    case RegistrasiVendorDetail = 'registrasi_vendor_detail';
+    case RegistrasiVendorApproval = 'registrasi_vendor_approval';
 
     case MasterDokumenAccess = 'master_dokumen_access';
     case MasterDokumenCreate = 'master_dokumen_create';

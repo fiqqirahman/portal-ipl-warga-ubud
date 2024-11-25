@@ -2,6 +2,7 @@
 
 use App\Enums\MasterConfigKeyEnum;
 use App\Enums\PermissionEnum;
+use App\Enums\RoleEnum;
 use App\Helpers\CacheForeverHelper;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\AuthController;
@@ -12,11 +13,13 @@ use App\Http\Controllers\Master\DokumenController;
 use App\Http\Controllers\Master\JenisVendorController;
 use App\Http\Controllers\Master\KategoriVendorController;
 use App\Http\Controllers\Master\StatusPerusahaanController;
+use App\Http\Controllers\OperatorVendorController;
 use App\Http\Controllers\RegistrasiVendorController;
 use App\Http\Controllers\RegistrasiVendorPerusahaanController;
 use App\Http\Controllers\Utility\MasterConfigController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Middleware\PermissionMiddleware;
+use Spatie\Permission\Middleware\RoleMiddleware;
 
 $SSOIsLocal = (boolean) CacheForeverHelper::getSingle(MasterConfigKeyEnum::SSOIsLocal);
 
@@ -112,9 +115,21 @@ Route::middleware('auth')->group(function () use($SSOIsLocal) {
 	                Route::get('/dokumen/{dokumen}/aktif', [DokumenController::class, 'aktif'])->name('dokumen.aktif');
 				});
             });
+		    
+		    // operator
+		    Route::prefix('menu/operator')
+			    ->as('menu.operator.')
+		        ->middleware(RoleMiddleware::using(RoleEnum::OperatorVendorManajemen->value))->group(function (){
+				    Route::get('/registrasi-vendor', [OperatorVendorController::class, 'index'])
+					    ->name('registrasi-vendor.index');
+					Route::get('/registrasi-vendor/approval/{registrasi_vendor}', [OperatorVendorController::class, 'approval'])
+					    ->name('registrasi-vendor.approval');
+					Route::post('/registrasi-vendor/submit/{registrasi_vendor}', [OperatorVendorController::class, 'submit'])
+					    ->name('registrasi-vendor.submit');
+		    });
 
             Route::prefix('menu')
-	            ->middleware([PermissionMiddleware::using(PermissionEnum::RegistrasiVendorAccess->value), 'vendor.registration-type'])
+	            ->middleware([RoleMiddleware::using(RoleEnum::Vendor->value), 'vendor.registration-type'])
 	            ->name('menu.')
 	            ->group(function () {
 	                // registrasi vendor perorangan
