@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Enums\UserVendorTypeEnum;
 use App\Models\Master\UnitKerja;
 use App\Traits\Model\Scope\IsActive;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
@@ -110,15 +111,14 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+	
+	protected function casts(): array
+	{
+		return [
+			'email_verified_at' => 'datetime',
+			'vendor_type' => UserVendorTypeEnum::class,
+		];
+	}
 
     function unitKerja(): BelongsTo
     {
@@ -153,8 +153,8 @@ class User extends Authenticatable
         });
     }
 	
-	public function registrationsVendor(): HasMany
+	public function registrationsVendor(): hasOne
 	{
-		return $this->hasMany(RegistrasiVendor::class, 'created_by', 'id');
+		return $this->hasOne(RegistrasiVendor::class, 'created_by', 'id');
 	}
 }

@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Enums\MasterDokumenEnum;
+use App\Enums\DocumentForEnum;
 use App\Models\Master\Dokumen;
 use App\Models\Master\DokumenVendor;
 use App\Models\RegistrasiVendor;
@@ -11,11 +11,15 @@ use Throwable;
 
 class DocumentService
 {
-	public static function makeFields(bool $isIndividual, ?RegistrasiVendor $registrasiVendor = null): array
+	public static function makeFields(DocumentForEnum $for, ?RegistrasiVendor $registrasiVendor = null): array
 	{
 		$fields = [];
-		$ids = $isIndividual ? MasterDokumenEnum::groupIndividual() : MasterDokumenEnum::groupCompany();
-		$documents = Dokumen::isActive()->whereIn('id', $ids)->get();
+		
+		if($for === DocumentForEnum::Individual) {
+			$documents = Dokumen::isActive()->individual()->get();
+		} else {
+			$documents = Dokumen::isActive()->company()->get();
+		}
 		
 		$documents->map(function ($document) use (&$fields, $registrasiVendor) {
 			$fields[] = [
@@ -33,15 +37,29 @@ class DocumentService
 		return $fields;
 	}
 	
-	public static function makeValidationRules(bool $isIndividual, string $isRequired): array
+	/**
+	 * @throws Exception
+	 */
+	public static function makeValidationRules(DocumentForEnum $for, string $isRequired, ?RegistrasiVendor $registrasiVendor = null): array
 	{
 		$rules = [];
-		$ids = $isIndividual ? MasterDokumenEnum::groupIndividual() : MasterDokumenEnum::groupCompany();
-		$documents = Dokumen::isActive()->whereIn('id', $ids)->get();
 		
-		$documents->map(function ($document) use (&$rules, $isRequired) {
+		if($for === DocumentForEnum::Individual) {
+			$documents = Dokumen::isActive()->individual()->get();
+		} else {
+			$documents = Dokumen::isActive()->company()->get();
+		}
+		
+		$registrasiVendorId = $registrasiVendor?->id ?? null;
+		
+		$isRequired = self::allowedParamIsRequired($isRequired);
+		
+		$documents->map(function ($document) use (&$rules, $isRequired, $registrasiVendorId) {
+			$existsOldValue = $registrasiVendorId ? DokumenVendor::where('id_history_registrasi_vendor', $registrasiVendorId)
+				->where('id_master_dokumen', $document->id)->exists() : null;
+			
 			$rules['document_' . $document->id] = [
-				$document->is_required ? $isRequired : 'nullable',
+				($document->is_required) ? ($existsOldValue) ? 'nullable' : $isRequired : 'nullable',
 				'mimes:' . implode(',', $document->allowed_file_types),
 				'max:' . $document->max_file_size
 			];
@@ -50,11 +68,15 @@ class DocumentService
 		return $rules;
 	}
 	
-	public static function makeValidationAttributes(bool $isIndividual): array
+	public static function makeValidationAttributes(DocumentForEnum $for): array
 	{
 		$attributes = [];
-		$ids = $isIndividual ? MasterDokumenEnum::groupIndividual() : MasterDokumenEnum::groupCompany();
-		$documents = Dokumen::isActive()->whereIn('id', $ids)->get();
+		
+		if($for === DocumentForEnum::Individual) {
+			$documents = Dokumen::isActive()->individual()->get();
+		} else {
+			$documents = Dokumen::isActive()->company()->get();
+		}
 		
 		$documents->map(function ($document) use (&$attributes) {
 			$attributes['document_' . $document->id] = $document->nama_dokumen;
@@ -69,9 +91,8 @@ class DocumentService
 	public static function store(RegistrasiVendor $model, array $files): bool
 	{
 		try {
-			$isCompany = $model->is_company ? 'company' : 'individual';
-			$prefix = $model->created_at->format('Ymd-His');
-			$pathFile =  $isCompany . '/' . $prefix;
+			$prefix = $model->createdBy->username;
+			$pathFile = 'vendor-registration/' . $model->createdBy->vendor_type->value . '/' . $prefix;
 			
 			foreach($files as $key => $file) {
 				$idDocument = str_replace('document_', '', $key);
@@ -88,7 +109,7 @@ class DocumentService
 			
 			return true;
 		} catch (Throwable $th) {
-			logException('[DocumentService] store Failed Store', $th);
+			logException('[store] DocumentService Failed Store', $th);
 			
 			throw new Exception($th->getMessage());
 		}
@@ -100,9 +121,8 @@ class DocumentService
 	public static function update(RegistrasiVendor $model, array $files): bool
 	{
 		try {
-			$isCompany = $model->is_company ? 'company' : 'individual';
-			$prefix = $model->created_at->format('Ymd-His');
-			$pathFile =  $isCompany . '/' . $prefix;
+			$prefix = $model->createdBy->username;
+			$pathFile = 'vendor-registration/' . $model->createdBy->vendor_type->value . '/' . $prefix;
 			
 			foreach($files as $key => $file) {
 				$idDocument = str_replace('document_', '', $key);
@@ -131,9 +151,23 @@ class DocumentService
 			
 			return true;
 		} catch (Throwable $th) {
-			logException('[DocumentService] update Failed Update', $th);
+			logException('[update] DocumentService Failed Update', $th);
 			
 			throw new Exception($th->getMessage());
 		}
+	}
+	
+	/**
+	 * @throws Exception
+	 */
+	private static function allowedParamIsRequired(string $param): string
+	{
+		$param = strtolower($param);
+		
+		if(!in_array($param, ['required','nullable'])){
+			throw new Exception('Invalid param, only Required or Nullable allowed!');
+		}
+		
+		return $param;
 	}
 }

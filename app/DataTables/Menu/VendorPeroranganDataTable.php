@@ -3,6 +3,7 @@
 namespace App\DataTables\Menu;
 
 use App\Enums\PermissionEnum;
+use App\Enums\StatusRegistrasiEnum;
 use App\Models\RegistrasiVendor;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Illuminate\Support\Facades\Auth;
@@ -28,17 +29,8 @@ class VendorPeroranganDataTable extends DataTable
 		    ->editColumn('nama_singkatan', function ($row) {
                 return $row->nama_singkatan ?? '-';
             })
-		    ->editColumn('is_draft', function ($row) {
-                return $row->is_draft ? '<span class="badge badge-warning">Draft</span>' : '<span class="badge badge-primary">Submitted</span>';
-            })
-		    ->addColumn('status_approval', function ($row) {
-                return '-';
-            })
-		    ->editColumn('created_by', function ($row) {
-                return $row->createdBy?->name ?? '-';
-            })
-            ->editColumn('updated_by', function ($row) {
-                return $row->updatedBy?->name ?? '-';
+		    ->editColumn('status_registrasi', function ($row) {
+                return $row->status_registrasi->badge();
             })
 		    ->editColumn('created_at', function ($row) {
 			    return dateWithFullMonthAndTimeFormat($row->created_at, FALSE);
@@ -49,7 +41,7 @@ class VendorPeroranganDataTable extends DataTable
             ->addColumn('aksi', function ($row) {
 	            $buttonEdit = '-';
 				if(Auth::user()->hasPermissionTo(PermissionEnum::RegistrasiVendorEdit)){
-	                if($row->is_draft){
+	                if(in_array($row->status_registrasi->value, [StatusRegistrasiEnum::Draft->value, StatusRegistrasiEnum::RevisionDocuments->value])){
 		                $buttonEdit = '<a href="'. route('menu.registrasi-vendor.edit', ['registrasi_vendor' => enkrip($row->id)]) .'">
 							<button type="button" class="btn btn-sm btn-info me-3">
 								<i class="fa fa-pencil"></i> Edit
@@ -59,7 +51,7 @@ class VendorPeroranganDataTable extends DataTable
 				}
 				return $buttonEdit;
             })
-            ->rawColumns(['aksi','is_draft','status_approval']);
+            ->rawColumns(['aksi','status_registrasi']);
     }
 
     /**
@@ -69,7 +61,6 @@ class VendorPeroranganDataTable extends DataTable
     {
         return $model->newQuery()
 	        ->where('created_by', Auth::id())
-	        ->where('is_company', false)
 	        ->with(['updatedBy','createdBy']);
     }
 
@@ -88,7 +79,7 @@ class VendorPeroranganDataTable extends DataTable
             ->scrollY('500px')
             ->fixedColumns(['left' => 1, 'right' => 1])
             ->language(['processing' => '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>'])
-            ->orderBy(0, 'asc')
+            ->orderBy(4, 'asc')
             ->parameters([
                 "lengthMenu" => [
                     [10, 25, 50, 100],
@@ -107,20 +98,7 @@ class VendorPeroranganDataTable extends DataTable
 	        Column::make('DT_RowIndex')->title('No.')->searchable(false)->orderable(false)->addClass('text-center'),
             Column::make('nama'),
             Column::make('nama_singkatan'),
-            Column::computed('is_draft'),
-            Column::computed('status_approval'),
-            Column::make('created_by')
-                ->title('Dibuat Oleh')
-                ->searchable(false)
-                ->orderable(false)
-                ->width(100)
-                ->addClass('text-center min-w-100px'),
-            Column::make('updated_by')
-                ->title('Diubah Oleh')
-                ->searchable(false)
-                ->orderable(false)
-                ->width(100)
-                ->addClass('text-center min-w-100px'),
+            Column::computed('status_registrasi'),
 	        Column::make('created_at')->title('Dibuat Pada'),
 	        Column::make('updated_at')->title('Diupdate Pada'),
             Column::computed('aksi')

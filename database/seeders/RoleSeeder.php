@@ -25,48 +25,7 @@ class RoleSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 		
         // Create permissions
-        $permissions = [
-            // ['name' => PermissionEnum::SomeMenuAccess->value],
-	        
-            ['name' => PermissionEnum::UtilityAccess->value],
-            ['name' => PermissionEnum::DebugEagleEyeAccess->value],
-            ['name' => PermissionEnum::MasterConfigAccess->value],
-
-            //MasterJenisVendor
-            ['name' => PermissionEnum::MasterJenisVendorAccess->value],
-            ['name' => PermissionEnum::MasterJenisVendorCreate->value],
-            ['name' => PermissionEnum::MasterJenisVendorEdit->value],
-
-            //master bentuk badan usaha
-            ['name' => PermissionEnum::MasterBentukBadanUsahaAccess->value],
-            ['name' => PermissionEnum::MasterBentukBadanUsahaCreate->value],
-            ['name' => PermissionEnum::MasterBentukBadanUsahaEdit->value],
-
-            //master kategori vendor
-            ['name' => PermissionEnum::MasterKategoriVendorAccess->value],
-            ['name' => PermissionEnum::MasterKategoriVendorCreate->value],
-            ['name' => PermissionEnum::MasterKategoriVendorEdit->value],
-
-            //master status perusahaan
-            ['name' => PermissionEnum::MasterStatusPerusahaanAccess->value],
-            ['name' => PermissionEnum::MasterStatusPerusahaanCreate->value],
-            ['name' => PermissionEnum::MasterStatusPerusahaanEdit->value],
-
-            //master status Dokumen
-            ['name' => PermissionEnum::MasterDokumenAccess->value],
-            ['name' => PermissionEnum::MasterDokumenCreate->value],
-            ['name' => PermissionEnum::MasterDokumenEdit->value],
-
-            //registrasi vendor
-            ['name' => PermissionEnum::RegistrasiVendorAccess->value],
-            ['name' => PermissionEnum::RegistrasiVendorCreate->value],
-            ['name' => PermissionEnum::RegistrasiVendorEdit->value],
-
-            //registrasi vendor perusahaan
-            ['name' => PermissionEnum::RegistrasiVendorPerusahaanAccess->value],
-            ['name' => PermissionEnum::RegistrasiVendorPerusahaanCreate->value],
-            ['name' => PermissionEnum::RegistrasiVendorPerusahaanEdit->value],
-        ];
+        $permissions = PermissionEnum::getAll(true);
 
         collect($permissions)->each(function ($data) {
             Permission::updateOrCreate(['name' => $data['name']],$data);
@@ -86,6 +45,7 @@ class RoleSeeder extends Seeder
             ['id' => StaticMenu::$REGISTRASI_VENDOR, 'name' => 'Registrasi Vendor', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => 0, 'order' => 3],
             ['id' => StaticMenu::$VENDOR_PERUSAHAAN, 'name' => 'Vendor Perusahaan', 'route' => 'menu.registrasi-vendor-perusahaan.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$REGISTRASI_VENDOR, 'order' => 1],
             ['id' => StaticMenu::$VENDOR_PERORANGAN, 'name' => 'Vendor Perorangan', 'route' => 'menu.registrasi-vendor.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$REGISTRASI_VENDOR, 'order' => 2],
+            ['id' => StaticMenu::$APPROVAL_REGISTRASI_VENDOR, 'name' => 'Approval', 'route' => 'menu.operator.registrasi-vendor.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$REGISTRASI_VENDOR, 'order' => 3],
 
             ['id' => StaticMenu::$UTILITY, 'name' => 'Utility', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => 0, 'order' => 99999],
 	        ['id' => StaticMenu::$DEBUG_EAGLE_EYE, 'name' => 'Debug', 'route' => 'telescope', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$UTILITY, 'order' => 1],

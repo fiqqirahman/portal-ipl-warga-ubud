@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\RegistrasiVendor\Individual;
 
+use App\Enums\DocumentForEnum;
 use App\Services\DocumentService;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -16,12 +18,13 @@ class RegistrasiVendorIndividualStoreRequest extends FormRequest
     {
         return true;
     }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array|string>
-     */
+	
+	/**
+	 * Get the validation rules that apply to the request.
+	 *
+	 * @return array<string, ValidationRule|array|string>
+	 * @throws Exception
+	 */
     public function rules(): array
     {
 		$isRequired = $this->input('confirm_done_checkbox') === 'on' ? 'required' : 'nullable';
@@ -29,9 +32,9 @@ class RegistrasiVendorIndividualStoreRequest extends FormRequest
         return [
 			'nama' => [$isRequired, 'string', 'max:255'],
 			'nama_singkatan' => [$isRequired, 'string', 'max:255'],
-			'npwp' => [$isRequired, 'numeric', 'digits:16'],
+			'npwp' => [$isRequired, 'numeric', 'digits_between:15,16'],
 	        'confirm_done_checkbox' => ['nullable', Rule::in(['on'])],
-	        ...DocumentService::makeValidationRules(true, $isRequired)
+	        ...DocumentService::makeValidationRules(DocumentForEnum::Individual, $isRequired)
         ];
     }
 	
@@ -41,7 +44,7 @@ class RegistrasiVendorIndividualStoreRequest extends FormRequest
 			'nama' => 'Nama',
 			'nama_singkatan' => 'Nama Singkatan',
 			'npwp' => 'NPWP',
-			...DocumentService::makeValidationAttributes(true),
+			...DocumentService::makeValidationAttributes(DocumentForEnum::Individual),
 		];
 	}
 }

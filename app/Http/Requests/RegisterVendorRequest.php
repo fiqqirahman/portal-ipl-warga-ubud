@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\UserVendorTypeEnum;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class RegisterVendorRequest extends FormRequest
 {
@@ -17,7 +20,7 @@ class RegisterVendorRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
@@ -26,6 +29,7 @@ class RegisterVendorRequest extends FormRequest
             'password' => 'required|string|min:8|confirmed',
             'name' => 'required|string|max:255',
             'password_confirmation' => 'required|string',
+	        'vendor_type' => ['required', Rule::in([UserVendorTypeEnum::Company, UserVendorTypeEnum::Individual])],
             'g-recaptcha-response' => 'required|captcha',
         ];
     }
@@ -33,6 +37,7 @@ class RegisterVendorRequest extends FormRequest
     public function attributes(): array
     {
         return [
+            'name' => 'Nama',
             'email' => 'Email',
             'password' => 'Password baru',
             'password_confirmation' => 'Konfirmasi password baru',

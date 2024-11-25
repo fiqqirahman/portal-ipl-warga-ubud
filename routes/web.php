@@ -2,6 +2,7 @@
 
 use App\Enums\MasterConfigKeyEnum;
 use App\Enums\PermissionEnum;
+use App\Enums\RoleEnum;
 use App\Helpers\CacheForeverHelper;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\AuthController;
@@ -12,16 +13,18 @@ use App\Http\Controllers\Master\DokumenController;
 use App\Http\Controllers\Master\JenisVendorController;
 use App\Http\Controllers\Master\KategoriVendorController;
 use App\Http\Controllers\Master\StatusPerusahaanController;
+use App\Http\Controllers\OperatorVendorController;
 use App\Http\Controllers\RegistrasiVendorController;
 use App\Http\Controllers\RegistrasiVendorPerusahaanController;
 use App\Http\Controllers\Utility\MasterConfigController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Middleware\PermissionMiddleware;
+use Spatie\Permission\Middleware\RoleMiddleware;
 
 $SSOIsLocal = (boolean) CacheForeverHelper::getSingle(MasterConfigKeyEnum::SSOIsLocal);
 
 	// landing-page
-Route::name('landing-page.')->group(function () {
+Route::name('landing-page.')->middleware('guest')->group(function () {
     Route::get('/', [LandingPageController::class, 'index'])->name('index');
     Route::get('/registrasi', [LandingPageController::class, 'registrasi'])->name('registrasi');
     Route::post('/register', [LandingPageController::class, 'registerVendor'])->name('register-submit');
@@ -101,20 +104,49 @@ Route::middleware('auth')->group(function () use($SSOIsLocal) {
                 Route::resource('/kategori-vendor', KategoriVendorController::class, ['parameters' => ['kategori-vendor' => 'id']])->except(['show', 'destroy']);
                 Route::get('/kategori-vendor/{id}/nonaktif', [KategoriVendorController::class, 'nonaktif'])->name('kategori-vendor.nonaktif');
                 Route::get('/kategori-vendor/{id}/aktif', [KategoriVendorController::class, 'aktif'])->name('kategori-vendor.aktif');
+				
                 // dokumen
-                Route::resource('/dokumen', DokumenController::class, ['parameters' => ['dokumen' => 'id']])->except(['show', 'destroy']);
-                Route::get('/dokumen/{id}/nonaktif', [DokumenController::class, 'nonaktif'])->name('dokumen.nonaktif');
-                Route::get('/dokumen/{id}/aktif', [DokumenController::class, 'aktif'])->name('dokumen.aktif');
+                Route::resource('/dokumen', DokumenController::class)
+	                ->middleware(PermissionMiddleware::using(PermissionEnum::MasterDokumenAccess->value))
+	                ->parameters(['dokumen' => 'dokumen'])
+	                ->except(['show', 'destroy']);
+				Route::middleware(PermissionMiddleware::using(PermissionEnum::MasterDokumenEdit->value))->group(function (){
+	                Route::get('/dokumen/{dokumen}/nonaktif', [DokumenController::class, 'nonaktif'])->name('dokumen.nonaktif');
+	                Route::get('/dokumen/{dokumen}/aktif', [DokumenController::class, 'aktif'])->name('dokumen.aktif');
+				});
             });
+		    
+		    // operator
+		    Route::prefix('menu/operator')
+			    ->as('menu.operator.')
+		        ->middleware(RoleMiddleware::using(RoleEnum::OperatorVendorManajemen->value))->group(function (){
+				    Route::get('/registrasi-vendor', [OperatorVendorController::class, 'index'])
+					    ->name('registrasi-vendor.index');
+					Route::get('/registrasi-vendor/approval/{registrasi_vendor}', [OperatorVendorController::class, 'approval'])
+					    ->name('registrasi-vendor.approval');
+					Route::post('/registrasi-vendor/submit/{registrasi_vendor}', [OperatorVendorController::class, 'submit'])
+					    ->name('registrasi-vendor.submit');
+		    });
 
-            Route::prefix('menu')->name('menu.')->group(function () {
-                // registrasi vendor
-                Route::resource('/registrasi-vendor', RegistrasiVendorController::class)->except(['show', 'destroy']);
-                Route::resource('/registrasi-vendor-perusahaan', RegistrasiVendorPerusahaanController::class, ['parameters' => ['registrasi-vendor-perusahaan' => 'id']])->except(['show', 'destroy']);
-                Route::get('/getKabKotaByProvinsi', [RegistrasiVendorController::class, 'getKabKotaByProvinsi'])->name('getKabKotaByProvinsi');
-                Route::get('/getKecamatanByKabKota', [RegistrasiVendorController::class, 'getKecamatanByKabKota'])->name('getKecamatanByKabKota');
-                Route::get('/getKelurahanByKecamatan', [RegistrasiVendorController::class, 'getKelurahanByKecamatan'])->name('getKelurahanByKecamatan');
-            });
+            Route::prefix('menu')
+	            ->middleware([RoleMiddleware::using(RoleEnum::Vendor->value), 'vendor.registration-type'])
+	            ->name('menu.')
+	            ->group(function () {
+	                // registrasi vendor perorangan
+	                Route::resource('/registrasi-vendor', RegistrasiVendorController::class)
+		                ->except(['show', 'destroy']);
+					
+		            // registrasi vendor perorangan
+	                Route::resource('/registrasi-vendor-perusahaan', RegistrasiVendorPerusahaanController::class)
+		                ->except(['show', 'destroy']);
+					
+	                Route::delete('/registrasi-vendor/remove-document/{dokumen_vendor}', [RegistrasiVendorController::class, 'removeDocument'])
+		                ->name('registrasi-vendor.remove-document');
+					
+	                Route::get('/getKabKotaByProvinsi', [RegistrasiVendorController::class, 'getKabKotaByProvinsi'])->name('getKabKotaByProvinsi');
+	                Route::get('/getKecamatanByKabKota', [RegistrasiVendorController::class, 'getKecamatanByKabKota'])->name('getKecamatanByKabKota');
+	                Route::get('/getKelurahanByKecamatan', [RegistrasiVendorController::class, 'getKelurahanByKecamatan'])->name('getKelurahanByKecamatan');
+	            });
         });
     });
 });

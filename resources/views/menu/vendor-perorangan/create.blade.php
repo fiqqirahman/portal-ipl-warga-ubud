@@ -87,10 +87,11 @@
                                     </div>
                                     <div class="col-md-4 col-sm-12 mb-4">
                                         <label for="npwp" class="fs-6 fw-semibold form-label mt-3">
-                                            <span>NPWP</span>
+                                            <span class="required">NPWP</span>
                                         </label>
                                         <input type="text"
                                                class="form-control @error('npwp') is-invalid @enderror positive-numeric"
+                                               required minlength="15"
                                                name="npwp" value="{{ old('npwp') }}" id="npwp" maxlength="16" />
                                         @error('npwp')
                                         <div class="invalid-feedback">
@@ -259,24 +260,7 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="kt_contact_view_documents" role="tabpanel">
-                                <div class="row">
-                                    @foreach($documentsField as $field)
-                                        <div class="col-md-3 col-sm-12 mb-4">
-                                            <label for="{{ $field['id'] }}" class="fs-6 fw-semibold form-label mt-3">
-                                                <span class="{{ $field['is_required'] ? 'has_required_label' : '' }}">{{ $field['label'] }}</span>
-                                            </label>
-                                            <input type="file" accept="{{ implode(',', array_map(fn($item) => 'application/' . $item, $field['allowed_file_types'])) }}"
-                                                   class="form-control @error($field['name']) is-invalid @enderror {{ $field['is_required'] ? 'has_required_input' : '' }}"
-                                                   onchange="onDocumentChange(this, '{{ implode(',', $field['allowed_file_types']) }}', '{{ $field['max_file_size'] }}')"
-                                                   name="{{ $field['name'] }}" id="{{ $field['id'] }}" />
-                                            @error($field['name'])
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
-                                        </div>
-                                    @endforeach
-                                </div>
+                                @include('menu.vendor-partials.documents.create')
                             </div>
                             <div class="tab-pane fade" id="kt_contact_view_activity" role="tabpanel">
                                 <h3>Last</h3>
@@ -370,6 +354,16 @@
                     return false
                 });
             })
+
+            $('div.invalid-feedback', '#form-update').each(function () {
+                let id = $(this).closest('.tab-pane').attr('id');
+
+                if (id) {
+                    $(`.nav a[href="#${id}"]`).tab('show');
+
+                    return false
+                }
+            });
 
             $(document).on('submit', '#form-store', function (e) {
                 e.preventDefault()

@@ -88,9 +88,10 @@
                                     </div>
                                     <div class="col-md-4 col-sm-12 mb-4">
                                         <label for="npwp" class="fs-6 fw-semibold form-label mt-3">
-                                            <span>NPWP</span>
+                                            <span class="required">NPWP</span>
                                         </label>
                                         <input type="text"
+                                               required minlength="15"
                                                class="form-control @error('npwp') is-invalid @enderror positive-numeric"
                                                name="npwp" value="{{ old('npwp', $registrasiVendor->npwp) }}" id="npwp" maxlength="16" />
                                         @error('npwp')
@@ -250,35 +251,7 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="kt_contact_view_documents" role="tabpanel">
-                                <div class="row">
-                                    @foreach($documentsField as $field)
-                                        <div class="col-md-4 col-sm-12 mb-4">
-                                            <div class="row">
-                                                <div class="col-md-{{ $field['old_value'] ? '6' : '12' }}">
-                                                    <label for="{{ $field['id'] }}" class="fs-6 fw-semibold form-label mt-3">
-                                                        <span class="{{ $field['is_required'] ? 'has_required_label' : '' }}">{{ $field['label'] }}</span>
-                                                    </label>
-                                                </div>
-                                                @if($field['old_value'])
-                                                    <div class="col-md-6 text-md-end">
-                                                        <label class="fs-6 fw-semibold form-label mt-3">
-                                                            <a href="{{ \Illuminate\Support\Facades\Storage::url($field['old_value']['path']) }}">Download</a>
-                                                        </label>
-                                                    </div>
-                                                @endif
-                                            </div>
-                                            <input type="file" accept="{{ implode(',', array_map(fn($item) => 'application/' . $item, $field['allowed_file_types'])) }}"
-                                                   class="form-control @error($field['name']) is-invalid @enderror {{ $field['is_required'] ? 'has_required_input' : '' }}"
-                                                   onchange="onDocumentChange(this, '{{ implode(',', $field['allowed_file_types']) }}', '{{ $field['max_file_size'] }}')"
-                                                   name="{{ $field['name'] }}" id="{{ $field['id'] }}" />
-                                            @error($field['name'])
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
-                                        </div>
-                                    @endforeach
-                                </div>
+                                @include('menu.vendor-partials.documents.edit')
                             </div>
                             <div class="tab-pane fade" id="kt_contact_view_activity" role="tabpanel">
                                 <h3>Last</h3>
@@ -303,6 +276,11 @@
             </div>
         </div>
     </div>
+
+    <form action="" id="form-remove-document" method="POST">
+        @csrf
+        @method('DELETE')
+    </form>
 @endsection
 
 @section('scripts')
@@ -373,6 +351,20 @@
                 });
             })
 
+            $('div.invalid-feedback', '#form-update').each(function () {
+                let id = $(this).closest('.tab-pane').attr('id');
+
+                if (id) {
+                    $(`.nav a[href="#${id}"]`).tab('show');
+
+                    return false
+                }
+            });
+
+            @if(session()->has('last_opened_tab') && !$errors->any())
+                $(`.nav a[href="#` + '{{ session()->get('last_opened_tab') }}' + `"]`).tab('show');
+            @endif
+
             $(document).on('submit', '#form-update', function (e) {
                 e.preventDefault()
 
@@ -389,11 +381,13 @@
                     }).then((result) => {
                         if (result.isConfirmed) {
                             $('#loader-overlay').show();
+                            updateActionForm()
                             $('#form-update')[0].submit()
                         }
                     })
                 } else {
                     $('#loader-overlay').show();
+                    updateActionForm()
                     $('#form-update')[0].submit()
                 }
             })
@@ -407,6 +401,37 @@
                     $('#btn-submit').text('Save to Draft');
                 }
             });
+
+            $('.btn-remove-document').click(function (){
+                const route = $(this).data('route')
+                const fieldName = $(this).data('field-name')
+
+                Swal.fire({
+                    title: 'Anda Yakin?',
+                    html: `Ingin menghapus dokumen ${fieldName} ?`,
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#loader-overlay').show();
+                        $('#form-remove-document').attr('action', route).submit()
+                    }
+                })
+            })
+
+            function updateActionForm(){
+                const hrefValue = $('.nav-link.text-active-primary.pb-4.active').attr('href');
+
+                if (hrefValue) {
+                    const updatedAction = `${$('#form-update').attr('action')}?tab=${hrefValue.replace('#','')}`;
+
+                    $('#form-update').attr('action', updatedAction);
+                }
+            }
 
             function isSubmitForm(){
                 $('.has_required_label').addClass('required')

@@ -112,14 +112,15 @@ function onDocumentChange(input, allowedMimes, maxFileSize) {
     const FileName = input.files[0] ? input.files[0].name : null;
     if (FileName) {
         const FileMime = FileName.substring(FileName.lastIndexOf('.') + 1).toLowerCase();
-        if (allowedMimes.includes(FileMime)) {
+        const fileTypes = allowedMimes.split(',');
+        if (fileTypes.includes(FileMime)) {
             const maxSize = maxFileSize * 1024
             if (input.files[0].size > maxSize) {
                 Swal.fire(`File Size Dokumen tidak boleh lebih dari ${convertToReadableSize(maxSize)}!`);
                 input.value = null;
             }
         } else {
-            Swal.fire(`Dokumen hanya boleh dalam format ${allowedMimes.join(', ').toUpperCase()}!`);
+            Swal.fire(`Dokumen hanya boleh dalam format ${fileTypes.join(', ').toUpperCase()}!`);
             input.value = null;
         }
     }
@@ -130,4 +131,37 @@ function convertToReadableSize(size) {
     const suffix = ['', 'KB', 'MB', 'GB', 'TB'];
     const fBase = Math.floor(base);
     return ((Math.pow(1024, base - fBase)).toFixed(1) + ' ' + suffix[fBase]).replace('.0','');
+}
+
+function convertToFormatRupiah(amount, includeCents = false) {
+    return new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+        minimumFractionDigits: includeCents ? 2 : 0,
+        maximumFractionDigits: includeCents ? 2 : 0,
+    }).format(amount);
+}
+
+function formatRupiah(element) {
+    let value = element.value.replace(/[^,\d]/g, '').toString();
+    let splitValue = value.split(',');
+    let sisa = splitValue[0].length % 3;
+    let rupiah = splitValue[0].substr(0, sisa);
+    let ribuan = splitValue[0].substr(sisa).match(/\d{3}/gi);
+
+    if (ribuan) {
+        let separator = sisa ? '.' : '';
+        rupiah += separator + ribuan.join('.');
+    }
+
+    rupiah = splitValue[1] !== undefined ? rupiah + ',' + splitValue[1] : rupiah;
+    element.value = rupiah ? 'Rp ' + rupiah : '';
+}
+
+function cleanFormatRupiah(formattedRupiah) {
+    if (!formattedRupiah) {
+        return 0;
+    }
+
+    return parseInt(formattedRupiah.replace(/\D/g, ''), 10);
 }

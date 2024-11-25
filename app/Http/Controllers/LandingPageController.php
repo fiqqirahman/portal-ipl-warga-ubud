@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterVendorRequest;
-use App\Mail\RegistrationMail;
+use App\Jobs\RegistrationJob;
 use App\Models\User;
 use App\Statics\User\NRIK;
 use App\Statics\User\Role;
@@ -13,7 +13,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
@@ -97,19 +96,19 @@ class LandingPageController extends Controller
             $activationToken = Str::random(64);
 
             $user = User::create([
-                'name' => $request->input('name'),
-                'email' => $request->input('email'),
-                'is_company' => $request->input('is_company'),
+                'name' => trim(e($request->input('name'))),
+                'email' => strtolower(trim($request->input('email'))),
                 'password' => bcrypt($password),
                 'username' => $username,
                 'activation_token' => $activationToken,
                 'expired_password' => Carbon::now()->addMonths(),
-                'is_actived' => false,
+				'vendor_type' => $request->vendor_type,
+                'is_activated' => false
             ]);
 
             $user->assignRole(Role::$VENDOR);
-
-            Mail::to($user->email)->queue(new RegistrationMail($user, $password, $activationToken));
+	        
+	        dispatch(new RegistrationJob($user, $password, $activationToken));
 
             sweetAlert('success','Registrasi berhasil. Silakan cek email Anda');
             return to_route('landing-page.registrasi');
@@ -125,12 +124,12 @@ class LandingPageController extends Controller
         $recentIpAddress = $_SERVER['REMOTE_ADDR'];
         $max_fail = 3;
         $expiredPassword = '1970-01-01';
-        $request['username'] = strtoupper($request->username);
+        $request['username'] = strtoupper(e($request->username));
         $user = User::where('username', $request->username)->first();
 
         $this->validate($request, [
-            'username' => 'required',
-            'password' => 'required',
+            'username' => 'required|string',
+            'password' => 'required|string',
         ], [], [
             'username' => 'Username',
             'password' => 'Password',

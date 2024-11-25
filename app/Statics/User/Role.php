@@ -3,6 +3,7 @@
 namespace App\Statics\User;
 
 use App\Enums\PermissionEnum;
+use App\Enums\RoleEnum;
 
 class Role
 {
@@ -11,51 +12,13 @@ class Role
     static int $VENDOR = 3;
     static int $OP_VENDOR_MANAJEMEN = 4;
 
-    static function getAll(): array
-    {
-        return [
-            self::$SUPER_ADMIN,
-            self::$DEVELOPER,
-            self::$VENDOR,
-            self::$OP_VENDOR_MANAJEMEN,
-        ];
-    }
-
-    static function getAllForCreate(): array
+    public static function getAllForCreate(): array
     {
         return [
             [
                 'id' => self::$SUPER_ADMIN,
-                'name' => 'Super Admin',
-                'permissions' => [
-	                // Permission::SomeMenuAccess->value
-	                
-	                PermissionEnum::UtilityAccess->value,
-	                PermissionEnum::DebugEagleEyeAccess->value,
-	                PermissionEnum::MasterConfigAccess->value,
-                    PermissionEnum::MasterJenisVendorAccess->value,
-                    PermissionEnum::MasterJenisVendorEdit->value,
-                    PermissionEnum::MasterJenisVendorCreate->value,
-                    PermissionEnum::MasterBentukBadanUsahaAccess->value,
-                    PermissionEnum::MasterBentukBadanUsahaCreate->value,
-                    PermissionEnum::MasterBentukBadanUsahaEdit->value,
-                    PermissionEnum::MasterStatusPerusahaanAccess->value,
-                    PermissionEnum::MasterStatusPerusahaanCreate->value,
-                    PermissionEnum::MasterStatusPerusahaanEdit->value,
-                    PermissionEnum::MasterKategoriVendorAccess->value,
-                    PermissionEnum::MasterKategoriVendorCreate->value,
-                    PermissionEnum::MasterKategoriVendorEdit->value,
-                    PermissionEnum::RegistrasiVendorAccess->value,
-                    PermissionEnum::RegistrasiVendorCreate->value,
-                    PermissionEnum::RegistrasiVendorEdit->value,
-                    PermissionEnum::RegistrasiVendorPerusahaanAccess->value,
-                    PermissionEnum::RegistrasiVendorPerusahaanCreate->value,
-                    PermissionEnum::RegistrasiVendorPerusahaanEdit->value,
-                    PermissionEnum::MasterDokumenAccess->value,
-                    PermissionEnum::MasterDokumenCreate->value,
-                    PermissionEnum::MasterDokumenEdit->value,
-
-                ],
+                'name' => RoleEnum::SuperAdmin,
+	            'permissions' => PermissionEnum::getAll(),
                 'menus' => [
                     Menu::$DASHBOARD,
 
@@ -69,6 +32,7 @@ class Role
                     Menu::$REGISTRASI_VENDOR,
                     Menu::$VENDOR_PERUSAHAAN,
                     Menu::$VENDOR_PERORANGAN,
+                    Menu::$APPROVAL_REGISTRASI_VENDOR,
 
 	                Menu::$UTILITY,
 	                Menu::$DEBUG_EAGLE_EYE,
@@ -77,35 +41,8 @@ class Role
             ],
             [
                 'id' => self::$DEVELOPER,
-                'name' => 'Developer',
-                'permissions' => [
-	                // Permission::SomeMenuAccess->value
-	                
-	                PermissionEnum::UtilityAccess->value,
-	                PermissionEnum::DebugEagleEyeAccess->value,
-	                PermissionEnum::MasterConfigAccess->value,
-                    PermissionEnum::MasterJenisVendorAccess->value,
-                    PermissionEnum::MasterJenisVendorEdit->value,
-                    PermissionEnum::MasterJenisVendorCreate->value,
-                    PermissionEnum::MasterBentukBadanUsahaAccess->value,
-                    PermissionEnum::MasterBentukBadanUsahaCreate->value,
-                    PermissionEnum::MasterBentukBadanUsahaEdit->value,
-                    PermissionEnum::MasterStatusPerusahaanAccess->value,
-                    PermissionEnum::MasterStatusPerusahaanCreate->value,
-                    PermissionEnum::MasterStatusPerusahaanEdit->value,
-                    PermissionEnum::MasterKategoriVendorAccess->value,
-                    PermissionEnum::MasterKategoriVendorCreate->value,
-                    PermissionEnum::MasterKategoriVendorEdit->value,
-                    PermissionEnum::RegistrasiVendorAccess->value,
-                    PermissionEnum::RegistrasiVendorCreate->value,
-                    PermissionEnum::RegistrasiVendorEdit->value,
-                    PermissionEnum::RegistrasiVendorPerusahaanAccess->value,
-                    PermissionEnum::RegistrasiVendorPerusahaanCreate->value,
-                    PermissionEnum::RegistrasiVendorPerusahaanEdit->value,
-                    PermissionEnum::MasterDokumenAccess->value,
-                    PermissionEnum::MasterDokumenCreate->value,
-                    PermissionEnum::MasterDokumenEdit->value,
-                ],
+                'name' => RoleEnum::Developer,
+                'permissions' => PermissionEnum::getAll(),
                 'menus' => [
 	                Menu::$DASHBOARD,
 
@@ -119,71 +56,62 @@ class Role
                     Menu::$REGISTRASI_VENDOR,
                     Menu::$VENDOR_PERUSAHAAN,
                     Menu::$VENDOR_PERORANGAN,
+                    Menu::$APPROVAL_REGISTRASI_VENDOR,
 
 	                Menu::$UTILITY,
 	                Menu::$DEBUG_EAGLE_EYE,
 	                Menu::$MASTER_CONFIG,
                 ],
             ],
-	         [
-		         'id' => self::$OP_VENDOR_MANAJEMEN,
-		         'name' => 'Operator Vendor Manajemen',
-		         'permissions' => [
-                     PermissionEnum::MasterJenisVendorAccess->value,
-                     PermissionEnum::MasterJenisVendorEdit->value,
-                     PermissionEnum::MasterJenisVendorCreate->value,
-                     PermissionEnum::MasterBentukBadanUsahaAccess->value,
-                     PermissionEnum::MasterBentukBadanUsahaCreate->value,
-                     PermissionEnum::MasterBentukBadanUsahaEdit->value,
-                     PermissionEnum::MasterStatusPerusahaanAccess->value,
-                     PermissionEnum::MasterStatusPerusahaanCreate->value,
-                     PermissionEnum::MasterStatusPerusahaanEdit->value,
-                     PermissionEnum::MasterKategoriVendorAccess->value,
-                     PermissionEnum::MasterKategoriVendorCreate->value,
-                     PermissionEnum::MasterKategoriVendorEdit->value,
-                     PermissionEnum::RegistrasiVendorAccess->value,
-                     PermissionEnum::RegistrasiVendorCreate->value,
-                     PermissionEnum::RegistrasiVendorEdit->value,
-                     PermissionEnum::RegistrasiVendorPerusahaanAccess->value,
-                     PermissionEnum::RegistrasiVendorPerusahaanCreate->value,
-                     PermissionEnum::RegistrasiVendorPerusahaanEdit->value,
-                     PermissionEnum::MasterDokumenAccess->value,
-                     PermissionEnum::MasterDokumenCreate->value,
-                     PermissionEnum::MasterDokumenEdit->value,
-                     ],
-		         'menus' => [
-                     Menu::$DASHBOARD,
-
-                     Menu::$MASTER_DATA,
-                     Menu::$MASTER_JENIS_VENDOR,
-                     Menu::$MASTER_BENTUK_BADAN_USAHA,
-                     Menu::$MASTER_STATUS_PERUSAHAAN,
-                     Menu::$MASTER_KATEGORI_VENDOR,
-
-                     Menu::$REGISTRASI_VENDOR,
-                     Menu::$VENDOR_PERUSAHAAN,
-                     Menu::$VENDOR_PERORANGAN,
-		         ],
-	         ],
+	        [
+		        'id' => self::$VENDOR,
+		        'name' => RoleEnum::Vendor,
+		        'permissions' => [
+			        PermissionEnum::RegistrasiVendorAccess->value,
+			        PermissionEnum::RegistrasiVendorCreate->value,
+			        PermissionEnum::RegistrasiVendorEdit->value,
+			        PermissionEnum::RegistrasiVendorDetail->value,
+		        ],
+		        'menus' => [
+			        Menu::$DASHBOARD,
+			        
+			        Menu::$REGISTRASI_VENDOR,
+			        Menu::$VENDOR_PERUSAHAAN,
+			        Menu::$VENDOR_PERORANGAN,
+		        ],
+	        ],
             [
-                'id' => self::$VENDOR,
-                'name' => 'Vendor',
-                'permissions' => [
-                    PermissionEnum::RegistrasiVendorAccess->value,
-                    PermissionEnum::RegistrasiVendorCreate->value,
-                    PermissionEnum::RegistrasiVendorEdit->value,
-                    PermissionEnum::RegistrasiVendorPerusahaanAccess->value,
-                    PermissionEnum::RegistrasiVendorPerusahaanCreate->value,
-                    PermissionEnum::RegistrasiVendorPerusahaanEdit->value,
-                ],
-                'menus' => [
+	            'id' => self::$OP_VENDOR_MANAJEMEN,
+	            'name' => RoleEnum::OperatorVendorManajemen,
+	            'permissions' => [
+                    PermissionEnum::MasterJenisVendorAccess->value,
+                    PermissionEnum::MasterJenisVendorEdit->value,
+                    PermissionEnum::MasterJenisVendorCreate->value,
+		            
+                    PermissionEnum::MasterBentukBadanUsahaAccess->value,
+                    PermissionEnum::MasterBentukBadanUsahaCreate->value,
+                    PermissionEnum::MasterBentukBadanUsahaEdit->value,
+		            
+                    PermissionEnum::RegistrasiVendorApproval->value,
+
+                    PermissionEnum::MasterDokumenAccess->value,
+                    PermissionEnum::MasterDokumenCreate->value,
+                    PermissionEnum::MasterDokumenEdit->value,
+                 ],
+	            'menus' => [
                     Menu::$DASHBOARD,
 
+                    Menu::$MASTER_DATA,
+                    Menu::$MASTER_JENIS_VENDOR,
+                    Menu::$MASTER_BENTUK_BADAN_USAHA,
+                    Menu::$MASTER_STATUS_PERUSAHAAN,
+                    Menu::$MASTER_KATEGORI_VENDOR,
+                    Menu::$MASTER_DOKUMEN,
+
                     Menu::$REGISTRASI_VENDOR,
-                    Menu::$VENDOR_PERUSAHAAN,
-                    Menu::$VENDOR_PERORANGAN,
-                ],
-            ]
+                    Menu::$APPROVAL_REGISTRASI_VENDOR,
+	            ],
+	         ]
         ];
     }
 }

@@ -73,5 +73,6 @@ class Kernel extends HttpKernel
         'permission' => PermissionMiddleware::class,
 	    'api.validate-token' => ValidateToken::class,
         'activated' => \App\Http\Middleware\CheckIfActivated::class,
+        'vendor.registration-type' => \App\Http\Middleware\VendorRegistrationType::class
     ];
 }

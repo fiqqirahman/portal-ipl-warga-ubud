@@ -8,19 +8,16 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
 use App\Http\Requests\DokumenRequest;
 use App\Models\Master\Dokumen;
-use App\Models\Master\JenisVendor;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 
 class DokumenController extends Controller
 {
-    private static $title = 'Dokumen Upload';
+    private static string $title = 'Dokumen Upload';
 
     static function breadcrumb()
     {
@@ -51,13 +48,13 @@ class DokumenController extends Controller
      */
     public function create(): View|Factory|Application
     {
-        $this->authorize('master_dokumen_access');
+        $this->authorize(PermissionEnum::MasterDokumenCreate->value);
         $title = 'Tambah ' . self::$title;
 
         $breadcrumbs = [
             HomeController::breadcrumb(),
             self::breadcrumb(),
-            [$title, route('master.dokumen.create')],
+            ['Tambah', route('master.dokumen.create')],
         ];
 
         return view('master.dokumen.create', compact('title', 'breadcrumbs'));
@@ -71,56 +68,109 @@ class DokumenController extends Controller
     {
         try {
             $this->authorize(PermissionEnum::MasterDokumenCreate->value);
-
-            $validatedData['allowed_file_types'] = json_encode(['allowed_file_types']);
-
-            $masterDokumen = Dokumen::create($request->safe()->all() + [
-                    'nama_dokumen' => $request->input('nama_dokumen'),
-                    'keterangan' => $request->input('keterangan'),
-                    'is_required' => $request->input('is_required'),
-                    'max_file_size' => $request->input('max_file_size'),
-                    'allowed_file_types' => $validatedData,
-                    'created_by' => Auth::id(),
-                ]);
+			
+            Dokumen::create([
+                'nama_dokumen' => trim($request->input('nama_dokumen')),
+                'keterangan' => trim($request->input('keterangan')),
+                'is_required' => (int) $request->input('is_required'),
+                'max_file_size' => trim($request->input('max_file_size')),
+                'allowed_file_types' => json_encode($request->allowed_file_types),
+				'for' => $request->for,
+                'created_by' => Auth::id(),
+            ]);
+			
             createLogActivity('Membuat Master Data Dokumen');
 
             sweetAlert('success', 'Master Data Dokumen Berhasil di Simpan');
+			
             return to_route('master.dokumen.index');
         } catch (\Exception $e) {
             sweetAlertException('Terjadi Kesalahan, hubungi Administrator!', $e);
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat registrasi. Silakan coba lagi.')->withInput();
+			
+            return to_route('master.dokumen.create')->withInput();
         }
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Dokumen $dokumen)
     {
-        //
+	    $this->authorize(PermissionEnum::MasterDokumenEdit->value);
+	    $title = 'Edit ' . self::$title;
+		
+	    $breadcrumbs = [
+		    HomeController::breadcrumb(),
+		    self::breadcrumb(),
+		    ['Edit', route('master.dokumen.edit', ['dokumen' => enkrip($dokumen->id)])],
+	    ];
+		
+	    return view('master.dokumen.edit', compact('title', 'breadcrumbs', 'dokumen'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(DokumenRequest $request, Dokumen $dokumen)
     {
-        //
+	    try {
+		    $this->authorize(PermissionEnum::MasterDokumenEdit->value);
+		    
+		    $dokumen->update([
+			    'nama_dokumen' => trim($request->input('nama_dokumen')),
+			    'keterangan' => trim($request->input('keterangan')),
+			    'is_required' => (int) $request->input('is_required'),
+			    'max_file_size' => trim($request->input('max_file_size')),
+			    'allowed_file_types' => json_encode($request->allowed_file_types),
+			    'for' => $request->for,
+			    'updated_by' => Auth::id(),
+		    ]);
+		    
+		    createLogActivity('Mengupdate Master Data Dokumen');
+		    
+		    sweetAlert('success', 'Master Data Dokumen Berhasil di Update');
+		    
+		    return to_route('master.dokumen.index');
+	    } catch (\Exception $e) {
+		    sweetAlertException('Terjadi Kesalahan, hubungi Administrator!', $e);
+		    
+		    return to_route('master.dokumen.edit', ['dokumen' => enkrip($dokumen->id)])->withInput();
+	    }
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+	
+	public function nonaktif(Dokumen $dokumen)
+	{
+		try {
+			$dokumen->status_data = false;
+			$dokumen->save();
+			
+			createLogActivity('Aktifkan Master Data Dokumen');
+			
+			sweetAlert('success', 'Master Data Dokumen Berhasil di Nonaktifkan');
+			
+			return to_route('master.dokumen.index');
+		} catch (\Exception $e) {
+			sweetAlertException('Terjadi Kesalahan, hubungi Administrator!', $e);
+			
+			return to_route('master.dokumen.index');
+		}
+	}
+	
+	public function aktif(Dokumen $dokumen)
+	{
+		try {
+			$dokumen->status_data = true;
+			$dokumen->save();
+			
+			createLogActivity('Aktifkan Master Data Dokumen');
+			
+			sweetAlert('success', 'Master Data Dokumen Berhasil di Aktifkan');
+			
+			return to_route('master.dokumen.index');
+		} catch (\Exception $e) {
+			sweetAlertException('Terjadi Kesalahan, hubungi Administrator!', $e);
+			
+			return to_route('master.dokumen.index');
+		}
+	}
 }

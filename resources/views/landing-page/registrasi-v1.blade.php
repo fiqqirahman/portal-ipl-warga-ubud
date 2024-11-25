@@ -93,10 +93,14 @@
                                    type="email" placeholder="Email" name="email" autocomplete="off" data-kt-translate="sign-up-input-email" />
                         </div>
                         <div class="fv-row mb-10">
-                            <select class="form-select form-select-lg" name="is_company" required>
-                                <option value="" disabled selected>Pilih Tipe</option>
-                                <option value="true" {{ old('is_company') === 'true' ? 'selected' : '' }}>Perusahaan</option>
-                                <option value="false" {{ old('is_company') === 'false' ? 'selected' : '' }}>Perorangan</option>
+                            <select class="form-select form-select-lg" name="vendor_type" data-control="select2"
+                                    data-placeholder="---Pilih Jenis Vendor---" required>
+                                <option value="{{ \App\Enums\UserVendorTypeEnum::Company->value }}" {{ old('vendor_type') == \App\Enums\UserVendorTypeEnum::Company->value ? 'selected' : '' }}>
+                                    {{ \App\Enums\UserVendorTypeEnum::Company->label() }}
+                                </option>
+                                <option value="{{ \App\Enums\UserVendorTypeEnum::Individual->value }}" {{ old('vendor_type') == \App\Enums\UserVendorTypeEnum::Individual->value ? 'selected' : '' }}>
+                                    {{ \App\Enums\UserVendorTypeEnum::Individual->label() }}
+                                </option>
                             </select>
                         </div>
                         <!--end::Input group-->
