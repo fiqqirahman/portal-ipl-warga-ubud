@@ -45,6 +45,7 @@ class RoleSeeder extends Seeder
             ['id' => StaticMenu::$REGISTRASI_VENDOR, 'name' => 'Registrasi Vendor', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => 0, 'order' => 3],
             ['id' => StaticMenu::$VENDOR_PERUSAHAAN, 'name' => 'Vendor Perusahaan', 'route' => 'menu.registrasi-vendor-perusahaan.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$REGISTRASI_VENDOR, 'order' => 1],
             ['id' => StaticMenu::$VENDOR_PERORANGAN, 'name' => 'Vendor Perorangan', 'route' => 'menu.registrasi-vendor.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$REGISTRASI_VENDOR, 'order' => 2],
+            ['id' => StaticMenu::$APPROVAL_REGISTRASI_VENDOR, 'name' => 'Approval', 'route' => 'menu.operator.registrasi-vendor.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$REGISTRASI_VENDOR, 'order' => 3],
 
             ['id' => StaticMenu::$UTILITY, 'name' => 'Utility', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => 0, 'order' => 99999],
 	        ['id' => StaticMenu::$DEBUG_EAGLE_EYE, 'name' => 'Debug', 'route' => 'telescope', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$UTILITY, 'order' => 1],
