@@ -18,8 +18,9 @@
                     </div>
                 </div>
                 <div class="card-body pt-5">
-                    <form action="{{ route('menu.registrasi-vendor-perusahaan.store') }}" method="POST" id="form-store" enctype="multipart/form-data">
+                    <form action="{{ route('menu.registrasi-vendor-perusahaan.update', ['registrasi_vendor' => enkrip($registrasiVendor->id)]) }}" method="POST" id="form-update" enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
                         <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x fs-6 fw-semibold mt-6 mb-8" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#kt_contact_view_general" aria-selected="true" role="tab">
@@ -65,7 +66,7 @@
                                         </label>
                                         <input type="text" required maxlength="255"
                                                class="form-control @error('nama') is-invalid @enderror"
-                                               name="nama" value="{{ old('nama') }}" id="nama" />
+                                               name="nama" value="{{ old('nama', $registrasiVendor->nama) }}" id="nama" />
                                         @error('nama')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -78,7 +79,7 @@
                                         </label>
                                         <input type="text" required maxlength="255"
                                                class="form-control @error('nama_singkatan') is-invalid @enderror"
-                                               name="nama_singkatan" value="{{ old('nama_singkatan') }}" id="nama_singkatan" />
+                                               name="nama_singkatan" value="{{ old('nama_singkatan', $registrasiVendor->nama_singkatan) }}" id="nama_singkatan" />
                                         @error('nama_singkatan')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -90,9 +91,9 @@
                                             <span class="required">NPWP</span>
                                         </label>
                                         <input type="text"
-                                               class="form-control @error('npwp') is-invalid @enderror positive-numeric"
                                                required minlength="15"
-                                               name="npwp" value="{{ old('npwp') }}" id="npwp" maxlength="16" />
+                                               class="form-control @error('npwp') is-invalid @enderror positive-numeric"
+                                               name="npwp" value="{{ old('npwp', $registrasiVendor->npwp) }}" id="npwp" maxlength="16" />
                                         @error('npwp')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -111,7 +112,7 @@
                                             <option></option>
                                             @foreach ($stmtKategoriVendor as $kategoriVendor)
                                                 <option value="{{ $kategoriVendor->kode }}"
-                                                    {{ $kategoriVendor->kode ?  : '' }}>
+                                                    {{ $kategoriVendor->kode == old('id_master_kategori_vendor', $registrasiVendor->id_master_kategori_vendor) ? 'selected' : '' }}>
                                                     {{ $kategoriVendor->nama }}
                                                 </option>
                                             @endforeach
@@ -128,7 +129,7 @@
                                         </label>
                                         <input type="text"
                                                class="form-control @error('no_identitas') is-invalid @enderror"
-                                               name="no_identitas" value="{{ old('no_identitas') }}" id="no_identitas" />
+                                               name="no_identitas" value="{{ old('no_identitas', $registrasiVendor->no_identitas) }}" id="no_identitas" />
                                         @error('no_identitas')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -141,7 +142,7 @@
                                         </label>
                                         <input type="date"
                                                class="form-control @error('tanggal_berakhir') is-invalid @enderror"
-                                               name="tanggal_berakhir" value="{{ old('tanggal_berakhir') }}" id="tanggal_berakhir" />
+                                               name="tanggal_berakhir" value="{{ old('tanggal_berakhir', $registrasiVendor->tanggal_berakhir) }}" id="tanggal_berakhir" />
                                         @error('tanggal_berakhir')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -153,7 +154,7 @@
                                             <span>Alamat</span>
                                         </label>
                                         <textarea class="form-control form-control @error('alamat') is-invalid @enderror" id="alamat"
-                                                  name="alamat" rows="2">{{ old('alamat') }}</textarea>
+                                                  name="alamat" rows="2">{{ old('alamat', $registrasiVendor->alamat) }}</textarea>
                                         @error('alamat')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -163,8 +164,6 @@
                                     <div class="col-md-4 col-sm-12 mb-4">
                                         <label for="id_master_negara" class="fs-6 fw-semibold form-label mt-3">
                                             <span>Negara</span>
-                                            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                               title="Hanya Kategori Vendor yang aktif saja yang dapat dipilih"></i>
                                         </label>
                                         <select class="form-select  @error('id_master_negara') is-invalid @enderror"
                                                 id="id_master_negara" name="id_master_negara" data-control="select2"
@@ -172,7 +171,7 @@
                                             <option></option>
                                             @foreach ($stmtKategoriVendor as $kategoriVendor)
                                                 <option value="{{ $kategoriVendor->kode }}"
-                                                    {{ $kategoriVendor->kode ?  : '' }}>
+                                                    {{ $kategoriVendor->kode == old('id_master_negara', $registrasiVendor->id_master_negara) ? 'selected' : '' }}>
                                                     {{ $kategoriVendor->nama }}
                                                 </option>
                                             @endforeach
@@ -186,8 +185,6 @@
                                     <div class="col-md-4 col-sm-12 mb-4">
                                         <label for="kode_provinsi" class="fs-6 fw-semibold form-label mt-3">
                                             <span>Provinsi</span>
-                                            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                               title="Hanya Kategori Vendor yang aktif saja yang dapat dipilih"></i>
                                         </label>
                                         <select class="form-select  @error('kode_provinsi') is-invalid @enderror"
                                                 id="kode_provinsi" name="kode_provinsi" data-control="select2"
@@ -209,8 +206,6 @@
                                     <div class="col-md-4 col-sm-12 mb-4">
                                         <label for="kode_kabupaten_kota" class="fs-6 fw-semibold form-label mt-3">
                                             <span>Kabupaten/Kota</span>
-                                            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                               title="Hanya Kategori Vendor yang aktif saja yang dapat dipilih"></i>
                                         </label>
                                         <select class="form-select  @error('kode_kabupaten_kota') is-invalid @enderror"
                                                 id="kode_kabupaten_kota" name="kode_kabupaten_kota" data-control="select2"
@@ -226,8 +221,6 @@
                                     <div class="col-md-4 col-sm-12 mb-4">
                                         <label for="kode_kecamatan" class="fs-6 fw-semibold form-label mt-3">
                                             <span>Kecamatan</span>
-                                            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                               title="Hanya Kategori Vendor yang aktif saja yang dapat dipilih"></i>
                                         </label>
                                         <select class="form-select  @error('kode_kecamatan') is-invalid @enderror"
                                                 id="kode_kecamatan" name="kode_kecamatan" data-control="select2"
@@ -243,8 +236,6 @@
                                     <div class="col-md-4 col-sm-12 mb-4">
                                         <label for="kode_kelurahan" class="fs-6 fw-semibold form-label mt-3">
                                             <span>Kelurahan</span>
-                                            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                               title="Hanya Kategori Vendor yang aktif saja yang dapat dipilih"></i>
                                         </label>
                                         <select class="form-select  @error('kode_kelurahan') is-invalid @enderror"
                                                 id="kode_kelurahan" name="kode_kelurahan" data-control="select2"
@@ -260,10 +251,10 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="kt_contact_view_documents" role="tabpanel">
-                                @include('menu.vendor-partials.documents.create')
+                                @include('menu.vendor-partials.documents.edit')
                             </div>
                             <div class="tab-pane fade" id="kt_contact_view_daftar_komisaris" role="tabpanel">
-                                @include('menu.vendor-partials.daftar-komisaris.create')
+                                @include('menu.vendor-partials.daftar-komisaris.edit')
                             </div>
                         </div>
                         <div class="col-12 mt-4">
@@ -285,6 +276,11 @@
             </div>
         </div>
     </div>
+
+    <form action="" id="form-remove-document" method="POST">
+        @csrf
+        @method('DELETE')
+    </form>
 @endsection
 
 @section('scripts')
@@ -346,7 +342,7 @@
             })
 
             $('#btn-submit').click(function (){
-                $(':required:invalid', '#form-store').each(function () {
+                $(':required:invalid', '#form-update').each(function () {
                     let id = $('.tab-pane').find(':required:invalid').closest('.tab-pane').attr('id');
 
                     $(`.nav a[href="#` + id + `"]`).tab('show');
@@ -365,7 +361,11 @@
                 }
             });
 
-            $(document).on('submit', '#form-store', function (e) {
+            @if(session()->has('last_opened_tab') && !$errors->any())
+            $(`.nav a[href="#` + '{{ session()->get('last_opened_tab') }}' + `"]`).tab('show');
+            @endif
+
+            $(document).on('submit', '#form-update', function (e) {
                 e.preventDefault()
 
                 if($('#confirm_done_checkbox').prop('checked')){
@@ -381,12 +381,14 @@
                     }).then((result) => {
                         if (result.isConfirmed) {
                             $('#loader-overlay').show();
-                            $('#form-store')[0].submit()
+                            updateActionForm()
+                            $('#form-update')[0].submit()
                         }
                     })
                 } else {
                     $('#loader-overlay').show();
-                    $('#form-store')[0].submit()
+                    updateActionForm()
+                    $('#form-update')[0].submit()
                 }
             })
 
@@ -399,6 +401,126 @@
                     $('#btn-submit').text('Save to Draft');
                 }
             });
+
+            $('.btn-remove-document').click(function (){
+                const route = $(this).data('route')
+                const fieldName = $(this).data('field-name')
+
+                Swal.fire({
+                    title: 'Anda Yakin?',
+                    html: `Ingin menghapus dokumen ${fieldName} ?`,
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#loader-overlay').show();
+                        $('#form-remove-document').attr('action', route).submit()
+                    }
+                })
+            })
+
+            $('#btn-add-row-daftar-komisaris').on('click', function (){
+                const komisarisJenisIdentitas = @json($komisarisJenisIdentitas);
+                const komisarisJabatans = @json($komisarisJabatans);
+
+                let optionsKomisarisJenisIdentitas = '';
+
+                komisarisJenisIdentitas.forEach((jenisIdentitas) => {
+                    optionsKomisarisJenisIdentitas += `<option value="${jenisIdentitas.kode}">${jenisIdentitas.nama}</option>`;
+                });
+
+                let optionsKomisarisJabatans = '';
+
+                komisarisJabatans.forEach((jabatan) => {
+                    optionsKomisarisJabatans += `<option value="${jabatan.kode}">${jabatan.nama}</option>`;
+                });
+
+                let rand = uniqueString(8);
+                let divToCopy = `
+                    <div class="row div-group-daftar-komisaris">
+                        <div class="col-md-4 col-sm-12 mb-4">
+                            <label class="fs-6 fw-semibold form-label mt-3">
+                                <span class="required">Nomor Identitas Komisaris</span>
+                            </label>
+                            <input type="text" required maxlength="255"
+                                   class="form-control"
+                                   name="daftar_komisaris[${rand}][no_identitas_komisaris]" />
+                        </div>
+                        <div class="col-md-4 col-sm-12 mb-4">
+                            <label class="fs-6 fw-semibold form-label mt-3">
+                                <span class="required">Jenis Identitas Komisaris</span>
+                            </label>
+                            <select required
+                                   class="form-control form-select"
+                                   name="daftar_komisaris[${rand}][kode_master_jenis_identitas_komisaris]">
+                                ${optionsKomisarisJenisIdentitas}
+                            </select>
+                        </div>
+                        <div class="col-md-4 col-sm-12 mb-4">
+                            <label class="fs-6 fw-semibold form-label mt-3">
+                                <span class="required">Nama Komisaris</span>
+                            </label>
+                            <input type="text" required maxlength="255"
+                                   class="form-control"
+                                   name="daftar_komisaris[${rand}][nama_komisaris]" />
+                        </div>
+                        <div class="col-md-4 col-sm-12 mb-4">
+                            <label class="fs-6 fw-semibold form-label mt-3">
+                                <span class="required">Alamat Komisaris</span>
+                            </label>
+                            <textarea type="text" required maxlength="255"
+                                    class="form-control" rows="1"
+                                    name="daftar_komisaris[${rand}][alamat_komisaris]"></textarea>
+                        </div>
+                        <div class="col-md-4 col-sm-12 mb-4">
+                            <label class="fs-6 fw-semibold form-label mt-3">
+                                <span class="required">Jabatan Komisaris</span>
+                            </label>
+                            <select required
+                                   class="form-control form-select"
+                                   name="daftar_komisaris[${rand}][kode_master_jabatan_vendor_komisaris]">
+                                ${optionsKomisarisJabatans}
+                            </select>
+                        </div>
+                        <div class="col-md-4 col-sm-12 mb-4">
+                            <label class="fs-6 fw-semibold form-label mt-3">
+                                <span class="required">Tanggal Lahir Komisaris</span>
+                            </label>
+                            <input type="date" required
+                                   class="form-control"
+                                   name="daftar_komisaris[${rand}][tanggal_lahir_komisaris]" />
+                        </div>
+                        <div class="row">
+                            <div class="d-flex justify-content-center mt-3 mb-7">
+                                <button type="submit" class="btn btn-sm btn-danger btn-remove-row-daftar-komisaris">
+                                    Hapus
+                                </button>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                `;
+
+                $('#kt_contact_view_daftar_komisaris').append(divToCopy)
+            })
+
+            $(document).on('click', '.btn-remove-row-daftar-komisaris', function (){
+                $(this).parent().parent().parent().remove()
+            })
+
+            function updateActionForm(){
+                const hrefValue = $('.nav-link.text-active-primary.pb-4.active').attr('href');
+
+                if (hrefValue) {
+                    const updatedAction = `${$('#form-update').attr('action')}?tab=${hrefValue.replace('#','')}`;
+
+                    $('#form-update').attr('action', updatedAction);
+                }
+            }
 
             function isSubmitForm(){
                 $('.has_required_label').addClass('required')

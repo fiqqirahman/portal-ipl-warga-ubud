@@ -135,13 +135,15 @@ Route::middleware('auth')->group(function () use($SSOIsLocal) {
 	                // registrasi vendor perorangan
 	                Route::resource('/registrasi-vendor', RegistrasiVendorController::class)
 		                ->except(['show', 'destroy']);
+	                Route::delete('/registrasi-vendor/remove-document/{dokumen_vendor}', [RegistrasiVendorController::class, 'removeDocument'])
+		                ->name('registrasi-vendor.remove-document');
 					
 		            // registrasi vendor perorangan
 	                Route::resource('/registrasi-vendor-perusahaan', RegistrasiVendorPerusahaanController::class)
+		                ->parameters(['registrasi-vendor-perusahaan' => 'registrasi-vendor'])
 		                ->except(['show', 'destroy']);
-					
-	                Route::delete('/registrasi-vendor/remove-document/{dokumen_vendor}', [RegistrasiVendorController::class, 'removeDocument'])
-		                ->name('registrasi-vendor.remove-document');
+					Route::delete('/registrasi-vendor-perusahaan/remove-document/{dokumen_vendor}', [RegistrasiVendorPerusahaanController::class, 'removeDocument'])
+		                ->name('registrasi-vendor-perusahaan.remove-document');
 					
 	                Route::get('/getKabKotaByProvinsi', [RegistrasiVendorController::class, 'getKabKotaByProvinsi'])->name('getKabKotaByProvinsi');
 	                Route::get('/getKecamatanByKabKota', [RegistrasiVendorController::class, 'getKecamatanByKabKota'])->name('getKecamatanByKabKota');

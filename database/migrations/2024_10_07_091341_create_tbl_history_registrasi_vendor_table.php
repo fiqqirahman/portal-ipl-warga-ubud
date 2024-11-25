@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('no_vendor');
             $table->text('nama')->nullable();
-            $table->string('nama_singkatan_perorangan')->nullable();
+            $table->string('nama_singkatan')->nullable();
             $table->string('npwp')->nullable();
             $table->foreignId('kode_master_kategori_vendor')->nullable()->references('kode')->on('tbl_master_kategori_vendor');
             $table->string('no_ktp_perorangan')->nullable();

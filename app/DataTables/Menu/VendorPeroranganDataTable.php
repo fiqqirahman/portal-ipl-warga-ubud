@@ -60,8 +60,7 @@ class VendorPeroranganDataTable extends DataTable
     public function query(RegistrasiVendor $model): QueryBuilder
     {
         return $model->newQuery()
-	        ->where('created_by', Auth::id())
-	        ->with(['updatedBy','createdBy']);
+	        ->where('created_by', Auth::id());
     }
 
     /**
