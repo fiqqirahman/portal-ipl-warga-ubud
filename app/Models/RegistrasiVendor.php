@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\StatusRegistrasiEnum;
 use App\Enums\UserVendorTypeEnum;
 use App\Models\Master\DokumenVendor;
+use App\Models\Master\PengalamanPekerjaanVendor;
 use App\Traits\HasDocuments;
 use App\Traits\Model\Scope\IsActive;
 use Exception;
@@ -50,4 +51,8 @@ class RegistrasiVendor extends Model
 	{
 		return $this->hasMany(DokumenVendor::class, 'id_history_registrasi_vendor', 'id');
 	}
+    public function pengalamanPekerjaan(): HasMany
+    {
+        return $this->hasMany(PengalamanPekerjaanVendor::class, 'id_history_registrasi_vendor', 'id');
+    }
 }

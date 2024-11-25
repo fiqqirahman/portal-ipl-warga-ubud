@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('tbl_master_jenis_merk_inventaris', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('kode')->unique();
+            $table->text('nama');
+            $table->smallInteger('status_data')->default(1);
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
             $table->timestamps();
         });
     }

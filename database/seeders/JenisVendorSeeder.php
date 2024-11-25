@@ -18,8 +18,8 @@ class JenisVendorSeeder extends Seeder
             ['id' => \App\Statics\Master\JenisVendor::$PABRIKAN, 'nama' => 'Pabrikan', 'keterangan' => 'Pabrikan', 'kode' => 2, 'created_at' => now(), 'updated_at' => now()],
             ['id' => \App\Statics\Master\JenisVendor::$PRINSIPAL, 'nama' => 'Prinsipal', 'keterangan' => 'Prinsipal', 'kode' => 3, 'created_at' => now(), 'updated_at' => now()],
             ['id' => \App\Statics\Master\JenisVendor::$UNIVERSITAS, 'nama' => 'Universitas', 'keterangan' => 'Universitas', 'kode' => 4, 'created_at' => now(), 'updated_at' => now()],
-            ['id' => \App\Statics\Master\JenisVendor::$LEMBAGA_NEGARA, 'nama' => 'Lembaga Negara', 'keterangan' => 'Lembaga Negara', 'kode' => 4, 'created_at' => now(), 'updated_at' => now()],
-            ['id' => \App\Statics\Master\JenisVendor::$JASA, 'nama' => 'Jasa', 'keterangan' => 'Jasa', 'kode' => 5, 'created_at' => now(), 'updated_at' => now()],
+            ['id' => \App\Statics\Master\JenisVendor::$LEMBAGA_NEGARA, 'nama' => 'Lembaga Negara', 'keterangan' => 'Lembaga Negara', 'kode' => 5, 'created_at' => now(), 'updated_at' => now()],
+            ['id' => \App\Statics\Master\JenisVendor::$JASA, 'nama' => 'Jasa', 'keterangan' => 'Jasa', 'kode' => 6, 'created_at' => now(), 'updated_at' => now()],
         ];
 
         collect($collections)->each(function ($data) {
