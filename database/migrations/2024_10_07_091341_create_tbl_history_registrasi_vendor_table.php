@@ -56,7 +56,6 @@ return new class extends Migration
             $table->json('tenaga_ahli')->nullable();
             $table->json('inventaris')->nullable();
             $table->json('neraca_keuangan')->nullable();
-            $table->enum('status_registrasi', ['draft','diterima','sendang dalam analisa','menunggu verifikasi dokumen','ditolak','revisi dokumen']);
             $table->text('status_registrasi_notes')->nullable();
             $table->foreignId('created_by')->nullable()->references('id')->on('users');
             $table->foreignId('updated_by')->nullable()->references('id')->on('users');

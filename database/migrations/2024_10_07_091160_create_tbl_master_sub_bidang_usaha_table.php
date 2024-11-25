@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('tbl_master_sub_bidang_usaha', function (Blueprint $table) {
             $table->id();
-            $table->string('kode')->unique();
+            $table->bigInteger('kode')->unique();
             $table->text('nama');
             $table->smallInteger('status_data')->default(1);
             $table->integer('created_by')->nullable();
