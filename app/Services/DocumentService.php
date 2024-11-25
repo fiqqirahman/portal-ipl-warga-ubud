@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Enums\DocumentForEnum;
-use App\Enums\MasterDokumenEnum;
 use App\Models\Master\Dokumen;
 use App\Models\Master\DokumenVendor;
 use App\Models\RegistrasiVendor;
