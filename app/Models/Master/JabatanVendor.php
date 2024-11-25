@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class JabatanVendor extends Model
 {
     use IsActive;
+    protected $table = 'tbl_master_jabatan_vendor';
+
     protected $guarded = ['id'];
     public function masterJabatanVendor(): BelongsTo
     {
