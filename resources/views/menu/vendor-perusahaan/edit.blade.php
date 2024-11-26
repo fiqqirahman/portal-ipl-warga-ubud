@@ -76,6 +76,16 @@
                                     </span>
                                 </a>
                             </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_contact_view_daftar_tenaga_ahli" aria-selected="false" role="tab" tabindex="-1">
+                                    <span class="svg-icon svg-icon-4 me-1">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M16.0077 19.2901L12.9293 17.5311C12.3487 17.1993 11.6407 17.1796 11.0426 17.4787L6.89443 19.5528C5.56462 20.2177 4 19.2507 4 17.7639V5C4 3.89543 4.89543 3 6 3H17C18.1046 3 19 3.89543 19 5V17.5536C19 19.0893 17.341 20.052 16.0077 19.2901Z" fill="currentColor"></path>
+                                        </svg>
+                                        Tenaga Ahli
+                                    </span>
+                                </a>
+                            </li>
                         </ul>
                         <div class="tab-content" id="">
                             <div class="tab-pane fade active show" id="kt_contact_view_general" role="tabpanel">
@@ -111,7 +121,7 @@
                                             <span class="required">NPWP</span>
                                         </label>
                                         <input type="text"
-                                               required minlength="15"
+                                               required pattern="^\d{15,16}$" title="NPWP harus terdiri dari 15 atau 16 digit"
                                                class="form-control @error('npwp') is-invalid @enderror positive-numeric"
                                                name="npwp" value="{{ old('npwp', $registrasiVendor->npwp) }}" id="npwp" maxlength="16" />
                                         @error('npwp')
@@ -282,6 +292,9 @@
                             <div class="tab-pane fade" id="kt_contact_view_daftar_pemegang_saham" role="tabpanel">
                                 @include('menu.vendor-partials.daftar-pemegang-saham')
                             </div>
+                            <div class="tab-pane fade" id="kt_contact_view_daftar_tenaga_ahli" role="tabpanel">
+                                @include('menu.vendor-partials.daftar-tenaga-ahli')
+                            </div>
                         </div>
                         <div class="col-12 mt-4">
                             <div class="form-check form-switch">
@@ -318,6 +331,7 @@
     <script src="{{ asset('js/fields/daftar-komisaris.js') }}"></script>
     <script src="{{ asset('js/fields/daftar-direksi.js') }}"></script>
     <script src="{{ asset('js/fields/daftar-pemegang-saham.js') }}"></script>
+    <script src="{{ asset('js/fields/daftar-tenaga-ahli.js') }}"></script>
     <script>
         $(document).ready(function() {
             // Handle Province change
