@@ -31,7 +31,7 @@ class DokumenController extends Controller
      */
     public function index(DokumenDataTable $dataTable)
     {
-        $this->authorize('master_dokumen_access');
+        $this->authorize(PermissionEnum::MasterDokumenAccess->value);
         $title = 'Data ' . self::$title;
 
         $breadcrumbs = [
