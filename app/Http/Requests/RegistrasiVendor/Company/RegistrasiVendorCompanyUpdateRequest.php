@@ -45,6 +45,7 @@ class RegistrasiVendorCompanyUpdateRequest extends FormRequest
 	        ...rulesDaftarDireksi(),
 	        ...rulesPemegangSaham(),
 	        ...rulesTenagaAhli(),
+	        ...rulesInventaris(),
         ];
     }
 	
@@ -59,6 +60,7 @@ class RegistrasiVendorCompanyUpdateRequest extends FormRequest
 			...attributesDaftarDireksi(),
 			...attributesPemegangSaham(),
 			...attributesTenagaAhli(),
+			...attributesInventaris(),
 		];
 	}
 }
