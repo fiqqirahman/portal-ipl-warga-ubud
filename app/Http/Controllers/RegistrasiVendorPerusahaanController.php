@@ -79,8 +79,8 @@ class RegistrasiVendorPerusahaanController extends Controller
 			'stmtKategoriVendor' => $stmtKategoriVendor,
 			'stmtProvinsi' => $stmtProvinsi,
 			'documentsField' => DocumentService::makeFields(DocumentForEnum::Company),
-			'komisarisJenisIdentitas' => JenisIdentitas::isActive()->select(['kode', 'nama'])->get(),
-			'komisarisJabatans' => JabatanVendor::isActive()->select(['kode', 'nama'])->get()
+			'vendorJenisIdentitas' => JenisIdentitas::isActive()->select(['kode', 'nama'])->get(),
+			'vendorJabatan' => JabatanVendor::isActive()->select(['kode', 'nama'])->get()
 		];
 		
 		return view('menu.vendor-perusahaan.create', $data);
@@ -109,6 +109,8 @@ class RegistrasiVendorPerusahaanController extends Controller
 				'npwp' => $request->npwp,
 				'status_registrasi' => $statusRegistrasi,
 				'daftar_komisaris' => json_encode($request->daftar_komisaris),
+				'daftar_direksi' => json_encode($request->daftar_direksi),
+				'pemegang_saham' => $request->pemegang_saham ? json_encode($request->pemegang_saham) : null,
 				'created_by' => Auth::id()
 			]);
 			
@@ -165,11 +167,11 @@ class RegistrasiVendorPerusahaanController extends Controller
 			'stmtProvinsi' => $stmtProvinsi,
 			'documentsField' => DocumentService::makeFields(DocumentForEnum::Company, $registrasiVendor),
 			'registrasiVendor' => $registrasiVendor,
-			'komisarisJenisIdentitas' => JenisIdentitas::isActive()->select(['kode', 'nama'])->get(),
-			'komisarisJabatans' => JabatanVendor::isActive()->select(['kode', 'nama'])->get()
+			'vendorJenisIdentitas' => JenisIdentitas::isActive()->select(['kode', 'nama'])->get(),
+			'vendorJabatan' => JabatanVendor::isActive()->select(['kode', 'nama'])->get(),
 		];
 		
-		// dd($data['komisarisJabatans']->toJson());
+		// dd($data['vendorJabatan']->toJson());
 		
 		return view('menu.vendor-perusahaan.edit', $data);
 	}
@@ -201,6 +203,8 @@ class RegistrasiVendorPerusahaanController extends Controller
 				'npwp' => $request->npwp,
 				'status_registrasi' => $statusRegistrasi,
 				'daftar_komisaris' => json_encode($request->daftar_komisaris),
+				'daftar_direksi' => json_encode($request->daftar_direksi),
+				'pemegang_saham' => $request->pemegang_saham ? json_encode($request->pemegang_saham) : null,
 				'updated_by' => Auth::id()
 			]);
 			
