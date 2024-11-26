@@ -1,6 +1,6 @@
 <?php
 
-function validateDaftarKomisaris(): array
+function rulesDaftarKomisaris(): array
 {
 	return [
 		'daftar_komisaris' => 'required|array',
@@ -13,7 +13,7 @@ function validateDaftarKomisaris(): array
 	];
 }
 
-function ruleDaftarKomisaris(): array
+function attributesDaftarKomisaris(): array
 {
 	return [
 		'daftar_komisaris' => 'Daftar Komisaris',
@@ -26,7 +26,7 @@ function ruleDaftarKomisaris(): array
 	];
 }
 
-function validateDaftarDireksi(): array
+function rulesDaftarDireksi(): array
 {
 	return [
 		'daftar_direksi' => 'required|array',
@@ -39,7 +39,7 @@ function validateDaftarDireksi(): array
 	];
 }
 
-function ruleDaftarDireksi(): array
+function attributesDaftarDireksi(): array
 {
 	return [
 		'daftar_direksi' => 'Daftar Direksi',
@@ -49,5 +49,34 @@ function ruleDaftarDireksi(): array
 		'daftar_direksi.*.kode_master_jenis_identitas_direksi' => 'Alamat Direksi',
 		'daftar_direksi.*.kode_master_jabatan_vendor_direksi' => 'Jabatan Direksi',
 		'daftar_direksi.*.tanggal_lahir_direksi' => 'Tanggal Lahir Direksi',
+	];
+}
+
+function rulesPemegangSaham(): array
+{
+	return [
+		'pemegang_saham' => 'nullable|array',
+		'pemegang_saham.*.no_identitas_pemegang_saham' => 'required|string|max:255',
+		'pemegang_saham.*.kode_master_jenis_identitas_pemegang_saham' => 'required|string|max:255',
+		'pemegang_saham.*.nama_pemegang_saham' => 'required|string|max:255',
+		'pemegang_saham.*.alamat_pemegang_saham' => 'required|string|max:255',
+		'pemegang_saham.*.persentase_kepemilikan' => [
+			'required',
+			'regex:/^[0-9,]+$/'
+		],
+		'pemegang_saham.*.tanggal_lahir_pemegang_saham' => 'required|date',
+	];
+}
+
+function attributesPemegangSaham(): array
+{
+	return [
+		'pemegang_saham' => 'Daftar Direksi',
+		'pemegang_saham.*.no_identitas_pemegang_saham' => 'Nomor Identitas Pemegang Saham',
+		'pemegang_saham.*.kode_master_jenis_identitas_pemegang_saham' => 'Jenis Identitas Pemegang Saham',
+		'pemegang_saham.*.nama_pemegang_saham' => 'Nama Pemegang Saham',
+		'pemegang_saham.*.alamat_pemegang_saham' => 'Alamat Pemegang Saham',
+		'pemegang_saham.*.persentase_kepemilikan' => 'Persentase Kepemilikan',
+		'pemegang_saham.*.tanggal_lahir_pemegang_saham' => 'Tanggal Lahir Pemegang Saham',
 	];
 }

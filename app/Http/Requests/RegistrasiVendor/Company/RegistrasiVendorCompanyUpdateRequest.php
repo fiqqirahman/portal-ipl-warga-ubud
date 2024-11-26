@@ -41,8 +41,10 @@ class RegistrasiVendorCompanyUpdateRequest extends FormRequest
 			'npwp' => [$isRequired, 'numeric', 'digits_between:15,16'],
 	        'confirm_done_checkbox' => ['nullable', Rule::in(['on'])],
 	        ...DocumentService::makeValidationRules(DocumentForEnum::Company, $isRequired, $registrasiVendor),
-	       ...validateDaftarKomisaris(),
-	       ...validateDaftarDireksi(),
+	        ...rulesDaftarKomisaris(),
+	        ...rulesDaftarDireksi(),
+	        ...rulesPemegangSaham(),
+	        
         ];
     }
 	
@@ -53,8 +55,9 @@ class RegistrasiVendorCompanyUpdateRequest extends FormRequest
 			'nama_singkatan' => 'Nama Singkatan',
 			'npwp' => 'NPWP',
 			...DocumentService::makeValidationAttributes(DocumentForEnum::Company),
-			...ruleDaftarKomisaris(),
-			...ruleDaftarDireksi(),
+			...attributesDaftarKomisaris(),
+			...attributesDaftarDireksi(),
+			...attributesPemegangSaham(),
 		];
 	}
 }

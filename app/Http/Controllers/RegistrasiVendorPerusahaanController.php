@@ -110,6 +110,7 @@ class RegistrasiVendorPerusahaanController extends Controller
 				'status_registrasi' => $statusRegistrasi,
 				'daftar_komisaris' => json_encode($request->daftar_komisaris),
 				'daftar_direksi' => json_encode($request->daftar_direksi),
+				'pemegang_saham' => $request->pemegang_saham ? json_encode($request->pemegang_saham) : null,
 				'created_by' => Auth::id()
 			]);
 			
@@ -167,7 +168,7 @@ class RegistrasiVendorPerusahaanController extends Controller
 			'documentsField' => DocumentService::makeFields(DocumentForEnum::Company, $registrasiVendor),
 			'registrasiVendor' => $registrasiVendor,
 			'vendorJenisIdentitas' => JenisIdentitas::isActive()->select(['kode', 'nama'])->get(),
-			'vendorJabatan' => JabatanVendor::isActive()->select(['kode', 'nama'])->get()
+			'vendorJabatan' => JabatanVendor::isActive()->select(['kode', 'nama'])->get(),
 		];
 		
 		// dd($data['vendorJabatan']->toJson());
@@ -203,6 +204,7 @@ class RegistrasiVendorPerusahaanController extends Controller
 				'status_registrasi' => $statusRegistrasi,
 				'daftar_komisaris' => json_encode($request->daftar_komisaris),
 				'daftar_direksi' => json_encode($request->daftar_direksi),
+				'pemegang_saham' => $request->pemegang_saham ? json_encode($request->pemegang_saham) : null,
 				'updated_by' => Auth::id()
 			]);
 			
