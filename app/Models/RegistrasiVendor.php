@@ -60,6 +60,13 @@ class RegistrasiVendor extends Model
 			get: fn ($value) => json_decode($value)
 		);
 	}
+	
+	protected function tenagaAhli(): Attribute
+	{
+		return Attribute::make(
+			get: fn ($value) => json_decode($value)
+		);
+	}
 
     public function createdBy(): BelongsTo
     {

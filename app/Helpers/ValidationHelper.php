@@ -80,3 +80,27 @@ function attributesPemegangSaham(): array
 		'pemegang_saham.*.tanggal_lahir_pemegang_saham' => 'Tanggal Lahir Pemegang Saham',
 	];
 }
+
+function rulesTenagaAhli(): array
+{
+	return [
+		'tenaga_ahli' => 'nullable|array',
+		'tenaga_ahli.*.nama_tenaga_ahli' => 'required|string|max:255',
+		'tenaga_ahli.*.tanggal_lahir_tenaga_ahli' => 'required|date',
+		'tenaga_ahli.*.pendidikan_tenaga_ahli' => 'required|string|max:255',
+		'tenaga_ahli.*.pengalaman_tenaga_ahli' => 'required|string|max:1000',
+		'tenaga_ahli.*.profesi_tenaga_ahli' => 'required|string|max:255',
+	];
+}
+
+function attributesTenagaAhli(): array
+{
+	return [
+		'tenaga_ahli' => 'Daftar Tenaga Ahli',
+		'tenaga_ahli.*.nama_tenaga_ahli' => 'Nama Tenaga Ahli',
+		'tenaga_ahli.*.tanggal_lahir_tenaga_ahli' => 'Tangga Lahir Tenaga Ahli',
+		'tenaga_ahli.*.pendidikan_tenaga_ahli' => 'Pendidikan Tenaga Ahli',
+		'tenaga_ahli.*.pengalaman_tenaga_ahli' => 'Pengalaman Tenaga Ahli',
+		'tenaga_ahli.*.profesi_tenaga_ahli' => 'Profesi Tenaga Ahli',
+	];
+}

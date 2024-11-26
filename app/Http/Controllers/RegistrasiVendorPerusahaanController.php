@@ -111,6 +111,7 @@ class RegistrasiVendorPerusahaanController extends Controller
 				'daftar_komisaris' => json_encode($request->daftar_komisaris),
 				'daftar_direksi' => json_encode($request->daftar_direksi),
 				'pemegang_saham' => $request->pemegang_saham ? json_encode($request->pemegang_saham) : null,
+				'tenaga_ahli' => $request->tenaga_ahli ? json_encode($request->tenaga_ahli) : null,
 				'created_by' => Auth::id()
 			]);
 			
@@ -205,6 +206,7 @@ class RegistrasiVendorPerusahaanController extends Controller
 				'daftar_komisaris' => json_encode($request->daftar_komisaris),
 				'daftar_direksi' => json_encode($request->daftar_direksi),
 				'pemegang_saham' => $request->pemegang_saham ? json_encode($request->pemegang_saham) : null,
+				'tenaga_ahli' => $request->tenaga_ahli ? json_encode($request->tenaga_ahli) : null,
 				'updated_by' => Auth::id()
 			]);
 			
