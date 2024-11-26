@@ -39,7 +39,8 @@
     "files": [
       "app/Helpers/CommonHelper.php",
       "app/Helpers/EncryptionHelper.php",
-      "app/Helpers/AlertHelper.php"
+      "app/Helpers/AlertHelper.php",
+      "app/Helpers/ValidationHelper.php"
     ]
   },
   "autoload-dev": {
