@@ -13,10 +13,10 @@
                         </span>
                         <h2>{{ $title }}</h2>
                     </div>
-                    @can('master_sub_bidang_usaha_create')
+                    @can('master_jabatan_vendor_create')
                         <div class="card-toolbar">
                             <div class="d-flex justify-content-end">
-                                <a href="{{ route('master.sub-bidang-usaha.create') }}" type="button" class="btn btn-primary">
+                                <a href="{{ route('master.jabatan-vendor.create') }}" type="button" class="btn btn-primary">
                                     <span class="svg-icon svg-icon-2">
                                         {!! file_get_contents('metronic/demo2/assets/media/icons/duotune/arrows/arr075.svg') !!}
                                     </span>

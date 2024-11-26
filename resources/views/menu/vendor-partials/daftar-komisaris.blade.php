@@ -33,7 +33,7 @@
                 <select type="text" required maxlength="255"
                         class="form-control @error("daftar_komisaris.{$key}.kode_master_jenis_identitas_komisaris") is-invalid @enderror" data-control="select2"
                         name="daftar_komisaris[{{ $key }}][kode_master_jenis_identitas_komisaris]">
-                    @foreach($komisarisJenisIdentitas as $jenisIdentitas)
+                    @foreach($vendorJenisIdentitas as $jenisIdentitas)
                         <option value="{{ $jenisIdentitas->kode }}" {{ $jenisIdentitas->kode == $oldDaftarKomisaris['kode_master_jenis_identitas_komisaris'] ? 'selected' : '' }}>{{ $jenisIdentitas->nama }}</option>
                     @endforeach
                 </select>
@@ -76,7 +76,7 @@
                 <select required
                         class="form-control @error("daftar_komisaris.{$key}.kode_master_jabatan_vendor_komisaris") is-invalid @enderror" data-control="select2"
                         name="daftar_komisaris[{{ $key }}][kode_master_jabatan_vendor_komisaris]">
-                    @foreach($komisarisJabatans as $komisarisJabatan)
+                    @foreach($vendorJabatan as $komisarisJabatan)
                         <option value="{{ $komisarisJabatan->kode }}" {{ $komisarisJabatan->kode == $oldDaftarKomisaris['kode_master_jabatan_vendor_komisaris'] ? 'selected' : '' }}>{{ $komisarisJabatan->nama }}</option>
                     @endforeach
                 </select>
@@ -133,7 +133,7 @@
                     <select type="text" required maxlength="255"
                             class="form-control" data-control="select2"
                             name="daftar_komisaris[{{ $uniqueStringKomisaris }}][kode_master_jenis_identitas_komisaris]">
-                        @foreach($komisarisJenisIdentitas as $jenisIdentitas)
+                        @foreach($vendorJenisIdentitas as $jenisIdentitas)
                             <option value="{{ $jenisIdentitas->kode }}" {{ $jenisIdentitas->kode == $daftarKomisaris->kode_master_jenis_identitas_komisaris ? 'selected' : '' }}>{{ $jenisIdentitas->nama }}</option>
                         @endforeach
                     </select>
@@ -161,7 +161,7 @@
                     <select required
                             class="form-control" data-control="select2"
                             name="daftar_komisaris[{{ $uniqueStringKomisaris }}][kode_master_jabatan_vendor_komisaris]">
-                        @foreach($komisarisJabatans as $komisarisJabatan)
+                        @foreach($vendorJabatan as $komisarisJabatan)
                             <option value="{{ $komisarisJabatan->kode }}" {{ $komisarisJabatan->kode == $daftarKomisaris->kode_master_jabatan_vendor_komisaris ? 'selected' : '' }}>{{ $komisarisJabatan->nama }}</option>
                         @endforeach
                     </select>
@@ -203,7 +203,7 @@
             <select type="text" required maxlength="255"
                    class="form-control" data-control="select2"
                    name="daftar_komisaris[{{ $uniqueStringKomisaris }}][kode_master_jenis_identitas_komisaris]">
-                @foreach($komisarisJenisIdentitas as $jenisIdentitas)
+                @foreach($vendorJenisIdentitas as $jenisIdentitas)
                     <option value="{{ $jenisIdentitas->kode }}">{{ $jenisIdentitas->nama }}</option>
                 @endforeach
             </select>
@@ -231,7 +231,7 @@
             <select required
                     class="form-control" data-control="select2"
                     name="daftar_komisaris[{{ $uniqueStringKomisaris }}][kode_master_jabatan_vendor_komisaris]">
-                @foreach($komisarisJabatans as $komisarisJabatan)
+                @foreach($vendorJabatan as $komisarisJabatan)
                     <option value="{{ $komisarisJabatan->kode }}">{{ $komisarisJabatan->nama }}</option>
                 @endforeach
             </select>

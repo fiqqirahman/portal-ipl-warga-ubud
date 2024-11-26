@@ -43,9 +43,9 @@ class RoleSeeder extends Seeder
             ['id' => StaticMenu::$MASTER_DOKUMEN, 'name' => 'Master Dokumen', 'route' => 'master.dokumen.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 5],
             ['id' => StaticMenu::$MASTER_BANK, 'name' => 'Master Bank', 'route' => 'master.bank.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 6],
             ['id' => StaticMenu::$MASTER_SUB_BIDANG_USAHA, 'name' => 'Master Sub Bidang Usaha', 'route' => 'master.sub-bidang-usaha.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 7],
-            ['id' => StaticMenu::$MASTER_KUALIFIKASI_GRADE, 'name' => 'Master Kualifikasi Grade', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 8],
-            ['id' => StaticMenu::$MASTER_JENIS_IDENTITAS, 'name' => 'Master Jenis Identitas', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 9],
-            ['id' => StaticMenu::$MASTER_JABATAN_VENDOR, 'name' => 'Master Jabatan Vendor', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 10],
+            ['id' => StaticMenu::$MASTER_KUALIFIKASI_GRADE, 'name' => 'Master Kualifikasi Grade', 'route' => 'master.kualifikasi-grade.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 8],
+            ['id' => StaticMenu::$MASTER_JENIS_IDENTITAS, 'name' => 'Master Jenis Identitas', 'route' => 'master.jenis-identitas.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 9],
+            ['id' => StaticMenu::$MASTER_JABATAN_VENDOR, 'name' => 'Master Jabatan Vendor', 'route' => 'master.jabatan-vendor.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 10],
             ['id' => StaticMenu::$MASTER_JENIS_INVENTARIS, 'name' => 'Master Jenis Inventaris', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 11],
             ['id' => StaticMenu::$MASTER_JENIS_MERK_INVENTARIS, 'name' => 'Master Jenis Merk Inventaris', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 12],
 
