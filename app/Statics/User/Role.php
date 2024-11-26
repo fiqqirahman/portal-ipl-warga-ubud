@@ -28,6 +28,13 @@ class Role
                     Menu::$MASTER_STATUS_PERUSAHAAN,
                     Menu::$MASTER_KATEGORI_VENDOR,
                     Menu::$MASTER_DOKUMEN,
+                    Menu::$MASTER_BANK,
+                    Menu::$MASTER_SUB_BIDANG_USAHA,
+                    Menu::$MASTER_KUALIFIKASI_GRADE,
+                    Menu::$MASTER_JENIS_IDENTITAS,
+                    Menu::$MASTER_JABATAN_VENDOR,
+                    Menu::$MASTER_JENIS_INVENTARIS,
+                    Menu::$MASTER_JENIS_MERK_INVENTARIS,
 
                     Menu::$REGISTRASI_VENDOR,
                     Menu::$VENDOR_PERUSAHAAN,
@@ -52,6 +59,13 @@ class Role
                     Menu::$MASTER_STATUS_PERUSAHAAN,
                     Menu::$MASTER_KATEGORI_VENDOR,
                     Menu::$MASTER_DOKUMEN,
+                    Menu::$MASTER_BANK,
+                    Menu::$MASTER_SUB_BIDANG_USAHA,
+                    Menu::$MASTER_KUALIFIKASI_GRADE,
+                    Menu::$MASTER_JENIS_IDENTITAS,
+                    Menu::$MASTER_JABATAN_VENDOR,
+                    Menu::$MASTER_JENIS_INVENTARIS,
+                    Menu::$MASTER_JENIS_MERK_INVENTARIS,
 
                     Menu::$REGISTRASI_VENDOR,
                     Menu::$VENDOR_PERUSAHAAN,
@@ -97,6 +111,35 @@ class Role
                     PermissionEnum::MasterDokumenAccess->value,
                     PermissionEnum::MasterDokumenCreate->value,
                     PermissionEnum::MasterDokumenEdit->value,
+
+                    PermissionEnum::MasterBankAccess->value,
+                    PermissionEnum::MasterBankCreate->value,
+                    PermissionEnum::MasterBankEdit->value,
+
+                    PermissionEnum::MasterSubBidangUsahaAccess->value,
+                    PermissionEnum::MasterSubBidangUsahaCreate->value,
+                    PermissionEnum::MasterSubBidangUsahaEdit->value,
+
+                    PermissionEnum::MasterKualifikasiGradeAccess->value,
+                    PermissionEnum::MasterKualifikasiGradeCreate->value,
+                    PermissionEnum::MasterKualifikasiGradeEdit->value,
+
+                    PermissionEnum::MasterJenisIdentitasAccess->value,
+                    PermissionEnum::MasterJenisIdentitasCreate->value,
+                    PermissionEnum::MasterJenisIdentitasEdit->value,
+
+                    PermissionEnum::MasterJabatanVendorAccess->value,
+                    PermissionEnum::MasterJabatanVendorCreate->value,
+                    PermissionEnum::MasterJabatanVendorEdit->value,
+
+                    PermissionEnum::MasterJenisInventarisAccess->value,
+                    PermissionEnum::MasterJenisInventarisCreate->value,
+                    PermissionEnum::MasterJenisInventarisEdit->value,
+
+                    PermissionEnum::MasterJenisMerkInventarisAccess->value,
+                    PermissionEnum::MasterJenisMerkInventarisCreate->value,
+                    PermissionEnum::MasterJenisMerkInventarisEdit->value,
+
                  ],
 	            'menus' => [
                     Menu::$DASHBOARD,
@@ -107,6 +150,13 @@ class Role
                     Menu::$MASTER_STATUS_PERUSAHAAN,
                     Menu::$MASTER_KATEGORI_VENDOR,
                     Menu::$MASTER_DOKUMEN,
+                    Menu::$MASTER_BANK,
+                    Menu::$MASTER_SUB_BIDANG_USAHA,
+                    Menu::$MASTER_KUALIFIKASI_GRADE,
+                    Menu::$MASTER_JENIS_IDENTITAS,
+                    Menu::$MASTER_JABATAN_VENDOR,
+                    Menu::$MASTER_JENIS_INVENTARIS,
+                    Menu::$MASTER_JENIS_MERK_INVENTARIS,
 
                     Menu::$REGISTRASI_VENDOR,
                     Menu::$APPROVAL_REGISTRASI_VENDOR,
