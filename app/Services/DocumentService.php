@@ -91,7 +91,7 @@ class DocumentService
 	public static function store(RegistrasiVendor $model, array $files): bool
 	{
 		try {
-			$prefix = $model->createdBy->username;
+			$prefix = $model->no_vendor;
 			$pathFile = 'vendor-registration/' . $model->createdBy->vendor_type->value . '/' . $prefix;
 			
 			foreach($files as $key => $file) {
@@ -121,7 +121,7 @@ class DocumentService
 	public static function update(RegistrasiVendor $model, array $files): bool
 	{
 		try {
-			$prefix = $model->createdBy->username;
+			$prefix = $model->no_vendor;
 			$pathFile = 'vendor-registration/' . $model->createdBy->vendor_type->value . '/' . $prefix;
 			
 			foreach($files as $key => $file) {
