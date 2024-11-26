@@ -135,7 +135,7 @@ function logException(string $message, string|null|Throwable $throw = null, arra
 
 function allowCreateRegistration(): bool
 {
-	return auth()->user()->registrationsVendor()->count() == 0;
+	return true;
 }
 
 function convertToReadableSize($size): string
@@ -144,4 +144,28 @@ function convertToReadableSize($size): string
 	$suffix = array("", "KB", "MB", "GB", "TB");
 	$f_base = floor($base);
 	return round(pow(1024, $base - floor($base)), 1) .' '. $suffix[$f_base];
+}
+
+function uniqueString($length): string
+{
+	$result = '';
+	$characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+	$charactersLength = strlen($characters);
+	
+	for ($i = 0; $i < $length; $i++) {
+		$result .= $characters[rand(0, $charactersLength - 1)];
+	}
+	
+	return $result;
+}
+
+function generateNumberVendor(): string
+{
+	$prefix = 'EPROC';
+	$vendorType = Auth::user()->vendor_type === \App\Enums\UserVendorTypeEnum::Individual ? 'VPR' : 'VPT';
+	$maxNumber = \App\Models\RegistrasiVendor::max('id') + 1;
+	$sequence = Str::padLeft($maxNumber, 7, '0');
+	$year = date('y');
+	
+	return $prefix . $vendorType . $sequence . $year;
 }

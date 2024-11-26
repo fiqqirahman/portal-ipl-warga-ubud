@@ -8,11 +8,13 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\Master\BankController;
 use App\Http\Controllers\Master\BentukBadanUsahaController;
 use App\Http\Controllers\Master\DokumenController;
 use App\Http\Controllers\Master\JenisVendorController;
 use App\Http\Controllers\Master\KategoriVendorController;
 use App\Http\Controllers\Master\StatusPerusahaanController;
+use App\Http\Controllers\Master\SubBidangUsahaController;
 use App\Http\Controllers\OperatorVendorController;
 use App\Http\Controllers\RegistrasiVendorController;
 use App\Http\Controllers\RegistrasiVendorPerusahaanController;
@@ -104,6 +106,14 @@ Route::middleware('auth')->group(function () use($SSOIsLocal) {
                 Route::resource('/kategori-vendor', KategoriVendorController::class, ['parameters' => ['kategori-vendor' => 'id']])->except(['show', 'destroy']);
                 Route::get('/kategori-vendor/{id}/nonaktif', [KategoriVendorController::class, 'nonaktif'])->name('kategori-vendor.nonaktif');
                 Route::get('/kategori-vendor/{id}/aktif', [KategoriVendorController::class, 'aktif'])->name('kategori-vendor.aktif');
+                // bank
+                Route::resource('/bank', BankController::class, ['parameters' => ['bank' => 'id']])->except(['show', 'destroy']);
+                Route::get('/bank/{id}/nonaktif', [BankController::class, 'nonaktif'])->name('bank.nonaktif');
+                Route::get('/bank/{id}/aktif', [BankController::class, 'aktif'])->name('bank.aktif');
+                // Sub Bidang Usaha
+                Route::resource('/sub-bidang-usaha', SubBidangUsahaController::class, ['parameters' => ['sub-bidang-usaha' => 'id']])->except(['show', 'destroy']);
+                Route::get('/sub-bidang-usaha/{id}/nonaktif', [SubBidangUsahaController::class, 'nonaktif'])->name('sub-bidang-usaha.nonaktif');
+                Route::get('/sub-bidang-usaha/{id}/aktif', [SubBidangUsahaController::class, 'aktif'])->name('sub-bidang-usaha.aktif');
 				
                 // dokumen
                 Route::resource('/dokumen', DokumenController::class)
@@ -135,13 +145,15 @@ Route::middleware('auth')->group(function () use($SSOIsLocal) {
 	                // registrasi vendor perorangan
 	                Route::resource('/registrasi-vendor', RegistrasiVendorController::class)
 		                ->except(['show', 'destroy']);
+	                Route::delete('/registrasi-vendor/remove-document/{dokumen_vendor}', [RegistrasiVendorController::class, 'removeDocument'])
+		                ->name('registrasi-vendor.remove-document');
 					
 		            // registrasi vendor perorangan
 	                Route::resource('/registrasi-vendor-perusahaan', RegistrasiVendorPerusahaanController::class)
+		                ->parameters(['registrasi-vendor-perusahaan' => 'registrasi-vendor'])
 		                ->except(['show', 'destroy']);
-					
-	                Route::delete('/registrasi-vendor/remove-document/{dokumen_vendor}', [RegistrasiVendorController::class, 'removeDocument'])
-		                ->name('registrasi-vendor.remove-document');
+					Route::delete('/registrasi-vendor-perusahaan/remove-document/{dokumen_vendor}', [RegistrasiVendorPerusahaanController::class, 'removeDocument'])
+		                ->name('registrasi-vendor-perusahaan.remove-document');
 					
 	                Route::get('/getKabKotaByProvinsi', [RegistrasiVendorController::class, 'getKabKotaByProvinsi'])->name('getKabKotaByProvinsi');
 	                Route::get('/getKecamatanByKabKota', [RegistrasiVendorController::class, 'getKecamatanByKabKota'])->name('getKecamatanByKabKota');

@@ -355,7 +355,7 @@
                 });
             })
 
-            $('div.invalid-feedback', '#form-update').each(function () {
+            $('div.invalid-feedback', '#form-store').each(function () {
                 let id = $(this).closest('.tab-pane').attr('id');
 
                 if (id) {
@@ -364,6 +364,10 @@
                     return false
                 }
             });
+
+            @if(session()->has('last_opened_tab') && !$errors->any())
+            $(`.nav a[href="#` + '{{ session()->get('last_opened_tab') }}' + `"]`).tab('show');
+            @endif
 
             $(document).on('submit', '#form-store', function (e) {
                 e.preventDefault()
@@ -381,11 +385,13 @@
                     }).then((result) => {
                         if (result.isConfirmed) {
                             $('#loader-overlay').show();
+                            updateActionForm()
                             $('#form-store')[0].submit()
                         }
                     })
                 } else {
                     $('#loader-overlay').show();
+                    updateActionForm()
                     $('#form-store')[0].submit()
                 }
             })
@@ -399,6 +405,16 @@
                     $('#btn-submit').text('Save to Draft');
                 }
             });
+
+            function updateActionForm(){
+                const hrefValue = $('.nav-link.text-active-primary.pb-4.active').attr('href');
+
+                if (hrefValue) {
+                    const updatedAction = `${$('#form-store').attr('action')}?tab=${hrefValue.replace('#','')}`;
+
+                    $('#form-store').attr('action', updatedAction);
+                }
+            }
 
             function isSubmitForm(){
                 $('.has_required_label').addClass('required')

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('no_vendor');
             $table->text('nama')->nullable();
-            $table->string('nama_singkatan_perorangan')->nullable();
+            $table->string('nama_singkatan')->nullable();
             $table->string('npwp')->nullable();
             $table->foreignId('kode_master_kategori_vendor')->nullable()->references('kode')->on('tbl_master_kategori_vendor');
             $table->string('no_ktp_perorangan')->nullable();
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->foreignId('kode_master_bentuk_badan_usaha')->nullable()->references('kode')->on('tbl_master_bentuk_badan_usaha');
             $table->date('tanggal_berakhir_ktp')->nullable();
             $table->text('alamat')->nullable();
-            $table->foreignId('kode_negara')->nullable()->references('kode')->on('tbl_master_negara');
+            $table->string('kode_negara')->nullable();
             $table->bigInteger('kode_provinsi')->nullable();
             $table->foreignId('kode_kab_kota')->nullable()->references('kode')->on('tbl_master_provinsi');
             $table->foreignId('kode_kecamatan')->nullable()->references('kode')->on('tbl_master_kab_kota');

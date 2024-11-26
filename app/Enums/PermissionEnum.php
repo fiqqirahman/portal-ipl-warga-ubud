@@ -29,8 +29,31 @@ enum PermissionEnum: string
     case MasterDokumenAccess = 'master_dokumen_access';
     case MasterDokumenCreate = 'master_dokumen_create';
     case MasterDokumenEdit = 'master_dokumen_edit';
-	
-	public static function getAll(bool $withKey = false, string $keyName = 'name'): array
+    case MasterBankAccess = 'master_bank_access';
+    case MasterBankCreate = 'master_bank_create';
+    case MasterBankEdit = 'master_bank_edit';
+    case MasterSubBidangUsahaAccess = 'master_sub_bidang_usaha_access';
+    case MasterSubBidangUsahaCreate = 'master_sub_bidang_usaha_create';
+    case MasterSubBidangUsahaEdit = 'master_sub_bidang_usaha_edit';
+    case MasterKualifikasiGradeAccess = 'master_kualifikasi_grade_access';
+    case MasterKualifikasiGradeCreate = 'master_kualifikasi_grade_create';
+    case MasterKualifikasiGradeEdit = 'master_kualifikasi_grade_edit';
+    case MasterJenisIdentitasAccess = 'master_jenis_identitas_access';
+    case MasterJenisIdentitasCreate = 'master_jenis_identitas_create';
+    case MasterJenisIdentitasEdit = 'master_jenis_identitas_edit';
+    case MasterJabatanVendorAccess = 'master_jabatan_vendor_access';
+    case MasterJabatanVendorCreate = 'master_jabatan_vendor_create';
+    case MasterJabatanVendorEdit = 'master_jabatan_vendor_edit';
+    case MasterJenisInventarisAccess = 'master_jenis_inventaris_access';
+    case MasterJenisInventarisCreate = 'master_jenis_inventaris_create';
+    case MasterJenisInventarisEdit = 'master_jenis_inventaris_edit';
+    case MasterJenisMerkInventarisAccess = 'master_jenis_merk_inventaris_access';
+    case MasterJenisMerkInventarisCreate = 'master_jenis_merk_inventaris_create';
+    case MasterJenisMerkInventarisEdit = 'master_jenis_merk_inventaris_edit';
+
+
+
+    public static function getAll(bool $withKey = false, string $keyName = 'name'): array
 	{
 		return array_map(fn($case) => $withKey ? [$keyName => $case->value] : $case->value, self::cases());
 	}

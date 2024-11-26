@@ -45,6 +45,12 @@ class DatabaseSeeder extends Seeder
             MasterDokumenSeeder::class,
             JenisIdentitasSeeder::class,
             JenisJabatanVendorSeeder::class,
+            JenisInventarisSeeder::class,
+            KodeBankSeeder::class,
+            SubBadanUsahaSeeder::class,
+            NegaraSeeder::class,
+            KualifikasiGradeSeeder::class,
+            JenisMerkInventarisSeeder::class,
         ]);
     }
 }
