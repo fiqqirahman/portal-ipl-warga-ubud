@@ -27,6 +27,10 @@ class RegistrasiVendorIndividualStoreRequest extends FormRequest
 	 */
     public function rules(): array
     {
+	    if($this->query('tab')){
+		    session()->flash('last_opened_tab', $this->query('tab'));
+	    }
+		
 		$isRequired = $this->input('confirm_done_checkbox') === 'on' ? 'required' : 'nullable';
 		
         return [

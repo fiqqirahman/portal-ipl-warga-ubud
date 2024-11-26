@@ -135,7 +135,7 @@ function logException(string $message, string|null|Throwable $throw = null, arra
 
 function allowCreateRegistration(): bool
 {
-	return auth()->user()->registrationsVendor()->count() == 0;
+	return true;
 }
 
 function convertToReadableSize($size): string

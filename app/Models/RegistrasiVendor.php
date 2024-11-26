@@ -10,6 +10,7 @@ use App\Traits\HasDocuments;
 use App\Traits\Model\Scope\IsActive;
 use Exception;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -37,6 +38,13 @@ class RegistrasiVendor extends Model
 		return [
 			'status_registrasi' => StatusRegistrasiEnum::class,
 		];
+	}
+	
+	protected function daftarKomisaris(): Attribute
+	{
+		return Attribute::make(
+			get: fn ($value) => json_decode($value)
+		);
 	}
 
     public function createdBy(): BelongsTo

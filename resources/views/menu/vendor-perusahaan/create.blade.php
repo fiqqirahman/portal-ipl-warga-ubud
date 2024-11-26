@@ -263,7 +263,7 @@
                                 @include('menu.vendor-partials.documents.create')
                             </div>
                             <div class="tab-pane fade" id="kt_contact_view_daftar_komisaris" role="tabpanel">
-                                @include('menu.vendor-partials.daftar-komisaris.create')
+                                @include('menu.vendor-partials.daftar-komisaris')
                             </div>
                         </div>
                         <div class="col-12 mt-4">
@@ -288,6 +288,12 @@
 @endsection
 
 @section('scripts')
+    <script>
+        // Variable to be passed to JS fields file
+        const komisarisJenisIdentitas = @json($komisarisJenisIdentitas);
+        const komisarisJabatans = @json($komisarisJabatans);
+    </script>
+    <script src="{{ asset('js/fields/daftar-komisaris.js') }}"></script>
     <script>
         $(document).ready(function() {
             // Handle Province change
@@ -355,7 +361,7 @@
                 });
             })
 
-            $('div.invalid-feedback', '#form-update').each(function () {
+            $('div.invalid-feedback', '#form-store').each(function () {
                 let id = $(this).closest('.tab-pane').attr('id');
 
                 if (id) {
@@ -364,6 +370,10 @@
                     return false
                 }
             });
+
+            @if(session()->has('last_opened_tab') && !$errors->any())
+            $(`.nav a[href="#` + '{{ session()->get('last_opened_tab') }}' + `"]`).tab('show');
+            @endif
 
             $(document).on('submit', '#form-store', function (e) {
                 e.preventDefault()
@@ -381,11 +391,13 @@
                     }).then((result) => {
                         if (result.isConfirmed) {
                             $('#loader-overlay').show();
+                            updateActionForm()
                             $('#form-store')[0].submit()
                         }
                     })
                 } else {
                     $('#loader-overlay').show();
+                    updateActionForm()
                     $('#form-store')[0].submit()
                 }
             })
@@ -399,6 +411,16 @@
                     $('#btn-submit').text('Save to Draft');
                 }
             });
+
+            function updateActionForm(){
+                const hrefValue = $('.nav-link.text-active-primary.pb-4.active').attr('href');
+
+                if (hrefValue) {
+                    const updatedAction = `${$('#form-store').attr('action')}?tab=${hrefValue.replace('#','')}`;
+
+                    $('#form-store').attr('action', updatedAction);
+                }
+            }
 
             function isSubmitForm(){
                 $('.has_required_label').addClass('required')

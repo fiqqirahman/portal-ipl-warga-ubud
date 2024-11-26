@@ -78,7 +78,9 @@ class RegistrasiVendorPerusahaanController extends Controller
 			'breadcrumbs' => $breadcrumbs,
 			'stmtKategoriVendor' => $stmtKategoriVendor,
 			'stmtProvinsi' => $stmtProvinsi,
-			'documentsField' => DocumentService::makeFields(DocumentForEnum::Company)
+			'documentsField' => DocumentService::makeFields(DocumentForEnum::Company),
+			'komisarisJenisIdentitas' => JenisIdentitas::isActive()->select(['kode', 'nama'])->get(),
+			'komisarisJabatans' => JabatanVendor::isActive()->select(['kode', 'nama'])->get()
 		];
 		
 		return view('menu.vendor-perusahaan.create', $data);
@@ -106,6 +108,7 @@ class RegistrasiVendorPerusahaanController extends Controller
 				'nama_singkatan' => $request->nama_singkatan,
 				'npwp' => $request->npwp,
 				'status_registrasi' => $statusRegistrasi,
+				'daftar_komisaris' => json_encode($request->daftar_komisaris),
 				'created_by' => Auth::id()
 			]);
 			
@@ -178,7 +181,6 @@ class RegistrasiVendorPerusahaanController extends Controller
 	public function update(RegistrasiVendorCompanyUpdateRequest $request, RegistrasiVendor $registrasiVendor)
 	{
 		try {
-			dd($request->all());
 			$this->authorize(PermissionEnum::RegistrasiVendorEdit->value);
 			
 			if(!in_array($registrasiVendor->status_registrasi->value, [StatusRegistrasiEnum::Draft->value, StatusRegistrasiEnum::RevisionDocuments->value])){
@@ -198,6 +200,7 @@ class RegistrasiVendorPerusahaanController extends Controller
 				'nama_singkatan' => $request->nama_singkatan,
 				'npwp' => $request->npwp,
 				'status_registrasi' => $statusRegistrasi,
+				'daftar_komisaris' => json_encode($request->daftar_komisaris),
 				'updated_by' => Auth::id()
 			]);
 			
