@@ -41,7 +41,7 @@ class DokumenDataTable extends DataTable
                 return $row->for->badge();
             })
             ->addColumn('aksi', function ($row) {
-                if (!Gate::allows(PermissionEnum::MasterDokumenEdit)) {
+                if (!Gate::allows(PermissionEnum::MasterDokumenEdit->value)) {
                     return '-';
                 }
                 $routeEdit = route('master.dokumen.edit', ['dokumen' => enkrip($row->id)]);
