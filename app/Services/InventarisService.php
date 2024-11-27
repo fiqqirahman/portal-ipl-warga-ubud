@@ -42,9 +42,17 @@ class InventarisService
 			
 			$inventarisRequest = collect($inventarisRequest)->map(function ($item) use ($pathFile) {
 				if(isset($item['path_upload_inventaris']) && $item['path_upload_inventaris']){
+					if(isset($item['path_upload_inventaris_old']) && $item['path_upload_inventaris_old']){
+						UploadFileService::delete($item['path_upload_inventaris_old']);
+					}
 					return [
 						...$item,
 						'path_upload_inventaris' => UploadFileService::nullable()->update($item['path_upload_inventaris'], $pathFile, $item['path_upload_inventaris']),
+					];
+				} else if (isset($item['path_upload_inventaris_old']) && $item['path_upload_inventaris_old']) {
+					return [
+						...$item,
+						'path_upload_inventaris' => $item['path_upload_inventaris_old'],
 					];
 				}
 				

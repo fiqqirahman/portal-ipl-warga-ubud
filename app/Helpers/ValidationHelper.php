@@ -117,6 +117,7 @@ function rulesInventaris(): array
 		'inventaris.*.kondisi_inventaris' => 'required|string|in:Baik,Tidak Baik',
 		'inventaris.*.lokasi_inventaris' => 'required|string|max:500',
 		'inventaris.*.path_upload_inventaris' => 'nullable|file|max:10240|mimes:pdf,jpg,jpeg,png',
+		'inventaris.*.path_upload_inventaris_old' => 'nullable|string|max:3000',
 	];
 }
 

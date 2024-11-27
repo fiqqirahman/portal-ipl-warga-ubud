@@ -129,18 +129,45 @@
                 @enderror
             </div>
             <div class="col-md-4 col-sm-12 mb-4">
-                <label class="fs-6 fw-semibold form-label mt-3">
-                    <span>Dokumen Bukti Kepemilikan</span>
-                </label>
+                <div class="row">
+                    <div class="col-md-{{ (isset($oldInventaris['path_upload_inventaris_old']) && $oldInventaris['path_upload_inventaris_old']) ? '6' : '12' }}">
+                        <label class="fs-6 fw-semibold form-label mt-3">
+                            <span>Dokumen Bukti Kepemilikan</span>
+                            @if(isset($oldInventaris['path_upload_inventaris_old']) && $oldInventaris['path_upload_inventaris_old'])
+                                <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" data-bs-html="true"
+                                   title="{{ \App\Services\UploadFileService::extractFilename($oldInventaris['path_upload_inventaris_old']) }} "></i>
+                            @endif
+                        </label>
+                    </div>
+                    @if(isset($oldInventaris['path_upload_inventaris_old']) && $oldInventaris['path_upload_inventaris_old'])
+                        <input type="hidden" value="{{ $oldInventaris['path_upload_inventaris_old'] }}" name="inventaris[{{ $key }}][path_upload_inventaris_old]"/>
+                        <div class="col-md-6 text-md-end">
+                            <label class="fs-6 fw-semibold form-label mt-3">
+                                <a target="_blank" href="{{ \Illuminate\Support\Facades\Storage::url($oldInventaris['path_upload_inventaris_old']) }}">Download</a>
+                            </label>
+                        </div>
+                    @endif
+                </div>
                 <input type="file"
                        class="form-control @error("inventaris.{$key}.path_upload_inventaris") is-invalid @enderror"
                        accept=".pdf,.png,.jpeg,.jpg"
                        name="inventaris[{{ $key }}][path_upload_inventaris]" />
-                @error("inventaris.{$key}.path_upload_inventaris")
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-                @enderror
+                @if (!$errors->has("inventaris.{$key}.path_upload_inventaris"))
+                    <div class="row text-success mt-2" style="font-size: 12px">
+                        <div class="col-6">
+                            <span class="text-black">Format :</span> PDF, PNG, JPEG, JPG
+                        </div>
+                        <div class="col-6 text-end">
+                            <span class="text-black">Max :</span> 10 MB
+                        </div>
+                    </div>
+                @else
+                    @error("inventaris.{$key}.path_upload_inventaris")
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                @endif
             </div>
             <div class="row">
                 <div class="d-flex justify-content-center mt-3 mb-7">
@@ -251,6 +278,7 @@
                             </label>
                         </div>
                         @if($daftarInventaris?->path_upload_inventaris ?? false)
+                            <input type="hidden" value="{{ $daftarInventaris->path_upload_inventaris }}" name="inventaris[{{ $uniqueStringInventaris }}][path_upload_inventaris_old]"/>
                             <div class="col-md-6 text-md-end">
                                 <label class="fs-6 fw-semibold form-label mt-3">
                                     <a target="_blank" href="{{ \Illuminate\Support\Facades\Storage::url($daftarInventaris->path_upload_inventaris) }}">Download</a>
