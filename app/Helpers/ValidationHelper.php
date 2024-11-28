@@ -233,18 +233,18 @@ function attributesContactPersons(): array
 function rulesBanks(): array
 {
     return [
-        'nama_pic_perorangan' => 'required',
+	    'kode_master_nama_bank' => 'required|string|max:255',
         'cabang_bank' => 'required|string|max:255',
         'nomor_rekening' => 'required|string|max:255',
         'nama_nasabah' => 'required|string|max:255',
-        'mata_uang' => 'required|string|max:3'
+        'mata_uang' => 'required|string|max:3',
     ];
 }
 
 function attributesBanks(): array
 {
     return [
-        'nama_pic_perorangan' => 'Nama Bank',
+	    'kode_master_nama_bank' => 'Nama Bank',
         'cabang_bank' => 'Cabang Bank',
         'nomor_rekening' => 'Nomor Rekening',
         'nama_nasabah' => 'Nama Nasabah',
