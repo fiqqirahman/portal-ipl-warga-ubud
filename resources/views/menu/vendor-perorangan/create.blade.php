@@ -284,12 +284,12 @@
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12 mb-4">
                                         <label for="profesi_keahlian" class="fs-6 fw-semibold form-label mt-3">
-                                            <span>Profesi / Keahlian</span>
+                                            <span class="required">Profesi / Keahlian</span>
                                         </label>
                                         <textarea
                                                 class="form-control form-control @error('profesi_keahlian') is-invalid @enderror"
-                                                id="profesi_keahlian"
-                                                name="profesi_keahlian" rows="2">{{ old('profesi_keahlian') }}</textarea>
+                                                id="profesi_keahlian" required maxlength="3000"
+                                                name="profesi_keahlian" rows="4">{{ old('profesi_keahlian') }}</textarea>
                                         @error('profesi_keahlian')
                                         <div class="invalid-feedback">
                                             {{ $message }}

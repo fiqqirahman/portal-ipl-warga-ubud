@@ -117,46 +117,54 @@ class RegistrasiVendorController extends Controller
             DB::beginTransaction();
 	        
 	        $statusRegistrasi = $request->confirm_done_checkbox === 'on' ? StatusRegistrasiEnum::Analysis : StatusRegistrasiEnum::Draft;
+	        
+	        $requestData = [
+		        ...$request->validated(),
+		        'status_registrasi' => $statusRegistrasi,
+		        'created_by' => Auth::id()
+	        ];
+	        
+	        $create = RegistrasiVendor::create($requestData);
 			
-			$create = RegistrasiVendor::create([
-                'nama' => $request->nama,
-				'nama_singkatan' => $request->nama_singkatan,
-				'npwp' => $request->npwp,
-                'kode_master_kategori_vendor' => $request->kode_master_kategori_vendor,
-                'no_ktp_perorangan' => $request->no_ktp_perorangan,
-                'tanggal_berakhir_ktp' => $request->tanggal_berakhir_ktp,
-                'alamat' => $request->alamat,
-                'kode_master_negara' => $request->kode_master_negara,
-                'kode_provinsi' => $request->kode_provinsi,
-                'kode_kabupaten_kota' => $request->kode_kabupaten_kota,
-                'kode_kecamatan' => $request->kode_kecamatan,
-                'kode_kelurahan' => $request->kode_kelurahan,
-                'kode_pos' => $request->kode_pos,
-                'no_telepon' => $request->no_telepon,
-                'no_fax' => $request->no_fax,
-                'website' => $request->website,
-                'email' => $request->email,
-                'nama_pic_perorangan' => $request->nama_pic_perorangan,
-                'no_hp_pic_perorangan' => $request->no_hp_pic_perorangan,
-                'email_pic_perorangan' => $request->email_pic_perorangan,
-                'kode_master_nama_bank' => $request->kode_master_nama_bank,
-                'cabang_bank' => $request->cabang_bank,
-                'nomor_rekening' => $request->nomor_rekening,
-                'nama_nasabah' => $request->nama_nasabah,
-                'mata_uang' => $request->mata_uang,
-                'kode_master_bentuk_badan_usaha_segmentasi' => $request->kode_master_bentuk_badan_usaha_segmentasi,
-                'kode_master_kelompok_usaha_segmentasi' => $request->kode_master_kelompok_usaha_segmentasi,
-                'kode_master_sub_bidang_usaha' => $request->kode_master_sub_bidang_usaha,
-                'kode_master_kualifikasi_grade' => $request->kode_master_kualifikasi_grade,
-                'asosiasi' => $request->asosiasi,
-                'no_sertifikat' => $request->no_sertifikat,
-                'masa_berlaku_sertifikat' => $request->masa_berlaku_sertifikat,
-                'masa_berakhir_sertifikat' => $request->masa_berakhir_sertifikat,
-                'profesi_keahlian' => $request->profesi_keahlian,
-                'status_registrasi' => $statusRegistrasi,
-				'created_by' => Auth::id()
-			]);
-            dd($create);
+			// $create = RegistrasiVendor::create([
+            //     'nama' => $request->nama,
+			// 	'nama_singkatan' => $request->nama_singkatan,
+			// 	'npwp' => $request->npwp,
+            //     'kode_master_kategori_vendor' => $request->kode_master_kategori_vendor,
+            //     'no_ktp_perorangan' => $request->no_ktp_perorangan,
+            //     'tanggal_berakhir_ktp' => $request->tanggal_berakhir_ktp,
+            //     'alamat' => $request->alamat,
+            //     'kode_master_negara' => $request->kode_master_negara,
+            //     'kode_provinsi' => $request->kode_provinsi,
+            //     'kode_kabupaten_kota' => $request->kode_kabupaten_kota,
+            //     'kode_kecamatan' => $request->kode_kecamatan,
+            //     'kode_kelurahan' => $request->kode_kelurahan,
+            //     'kode_pos' => $request->kode_pos,
+            //     'no_telepon' => $request->no_telepon,
+            //     'no_fax' => $request->no_fax,
+            //     'website' => $request->website,
+            //     'email' => $request->email,
+            //     'nama_pic_perorangan' => $request->nama_pic_perorangan,
+            //     'no_hp_pic_perorangan' => $request->no_hp_pic_perorangan,
+            //     'email_pic_perorangan' => $request->email_pic_perorangan,
+            //     'kode_master_nama_bank' => $request->kode_master_nama_bank,
+            //     'cabang_bank' => $request->cabang_bank,
+            //     'nomor_rekening' => $request->nomor_rekening,
+            //     'nama_nasabah' => $request->nama_nasabah,
+            //     'mata_uang' => $request->mata_uang,
+            //     'kode_master_bentuk_badan_usaha_segmentasi' => $request->kode_master_bentuk_badan_usaha_segmentasi,
+            //     'kode_master_kelompok_usaha_segmentasi' => $request->kode_master_kelompok_usaha_segmentasi,
+            //     'kode_master_sub_bidang_usaha' => $request->kode_master_sub_bidang_usaha,
+            //     'kode_master_kualifikasi_grade' => $request->kode_master_kualifikasi_grade,
+            //     'asosiasi' => $request->asosiasi,
+            //     'no_sertifikat' => $request->no_sertifikat,
+            //     'masa_berlaku_sertifikat' => $request->masa_berlaku_sertifikat,
+            //     'masa_berakhir_sertifikat' => $request->masa_berakhir_sertifikat,
+            //     'profesi_keahlian' => $request->profesi_keahlian,
+            //     'status_registrasi' => $statusRegistrasi,
+			// 	'created_by' => Auth::id()
+			// ]);
+            // dd($create);
 
 	        $create->storeDocuments($request->file());
 			
@@ -237,13 +245,13 @@ class RegistrasiVendorController extends Controller
 		    
 		    $statusRegistrasi = $request->confirm_done_checkbox === 'on' ? StatusRegistrasiEnum::Analysis : StatusRegistrasiEnum::Draft;
 		    
-		    $registrasiVendor->update([
-			    'nama' => $request->nama,
-			    'nama_singkatan' => $request->nama_singkatan,
-			    'npwp' => $request->npwp,
+		    $requestData = [
+			    ...$request->validated(),
 			    'status_registrasi' => $statusRegistrasi,
 			    'updated_by' => Auth::id()
-		    ]);
+		    ];
+		    
+		    $registrasiVendor->update($requestData);
 			
 		    $registrasiVendor->updateDocuments($request->file());
 		    

@@ -40,12 +40,13 @@ class RegistrasiVendorIndividualStoreRequest extends FormRequest
             'kode_master_kategori_vendor' => [$isRequired,],
             'no_ktp_perorangan' => [$isRequired, 'numeric'],
             'tanggal_berakhir_ktp' => [$isRequired, 'date'],
-            'profesi_keahlian' => [$isRequired, 'string', 'max:255'],
+            'profesi_keahlian' => [$isRequired, 'string', 'max:3000'],
 	        'confirm_done_checkbox' => ['nullable', Rule::in(['on'])],
 	        ...DocumentService::makeValidationRules(DocumentForEnum::Individual, $isRequired),
-            ...rulesAlamat(),
-            ...rulesBanks(),
-            ...rulesSegmentasi(),
+	        ...rulesAlamat(),
+	        ...rulesContactPersons(),
+	        ...rulesBanks(),
+	        ...rulesSegmentasi(),
         ];
     }
 	
@@ -61,6 +62,7 @@ class RegistrasiVendorIndividualStoreRequest extends FormRequest
             'profesi_keahlian' => 'Profesi Keahlian',
             ...DocumentService::makeValidationAttributes(DocumentForEnum::Individual),
             ...attributesAlamat(),
+			...attributesContactPersons(),
             ...attributesBanks(),
             ...attributesSegmentasi(),
         ];
