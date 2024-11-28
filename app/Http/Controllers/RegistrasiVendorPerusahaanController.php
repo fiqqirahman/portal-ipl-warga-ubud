@@ -6,6 +6,7 @@ use App\DataTables\Menu\VendorPerusahaanDataTable;
 use App\Enums\DocumentForEnum;
 use App\Enums\KondisiInventarisEnum;
 use App\Enums\PermissionEnum;
+use App\Enums\StatusAuditEnum;
 use App\Enums\StatusRegistrasiEnum;
 use App\Http\Requests\RegistrasiVendor\Company\RegistrasiVendorCompanyUpdateRequest;
 use App\Http\Requests\RegistrasiVendor\Company\RegistrasiVendorCompanyStoreRequest;
@@ -88,6 +89,7 @@ class RegistrasiVendorPerusahaanController extends Controller
 			'masterJenisInventaris' => JenisInventaris::isActive()->select(['kode', 'nama'])->get(),
 			'masterJenisMerkInventaris' => JenisMerkInventaris::isActive()->select(['kode', 'nama'])->get(),
 			'masterKondisiInventaris' => KondisiInventarisEnum::getAll(),
+			'masterStatusAudit' => StatusAuditEnum::getAll(),
 		];
 		
 		return view('menu.vendor-perusahaan.create', $data);
@@ -119,6 +121,7 @@ class RegistrasiVendorPerusahaanController extends Controller
 				'daftar_direksi' => json_encode($request->daftar_direksi),
 				'pemegang_saham' => $request->pemegang_saham ? json_encode($request->pemegang_saham) : null,
 				'tenaga_ahli' => $request->tenaga_ahli ? json_encode($request->tenaga_ahli) : null,
+				'neraca_keuangan' => $request->neraca_keuangan ? json_encode($request->neraca_keuangan) : null,
 				'created_by' => Auth::id()
 			]);
 			
@@ -182,6 +185,7 @@ class RegistrasiVendorPerusahaanController extends Controller
 			'masterJenisInventaris' => JenisInventaris::isActive()->select(['kode', 'nama'])->get(),
 			'masterJenisMerkInventaris' => JenisMerkInventaris::isActive()->select(['kode', 'nama'])->get(),
 			'masterKondisiInventaris' => KondisiInventarisEnum::getAll(),
+			'masterStatusAudit' => StatusAuditEnum::getAll(),
 		];
 		
 		return view('menu.vendor-perusahaan.edit', $data);
@@ -217,6 +221,7 @@ class RegistrasiVendorPerusahaanController extends Controller
 				'daftar_direksi' => json_encode($request->daftar_direksi),
 				'pemegang_saham' => $request->pemegang_saham ? json_encode($request->pemegang_saham) : null,
 				'tenaga_ahli' => $request->tenaga_ahli ? json_encode($request->tenaga_ahli) : null,
+				'neraca_keuangan' => $request->neraca_keuangan ? json_encode($request->neraca_keuangan) : null,
 				'updated_by' => Auth::id()
 			]);
 			

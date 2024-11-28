@@ -135,3 +135,47 @@ function attributesInventaris(): array
 		'inventaris.*.path_upload_inventaris' => 'Dokumen Bukti Kepemilikan',
 	];
 }
+
+function rulesNeracaKeuangan(): array
+{
+	return [
+		'neraca_keuangan' => 'nullable|array',
+		'neraca_keuangan.*.tahun_data_keuangan' => 'required|date_format:Y',
+		'neraca_keuangan.*.mata_uang_data_keuangan' => 'required|string|max:50',
+		'neraca_keuangan.*.aktiva_lancar' => 'required|string|max:50',
+		'neraca_keuangan.*.hutang_lancar' => 'required|string|max:50',
+		'neraca_keuangan.*.rasio_likuiditas' => 'required|string|max:20',
+		'neraca_keuangan.*.total_hutang' => 'required|string|max:50',
+		'neraca_keuangan.*.ekuitas' => 'required|string|max:50',
+		'neraca_keuangan.*.rasio_hutang' => 'required|string|max:20',
+		'neraca_keuangan.*.laba_rugi' => 'required|string|max:50',
+		'neraca_keuangan.*.return_of_equity' => 'required|string|max:20',
+		'neraca_keuangan.*.kas' => 'required|string|max:50',
+		'neraca_keuangan.*.total_aktiva' => 'required|string|max:50',
+		'neraca_keuangan.*.status_audit' => 'required|string|in:Audited,Not Audited',
+		'neraca_keuangan.*.nama_auditor' => 'nullable|string|max:255',
+		'neraca_keuangan.*.tanggal_audit' => 'nullable|string|date',
+	];
+}
+
+function attributesNeracaKeuangan(): array
+{
+	return [
+		'neraca_keuangan' => 'Daftar Neraca Keuangan',
+		'neraca_keuangan.*.tahun_data_keuangan' => 'Tahun Data Keuangan',
+		'neraca_keuangan.*.mata_uang_data_keuangan' => 'Mata Uang Data Keuangan',
+		'neraca_keuangan.*.aktiva_lancar' => 'Aktiva Lancar',
+		'neraca_keuangan.*.hutang_lancar' => 'Hutang Lancar',
+		'neraca_keuangan.*.rasio_likuiditas' => 'Rasio Likuiditas',
+		'neraca_keuangan.*.total_hutang' => 'Total Hutang',
+		'neraca_keuangan.*.ekuitas' => 'Ekuitas',
+		'neraca_keuangan.*.rasio_hutang' => 'Rasio Hutang',
+		'neraca_keuangan.*.laba_rugi' => 'Laba Rugi',
+		'neraca_keuangan.*.return_of_equity' => 'Return of Equity',
+		'neraca_keuangan.*.kas' => 'Kas',
+		'neraca_keuangan.*.total_aktiva' => 'Total Aktiva',
+		'neraca_keuangan.*.status_audit' => 'Status Audit',
+		'neraca_keuangan.*.nama_auditor' => 'Nama Auditor',
+		'neraca_keuangan.*.tanggal_audit' => 'Tanggal Audit',
+	];
+}
