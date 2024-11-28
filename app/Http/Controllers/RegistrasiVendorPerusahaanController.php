@@ -6,19 +6,24 @@ use App\DataTables\Menu\VendorPerusahaanDataTable;
 use App\Enums\DocumentForEnum;
 use App\Enums\KondisiInventarisEnum;
 use App\Enums\PermissionEnum;
+use App\Enums\StatusAuditEnum;
 use App\Enums\StatusRegistrasiEnum;
 use App\Http\Requests\RegistrasiVendor\Company\RegistrasiVendorCompanyUpdateRequest;
 use App\Http\Requests\RegistrasiVendor\Company\RegistrasiVendorCompanyStoreRequest;
+use App\Models\Master\Bank;
 use App\Models\Master\DokumenVendor;
 use App\Models\Master\JabatanVendor;
 use App\Models\Master\JenisIdentitas;
 use App\Models\Master\JenisInventaris;
 use App\Models\Master\JenisMerkInventaris;
+use App\Models\Master\JenisVendor;
 use App\Models\Master\KategoriVendor;
+use App\Models\Master\KualifikasiGrade;
+use App\Models\Master\Negara;
+use App\Models\Master\SubBidangUsaha;
 use App\Models\Provinsi;
 use App\Models\RegistrasiVendor;
 use App\Services\DocumentService;
-use App\Services\InventarisService;
 use App\Services\UploadFileService;
 use Auth;
 use DB;
@@ -76,18 +81,29 @@ class RegistrasiVendorPerusahaanController extends Controller
 		
 		$stmtKategoriVendor = KategoriVendor::isActive()->orderBy('nama')->get();
 		$stmtProvinsi = Provinsi::isActive()->orderBy('nama')->get();
+		$stmtNegara = Negara::isActive()->orderBy('nama')->get();
+		$stmtBank = Bank::isActive()->orderBy('nama')->get();
+		$stmtJenisVendor = JenisVendor::isActive()->orderBy('nama')->get();
+		$stmtSubBidangUsaha = SubBidangUsaha::isActive()->orderBy('nama')->get();
+		$stmtKualifikasiGrade = KualifikasiGrade::isActive()->orderBy('nama')->get();
 		
 		$data = [
 			'title' => $title,
 			'breadcrumbs' => $breadcrumbs,
 			'stmtKategoriVendor' => $stmtKategoriVendor,
 			'stmtProvinsi' => $stmtProvinsi,
+			'stmtNegara' => $stmtNegara,
+			'stmtBank' => $stmtBank,
+			'stmtJenisVendor' => $stmtJenisVendor,
+			'stmtSubBidangUsaha' => $stmtSubBidangUsaha,
+			'stmtKualifikasiGrade' => $stmtKualifikasiGrade,
 			'documentsField' => DocumentService::makeFields(DocumentForEnum::Company),
 			'vendorJenisIdentitas' => JenisIdentitas::isActive()->select(['kode', 'nama'])->get(),
 			'vendorJabatan' => JabatanVendor::isActive()->select(['kode', 'nama'])->get(),
 			'masterJenisInventaris' => JenisInventaris::isActive()->select(['kode', 'nama'])->get(),
 			'masterJenisMerkInventaris' => JenisMerkInventaris::isActive()->select(['kode', 'nama'])->get(),
 			'masterKondisiInventaris' => KondisiInventarisEnum::getAll(),
+			'masterStatusAudit' => StatusAuditEnum::getAll()
 		];
 		
 		return view('menu.vendor-perusahaan.create', $data);
@@ -119,6 +135,7 @@ class RegistrasiVendorPerusahaanController extends Controller
 				'daftar_direksi' => json_encode($request->daftar_direksi),
 				'pemegang_saham' => $request->pemegang_saham ? json_encode($request->pemegang_saham) : null,
 				'tenaga_ahli' => $request->tenaga_ahli ? json_encode($request->tenaga_ahli) : null,
+				'neraca_keuangan' => $request->neraca_keuangan ? json_encode($request->neraca_keuangan) : null,
 				'created_by' => Auth::id()
 			]);
 			
@@ -182,6 +199,7 @@ class RegistrasiVendorPerusahaanController extends Controller
 			'masterJenisInventaris' => JenisInventaris::isActive()->select(['kode', 'nama'])->get(),
 			'masterJenisMerkInventaris' => JenisMerkInventaris::isActive()->select(['kode', 'nama'])->get(),
 			'masterKondisiInventaris' => KondisiInventarisEnum::getAll(),
+			'masterStatusAudit' => StatusAuditEnum::getAll(),
 		];
 		
 		return view('menu.vendor-perusahaan.edit', $data);
@@ -217,6 +235,7 @@ class RegistrasiVendorPerusahaanController extends Controller
 				'daftar_direksi' => json_encode($request->daftar_direksi),
 				'pemegang_saham' => $request->pemegang_saham ? json_encode($request->pemegang_saham) : null,
 				'tenaga_ahli' => $request->tenaga_ahli ? json_encode($request->tenaga_ahli) : null,
+				'neraca_keuangan' => $request->neraca_keuangan ? json_encode($request->neraca_keuangan) : null,
 				'updated_by' => Auth::id()
 			]);
 			

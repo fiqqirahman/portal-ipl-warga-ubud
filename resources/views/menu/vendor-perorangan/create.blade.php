@@ -73,7 +73,7 @@
                                                       fill="currentColor" fill-rule="nonzero"/>
                                             </g>
                                         </svg>
-                                        Contact Person
+                                        Kontak Person
                                     </span>
                                 </a>
                             </li>

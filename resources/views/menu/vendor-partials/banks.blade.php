@@ -13,7 +13,7 @@
             <option></option>
             @foreach ($stmtBank as $bank)
                 <option value="{{ $bank->kode }}"
-                        {{ $bank->kode ?  : '' }}>
+                        {{ $bank->kode == old('kode_master_nama_bank', isset($registrasiVendor) ? $registrasiVendor?->kode_master_nama_bank ?? false : null) ? 'selected' : '' }}>
                     {{ $bank->nama }}
                 </option>
             @endforeach
@@ -30,7 +30,7 @@
         </label>
         <input type="text" required maxlength="255"
                class="form-control @error('cabang_bank') is-invalid @enderror"
-               name="cabang_bank" value="{{ old('cabang_bank') }}"
+               name="cabang_bank" value="{{ old('cabang_bank', isset($registrasiVendor) ? $registrasiVendor?->cabang_bank ?? '' : '') }}"
                id="cabang_bank"/>
         @error('cabang_bank')
         <div class="invalid-feedback">
@@ -44,7 +44,7 @@
         </label>
         <input type="number" required maxlength="255"
                class="form-control @error('nomor_rekening') is-invalid @enderror"
-               name="nomor_rekening" value="{{ old('nomor_rekening') }}"
+               name="nomor_rekening" value="{{ old('nomor_rekening', isset($registrasiVendor) ? $registrasiVendor?->nomor_rekening ?? '' : '') }}"
                id="nomor_rekening"/>
         @error('nomor_rekening')
         <div class="invalid-feedback">
@@ -58,7 +58,7 @@
         </label>
         <input type="text" required maxlength="255"
                class="form-control @error('nama_nasabah') is-invalid @enderror"
-               name="nama_nasabah" value="{{ old('nama_nasabah') }}"
+               name="nama_nasabah" value="{{ old('nama_nasabah', isset($registrasiVendor) ? $registrasiVendor?->nama_nasabah ?? '' : '') }}"
                id="nama_nasabah"/>
         @error('nama_nasabah')
         <div class="invalid-feedback">
@@ -72,7 +72,7 @@
         </label>
         <input type="text" required maxlength="255"
                class="form-control @error('mata_uang') is-invalid @enderror"
-               name="mata_uang" value="{{ old('mata_uang') }}"
+               name="mata_uang" value="{{ old('mata_uang', isset($registrasiVendor) ? $registrasiVendor?->mata_uang ?? '' : '') }}"
                id="mata_uang"/>
         @error('mata_uang')
         <div class="invalid-feedback">
