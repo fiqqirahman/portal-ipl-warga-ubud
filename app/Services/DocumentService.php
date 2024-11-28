@@ -7,6 +7,7 @@ use App\Models\Master\Dokumen;
 use App\Models\Master\DokumenVendor;
 use App\Models\RegistrasiVendor;
 use Exception;
+use Illuminate\Support\Str;
 use Throwable;
 
 class DocumentService
@@ -95,6 +96,10 @@ class DocumentService
 			$pathFile = 'vendor-registration/' . $model->createdBy->vendor_type->value . '/' . $prefix;
 			
 			foreach($files as $key => $file) {
+				if(!Str::startsWith($key, 'document_')) {
+					continue;
+				}
+				
 				$idDocument = str_replace('document_', '', $key);
 				$document = Dokumen::query()->find($idDocument);
 				
@@ -125,6 +130,10 @@ class DocumentService
 			$pathFile = 'vendor-registration/' . $model->createdBy->vendor_type->value . '/' . $prefix;
 			
 			foreach($files as $key => $file) {
+				if(!Str::startsWith($key, 'document_')) {
+					continue;
+				}
+				
 				$idDocument = str_replace('document_', '', $key);
 				$document = Dokumen::query()->find($idDocument);
 				

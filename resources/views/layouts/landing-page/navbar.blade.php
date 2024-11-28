@@ -1,3 +1,17 @@
+<style>
+    .menu-link {
+        color: white !important;
+        text-decoration: none;
+        border-bottom: 2px solid transparent;
+        transition: all 0.3s ease;
+    }
+
+    .menu-link:hover {
+        color: white;
+        border-bottom: 2px solid white;
+    }
+
+</style>
 <!--begin::Header-->
 <div class="landing-header" data-kt-sticky="true" data-kt-sticky-name="landing-header" data-kt-sticky-offset="{default: '200px', lg: '300px'}">
     <!--begin::Container-->
@@ -34,35 +48,35 @@
                         <!--begin::Menu item-->
                         <div class="menu-item">
                             <!--begin::Menu link-->
-                            <a class="menu-link nav-link active py-3 px-4 px-xxl-6" href="#kt_body" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Beranda</a>
+                            <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Beranda</a>
                             <!--end::Menu link-->
                         </div>
                         <!--end::Menu item-->
                         <!--begin::Menu item-->
                         <div class="menu-item">
                             <!--begin::Menu link-->
-                            <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#achievements" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Kebijakan Vendor</a>
+                            <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#" style="color: white;" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Kebijakan Vendor</a>
                             <!--end::Menu link-->
                         </div>
                         <!--end::Menu item-->
                         <!--begin::Menu item-->
                         <div class="menu-item">
                             <!--begin::Menu link-->
-                            <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#team" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Tata Cara Pengadaan</a>
+                            <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#" style="color: white;" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Tata Cara Pengadaan</a>
                             <!--end::Menu link-->
                         </div>
                         <!--end::Menu item-->
                         <!--begin::Menu item-->
                         <div class="menu-item">
                             <!--begin::Menu link-->
-                            <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#portfolio" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">FAQ</a>
+                            <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#" style="color: white;" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">FAQ</a>
                             <!--end::Menu link-->
                         </div>
                         <!--end::Menu item-->
                         <!--begin::Menu item-->
                         <div class="menu-item">
                             <!--begin::Menu link-->
-                            <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#pricing" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Daftar Hitam</a>
+                            <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#" style="color: white;" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Daftar Hitam</a>
                             <!--end::Menu link-->
                         </div>
                         <!--end::Menu item-->

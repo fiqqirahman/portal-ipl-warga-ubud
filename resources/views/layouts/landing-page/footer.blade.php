@@ -50,31 +50,23 @@
                         <!--begin::Links-->
                         <div class="d-flex fw-semibold flex-column me-20">
                             <!--begin::Subtitle-->
-                            <h4 class="fw-bold text-gray-400 mb-6">More for Metronic</h4>
+                            <h4 class="fw-bold text-gray-400 mb-6">Selengkapnya</h4>
                             <!--end::Subtitle-->
                             <!--begin::Link-->
-                            <a href="https://keenthemes.com/faqs"
+                            <a href="#"
+                               class="text-white opacity-50 text-hover-primary fs-5 mb-6">Kebijakan Vendor</a>
+                            <!--end::Link-->
+                            <!--begin::Link-->
+                            <a href="#"
+                               class="text-white opacity-50 text-hover-primary fs-5 mb-6">Tata Cara Pengadaan</a>
+                            <!--end::Link-->
+                            <!--begin::Link-->
+                            <a href="#"
                                class="text-white opacity-50 text-hover-primary fs-5 mb-6">FAQ</a>
                             <!--end::Link-->
                             <!--begin::Link-->
-                            <a href="https://preview.keenthemes.com/html/metronic/docs"
-                               class="text-white opacity-50 text-hover-primary fs-5 mb-6">Documentaions</a>
-                            <!--end::Link-->
-                            <!--begin::Link-->
-                            <a href="https://www.youtube.com/c/KeenThemesTuts/videos"
-                               class="text-white opacity-50 text-hover-primary fs-5 mb-6">Video Tuts</a>
-                            <!--end::Link-->
-                            <!--begin::Link-->
-                            <a href="https://preview.keenthemes.com/html/metronic/docs/getting-started/changelog"
-                               class="text-white opacity-50 text-hover-primary fs-5 mb-6">Changelog</a>
-                            <!--end::Link-->
-                            <!--begin::Link-->
-                            <a href="https://devs.keenthemes.com/"
-                               class="text-white opacity-50 text-hover-primary fs-5 mb-6">Support Forum</a>
-                            <!--end::Link-->
-                            <!--begin::Link-->
-                            <a href="https://keenthemes.com/blog"
-                               class="text-white opacity-50 text-hover-primary fs-5">Blog</a>
+                            <a href="#"
+                               class="text-white opacity-50 text-hover-primary fs-5 mb-6">Daftar Hitam</a>
                             <!--end::Link-->
                         </div>
                         <!--end::Links-->

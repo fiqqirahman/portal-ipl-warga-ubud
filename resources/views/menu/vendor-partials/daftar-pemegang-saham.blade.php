@@ -11,7 +11,7 @@
 </div>
 
 @if($errors->any())
-    @foreach(old('pemegang_saham') as $key => $oldDaftarPemegangSaham)
+    @foreach(old('pemegang_saham') ?? [] as $key => $oldDaftarPemegangSaham)
         <div class="row div-group-daftar-pemegang-saham">
             <div class="col-md-4 col-sm-12 mb-4">
                 <label class="fs-6 fw-semibold form-label mt-3">

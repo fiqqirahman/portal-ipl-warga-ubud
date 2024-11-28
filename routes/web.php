@@ -169,6 +169,8 @@ Route::middleware('auth')->group(function () use($SSOIsLocal) {
 		                ->except(['show', 'destroy']);
 					Route::delete('/registrasi-vendor-perusahaan/remove-document/{dokumen_vendor}', [RegistrasiVendorPerusahaanController::class, 'removeDocument'])
 		                ->name('registrasi-vendor-perusahaan.remove-document');
+					Route::delete('/registrasi-vendor-perusahaan/remove-path-file-proof-inventaris/{registrasi_vendor}/{path}', [RegistrasiVendorPerusahaanController::class, 'removePathFileProofInventaris'])
+		                ->name('registrasi-vendor-perusahaan.remove-path-file-proof-inventaris');
 					
 	                Route::get('/getKabKotaByProvinsi', [RegistrasiVendorController::class, 'getKabKotaByProvinsi'])->name('getKabKotaByProvinsi');
 	                Route::get('/getKecamatanByKabKota', [RegistrasiVendorController::class, 'getKecamatanByKabKota'])->name('getKecamatanByKabKota');

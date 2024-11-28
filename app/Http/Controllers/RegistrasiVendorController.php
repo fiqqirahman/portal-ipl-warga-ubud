@@ -11,8 +11,13 @@ use App\Http\Requests\RegistrasiVendor\Individual\RegistrasiVendorIndividualUpda
 use App\Models\KabKota;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
+use App\Models\Master\Bank;
 use App\Models\Master\DokumenVendor;
+use App\Models\Master\JenisVendor;
 use App\Models\Master\KategoriVendor;
+use App\Models\Master\KualifikasiGrade;
+use App\Models\Master\Negara;
+use App\Models\Master\SubBidangUsaha;
 use App\Models\Provinsi;
 use App\Models\RegistrasiVendor;
 use App\Services\DocumentService;
@@ -56,7 +61,7 @@ class RegistrasiVendorController extends Controller
      * Show the form for creating a new resource.
      * @throws AuthorizationException
      */
-    public function create()
+    public function create(RegistrasiVendor $registrasiVendor)
     {
         $this->authorize(PermissionEnum::RegistrasiVendorCreate->value);
 		
@@ -74,13 +79,24 @@ class RegistrasiVendorController extends Controller
 		
         $stmtKategoriVendor = KategoriVendor::isActive()->orderBy('nama')->get();
         $stmtProvinsi = Provinsi::isActive()->orderBy('nama')->get();
-		
-		$data = [
+        $stmtNegara = Negara::isActive()->orderBy('nama')->get();
+        $stmtBank = Bank::isActive()->orderBy('nama')->get();
+        $stmtJenisVendor = JenisVendor::isActive()->orderBy('nama')->get();
+        $stmtSubBidangUsaha = SubBidangUsaha::isActive()->orderBy('nama')->get();
+        $stmtKualifikasiGrade = KualifikasiGrade::isActive()->orderBy('nama')->get();
+
+        $data = [
 			'title' => $title,
 			'breadcrumbs' => $breadcrumbs,
 			'stmtKategoriVendor' => $stmtKategoriVendor,
 			'stmtProvinsi' => $stmtProvinsi,
-			'documentsField' => DocumentService::makeFields(DocumentForEnum::Individual)
+            'stmtNegara' => $stmtNegara,
+            'stmtBank' => $stmtBank,
+            'stmtJenisVendor' => $stmtJenisVendor,
+            'stmtSubBidangUsaha' => $stmtSubBidangUsaha,
+            'stmtKualifikasiGrade' => $stmtKualifikasiGrade,
+            'registrasiVendor' => $registrasiVendor,
+            'documentsField' => DocumentService::makeFields(DocumentForEnum::Individual)
 		];
 
         return view('menu.vendor-perorangan.create', $data);

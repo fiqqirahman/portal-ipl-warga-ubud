@@ -42,6 +42,8 @@ class RegistrasiVendorCompanyStoreRequest extends FormRequest
 	        ...rulesDaftarKomisaris(),
 	        ...rulesDaftarDireksi(),
 	        ...rulesPemegangSaham(),
+	        ...rulesTenagaAhli(),
+	        ...rulesInventaris(),
         ];
     }
 	
@@ -54,7 +56,9 @@ class RegistrasiVendorCompanyStoreRequest extends FormRequest
 			...DocumentService::makeValidationAttributes(DocumentForEnum::Company),
 			...attributesDaftarKomisaris(),
 			...attributesDaftarDireksi(),
-			...attributesPemegangSaham()
+			...attributesPemegangSaham(),
+			...attributesTenagaAhli(),
+			...attributesInventaris(),
 		];
 	}
 }

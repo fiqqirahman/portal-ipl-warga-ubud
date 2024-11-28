@@ -7,6 +7,7 @@ use App\Models\Master\DokumenVendor;
 use App\Models\Master\PengalamanPekerjaanVendor;
 use App\Observers\RegistrasiVendorObserver;
 use App\Traits\HasDocuments;
+use App\Traits\HasInventaris;
 use App\Traits\Model\Scope\IsActive;
 use Exception;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
@@ -18,7 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 #[ObservedBy([RegistrasiVendorObserver::class])]
 class RegistrasiVendor extends Model
 {
-    use IsActive, HasDocuments;
+    use IsActive, HasDocuments, HasInventaris;
 
     protected $table = 'tbl_history_registrasi_vendor';
 
@@ -55,6 +56,20 @@ class RegistrasiVendor extends Model
 	}
 	
 	protected function pemegangSaham(): Attribute
+	{
+		return Attribute::make(
+			get: fn ($value) => json_decode($value)
+		);
+	}
+	
+	protected function tenagaAhli(): Attribute
+	{
+		return Attribute::make(
+			get: fn ($value) => json_decode($value)
+		);
+	}
+	
+	protected function inventaris(): Attribute
 	{
 		return Attribute::make(
 			get: fn ($value) => json_decode($value)
