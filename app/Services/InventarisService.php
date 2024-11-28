@@ -24,9 +24,12 @@ class InventarisService
 						...$item,
 						'path_upload_inventaris' => UploadFileService::nullable()->create($item['path_upload_inventaris'], $pathFile),
 					];
+				} else {
+					return [
+						...$item,
+						'path_upload_inventaris' => null,
+					];
 				}
-				
-				return $item;
 			});
 			
 			$model->inventaris = json_encode($inventarisRequest);
@@ -54,9 +57,12 @@ class InventarisService
 						...$item,
 						'path_upload_inventaris' => $item['path_upload_inventaris_old'],
 					];
+				} else {
+					return [
+						...$item,
+						'path_upload_inventaris' => null,
+					];
 				}
-				
-				return $item;
 			});
 			
 			$model->inventaris = json_encode($inventarisRequest);

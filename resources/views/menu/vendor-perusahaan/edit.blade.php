@@ -337,6 +337,11 @@
         @csrf
         @method('DELETE')
     </form>
+
+    <form action="" id="form-remove-path-file-inventaris" method="POST">
+        @csrf
+        @method('DELETE')
+    </form>
 @endsection
 
 @section('scripts')
@@ -489,6 +494,27 @@
                     if (result.isConfirmed) {
                         $('#loader-overlay').show();
                         $('#form-remove-document').attr('action', route).submit()
+                    }
+                })
+            })
+
+            $('.btn-remove-path-file-inventaris').click(function (){
+                const route = $(this).data('route')
+                const fieldName = $(this).data('field-name')
+
+                Swal.fire({
+                    title: 'Anda Yakin?',
+                    html: `Ingin menghapus ${fieldName} ?`,
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#loader-overlay').show();
+                        $('#form-remove-path-file-inventaris').attr('action', route).submit()
                     }
                 })
             })

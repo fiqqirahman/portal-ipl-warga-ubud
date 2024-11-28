@@ -252,7 +252,6 @@ class RegistrasiVendorPerusahaanController extends Controller
 			
 			UploadFileService::delete($dokumenVendor->path);
 			
-			
 			sweetAlert('success', 'Berhasil Menghapus Dokumen ' . $dokumenVendor->nama_dokumen);
 			
 			return to_route('menu.registrasi-vendor-perusahaan.edit', ['registrasi_vendor' => enkrip($dokumenVendor->vendor->id)]);
@@ -260,6 +259,36 @@ class RegistrasiVendorPerusahaanController extends Controller
 			sweetAlertException('Gagal Menghapus Dokumen ' . $dokumenVendor->nama_dokumen, $e);
 			
 			return to_route('menu.registrasi-vendor-perusahaan.edit', ['registrasi_vendor' => enkrip($dokumenVendor->vendor->id)]);
+		}
+	}
+	
+	public function removePathFileProofInventaris(RegistrasiVendor $registrasiVendor, string $path)
+	{
+		session()->flash('last_opened_tab', 'kt_contact_view_daftar_inventaris');
+		
+		try {
+			$inventaris = $registrasiVendor->inventaris;
+			$path = dekrip($path);
+			
+			foreach ($inventaris as &$item) {
+				if($item->path_upload_inventaris === $path){
+					$item->path_upload_inventaris = null;
+					UploadFileService::delete($path);
+					
+					break;
+				}
+			}
+			
+			$registrasiVendor->inventaris = json_encode($inventaris);
+			$registrasiVendor->save();
+			
+			sweetAlert('success', 'Berhasil Menghapus Dokumen Bukti Kepemilikan');
+			
+			return to_route('menu.registrasi-vendor-perusahaan.edit', ['registrasi_vendor' => enkrip($registrasiVendor->id)]);
+		} catch (Exception $e) {
+			sweetAlertException('Gagal Menghapus Dokumen Bukti Kepemilikan', $e);
+			
+			return to_route('menu.registrasi-vendor-perusahaan.edit', ['registrasi_vendor' => enkrip($registrasiVendor->id)]);
 		}
 	}
 }

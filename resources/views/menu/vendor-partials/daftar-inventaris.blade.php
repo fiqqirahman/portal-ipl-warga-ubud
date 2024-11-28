@@ -144,6 +144,10 @@
                         <div class="col-md-6 text-md-end">
                             <label class="fs-6 fw-semibold form-label mt-3">
                                 <a target="_blank" href="{{ \Illuminate\Support\Facades\Storage::url($oldInventaris['path_upload_inventaris_old']) }}">Download</a>
+                                <a href="#"
+                                   data-field-name="Dokumen Bukti Kepemilikan"
+                                   data-route="{{ route('menu.registrasi-vendor-perusahaan.remove-path-file-proof-inventaris', ['registrasi_vendor' => enkrip($registrasiVendor->id), 'path' => enkrip($oldInventaris['path_upload_inventaris_old'])]) }}"
+                                   class="text-danger btn-remove-path-file-inventaris">Hapus</a>
                             </label>
                         </div>
                     @endif
@@ -282,6 +286,10 @@
                             <div class="col-md-6 text-md-end">
                                 <label class="fs-6 fw-semibold form-label mt-3">
                                     <a target="_blank" href="{{ \Illuminate\Support\Facades\Storage::url($daftarInventaris->path_upload_inventaris) }}">Download</a>
+                                    <a href="#"
+                                       data-field-name="Dokumen Bukti Kepemilikan"
+                                       data-route="{{ route('menu.registrasi-vendor-perusahaan.remove-path-file-proof-inventaris', ['registrasi_vendor' => enkrip($registrasiVendor->id), 'path' => enkrip($daftarInventaris->path_upload_inventaris)]) }}"
+                                       class="text-danger btn-remove-path-file-inventaris">Hapus</a>
                                 </label>
                             </div>
                         @endif
