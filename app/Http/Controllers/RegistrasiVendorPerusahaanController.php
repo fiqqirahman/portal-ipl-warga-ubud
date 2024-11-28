@@ -279,6 +279,8 @@ class RegistrasiVendorPerusahaanController extends Controller
 				}
 			}
 			
+			unset($item);
+			
 			$registrasiVendor->inventaris = json_encode($inventaris);
 			$registrasiVendor->save();
 			
