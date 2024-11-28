@@ -169,19 +169,6 @@
                             <div class="tab-pane fade active show" id="kt_contact_view_general" role="tabpanel">
                                 <div class="row">
                                     <div class="col-md-4 col-sm-12 mb-4">
-                                        <label for="no_vendor" class="fs-6 fw-semibold form-label mt-3">
-                                            <span class="required">No. Vendor</span>
-                                        </label>
-                                        <input type="text" required maxlength="255"
-                                               class="form-control @error('no_vendor') is-invalid @enderror"
-                                               name="no_vendor" value="{{ old('no_vendor') }}" id="no_vendor"/>
-                                        @error('no_vendor')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-4 col-sm-12 mb-4">
                                         <label for="nama" class="fs-6 fw-semibold form-label mt-3">
                                             <span class="required">Nama Perorangan</span>
                                         </label>
@@ -211,11 +198,13 @@
                                     <div class="col-md-4 col-sm-12 mb-4">
                                         <label for="npwp" class="fs-6 fw-semibold form-label mt-3">
                                             <span class="required">NPWP</span>
+                                            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
+                                               title="NPWP harus terdiri dari 15 atau 16 digit"></i>
                                         </label>
                                         <input type="text"
                                                class="form-control @error('npwp') is-invalid @enderror positive-numeric"
-                                               required minlength="15"
-                                               name="npwp" value="{{ old('npwp') }}" id="npwp" maxlength="16"/>
+                                               required pattern="^\d{15,16}$" title="NPWP harus terdiri dari 15 atau 16 digit"
+                                               name="npwp" value="{{ old('npwp') }}" id="npwp" maxlength="16" />
                                         @error('npwp')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -225,7 +214,7 @@
                                     <div class="col-md-4 col-sm-12 mb-4">
                                         <label for="kode_master_kategori_vendor"
                                                class="fs-6 fw-semibold form-label mt-3">
-                                            <span>Kategori Vendor</span>
+                                            <span class="required">Kategori Vendor</span>
                                             <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
                                                title="Hanya Kategori Vendor yang aktif saja yang dapat dipilih"></i>
                                         </label>

@@ -131,7 +131,7 @@
         <label for="masa_berlaku_sertifikat" class="fs-6 fw-semibold form-label mt-3">
             <span class="required">Tanggal Mulai Masa Berlaku</span>
         </label>
-        <input type="text" required maxlength="255"
+        <input type="date" required maxlength="255"
                class="form-control @error('masa_berlaku_sertifikat') is-invalid @enderror"
                name="masa_berlaku_sertifikat" value="{{ old('masa_berlaku_sertifikat', $registrasiVendor?->masa_berlaku_sertifikat ?? null) }}"
                id="masa_berlaku_sertifikat"/>
@@ -145,7 +145,7 @@
         <label for="masa_berakhir_sertifikat" class="fs-6 fw-semibold form-label mt-3">
             <span class="required">Tanggal Berakhir Masa Berlaku</span>
         </label>
-        <input type="text" required maxlength="255"
+        <input type="date" required maxlength="255"
                class="form-control @error('masa_berakhir_sertifikat') is-invalid @enderror"
                name="masa_berakhir_sertifikat" value="{{ old('masa_berakhir_sertifikat', $registrasiVendor?->masa_berakhir_sertifikat ?? null) }}"
                id="masa_berakhir_sertifikat"/>

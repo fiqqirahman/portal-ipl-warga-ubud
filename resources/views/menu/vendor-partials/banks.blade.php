@@ -2,7 +2,7 @@
     <div class="col-md-4 col-sm-12 mb-4">
         <label for="kode_master_nama_bank"
                class="fs-6 fw-semibold form-label mt-3">
-            <span>Nama Bank</span>
+            <span class="required">Nama Bank</span>
             <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
                title="Hanya Bank yang aktif saja yang dapat dipilih"></i>
         </label>
@@ -47,20 +47,6 @@
                name="nomor_rekening" value="{{ old('nomor_rekening') }}"
                id="nomor_rekening"/>
         @error('nomor_rekening')
-        <div class="invalid-feedback">
-            {{ $message }}
-        </div>
-        @enderror
-    </div>
-    <div class="col-md-4 col-sm-12 mb-4">
-        <label for="nama_nasabah" class="fs-6 fw-semibold form-label mt-3">
-            <span class="required">Nama Nasabah</span>
-        </label>
-        <input type="email" required maxlength="255"
-               class="form-control @error('nama_nasabah') is-invalid @enderror"
-               name="nama_nasabah" value="{{ old('nama_nasabah') }}"
-               id="nama_nasabah"/>
-        @error('nama_nasabah')
         <div class="invalid-feedback">
             {{ $message }}
         </div>
