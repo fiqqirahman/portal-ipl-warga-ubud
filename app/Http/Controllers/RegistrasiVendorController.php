@@ -141,7 +141,7 @@ class RegistrasiVendorController extends Controller
                 'email_pic_perorangan' => $request->email_pic_perorangan,
                 'kode_master_nama_bank' => $request->kode_master_nama_bank,
                 'cabang_bank' => $request->cabang_bank,
-                'nomer_rekening' => $request->nomer_rekening,
+                'nomor_rekening' => $request->nomor_rekening,
                 'nama_nasabah' => $request->nama_nasabah,
                 'mata_uang' => $request->mata_uang,
                 'kode_master_bentuk_badan_usaha_segmentasi' => $request->kode_master_bentuk_badan_usaha_segmentasi,

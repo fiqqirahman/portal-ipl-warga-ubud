@@ -38,7 +38,7 @@ return new class extends Migration
             $table->string('email_pic_perorangan')->nullable();
             $table->foreignId('kode_master_nama_bank')->nullable()->references('kode')->on('tbl_master_bank');
             $table->string('nama_cabang_bank')->nullable();
-            $table->string('nomer_rekening')->nullable();
+            $table->string('nomor_rekening')->nullable();
             $table->string('nama_nasabah')->nullable();
             $table->string('mata_uang')->nullable();
             $table->foreignId('kode_master_bentuk_badan_usaha_segmentasi')->nullable()->references('kode')->on('tbl_master_bentuk_badan_usaha');

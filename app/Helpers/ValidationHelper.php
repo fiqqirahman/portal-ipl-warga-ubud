@@ -235,7 +235,7 @@ function rulesBanks(): array
     return [
         'nama_pic_perorangan' => 'required',
         'cabang_bank' => 'required|string|max:255',
-        'nomer_rekening' => 'required|string|max:255',
+        'nomor_rekening' => 'required|string|max:255',
         'nama_nasabah' => 'required|string|max:255',
         'mata_uang' => 'required|string|max:3'
     ];
@@ -246,7 +246,7 @@ function attributesBanks(): array
     return [
         'nama_pic_perorangan' => 'Nama Bank',
         'cabang_bank' => 'Cabang Bank',
-        'nomer_rekening' => 'Nomor Rekening',
+        'nomor_rekening' => 'Nomor Rekening',
         'nama_nasabah' => 'Nama Nasabah',
         'mata_uang' => 'Mata Uang',
     ];
