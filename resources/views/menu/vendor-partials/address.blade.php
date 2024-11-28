@@ -5,7 +5,7 @@
         </label>
         <textarea
                 class="form-control form-control @error('alamat') is-invalid @enderror"
-                id="alamat" maxlength="1000"
+                id="alamat" maxlength="1000" required
                 name="alamat" rows="2">{{ old('alamat', isset($registrasiVendor) ? $registrasiVendor?->alamat ?? null : null) }}</textarea>
         @error('alamat')
         <div class="invalid-feedback">
@@ -17,7 +17,7 @@
         <label for="kode_master_negara" class="fs-6 fw-semibold form-label mt-3">
             <span class="required">Negara</span>
         </label>
-        <select class="form-select @error('kode_master_negara') is-invalid @enderror"
+        <select class="form-select @error('kode_master_negara') is-invalid @enderror" required
                 id="kode_master_negara" name="kode_master_negara" data-control="select2"
                 data-placeholder="---Pilih Negara---">
             <option></option>
@@ -39,7 +39,7 @@
             <span class="required">Provinsi</span>
         </label>
         <select class="form-select  @error('kode_provinsi') is-invalid @enderror"
-                id="kode_provinsi" name="kode_provinsi" data-control="select2"
+                id="kode_provinsi" name="kode_provinsi" data-control="select2" required
                 data-placeholder="---Pilih Provinsi---">
             <option></option>
             @foreach ($stmtProvinsi as $provinsi)
@@ -60,7 +60,7 @@
             <span class="required">Kabupaten/Kota</span>
         </label>
         <select class="form-select  @error('kode_kabupaten_kota') is-invalid @enderror"
-                id="kode_kabupaten_kota" name="kode_kabupaten_kota"
+                id="kode_kabupaten_kota" name="kode_kabupaten_kota" required
                 data-control="select2"
                 data-placeholder="---Pilih Kabupaten Kota---">
             <option></option>
@@ -76,7 +76,7 @@
             <span class="required">Kecamatan</span>
         </label>
         <select class="form-select  @error('kode_kecamatan') is-invalid @enderror"
-                id="kode_kecamatan" name="kode_kecamatan" data-control="select2"
+                id="kode_kecamatan" name="kode_kecamatan" data-control="select2" required
                 data-placeholder="---Pilih Kecamatan---">
             <option></option>
         </select>
@@ -91,7 +91,7 @@
             <span class="required">Kelurahan</span>
         </label>
         <select class="form-select  @error('kode_kelurahan') is-invalid @enderror"
-                id="kode_kelurahan" name="kode_kelurahan" data-control="select2"
+                id="kode_kelurahan" name="kode_kelurahan" data-control="select2" required
                 data-placeholder="---Pilih Kelurahan---">
             <option></option>
         </select>

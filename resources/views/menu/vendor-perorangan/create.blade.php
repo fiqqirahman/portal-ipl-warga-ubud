@@ -220,7 +220,7 @@
                                         </label>
                                         <select class="form-select  @error('kode_master_kategori_vendor') is-invalid @enderror"
                                                 id="kode_master_kategori_vendor" name="kode_master_kategori_vendor"
-                                                data-control="select2"
+                                                data-control="select2" required
                                                 data-placeholder="---Pilih Kategori Vendor---">
                                             <option></option>
                                             @foreach ($stmtKategoriVendor as $kategoriVendor)
@@ -238,9 +238,9 @@
                                     </div>
                                     <div class="col-md-4 col-sm-12 mb-4">
                                         <label for="no_ktp_perorangan" class="fs-6 fw-semibold form-label mt-3">
-                                            <span>Nomor KTP/SIM/Passport</span>
+                                            <span class="required">Nomor KTP/SIM/Passport</span>
                                         </label>
-                                        <input type="text"
+                                        <input type="text" required
                                                class="form-control positive-numeric @error('no_ktp_perorangan') is-invalid @enderror"
                                                name="no_ktp_perorangan" value="{{ old('no_ktp_perorangan') }}" id="no_ktp_perorangan"/>
                                         @error('no_ktp_perorangan')
@@ -251,9 +251,9 @@
                                     </div>
                                     <div class="col-md-4 col-sm-12 mb-4">
                                         <label for="tanggal_berakhir_ktp" class="fs-6 fw-semibold form-label mt-3">
-                                            <span>Tanggal Berakhir</span>
+                                            <span class="required">Tanggal Berakhir</span>
                                         </label>
-                                        <input type="date"
+                                        <input type="date" required
                                                class="form-control @error('tanggal_berakhir_ktp') is-invalid @enderror"
                                                name="tanggal_berakhir_ktp" value="{{ old('tanggal_berakhir_ktp') }}"
                                                id="tanggal_berakhir_ktp"/>

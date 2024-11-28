@@ -8,7 +8,7 @@
         </label>
         <select class="form-select  @error('kode_master_nama_bank') is-invalid @enderror"
                 id="kode_master_nama_bank" name="kode_master_nama_bank"
-                data-control="select2"
+                data-control="select2" required
                 data-placeholder="---Pilih Bank---">
             <option></option>
             @foreach ($stmtBank as $bank)

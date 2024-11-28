@@ -2,13 +2,11 @@
     <div class="col-md-4 col-sm-12 mb-4">
         <label for="kode_master_bentuk_badan_usaha_segmentasi"
                class="fs-6 fw-semibold form-label mt-3">
-            <span>Bidang Usaha</span>
-            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-               title="Hanya Segmentasi yang aktif saja yang dapat dipilih"></i>
+            <span class="required">Bidang Usaha</span>
         </label>
         <select class="form-select  @error('kode_master_bentuk_badan_usaha_segmentasi') is-invalid @enderror"
                 id="kode_master_bentuk_badan_usaha_segmentasi" name="kode_master_bentuk_badan_usaha_segmentasi"
-                data-control="select2"
+                data-control="select2" required
                 data-placeholder="---Pilih Segmentasi---">
             <option></option>
             @foreach ($stmtKategoriVendor as $kategoriVendor)
@@ -27,13 +25,11 @@
     <div class="col-md-4 col-sm-12 mb-4">
         <label for="kode_master_kelompok_usaha_segmentasi"
                class="fs-6 fw-semibold form-label mt-3">
-            <span>Kelompok Usaha</span>
-            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-               title="Hanya Segmentasi yang aktif saja yang dapat dipilih"></i>
+            <span class="required">Kelompok Usaha</span>
         </label>
         <select class="form-select  @error('kode_master_kelompok_usaha_segmentasi') is-invalid @enderror"
                 id="kode_master_kelompok_usaha_segmentasi" name="kode_master_kelompok_usaha_segmentasi"
-                data-control="select2"
+                data-control="select2" required
                 data-placeholder="---Pilih Kelompok Usaha---">
             <option></option>
             @foreach ($stmtJenisVendor as $jenisVendor)
@@ -52,13 +48,11 @@
     <div class="col-md-4 col-sm-12 mb-4">
         <label for="kode_master_sub_bidang_usaha"
                class="fs-6 fw-semibold form-label mt-3">
-            <span>Sub Bidang Usaha</span>
-            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-               title="Hanya Segmentasi yang aktif saja yang dapat dipilih"></i>
+            <span class="required">Sub Bidang Usaha</span>
         </label>
         <select class="form-select  @error('kode_master_sub_bidang_usaha') is-invalid @enderror"
                 id="kode_master_sub_bidang_usaha" name="kode_master_sub_bidang_usaha"
-                data-control="select2"
+                data-control="select2" required
                 data-placeholder="---Pilih Sub Bidang Usaha---">
             <option></option>
             @foreach ($stmtSubBidangUsaha as $subBidangUsaha)
@@ -77,13 +71,11 @@
     <div class="col-md-4 col-sm-12 mb-4">
         <label for="kode_master_kualifikasi_grade"
                class="fs-6 fw-semibold form-label mt-3">
-            <span>Kualifikasi / Grade</span>
-            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-               title="Hanya Segmentasi yang aktif saja yang dapat dipilih"></i>
+            <span class="required">Kualifikasi / Grade</span>
         </label>
         <select class="form-select  @error('kode_master_kualifikasi_grade') is-invalid @enderror"
                 id="kode_master_kualifikasi_grade" name="kode_master_kualifikasi_grade"
-                data-control="select2"
+                data-control="select2" required
                 data-placeholder="---Pilih Kualifikasi---">
             <option></option>
             @foreach ($stmtKualifikasiGrade as $kualifikasi)
