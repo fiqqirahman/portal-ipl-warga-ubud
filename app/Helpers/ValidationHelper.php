@@ -104,3 +104,34 @@ function attributesTenagaAhli(): array
 		'tenaga_ahli.*.profesi_tenaga_ahli' => 'Profesi Tenaga Ahli',
 	];
 }
+
+function rulesInventaris(): array
+{
+	return [
+		'inventaris' => 'nullable|array',
+		'inventaris.*.kode_master_jenis_inventaris' => 'required|string',
+		'inventaris.*.jumlah_inventaris' => 'required|numeric|min:0|max:1000000000',
+		'inventaris.*.kapasitas_inventaris' => 'required|string|max:255',
+		'inventaris.*.kode_master_jenis_merk_inventaris' => 'required|string',
+		'inventaris.*.tahun_pembuatan_inventaris' => 'required|string|date_format:Y',
+		'inventaris.*.kondisi_inventaris' => 'required|string|in:Baik,Tidak Baik',
+		'inventaris.*.lokasi_inventaris' => 'required|string|max:500',
+		'inventaris.*.path_upload_inventaris' => 'nullable|file|max:10240|mimes:pdf,jpg,jpeg,png',
+		'inventaris.*.path_upload_inventaris_old' => 'nullable|string|max:3000',
+	];
+}
+
+function attributesInventaris(): array
+{
+	return [
+		'inventaris' => 'Daftar Inventaris',
+		'inventaris.*.kode_master_jenis_inventaris' => 'Jenis Inventaris',
+		'inventaris.*.jumlah_inventaris' => 'Jumlah Inventaris',
+		'inventaris.*.kapasitas_inventaris' => 'Kapasitas Inventaris',
+		'inventaris.*.kode_master_jenis_merk_inventaris' => 'Jenis Merk Inventaris',
+		'inventaris.*.tahun_pembuatan_inventaris' => 'Tahun Pembuatan Inventaris',
+		'inventaris.*.kondisi_inventaris' => 'Kondisi Inventaris',
+		'inventaris.*.lokasi_inventaris' => 'Lokasi Inventaris',
+		'inventaris.*.path_upload_inventaris' => 'Dokumen Bukti Kepemilikan',
+	];
+}

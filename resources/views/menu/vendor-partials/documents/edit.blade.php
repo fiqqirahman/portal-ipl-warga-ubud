@@ -17,7 +17,7 @@
                 @if($field['old_value'])
                     <div class="col-md-6 text-md-end">
                         <label class="fs-6 fw-semibold form-label mt-3">
-                            <a href="{{ \Illuminate\Support\Facades\Storage::url($field['old_value']['path']) }}">Download</a>
+                            <a target="_blank" href="{{ \Illuminate\Support\Facades\Storage::url($field['old_value']['path']) }}">Download</a>
                             <a href="#"
                                data-field-name="{{ $field['label'] }}"
                                data-route="{{ route('menu.registrasi-vendor.remove-document', ['dokumen_vendor' => enkrip($field['old_value']['id'])]) }}"

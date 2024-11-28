@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\Menu\VendorPerusahaanDataTable;
 use App\Enums\DocumentForEnum;
+use App\Enums\KondisiInventarisEnum;
 use App\Enums\PermissionEnum;
 use App\Enums\StatusRegistrasiEnum;
 use App\Http\Requests\RegistrasiVendor\Company\RegistrasiVendorCompanyUpdateRequest;
@@ -11,10 +12,13 @@ use App\Http\Requests\RegistrasiVendor\Company\RegistrasiVendorCompanyStoreReque
 use App\Models\Master\DokumenVendor;
 use App\Models\Master\JabatanVendor;
 use App\Models\Master\JenisIdentitas;
+use App\Models\Master\JenisInventaris;
+use App\Models\Master\JenisMerkInventaris;
 use App\Models\Master\KategoriVendor;
 use App\Models\Provinsi;
 use App\Models\RegistrasiVendor;
 use App\Services\DocumentService;
+use App\Services\InventarisService;
 use App\Services\UploadFileService;
 use Auth;
 use DB;
@@ -80,7 +84,10 @@ class RegistrasiVendorPerusahaanController extends Controller
 			'stmtProvinsi' => $stmtProvinsi,
 			'documentsField' => DocumentService::makeFields(DocumentForEnum::Company),
 			'vendorJenisIdentitas' => JenisIdentitas::isActive()->select(['kode', 'nama'])->get(),
-			'vendorJabatan' => JabatanVendor::isActive()->select(['kode', 'nama'])->get()
+			'vendorJabatan' => JabatanVendor::isActive()->select(['kode', 'nama'])->get(),
+			'masterJenisInventaris' => JenisInventaris::isActive()->select(['kode', 'nama'])->get(),
+			'masterJenisMerkInventaris' => JenisMerkInventaris::isActive()->select(['kode', 'nama'])->get(),
+			'masterKondisiInventaris' => KondisiInventarisEnum::getAll(),
 		];
 		
 		return view('menu.vendor-perusahaan.create', $data);
@@ -116,6 +123,8 @@ class RegistrasiVendorPerusahaanController extends Controller
 			]);
 			
 			$create->storeDocuments($request->file());
+			
+			$create->storeInventaris($request->inventaris);
 			
 			if($create->status_registrasi === StatusRegistrasiEnum::Analysis){
 				sweetAlert('success', 'Berhasil Submit Data');
@@ -170,9 +179,10 @@ class RegistrasiVendorPerusahaanController extends Controller
 			'registrasiVendor' => $registrasiVendor,
 			'vendorJenisIdentitas' => JenisIdentitas::isActive()->select(['kode', 'nama'])->get(),
 			'vendorJabatan' => JabatanVendor::isActive()->select(['kode', 'nama'])->get(),
+			'masterJenisInventaris' => JenisInventaris::isActive()->select(['kode', 'nama'])->get(),
+			'masterJenisMerkInventaris' => JenisMerkInventaris::isActive()->select(['kode', 'nama'])->get(),
+			'masterKondisiInventaris' => KondisiInventarisEnum::getAll(),
 		];
-		
-		// dd($data['vendorJabatan']->toJson());
 		
 		return view('menu.vendor-perusahaan.edit', $data);
 	}
@@ -212,6 +222,8 @@ class RegistrasiVendorPerusahaanController extends Controller
 			
 			$registrasiVendor->updateDocuments($request->file());
 			
+			$registrasiVendor->updateInventaris($request->inventaris);
+			
 			DB::commit();
 			
 			if($registrasiVendor->status_registrasi == StatusRegistrasiEnum::Draft){
@@ -240,7 +252,6 @@ class RegistrasiVendorPerusahaanController extends Controller
 			
 			UploadFileService::delete($dokumenVendor->path);
 			
-			
 			sweetAlert('success', 'Berhasil Menghapus Dokumen ' . $dokumenVendor->nama_dokumen);
 			
 			return to_route('menu.registrasi-vendor-perusahaan.edit', ['registrasi_vendor' => enkrip($dokumenVendor->vendor->id)]);
@@ -248,6 +259,38 @@ class RegistrasiVendorPerusahaanController extends Controller
 			sweetAlertException('Gagal Menghapus Dokumen ' . $dokumenVendor->nama_dokumen, $e);
 			
 			return to_route('menu.registrasi-vendor-perusahaan.edit', ['registrasi_vendor' => enkrip($dokumenVendor->vendor->id)]);
+		}
+	}
+	
+	public function removePathFileProofInventaris(RegistrasiVendor $registrasiVendor, string $path)
+	{
+		session()->flash('last_opened_tab', 'kt_contact_view_daftar_inventaris');
+		
+		try {
+			$inventaris = $registrasiVendor->inventaris;
+			$path = dekrip($path);
+			
+			foreach ($inventaris as &$item) {
+				if($item->path_upload_inventaris === $path){
+					$item->path_upload_inventaris = null;
+					UploadFileService::delete($path);
+					
+					break;
+				}
+			}
+			
+			unset($item);
+			
+			$registrasiVendor->inventaris = json_encode($inventaris);
+			$registrasiVendor->save();
+			
+			sweetAlert('success', 'Berhasil Menghapus Dokumen Bukti Kepemilikan');
+			
+			return to_route('menu.registrasi-vendor-perusahaan.edit', ['registrasi_vendor' => enkrip($registrasiVendor->id)]);
+		} catch (Exception $e) {
+			sweetAlertException('Gagal Menghapus Dokumen Bukti Kepemilikan', $e);
+			
+			return to_route('menu.registrasi-vendor-perusahaan.edit', ['registrasi_vendor' => enkrip($registrasiVendor->id)]);
 		}
 	}
 }
