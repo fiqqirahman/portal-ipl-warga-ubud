@@ -216,7 +216,7 @@ class LandingPageController extends Controller
         $user = User::where('activation_token', $token)->first();
 
         if (!$user) {
-            sweetAlert('error', 'Token aktivasi tidak valid.');
+            sweetAlert('error', 'Token aktivasi tidak valid. Silakan mendaftar ulang.');
             return redirect()->route('auth.login');
         }
         // Periksa apakah akun sudah diaktifkan
@@ -225,10 +225,10 @@ class LandingPageController extends Controller
             return redirect()->route('auth.login');
         }
 
-        // Periksa apakah token telah kedaluwarsa (24 jam)
+        // Periksa apakah token telah kedaluwarsa (1 jam)
         $tokenExpiration = Carbon::parse($user->created_at)->addHours(1);
         if (Carbon::now()->greaterThan($tokenExpiration)) {
-            sweetAlert('error', 'Token aktivasi telah kedaluwarsa.');
+            sweetAlert('error', 'Token aktivasi telah kedaluwarsa. Silakan mendaftar ulang.');
             return redirect()->route('landing-page.registrasi')
                 ->with('error', 'Token telah kedaluwarsa. Silakan mendaftar ulang.');
         }

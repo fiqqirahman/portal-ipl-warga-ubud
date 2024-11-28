@@ -16,7 +16,7 @@
     <meta property="og:site_name" content="{{ config('app.name') }}" />
     <link rel="shortcut icon" href="{{ asset('assets/images/bdki-favicon.png') }}"/>
     <!--begin::Fonts-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700"/>
+{{--    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700"/>--}}
     <!--end::Fonts-->
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     <link href="{{asset('metronic/demo2/assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css"/>
@@ -55,7 +55,8 @@
     <!--begin::Header Section-->
     <div class="mb-0" id="home">
         <!--begin::Wrapper-->
-        <div class="bgi-no-repeat bgi-size-contain bgi-position-x-center bgi-position-y-bottom landing-dark-bg" style="background-image: url('{{asset('metronic/demo2/assets/media/svg/illustrations/landing.svg')}}')">
+        <div class="bgi-no-repeat bgi-size-cover bgi-position-center landing-dark-bg"
+             style="background-image: url('{{asset('metronic/demo2/assets/media/svg/illustrations/jakarta.jpeg')}}')">
 
             @include('layouts.landing-page.navbar')
 
@@ -66,7 +67,7 @@
         <!--begin::Curve bottom-->
         <div class="landing-curve landing-dark-color mb-10 mb-lg-20">
             <svg viewBox="15 12 1470 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 11C3.93573 11.3356 7.85984 11.6689 11.7725 12H1488.16C1492.1 11.6689 1496.04 11.3356 1500 11V12H1488.16C913.668 60.3476 586.282 60.6117 11.7725 12H0V11Z" fill="currentColor"></path>
+                <path d="M0 11C3.93573 11.3356 7.85984 11.6689 11.7725 12H1488.16C1492.1 11.6689 1496.04 11.3356 1500 11V12H1488.16C913.668 60.3476 586.282 60.6117 11.7725 12H0V11Z" fill=""></path>
             </svg>
         </div>
         <!--end::Curve bottom-->
