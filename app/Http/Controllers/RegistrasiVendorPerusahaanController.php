@@ -332,4 +332,11 @@ class RegistrasiVendorPerusahaanController extends Controller
 			return to_route('menu.registrasi-vendor-perusahaan.edit', ['registrasi_vendor' => enkrip($registrasiVendor->id)]);
 		}
 	}
+	
+	public function show(RegistrasiVendor $registrasiVendor)
+	{
+		$this->authorize(PermissionEnum::RegistrasiVendorDetail->value);
+		
+		dd($registrasiVendor);
+	}
 }

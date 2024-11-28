@@ -42,7 +42,7 @@ return new class extends Migration
             $table->string('nama_nasabah')->nullable();
             $table->string('mata_uang')->nullable();
             $table->foreignId('kode_master_bentuk_badan_usaha_segmentasi')->nullable()->references('kode')->on('tbl_master_bentuk_badan_usaha');
-            $table->foreignId('kode_master_kelompok_usaha_segmentasi')->nullable()->references('kode')->on('tbl_master_kelompok_usaha');
+            $table->foreignId('kode_master_kelompok_usaha_segmentasi')->nullable()->references('kode')->on('tbl_master_jenis_vendor');
             $table->foreignId('kode_master_sub_bidang_usaha')->nullable()->references('kode')->on('tbl_master_sub_bidang_usaha');
             $table->foreignId('kode_master_kualifikasi_grade')->nullable()->references('kode')->on('tbl_master_kualifikasi_grade');
             $table->string('asosiasi')->nullable();
