@@ -186,12 +186,22 @@ class RegistrasiVendorPerusahaanController extends Controller
 		
 		$stmtKategoriVendor = KategoriVendor::isActive()->orderBy('nama')->get();
 		$stmtProvinsi = Provinsi::isActive()->orderBy('nama')->get();
+		$stmtNegara = Negara::isActive()->orderBy('nama')->get();
+		$stmtBank = Bank::isActive()->orderBy('nama')->get();
+		$stmtJenisVendor = JenisVendor::isActive()->orderBy('nama')->get();
+		$stmtSubBidangUsaha = SubBidangUsaha::isActive()->orderBy('nama')->get();
+		$stmtKualifikasiGrade = KualifikasiGrade::isActive()->orderBy('nama')->get();
 		
 		$data = [
 			'title' => $title,
 			'breadcrumbs' => $breadcrumbs,
 			'stmtKategoriVendor' => $stmtKategoriVendor,
 			'stmtProvinsi' => $stmtProvinsi,
+			'stmtNegara' => $stmtNegara,
+			'stmtBank' => $stmtBank,
+			'stmtJenisVendor' => $stmtJenisVendor,
+			'stmtSubBidangUsaha' => $stmtSubBidangUsaha,
+			'stmtKualifikasiGrade' => $stmtKualifikasiGrade,
 			'documentsField' => DocumentService::makeFields(DocumentForEnum::Company, $registrasiVendor),
 			'registrasiVendor' => $registrasiVendor,
 			'vendorJenisIdentitas' => JenisIdentitas::isActive()->select(['kode', 'nama'])->get(),
