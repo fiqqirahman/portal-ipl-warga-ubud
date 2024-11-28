@@ -13,7 +13,7 @@
             <option></option>
             @foreach ($stmtKategoriVendor as $kategoriVendor)
                 <option value="{{ $kategoriVendor->kode }}"
-                        {{ old('kode_master_bentuk_badan_usaha_segmentasi', $registrasiVendor?->kode_master_bentuk_badan_usaha_segmentasi) == $kategoriVendor->kode ? 'selected' : '' }}>
+                        {{ old('kode_master_bentuk_badan_usaha_segmentasi', isset($registrasiVendor) ? $registrasiVendor?->kode_master_bentuk_badan_usaha_segmentasi : null) == $kategoriVendor->kode ? 'selected' : '' }}>
                     {{ $kategoriVendor->nama }}
                 </option>
             @endforeach
@@ -38,7 +38,7 @@
             <option></option>
             @foreach ($stmtJenisVendor as $jenisVendor)
                 <option value="{{ $jenisVendor->kode }}"
-                        {{ old('kode_master_kelompok_usaha_segmentasi', $registrasiVendor?->kode_master_kelompok_usaha_segmentasi) == $jenisVendor->kode ? 'selected' : '' }}>
+                        {{ old('kode_master_kelompok_usaha_segmentasi', isset($registrasiVendor) ? $registrasiVendor?->kode_master_kelompok_usaha_segmentasi : null) == $jenisVendor->kode ? 'selected' : '' }}>
                     {{ $jenisVendor->nama }}
                 </option>
             @endforeach
@@ -63,7 +63,7 @@
             <option></option>
             @foreach ($stmtSubBidangUsaha as $subBidangUsaha)
                 <option value="{{ $subBidangUsaha->kode }}"
-                        {{ old('kode_master_sub_bidang_usaha', $registrasiVendor?->kode_master_sub_bidang_usaha) == $subBidangUsaha->kode ? 'selected' : '' }}>
+                        {{ old('kode_master_sub_bidang_usaha', isset($registrasiVendor) ? $registrasiVendor?->kode_master_sub_bidang_usaha : null) == $subBidangUsaha->kode ? 'selected' : '' }}>
                     {{ $subBidangUsaha->nama }}
                 </option>
             @endforeach
@@ -88,7 +88,7 @@
             <option></option>
             @foreach ($stmtKualifikasiGrade as $kualifikasi)
                 <option value="{{ $kualifikasi->kode }}"
-                        {{ old('kode_master_kualifikasi_grade', $registrasiVendor?->kode_master_kualifikasi_grade) == $kualifikasi->kode ? 'selected' : '' }}>
+                        {{ old('kode_master_kualifikasi_grade', isset($registrasiVendor) ? $registrasiVendor?->kode_master_kualifikasi_grade : null) == $kualifikasi->kode ? 'selected' : '' }}>
                     {{ $kualifikasi->nama }}
                 </option>
             @endforeach
@@ -105,7 +105,7 @@
         </label>
         <input type="text" required maxlength="255"
                class="form-control @error('asosiasi') is-invalid @enderror"
-               name="asosiasi" value="{{ old('asosiasi', $registrasiVendor?->asosiasi ?? null) }}"
+               name="asosiasi" value="{{ old('asosiasi', isset($registrasiVendor) ? $registrasiVendor?->asosiasi ?? null : null) }}"
                id="asosiasi"/>
         @error('asosiasi')
         <div class="invalid-feedback">
@@ -119,7 +119,7 @@
         </label>
         <input type="text" required maxlength="255"
                class="form-control @error('no_sertifikat') is-invalid @enderror"
-               name="no_sertifikat" value="{{ old('no_sertifikat', $registrasiVendor?->no_sertifikat ?? null) }}"
+               name="no_sertifikat" value="{{ old('no_sertifikat', isset($registrasiVendor) ? $registrasiVendor?->no_sertifikat ?? null : null) }}"
                id="no_sertifikat"/>
         @error('no_sertifikat')
         <div class="invalid-feedback">
@@ -133,7 +133,7 @@
         </label>
         <input type="text" required maxlength="255"
                class="form-control @error('masa_berlaku_sertifikat') is-invalid @enderror"
-               name="masa_berlaku_sertifikat" value="{{ old('masa_berlaku_sertifikat', $registrasiVendor?->masa_berlaku_sertifikat ?? null) }}"
+               name="masa_berlaku_sertifikat" value="{{ old('masa_berlaku_sertifikat', isset($registrasiVendor) ? $registrasiVendor?->masa_berlaku_sertifikat ?? null : null) }}"
                id="masa_berlaku_sertifikat"/>
         @error('masa_berlaku_sertifikat')
         <div class="invalid-feedback">
@@ -147,7 +147,7 @@
         </label>
         <input type="text" required maxlength="255"
                class="form-control @error('masa_berakhir_sertifikat') is-invalid @enderror"
-               name="masa_berakhir_sertifikat" value="{{ old('masa_berakhir_sertifikat', $registrasiVendor?->masa_berakhir_sertifikat ?? null) }}"
+               name="masa_berakhir_sertifikat" value="{{ old('masa_berakhir_sertifikat', isset($registrasiVendor) ? $registrasiVendor?->masa_berakhir_sertifikat ?? null : null) }}"
                id="masa_berakhir_sertifikat"/>
         @error('masa_berakhir_sertifikat')
         <div class="invalid-feedback">
