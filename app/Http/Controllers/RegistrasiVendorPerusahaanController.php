@@ -246,10 +246,8 @@ class RegistrasiVendorPerusahaanController extends Controller
 			
 			$statusRegistrasi = $request->confirm_done_checkbox === 'on' ? StatusRegistrasiEnum::Analysis : StatusRegistrasiEnum::Draft;
 			
-			$registrasiVendor->update([
-				'nama' => $request->nama,
-				'nama_singkatan' => $request->nama_singkatan,
-				'npwp' => $request->npwp,
+			$requestData = [
+				...$request->except(['inventaris', 'daftar_komisaris', 'daftar_direksi', 'pemegang_saham', 'tenaga_ahli', 'neraca_keuangan']),
 				'status_registrasi' => $statusRegistrasi,
 				'daftar_komisaris' => json_encode($request->daftar_komisaris),
 				'daftar_direksi' => json_encode($request->daftar_direksi),
@@ -257,7 +255,9 @@ class RegistrasiVendorPerusahaanController extends Controller
 				'tenaga_ahli' => $request->tenaga_ahli ? json_encode($request->tenaga_ahli) : null,
 				'neraca_keuangan' => $request->neraca_keuangan ? json_encode($request->neraca_keuangan) : null,
 				'updated_by' => Auth::id()
-			]);
+			];
+			
+			$registrasiVendor->update($requestData);
 			
 			$registrasiVendor->updateDocuments($request->file());
 			
