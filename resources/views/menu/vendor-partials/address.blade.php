@@ -133,7 +133,7 @@
         <label for="no_fax" class="fs-6 fw-semibold form-label mt-3">
             <span>Nomor Fax</span>
         </label>
-        <input type="text" required maxlength="15"
+        <input type="text" maxlength="15"
                class="form-control positive-numeric @error('no_fax') is-invalid @enderror"
                name="no_fax" value="{{ old('no_fax', isset($registrasiVendor) ? $registrasiVendor?->no_fax ?? null : null) }}"
                id="no_fax"/>
@@ -147,7 +147,7 @@
         <label for="website" class="fs-6 fw-semibold form-label mt-3">
             <span>Website</span>
         </label>
-        <input type="text" required maxlength="255" placeholder="https://example.com"
+        <input type="text" maxlength="255" placeholder="https://example.com"
                class="form-control @error('website') is-invalid @enderror"
                name="website" value="{{ old('website', isset($registrasiVendor) ? $registrasiVendor?->website ?? null : null) }}"
                id="website"/>

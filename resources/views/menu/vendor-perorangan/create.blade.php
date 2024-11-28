@@ -237,27 +237,27 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-4 col-sm-12 mb-4">
-                                        <label for="no_identitas" class="fs-6 fw-semibold form-label mt-3">
+                                        <label for="no_ktp_perorangan" class="fs-6 fw-semibold form-label mt-3">
                                             <span>Nomor KTP/SIM/Passport</span>
                                         </label>
                                         <input type="text"
-                                               class="form-control @error('no_identitas') is-invalid @enderror"
-                                               name="no_identitas" value="{{ old('no_identitas') }}" id="no_identitas"/>
-                                        @error('no_identitas')
+                                               class="form-control positive-numeric @error('no_ktp_perorangan') is-invalid @enderror"
+                                               name="no_ktp_perorangan" value="{{ old('no_ktp_perorangan') }}" id="no_ktp_perorangan"/>
+                                        @error('no_ktp_perorangan')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
                                         @enderror
                                     </div>
                                     <div class="col-md-4 col-sm-12 mb-4">
-                                        <label for="tanggal_berakhir" class="fs-6 fw-semibold form-label mt-3">
+                                        <label for="tanggal_berakhir_ktp" class="fs-6 fw-semibold form-label mt-3">
                                             <span>Tanggal Berakhir</span>
                                         </label>
                                         <input type="date"
-                                               class="form-control @error('tanggal_berakhir') is-invalid @enderror"
-                                               name="tanggal_berakhir" value="{{ old('tanggal_berakhir') }}"
-                                               id="tanggal_berakhir"/>
-                                        @error('tanggal_berakhir')
+                                               class="form-control @error('tanggal_berakhir_ktp') is-invalid @enderror"
+                                               name="tanggal_berakhir_ktp" value="{{ old('tanggal_berakhir_ktp') }}"
+                                               id="tanggal_berakhir_ktp"/>
+                                        @error('tanggal_berakhir_ktp')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -340,7 +340,7 @@
                     success: function (data) {
                         $('#kode_kabupaten_kota').empty().append('<option></option>');
                         $.each(data, function (key, value) {
-                            $('#kode_kabupaten_kota').append('<option value="' + value.kode_kabupaten_kota + '">' + value.nama + '</option>');
+                            $('#kode_kabupaten_kota').append('<option value="' + value.kode + '">' + value.nama + '</option>');
                         });
                     }
                 });

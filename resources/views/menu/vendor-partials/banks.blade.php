@@ -43,7 +43,7 @@
             <span class="required">Nomor Rekening</span>
         </label>
         <input type="text" required maxlength="255"
-               class="form-control positive-number @error('nomor_rekening') is-invalid @enderror"
+               class="form-control positive-numeric @error('nomor_rekening') is-invalid @enderror"
                name="nomor_rekening" value="{{ old('nomor_rekening', isset($registrasiVendor) ? $registrasiVendor?->nomor_rekening ?? '' : '') }}"
                id="nomor_rekening"/>
         @error('nomor_rekening')
