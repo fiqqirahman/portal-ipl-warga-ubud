@@ -433,7 +433,7 @@
                     success: function (data) {
                         $('#kode_kabupaten_kota').empty().append('<option></option>');
                         $.each(data, function (key, value) {
-                            $('#kode_kabupaten_kota').append('<option value="' + value.kode_kabupaten_kota + '">' + value.nama + '</option>');
+                            $('#kode_kabupaten_kota').append('<option value="' + value.kode + '">' + value.nama + '</option>');
                         });
                     }
                 });
@@ -467,7 +467,7 @@
                     success: function (data) {
                         $('#kode_kelurahan').empty().append('<option></option>');
                         $.each(data, function (key, value) {
-                            $('#kode_kelurahan').append('<option value="' + value.kode_kelurahan + '">' + value.nama + '</option>');
+                            $('#kode_kelurahan').append('<option value="' + value.kode + '">' + value.nama + '</option>');
                         });
                     }
                 });

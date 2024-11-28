@@ -225,7 +225,7 @@
                                             <option></option>
                                             @foreach ($stmtKategoriVendor as $kategoriVendor)
                                                 <option value="{{ $kategoriVendor->kode }}"
-                                                        {{ $kategoriVendor->kode ?  : '' }}>
+                                                        {{ old('kode_master_kategori_vendor') == $kategoriVendor->kode ? 'selected' : '' }}>
                                                     {{ $kategoriVendor->nama }}
                                                 </option>
                                             @endforeach
@@ -374,7 +374,7 @@
                     success: function (data) {
                         $('#kode_kelurahan').empty().append('<option></option>');
                         $.each(data, function (key, value) {
-                            $('#kode_kelurahan').append('<option value="' + value.kode_kelurahan + '">' + value.nama + '</option>');
+                            $('#kode_kelurahan').append('<option value="' + value.kode + '">' + value.nama + '</option>');
                         });
                     }
                 });

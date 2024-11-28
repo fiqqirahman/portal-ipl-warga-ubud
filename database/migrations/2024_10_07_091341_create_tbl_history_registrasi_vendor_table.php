@@ -25,7 +25,7 @@ return new class extends Migration
             $table->text('alamat')->nullable();
             $table->string('kode_negara')->nullable();
             $table->bigInteger('kode_provinsi')->nullable();
-            $table->foreignId('kode_kab_kota')->nullable()->references('kode')->on('tbl_master_provinsi');
+            $table->foreignId('kode_kabupaten_kota')->nullable()->references('kode')->on('tbl_master_provinsi');
             $table->foreignId('kode_kecamatan')->nullable()->references('kode')->on('tbl_master_kab_kota');
             $table->foreignId('kode_kelurahan')->nullable()->references('kode')->on('tbl_master_kecamatan');
             $table->string('kode_pos')->nullable();

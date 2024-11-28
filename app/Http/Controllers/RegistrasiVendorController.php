@@ -156,6 +156,7 @@ class RegistrasiVendorController extends Controller
                 'status_registrasi' => $statusRegistrasi,
 				'created_by' => Auth::id()
 			]);
+            dd($create);
 
 	        $create->storeDocuments($request->file());
 			
