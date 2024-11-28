@@ -42,8 +42,8 @@
         <label for="nomor_rekening" class="fs-6 fw-semibold form-label mt-3">
             <span class="required">Nomor Rekening</span>
         </label>
-        <input type="number" required maxlength="255"
-               class="form-control @error('nomor_rekening') is-invalid @enderror"
+        <input type="text" required maxlength="255"
+               class="form-control positive-number @error('nomor_rekening') is-invalid @enderror"
                name="nomor_rekening" value="{{ old('nomor_rekening', isset($registrasiVendor) ? $registrasiVendor?->nomor_rekening ?? '' : '') }}"
                id="nomor_rekening"/>
         @error('nomor_rekening')
@@ -70,7 +70,7 @@
         <label for="mata_uang" class="fs-6 fw-semibold form-label mt-3">
             <span class="required">Mata Uang</span>
         </label>
-        <input type="text" required maxlength="255"
+        <input type="text" required maxlength="3"
                class="form-control @error('mata_uang') is-invalid @enderror"
                name="mata_uang" value="{{ old('mata_uang', isset($registrasiVendor) ? $registrasiVendor?->mata_uang ?? '' : '') }}"
                id="mata_uang"/>

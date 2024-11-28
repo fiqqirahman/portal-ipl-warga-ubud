@@ -61,7 +61,7 @@ class RegistrasiVendorController extends Controller
      * Show the form for creating a new resource.
      * @throws AuthorizationException
      */
-    public function create(RegistrasiVendor $registrasiVendor)
+    public function create()
     {
         $this->authorize(PermissionEnum::RegistrasiVendorCreate->value);
 		
@@ -95,7 +95,6 @@ class RegistrasiVendorController extends Controller
             'stmtJenisVendor' => $stmtJenisVendor,
             'stmtSubBidangUsaha' => $stmtSubBidangUsaha,
             'stmtKualifikasiGrade' => $stmtKualifikasiGrade,
-            'registrasiVendor' => $registrasiVendor,
             'documentsField' => DocumentService::makeFields(DocumentForEnum::Individual)
 		];
 

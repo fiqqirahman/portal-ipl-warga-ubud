@@ -17,8 +17,8 @@
         <label for="no_pic_perorangan" class="fs-6 fw-semibold form-label mt-3">
             <span class="required">Nomor HP</span>
         </label>
-        <input type="number" required maxlength="14"
-               class="form-control @error('no_pic_perorangan') is-invalid @enderror"
+        <input type="text" required maxlength="15"
+               class="form-control positive-numeric @error('no_pic_perorangan') is-invalid @enderror"
                name="no_pic_perorangan" value="{{ old('no_pic_perorangan', isset($registrasiVendor) ? $registrasiVendor?->no_pic_perorangan ?? null : null) }}"
                id="no_pic_perorangan"/>
         @error('no_pic_perorangan')
