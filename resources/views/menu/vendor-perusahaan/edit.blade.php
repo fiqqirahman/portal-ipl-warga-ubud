@@ -32,7 +32,82 @@
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M11 2.375L2 9.575V20.575C2 21.175 2.4 21.575 3 21.575H9C9.6 21.575 10 21.175 10 20.575V14.575C10 13.975 10.4 13.575 11 13.575H13C13.6 13.575 14 13.975 14 14.575V20.575C14 21.175 14.4 21.575 15 21.575H21C21.6 21.575 22 21.175 22 20.575V9.575L13 2.375C12.4 1.875 11.6 1.875 11 2.375Z" fill="currentColor"></path>
                                         </svg>
-                                        General
+                                        Informasi Umum
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
+                                   href="#kt_contact_view_address" aria-selected="false" role="tab" tabindex="-1">
+                                    <span class="svg-icon svg-icon-4 me-1">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <polygon points="0 0 24 0 24 24 0 24"/>
+                                                <path d="M4.85714286,1 L11.7364114,1 C12.0910962,1 12.4343066,1.12568431 12.7051108,1.35473959 L17.4686994,5.3839416 C17.8056532,5.66894833 18,6.08787823 18,6.52920201 L18,19.0833333 C18,20.8738751 17.9795521,21 16.1428571,21 L4.85714286,21 C3.02044787,21 3,20.8738751 3,19.0833333 L3,2.91666667 C3,1.12612489 3.02044787,1 4.85714286,1 Z M8,12 C7.44771525,12 7,12.4477153 7,13 C7,13.5522847 7.44771525,14 8,14 L15,14 C15.5522847,14 16,13.5522847 16,13 C16,12.4477153 15.5522847,12 15,12 L8,12 Z M8,16 C7.44771525,16 7,16.4477153 7,17 C7,17.5522847 7.44771525,18 8,18 L11,18 C11.5522847,18 12,17.5522847 12,17 C12,16.4477153 11.5522847,16 11,16 L8,16 Z"
+                                                      fill="currentColor" fill-rule="nonzero" opacity="0.3"/>
+                                                <path d="M6.85714286,3 L14.7364114,3 C15.0910962,3 15.4343066,3.12568431 15.7051108,3.35473959 L20.4686994,7.3839416 C20.8056532,7.66894833 21,8.08787823 21,8.52920201 L21,21.0833333 C21,22.8738751 20.9795521,23 19.1428571,23 L6.85714286,23 C5.02044787,23 5,22.8738751 5,21.0833333 L5,4.91666667 C5,3.12612489 5.02044787,3 6.85714286,3 Z M8,12 C7.44771525,12 7,12.4477153 7,13 C7,13.5522847 7.44771525,14 8,14 L15,14 C15.5522847,14 16,13.5522847 16,13 C16,12.4477153 15.5522847,12 15,12 L8,12 Z M8,16 C7.44771525,16 7,16.4477153 7,17 C7,17.5522847 7.44771525,18 8,18 L11,18 C11.5522847,18 12,17.5522847 12,17 C12,16.4477153 11.5522847,16 11,16 L8,16 Z"
+                                                      fill="currentColor" fill-rule="nonzero"/>
+                                            </g>
+                                        </svg>
+                                        Alamat Perusahaan
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
+                                   href="#kt_contact_view_contact_person" aria-selected="false" role="tab"
+                                   tabindex="-1">
+                                    <span class="svg-icon svg-icon-4 me-1">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <polygon points="0 0 24 0 24 24 0 24"/>
+                                                <path d="M4.85714286,1 L11.7364114,1 C12.0910962,1 12.4343066,1.12568431 12.7051108,1.35473959 L17.4686994,5.3839416 C17.8056532,5.66894833 18,6.08787823 18,6.52920201 L18,19.0833333 C18,20.8738751 17.9795521,21 16.1428571,21 L4.85714286,21 C3.02044787,21 3,20.8738751 3,19.0833333 L3,2.91666667 C3,1.12612489 3.02044787,1 4.85714286,1 Z M8,12 C7.44771525,12 7,12.4477153 7,13 C7,13.5522847 7.44771525,14 8,14 L15,14 C15.5522847,14 16,13.5522847 16,13 C16,12.4477153 15.5522847,12 15,12 L8,12 Z M8,16 C7.44771525,16 7,16.4477153 7,17 C7,17.5522847 7.44771525,18 8,18 L11,18 C11.5522847,18 12,17.5522847 12,17 C12,16.4477153 11.5522847,16 11,16 L8,16 Z"
+                                                      fill="currentColor" fill-rule="nonzero" opacity="0.3"/>
+                                                <path d="M6.85714286,3 L14.7364114,3 C15.0910962,3 15.4343066,3.12568431 15.7051108,3.35473959 L20.4686994,7.3839416 C20.8056532,7.66894833 21,8.08787823 21,8.52920201 L21,21.0833333 C21,22.8738751 20.9795521,23 19.1428571,23 L6.85714286,23 C5.02044787,23 5,22.8738751 5,21.0833333 L5,4.91666667 C5,3.12612489 5.02044787,3 6.85714286,3 Z M8,12 C7.44771525,12 7,12.4477153 7,13 C7,13.5522847 7.44771525,14 8,14 L15,14 C15.5522847,14 16,13.5522847 16,13 C16,12.4477153 15.5522847,12 15,12 L8,12 Z M8,16 C7.44771525,16 7,16.4477153 7,17 C7,17.5522847 7.44771525,18 8,18 L11,18 C11.5522847,18 12,17.5522847 12,17 C12,16.4477153 11.5522847,16 11,16 L8,16 Z"
+                                                      fill="currentColor" fill-rule="nonzero"/>
+                                            </g>
+                                        </svg>
+                                        Kontak Person
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
+                                   href="#kt_contact_view_banks" aria-selected="false" role="tab"
+                                   tabindex="-1">
+                                    <span class="svg-icon svg-icon-4 me-1">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <polygon points="0 0 24 0 24 24 0 24"/>
+                                                <path d="M4.85714286,1 L11.7364114,1 C12.0910962,1 12.4343066,1.12568431 12.7051108,1.35473959 L17.4686994,5.3839416 C17.8056532,5.66894833 18,6.08787823 18,6.52920201 L18,19.0833333 C18,20.8738751 17.9795521,21 16.1428571,21 L4.85714286,21 C3.02044787,21 3,20.8738751 3,19.0833333 L3,2.91666667 C3,1.12612489 3.02044787,1 4.85714286,1 Z M8,12 C7.44771525,12 7,12.4477153 7,13 C7,13.5522847 7.44771525,14 8,14 L15,14 C15.5522847,14 16,13.5522847 16,13 C16,12.4477153 15.5522847,12 15,12 L8,12 Z M8,16 C7.44771525,16 7,16.4477153 7,17 C7,17.5522847 7.44771525,18 8,18 L11,18 C11.5522847,18 12,17.5522847 12,17 C12,16.4477153 11.5522847,16 11,16 L8,16 Z"
+                                                      fill="currentColor" fill-rule="nonzero" opacity="0.3"/>
+                                                <path d="M6.85714286,3 L14.7364114,3 C15.0910962,3 15.4343066,3.12568431 15.7051108,3.35473959 L20.4686994,7.3839416 C20.8056532,7.66894833 21,8.08787823 21,8.52920201 L21,21.0833333 C21,22.8738751 20.9795521,23 19.1428571,23 L6.85714286,23 C5.02044787,23 5,22.8738751 5,21.0833333 L5,4.91666667 C5,3.12612489 5.02044787,3 6.85714286,3 Z M8,12 C7.44771525,12 7,12.4477153 7,13 C7,13.5522847 7.44771525,14 8,14 L15,14 C15.5522847,14 16,13.5522847 16,13 C16,12.4477153 15.5522847,12 15,12 L8,12 Z M8,16 C7.44771525,16 7,16.4477153 7,17 C7,17.5522847 7.44771525,18 8,18 L11,18 C11.5522847,18 12,17.5522847 12,17 C12,16.4477153 11.5522847,16 11,16 L8,16 Z"
+                                                      fill="currentColor" fill-rule="nonzero"/>
+                                            </g>
+                                        </svg>
+                                        Bank
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
+                                   href="#kt_contact_view_segmentasi" aria-selected="false" role="tab"
+                                   tabindex="-1">
+                                    <span class="svg-icon svg-icon-4 me-1">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <polygon points="0 0 24 0 24 24 0 24"/>
+                                                <path d="M4.85714286,1 L11.7364114,1 C12.0910962,1 12.4343066,1.12568431 12.7051108,1.35473959 L17.4686994,5.3839416 C17.8056532,5.66894833 18,6.08787823 18,6.52920201 L18,19.0833333 C18,20.8738751 17.9795521,21 16.1428571,21 L4.85714286,21 C3.02044787,21 3,20.8738751 3,19.0833333 L3,2.91666667 C3,1.12612489 3.02044787,1 4.85714286,1 Z M8,12 C7.44771525,12 7,12.4477153 7,13 C7,13.5522847 7.44771525,14 8,14 L15,14 C15.5522847,14 16,13.5522847 16,13 C16,12.4477153 15.5522847,12 15,12 L8,12 Z M8,16 C7.44771525,16 7,16.4477153 7,17 C7,17.5522847 7.44771525,18 8,18 L11,18 C11.5522847,18 12,17.5522847 12,17 C12,16.4477153 11.5522847,16 11,16 L8,16 Z"
+                                                      fill="currentColor" fill-rule="nonzero" opacity="0.3"/>
+                                                <path d="M6.85714286,3 L14.7364114,3 C15.0910962,3 15.4343066,3.12568431 15.7051108,3.35473959 L20.4686994,7.3839416 C20.8056532,7.66894833 21,8.08787823 21,8.52920201 L21,21.0833333 C21,22.8738751 20.9795521,23 19.1428571,23 L6.85714286,23 C5.02044787,23 5,22.8738751 5,21.0833333 L5,4.91666667 C5,3.12612489 5.02044787,3 6.85714286,3 Z M8,12 C7.44771525,12 7,12.4477153 7,13 C7,13.5522847 7.44771525,14 8,14 L15,14 C15.5522847,14 16,13.5522847 16,13 C16,12.4477153 15.5522847,12 15,12 L8,12 Z M8,16 C7.44771525,16 7,16.4477153 7,17 C7,17.5522847 7.44771525,18 8,18 L11,18 C11.5522847,18 12,17.5522847 12,17 C12,16.4477153 11.5522847,16 11,16 L8,16 Z"
+                                                      fill="currentColor" fill-rule="nonzero"/>
+                                            </g>
+                                        </svg>
+                                        Segmentasi
                                     </span>
                                 </a>
                             </li>
@@ -47,6 +122,24 @@
                                             </g>
                                         </svg>
                                         Dokumen
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
+                                   href="#kt_contact_view_keahlian" aria-selected="false" role="tab" tabindex="-1">
+                                    <span class="svg-icon svg-icon-4 me-1">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <polygon points="0 0 24 0 24 24 0 24"/>
+                                                <path d="M4.85714286,1 L11.7364114,1 C12.0910962,1 12.4343066,1.12568431 12.7051108,1.35473959 L17.4686994,5.3839416 C17.8056532,5.66894833 18,6.08787823 18,6.52920201 L18,19.0833333 C18,20.8738751 17.9795521,21 16.1428571,21 L4.85714286,21 C3.02044787,21 3,20.8738751 3,19.0833333 L3,2.91666667 C3,1.12612489 3.02044787,1 4.85714286,1 Z M8,12 C7.44771525,12 7,12.4477153 7,13 C7,13.5522847 7.44771525,14 8,14 L15,14 C15.5522847,14 16,13.5522847 16,13 C16,12.4477153 15.5522847,12 15,12 L8,12 Z M8,16 C7.44771525,16 7,16.4477153 7,17 C7,17.5522847 7.44771525,18 8,18 L11,18 C11.5522847,18 12,17.5522847 12,17 C12,16.4477153 11.5522847,16 11,16 L8,16 Z"
+                                                      fill="currentColor" fill-rule="nonzero" opacity="0.3"/>
+                                                <path d="M6.85714286,3 L14.7364114,3 C15.0910962,3 15.4343066,3.12568431 15.7051108,3.35473959 L20.4686994,7.3839416 C20.8056532,7.66894833 21,8.08787823 21,8.52920201 L21,21.0833333 C21,22.8738751 20.9795521,23 19.1428571,23 L6.85714286,23 C5.02044787,23 5,22.8738751 5,21.0833333 L5,4.91666667 C5,3.12612489 5.02044787,3 6.85714286,3 Z M8,12 C7.44771525,12 7,12.4477153 7,13 C7,13.5522847 7.44771525,14 8,14 L15,14 C15.5522847,14 16,13.5522847 16,13 C16,12.4477153 15.5522847,12 15,12 L8,12 Z M8,16 C7.44771525,16 7,16.4477153 7,17 C7,17.5522847 7.44771525,18 8,18 L11,18 C11.5522847,18 12,17.5522847 12,17 C12,16.4477153 11.5522847,16 11,16 L8,16 Z"
+                                                      fill="currentColor" fill-rule="nonzero"/>
+                                            </g>
+                                        </svg>
+                                        Keahlian
                                     </span>
                                 </a>
                             </li>
@@ -111,30 +204,17 @@
                                 </a>
                             </li>
                         </ul>
-                        <div class="tab-content" id="">
+                        <div class="tab-content">
                             <div class="tab-pane fade active show" id="kt_contact_view_general" role="tabpanel">
                                 <div class="row">
                                     <div class="col-md-4 col-sm-12 mb-4">
                                         <label for="nama" class="fs-6 fw-semibold form-label mt-3">
-                                            <span class="required">Nama Perorangan</span>
+                                            <span class="required">Nama</span>
                                         </label>
                                         <input type="text" required maxlength="255"
                                                class="form-control @error('nama') is-invalid @enderror"
                                                name="nama" value="{{ old('nama', $registrasiVendor->nama) }}" id="nama" />
                                         @error('nama')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-4 col-sm-12 mb-4">
-                                        <label for="nama_singkatan" class="fs-6 fw-semibold form-label mt-3">
-                                            <span class="required">Nama Singkatan</span>
-                                        </label>
-                                        <input type="text" required maxlength="255"
-                                               class="form-control @error('nama_singkatan') is-invalid @enderror"
-                                               name="nama_singkatan" value="{{ old('nama_singkatan', $registrasiVendor->nama_singkatan) }}" id="nama_singkatan" />
-                                        @error('nama_singkatan')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -155,148 +235,84 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-4 col-sm-12 mb-4">
-                                        <label for="id_master_kategori_vendor" class="fs-6 fw-semibold form-label mt-3">
-                                            <span>Kategori Vendor</span>
-                                            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                               title="Hanya Kategori Vendor yang aktif saja yang dapat dipilih"></i>
+                                        <label for="kode_master_kategori_vendor" class="fs-6 fw-semibold form-label mt-3">
+                                            <span class="required">Kategori Vendor</span>
                                         </label>
-                                        <select class="form-select  @error('id_master_kategori_vendor') is-invalid @enderror"
-                                                id="id_master_kategori_vendor" name="id_master_kategori_vendor" data-control="select2"
+                                        <select class="form-select @error('kode_master_kategori_vendor') is-invalid @enderror" required
+                                                id="kode_master_kategori_vendor" name="kode_master_kategori_vendor" data-control="select2"
                                                 data-placeholder="---Pilih Kategori Vendor---" >
                                             <option></option>
                                             @foreach ($stmtKategoriVendor as $kategoriVendor)
                                                 <option value="{{ $kategoriVendor->kode }}"
-                                                    {{ $kategoriVendor->kode == old('id_master_kategori_vendor', $registrasiVendor->id_master_kategori_vendor) ? 'selected' : '' }}>
+                                                    {{ $kategoriVendor->kode == old('kode_master_kategori_vendor', $registrasiVendor->kode_master_kategori_vendor) ? 'selected' : '' }}>
                                                     {{ $kategoriVendor->nama }}
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @error('id_master_kategori_vendor')
+                                        @error('kode_master_kategori_vendor')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
                                         @enderror
                                     </div>
                                     <div class="col-md-4 col-sm-12 mb-4">
-                                        <label for="no_identitas" class="fs-6 fw-semibold form-label mt-3">
-                                            <span>Nomor KTP/SIM/Passport</span>
+                                        <label for="kode_master_jenis_vendor" class="fs-6 fw-semibold form-label mt-3">
+                                            <span class="required">Jenis Vendor</span>
                                         </label>
-                                        <input type="text"
-                                               class="form-control @error('no_identitas') is-invalid @enderror"
-                                               name="no_identitas" value="{{ old('no_identitas', $registrasiVendor->no_identitas) }}" id="no_identitas" />
-                                        @error('no_identitas')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-4 col-sm-12 mb-4">
-                                        <label for="tanggal_berakhir" class="fs-6 fw-semibold form-label mt-3">
-                                            <span>Tanggal Berakhir</span>
-                                        </label>
-                                        <input type="date"
-                                               class="form-control @error('tanggal_berakhir') is-invalid @enderror"
-                                               name="tanggal_berakhir" value="{{ old('tanggal_berakhir', $registrasiVendor->tanggal_berakhir) }}" id="tanggal_berakhir" />
-                                        @error('tanggal_berakhir')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-4 col-sm-12 mb-4">
-                                        <label for="alamat" class="fs-6 fw-semibold form-label mt-3">
-                                            <span>Alamat</span>
-                                        </label>
-                                        <textarea class="form-control form-control @error('alamat') is-invalid @enderror" id="alamat"
-                                                  name="alamat" rows="2">{{ old('alamat', $registrasiVendor->alamat) }}</textarea>
-                                        @error('alamat')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-4 col-sm-12 mb-4">
-                                        <label for="id_master_negara" class="fs-6 fw-semibold form-label mt-3">
-                                            <span>Negara</span>
-                                        </label>
-                                        <select class="form-select  @error('id_master_negara') is-invalid @enderror"
-                                                id="id_master_negara" name="id_master_negara" data-control="select2"
-                                                data-placeholder="---Pilih Negara---" >
+                                        <select class="form-select @error('kode_master_jenis_vendor') is-invalid @enderror" required
+                                                id="kode_master_jenis_vendor" name="kode_master_jenis_vendor" data-control="select2"
+                                                data-placeholder="---Pilih Jenis Vendor---" >
                                             <option></option>
-                                            @foreach ($stmtKategoriVendor as $kategoriVendor)
-                                                <option value="{{ $kategoriVendor->kode }}"
-                                                    {{ $kategoriVendor->kode == old('id_master_negara', $registrasiVendor->id_master_negara) ? 'selected' : '' }}>
-                                                    {{ $kategoriVendor->nama }}
+                                            @foreach ($stmtJenisVendor as $jenisVendor)
+                                                <option value="{{ $jenisVendor->kode }}"
+                                                    {{ $jenisVendor->kode == old('kode_master_jenis_vendor', $registrasiVendor->kode_master_jenis_vendor) ? 'selected' : '' }}>
+                                                    {{ $jenisVendor->nama }}
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @error('id_master_negara')
+                                        @error('kode_master_jenis_vendor')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
                                         @enderror
                                     </div>
                                     <div class="col-md-4 col-sm-12 mb-4">
-                                        <label for="kode_provinsi" class="fs-6 fw-semibold form-label mt-3">
-                                            <span>Provinsi</span>
+                                        <label for="kode_master_bentuk_badan_usaha" class="fs-6 fw-semibold form-label mt-3">
+                                            <span class="required">Bentuk Badan Usaha</span>
                                         </label>
-                                        <select class="form-select  @error('kode_provinsi') is-invalid @enderror"
-                                                id="kode_provinsi" name="kode_provinsi" data-control="select2"
-                                                data-placeholder="---Pilih Provinsi---" >
+                                        <select class="form-select @error('kode_master_bentuk_badan_usaha') is-invalid @enderror" required
+                                                id="kode_master_bentuk_badan_usaha" name="kode_master_bentuk_badan_usaha" data-control="select2"
+                                                data-placeholder="---Pilih Bentuk Badan Usaha---" >
                                             <option></option>
-                                            @foreach ($stmtProvinsi as $provinsi)
-                                                <option value="{{ $provinsi->kode }}"
-                                                    {{ $provinsi->kode ? : '' }}>
-                                                    {{ $provinsi->nama }}
+                                            @foreach ($stmtBentukBadanUsaha as $bentukBadanUsaha)
+                                                <option value="{{ $bentukBadanUsaha->kode }}"
+                                                    {{ $bentukBadanUsaha->kode == old('kode_master_bentuk_badan_usaha', $registrasiVendor->kode_master_bentuk_badan_usaha) ? 'selected' : '' }}>
+                                                    {{ $bentukBadanUsaha->nama }}
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @error('kode_provinsi')
+                                        @error('kode_master_bentuk_badan_usaha')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
                                         @enderror
                                     </div>
                                     <div class="col-md-4 col-sm-12 mb-4">
-                                        <label for="kode_kabupaten_kota" class="fs-6 fw-semibold form-label mt-3">
-                                            <span>Kabupaten/Kota</span>
+                                        <label for="kode_master_status_perusahaan" class="fs-6 fw-semibold form-label mt-3">
+                                            <span class="required">Status Perusahaan</span>
                                         </label>
-                                        <select class="form-select  @error('kode_kabupaten_kota') is-invalid @enderror"
-                                                id="kode_kabupaten_kota" name="kode_kabupaten_kota" data-control="select2"
-                                                data-placeholder="---Pilih Kabupaten Kota---" >
+                                        <select class="form-select @error('kode_master_status_perusahaan') is-invalid @enderror" required
+                                                id="kode_master_status_perusahaan" name="kode_master_status_perusahaan" data-control="select2"
+                                                data-placeholder="---Pilih Status Perusahaan---" >
                                             <option></option>
+                                            @foreach ($stmtStatusPerusahaan as $statusPerusahaan)
+                                                <option value="{{ $statusPerusahaan->kode }}"
+                                                    {{ $statusPerusahaan->kode == old('kode_master_status_perusahaan', $registrasiVendor->kode_master_status_perusahaan) ? 'selected' : '' }}>
+                                                    {{ $statusPerusahaan->nama }}
+                                                </option>
+                                            @endforeach
                                         </select>
-                                        @error('kode_kabupaten_kota')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-4 col-sm-12 mb-4">
-                                        <label for="kode_kecamatan" class="fs-6 fw-semibold form-label mt-3">
-                                            <span>Kecamatan</span>
-                                        </label>
-                                        <select class="form-select  @error('kode_kecamatan') is-invalid @enderror"
-                                                id="kode_kecamatan" name="kode_kecamatan" data-control="select2"
-                                                data-placeholder="---Pilih Kecamatan---" >
-                                            <option></option>
-                                        </select>
-                                        @error('kode_kecamatan')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-4 col-sm-12 mb-4">
-                                        <label for="kode_kelurahan" class="fs-6 fw-semibold form-label mt-3">
-                                            <span>Kelurahan</span>
-                                        </label>
-                                        <select class="form-select  @error('kode_kelurahan') is-invalid @enderror"
-                                                id="kode_kelurahan" name="kode_kelurahan" data-control="select2"
-                                                data-placeholder="---Pilih Kelurahan---" >
-                                            <option></option>
-                                        </select>
-                                        @error('kode_kelurahan')
+                                        @error('kode_master_status_perusahaan')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -304,8 +320,38 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="tab-pane fade" id="kt_contact_view_address" role="tabpanel">
+                                @include('menu.vendor-partials.address')
+                            </div>
+                            <div class="tab-pane fade" id="kt_contact_view_contact_person" role="tabpanel">
+                                @include('menu.vendor-partials.contact-persons')
+                            </div>
+                            <div class="tab-pane fade" id="kt_contact_view_banks" role="tabpanel">
+                                @include('menu.vendor-partials.banks')
+                            </div>
+                            <div class="tab-pane fade" id="kt_contact_view_segmentasi" role="tabpanel">
+                                @include('menu.vendor-partials.segmentasi')
+                            </div>
                             <div class="tab-pane fade" id="kt_contact_view_documents" role="tabpanel">
                                 @include('menu.vendor-partials.documents.edit')
+                            </div>
+                            <div class="tab-pane fade" id="kt_contact_view_keahlian" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 mb-4">
+                                        <label for="profesi_keahlian" class="fs-6 fw-semibold form-label mt-3">
+                                            <span class="required">Profesi / Keahlian</span>
+                                        </label>
+                                        <textarea
+                                            class="form-control form-control @error('profesi_keahlian') is-invalid @enderror"
+                                            id="profesi_keahlian" required maxlength="3000"
+                                            name="profesi_keahlian" rows="4">{{ old('profesi_keahlian', isset($registrasiVendor) ? $registrasiVendor?->profesi_keahlian : null) }}</textarea>
+                                        @error('profesi_keahlian')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
                             <div class="tab-pane fade" id="kt_contact_view_daftar_komisaris" role="tabpanel">
                                 @include('menu.vendor-partials.daftar-komisaris')

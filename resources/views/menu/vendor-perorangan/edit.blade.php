@@ -101,23 +101,23 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-4 col-sm-12 mb-4">
-                                        <label for="id_master_kategori_vendor" class="fs-6 fw-semibold form-label mt-3">
+                                        <label for="kode_master_kategori_vendor" class="fs-6 fw-semibold form-label mt-3">
                                             <span>Kategori Vendor</span>
                                             <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
                                                title="Hanya Kategori Vendor yang aktif saja yang dapat dipilih"></i>
                                         </label>
-                                        <select class="form-select  @error('id_master_kategori_vendor') is-invalid @enderror"
-                                                id="id_master_kategori_vendor" name="id_master_kategori_vendor" data-control="select2"
+                                        <select class="form-select  @error('kode_master_kategori_vendor') is-invalid @enderror"
+                                                id="kode_master_kategori_vendor" name="kode_master_kategori_vendor" data-control="select2"
                                                 data-placeholder="---Pilih Kategori Vendor---" >
                                             <option></option>
                                             @foreach ($stmtKategoriVendor as $kategoriVendor)
                                                 <option value="{{ $kategoriVendor->kode }}"
-                                                    {{ $kategoriVendor->kode == old('id_master_kategori_vendor', $registrasiVendor->id_master_kategori_vendor) ? 'selected' : '' }}>
+                                                    {{ $kategoriVendor->kode == old('kode_master_kategori_vendor', $registrasiVendor->kode_master_kategori_vendor) ? 'selected' : '' }}>
                                                     {{ $kategoriVendor->nama }}
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @error('id_master_kategori_vendor')
+                                        @error('kode_master_kategori_vendor')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
