@@ -50,6 +50,10 @@ class RegistrasiVendorCompanyUpdateRequest extends FormRequest
 	        ...rulesTenagaAhli(),
 	        ...rulesInventaris(),
 	        ...rulesNeracaKeuangan(),
+	        ...rulesAlamat(),
+	        ...rulesContactPersons(),
+	        ...rulesBanks(),
+	        ...rulesSegmentasi(),
         ];
     }
 	
@@ -66,6 +70,10 @@ class RegistrasiVendorCompanyUpdateRequest extends FormRequest
 			...attributesTenagaAhli(),
 			...attributesInventaris(),
 			...attributesNeracaKeuangan(),
+			...attributesAlamat(),
+			...attributesContactPersons(),
+			...attributesBanks(),
+			...attributesSegmentasi(),
 		];
 	}
 }
