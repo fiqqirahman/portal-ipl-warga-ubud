@@ -143,7 +143,7 @@ class RegistrasiVendorController extends Controller
 			
 			sweetAlertException('Gagal Menyimpan Data', $th);
 			
-			return to_route('menu.registrasi-vendor.create');
+			return to_route('menu.registrasi-vendor.create')->withInput();
         }
     }
 	
@@ -231,7 +231,7 @@ class RegistrasiVendorController extends Controller
 		    
 		    sweetAlertException('Gagal Mengupdate Data', $th);
 		    
-		    return to_route('menu.registrasi-vendor.edit', ['registrasi_vendor' => enkrip($registrasiVendor->id)]);
+		    return to_route('menu.registrasi-vendor.edit', ['registrasi_vendor' => enkrip($registrasiVendor->id)])->withInput();
 	    }
     }
 	
