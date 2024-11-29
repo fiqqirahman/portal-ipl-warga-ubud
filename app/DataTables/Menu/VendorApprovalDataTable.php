@@ -41,7 +41,7 @@ class VendorApprovalDataTable extends DataTable
 		    })
             ->addColumn('aksi', function ($row) {
 	            if(!in_array($row->status_registrasi->value, [StatusRegistrasiEnum::Rejected->value, StatusRegistrasiEnum::Draft->value])){
-		            return '<a href="'. route('menu.operator.registrasi-vendor.approval', ['registrasi_vendor' => enkrip($row->id)]) .'">
+		            return '<a href="'. route('menu.operator.registrasi-vendor.show', ['registrasi_vendor' => enkrip($row->id)]) .'">
 						<button type="button" class="btn btn-sm btn-info me-3">
 							<i class="fa fa-pencil"></i> Approval
 						</button>

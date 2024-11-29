@@ -54,6 +54,9 @@ class RegistrasiVendorCompanyUpdateRequest extends FormRequest
 	        ...rulesContactPersons(),
 	        ...rulesBanks(),
 	        ...rulesSegmentasi(),
+            ...rulesPengalaman3TahunTerakhir(),
+	        ...rulesPengalamanMitraUsaha(),
+	        ...rulesPengalamanPekerjaanBerjalan(),
         ];
     }
 	
@@ -77,6 +80,9 @@ class RegistrasiVendorCompanyUpdateRequest extends FormRequest
 			...attributesContactPersons(),
 			...attributesBanks(),
 			...attributesSegmentasi(),
+			...attributesPengalaman3TahunTerakhir(),
+			...attributesPengalamanMitraUsaha(),
+			...attributesPengalamanPekerjaanBerjalan(),
 		];
 	}
 }

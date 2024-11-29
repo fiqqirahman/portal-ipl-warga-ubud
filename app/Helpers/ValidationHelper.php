@@ -317,3 +317,79 @@ function attributesPengalaman3TahunTerakhir(): array
 		'pengalaman3TahunTerakhir.*.nilai_kontrak' => 'Nilai Kontrak',
 	];
 }
+
+function rulesPengalamanMitraUsaha(): array
+{
+	return [
+		'pengalamanMitraUsaha' => 'nullable|array',
+		'pengalamanMitraUsaha.*.id' => 'nullable|string',
+		'pengalamanMitraUsaha.*.kodefikasi_tab' => 'required|string|in:' . \App\Enums\KodefikasiTabEnum::MitraUsaha->value,
+		'pengalamanMitraUsaha.*.nama_mitra' => 'required|string|max:255',
+		'pengalamanMitraUsaha.*.lokasi_pekerjaan' => 'required|string|max:255',
+		'pengalamanMitraUsaha.*.pemberi_pekerjaan' => 'required|string|max:255',
+		'pengalamanMitraUsaha.*.kode_jenis_pekerjaan' => 'required|string|max:255',
+		'pengalamanMitraUsaha.*.no_telfon_perusahaan_atau_pic' => 'required|string|max:20',
+		'pengalamanMitraUsaha.*.kode_bidang_usaha' => 'required|string|max:255',
+		'pengalamanMitraUsaha.*.tanggal_mulai_kerjasama' => 'required|date',
+		'pengalamanMitraUsaha.*.no_kontrak' => 'required|string|max:255',
+		'pengalamanMitraUsaha.*.tanggal_kontrak' => 'required|date',
+		'pengalamanMitraUsaha.*.nilai_kontrak' => 'required|string|max:26',
+	];
+}
+
+function attributesPengalamanMitraUsaha(): array
+{
+	return [
+		'pengalamanMitraUsaha' => 'Pengalaman 3 Tahun Terakhir',
+		'pengalamanMitraUsaha.*.id' => 'Identifier',
+		'pengalamanMitraUsaha.*.kodefikasi_tab' => 'Kodefikasi Tab',
+		'pengalamanMitraUsaha.*.nama_mitra' => 'Nama Mitra',
+		'pengalamanMitraUsaha.*.lokasi_pekerjaan' => 'Lokasi Pekerjaan',
+		'pengalamanMitraUsaha.*.pemberi_pekerjaan' => 'Pemberi Pekerjaan',
+		'pengalamanMitraUsaha.*.kode_jenis_pekerjaan' => 'Jenis Pekerjaan',
+		'pengalamanMitraUsaha.*.no_telfon_perusahaan_atau_pic' => 'No. Telp Perusahaan/PIC',
+		'pengalamanMitraUsaha.*.kode_bidang_usaha' => 'Bidang Usaha',
+		'pengalamanMitraUsaha.*.tanggal_mulai_kerjasama' => 'Mulai Kerjasama',
+		'pengalamanMitraUsaha.*.no_kontrak' => 'No. Kontrak',
+		'pengalamanMitraUsaha.*.tanggal_kontrak' => 'Tanggal Kontrak',
+		'pengalamanMitraUsaha.*.nilai_kontrak' => 'Nilai Kontrak',
+	];
+}
+
+function rulesPengalamanPekerjaanBerjalan(): array
+{
+	return [
+		'pengalamanPekerjaanBerjalan' => 'nullable|array',
+		'pengalamanPekerjaanBerjalan.*.id' => 'nullable|string',
+		'pengalamanPekerjaanBerjalan.*.kodefikasi_tab' => 'required|string|in:' . \App\Enums\KodefikasiTabEnum::PekerjaanBerjalan->value,
+		'pengalamanPekerjaanBerjalan.*.nama_pekerjaan' => 'required|string|max:255',
+		'pengalamanPekerjaanBerjalan.*.lokasi_pekerjaan' => 'required|string|max:255',
+		'pengalamanPekerjaanBerjalan.*.pemberi_pekerjaan' => 'required|string|max:255',
+		'pengalamanPekerjaanBerjalan.*.kode_jenis_pekerjaan' => 'required|string|max:255',
+		'pengalamanPekerjaanBerjalan.*.no_telfon_perusahaan_atau_pic' => 'required|string|max:20',
+		'pengalamanPekerjaanBerjalan.*.kode_bidang_usaha' => 'required|string|max:255',
+		'pengalamanPekerjaanBerjalan.*.tanggal_mulai_kerjasama' => 'required|date',
+		'pengalamanPekerjaanBerjalan.*.no_kontrak' => 'required|string|max:255',
+		'pengalamanPekerjaanBerjalan.*.tanggal_kontrak' => 'required|date',
+		'pengalamanPekerjaanBerjalan.*.nilai_kontrak' => 'required|string|max:26',
+	];
+}
+
+function attributesPengalamanPekerjaanBerjalan(): array
+{
+	return [
+		'pengalamanPekerjaanBerjalan' => 'Pengalaman 3 Tahun Terakhir',
+		'pengalamanPekerjaanBerjalan.*.id' => 'Identifier',
+		'pengalamanPekerjaanBerjalan.*.kodefikasi_tab' => 'Kodefikasi Tab',
+		'pengalamanPekerjaanBerjalan.*.nama_pekerjaan' => 'Nama Pekerjaan',
+		'pengalamanPekerjaanBerjalan.*.lokasi_pekerjaan' => 'Lokasi Pekerjaan',
+		'pengalamanPekerjaanBerjalan.*.pemberi_pekerjaan' => 'Pemberi Pekerjaan',
+		'pengalamanPekerjaanBerjalan.*.kode_jenis_pekerjaan' => 'Jenis Pekerjaan',
+		'pengalamanPekerjaanBerjalan.*.no_telfon_perusahaan_atau_pic' => 'No. Telp Perusahaan/PIC',
+		'pengalamanPekerjaanBerjalan.*.kode_bidang_usaha' => 'Bidang Usaha',
+		'pengalamanPekerjaanBerjalan.*.tanggal_mulai_kerjasama' => 'Mulai Kerjasama',
+		'pengalamanPekerjaanBerjalan.*.no_kontrak' => 'No. Kontrak',
+		'pengalamanPekerjaanBerjalan.*.tanggal_kontrak' => 'Tanggal Kontrak',
+		'pengalamanPekerjaanBerjalan.*.nilai_kontrak' => 'Nilai Kontrak',
+	];
+}

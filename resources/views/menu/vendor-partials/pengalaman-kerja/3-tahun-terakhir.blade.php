@@ -2,6 +2,7 @@
     $uniqueStringPengalamanKerja = uniqueString(8);
 @endphp
 
+@if(!request()->routeIs('menu.**.show'))
 <div class="row">
     <div class="d-flex justify-content-end mb-4">
         <button type="button" class="btn btn-sm btn-info" id="btn-add-row-daftar-pengalaman-kerja-3-tahun-terakhir">
@@ -9,16 +10,17 @@
         </button>
     </div>
 </div>
+@endif
 
 @if($errors->any())
-    @foreach(old('pengalaman3TahunTerakhir') ?? [] as $key => $oldDaftarTenagaAhli3TahunTerakhir)
+    @foreach(old('pengalaman3TahunTerakhir') ?? [] as $key => $oldDaftarPengalaman3TahunTerakhir)
         <div class="row div-group-daftar-pengalaman-kerja-3-tahun-terakhir">
             <input type="hidden" name="pengalaman3TahunTerakhir[{{ $key }}][kodefikasi_tab]" value="Pengalaman Pekerjaan 3 Tahun Terakhir">
             <div class="col-md-4 col-sm-12 mb-4">
                 <label class="fs-6 fw-semibold form-label mt-3">
                     <span class="required">Nama Pekerjaan</span>
                 </label>
-                <input type="text" maxlength="255" value="{{ $oldDaftarTenagaAhli3TahunTerakhir['nama_pekerjaan'] }}"
+                <input type="text" maxlength="255" value="{{ $oldDaftarPengalaman3TahunTerakhir['nama_pekerjaan'] }}"
                        class="form-control @error("pengalaman3TahunTerakhir.{$key}.nama_pekerjaan") is-invalid @enderror" required
                        name="pengalaman3TahunTerakhir[{{ $key }}][nama_pekerjaan]" />
                 @error("pengalaman3TahunTerakhir.{$key}.nama_pekerjaan")
@@ -36,7 +38,7 @@
                         class="form-control @error("pengalaman3TahunTerakhir.{$key}.lokasi_pekerjaan") is-invalid @enderror form-select"
                         name="pengalaman3TahunTerakhir[{{ $key }}][lokasi_pekerjaan]">
                     @foreach($masterKabKota as $kabKota)
-                        <option value="{{ $kabKota->kode }}" {{ $kabKota->kode == $oldDaftarTenagaAhli3TahunTerakhir['lokasi_pekerjaan'] ? 'selected' : '' }}>{{ $kabKota->nama }}</option>
+                        <option value="{{ $kabKota->kode }}" {{ $kabKota->kode == $oldDaftarPengalaman3TahunTerakhir['lokasi_pekerjaan'] ? 'selected' : '' }}>{{ $kabKota->nama }}</option>
                     @endforeach
                 </select>
                 @error("pengalaman3TahunTerakhir.{$key}.lokasi_pekerjaan")
@@ -49,7 +51,7 @@
                 <label class="fs-6 fw-semibold form-label mt-3">
                     <span class="required">Pemberi Pekerjaan</span>
                 </label>
-                <input type="text" maxlength="255" required value="{{ $oldDaftarTenagaAhli3TahunTerakhir['pemberi_pekerjaan'] }}"
+                <input type="text" maxlength="255" required value="{{ $oldDaftarPengalaman3TahunTerakhir['pemberi_pekerjaan'] }}"
                        class="form-control @error("pengalaman3TahunTerakhir.{$key}.pemberi_pekerjaan") is-invalid @enderror"
                        name="pengalaman3TahunTerakhir[{{ $key }}][pemberi_pekerjaan]"/>
                 @error("pengalaman3TahunTerakhir.{$key}.pemberi_pekerjaan")
@@ -67,7 +69,7 @@
                         class="form-control @error("pengalaman3TahunTerakhir.{$key}.kode_jenis_pekerjaan") is-invalid @enderror form-select"
                         name="pengalaman3TahunTerakhir[{{ $key }}][kode_jenis_pekerjaan]">
                     @foreach($stmtSubBidangUsaha as $bidangUsaha)
-                        <option value="{{ $bidangUsaha->kode }}" {{ $bidangUsaha->kode == $oldDaftarTenagaAhli3TahunTerakhir['kode_jenis_pekerjaan'] ? 'selected' : '' }}>{{ $bidangUsaha->nama }}</option>
+                        <option value="{{ $bidangUsaha->kode }}" {{ $bidangUsaha->kode == $oldDaftarPengalaman3TahunTerakhir['kode_jenis_pekerjaan'] ? 'selected' : '' }}>{{ $bidangUsaha->nama }}</option>
                     @endforeach
                 </select>
                 @error("pengalaman3TahunTerakhir.{$key}.kode_jenis_pekerjaan")
@@ -80,7 +82,7 @@
                 <label class="fs-6 fw-semibold form-label mt-3">
                     <span class="required">No. Telp Perusahaan/PIC</span>
                 </label>
-                <input type="text" maxlength="20" required value="{{ $oldDaftarTenagaAhli3TahunTerakhir['no_telfon_perusahaan_atau_pic'] }}"
+                <input type="text" maxlength="20" required value="{{ $oldDaftarPengalaman3TahunTerakhir['no_telfon_perusahaan_atau_pic'] }}"
                        class="form-control @error("pengalaman3TahunTerakhir.{$key}.no_telfon_perusahaan_atau_pic") is-invalid @enderror positive-numeric"
                        name="pengalaman3TahunTerakhir[{{ $key }}][no_telfon_perusahaan_atau_pic]"/>
                 @error("pengalaman3TahunTerakhir.{$key}.no_telfon_perusahaan_atau_pic")
@@ -98,7 +100,7 @@
                         class="form-control @error("pengalaman3TahunTerakhir.{$key}.kode_bidang_usaha") is-invalid @enderror form-select"
                         name="pengalaman3TahunTerakhir[{{ $key }}][kode_bidang_usaha]">
                     @foreach($stmtKategoriVendor as $kategoriVendor)
-                        <option value="{{ $kategoriVendor->kode }}" {{ $kategoriVendor->kode == $oldDaftarTenagaAhli3TahunTerakhir['kode_bidang_usaha'] ? 'selected' : '' }}>{{ $kategoriVendor->nama }}</option>
+                        <option value="{{ $kategoriVendor->kode }}" {{ $kategoriVendor->kode == $oldDaftarPengalaman3TahunTerakhir['kode_bidang_usaha'] ? 'selected' : '' }}>{{ $kategoriVendor->nama }}</option>
                     @endforeach
                 </select>
                 @error("pengalaman3TahunTerakhir.{$key}.kode_bidang_usaha")
@@ -111,7 +113,7 @@
                 <label class="fs-6 fw-semibold form-label mt-3">
                     <span class="required">Mulai Kerjasama</span>
                 </label>
-                <input type="date" required value="{{ $oldDaftarTenagaAhli3TahunTerakhir['tanggal_mulai_kerjasama'] }}"
+                <input type="date" required value="{{ $oldDaftarPengalaman3TahunTerakhir['tanggal_mulai_kerjasama'] }}"
                        class="form-control @error("pengalaman3TahunTerakhir.{$key}.tanggal_mulai_kerjasama") is-invalid @enderror"
                        name="pengalaman3TahunTerakhir[{{ $key }}][tanggal_mulai_kerjasama]"/>
                 @error("pengalaman3TahunTerakhir.{$key}.tanggal_mulai_kerjasama")
@@ -124,7 +126,7 @@
                 <label class="fs-6 fw-semibold form-label mt-3">
                     <span class="required">No. Kontrak</span>
                 </label>
-                <input type="text" required maxlength="255" value="{{ $oldDaftarTenagaAhli3TahunTerakhir['no_kontrak'] }}"
+                <input type="text" required maxlength="255" value="{{ $oldDaftarPengalaman3TahunTerakhir['no_kontrak'] }}"
                        class="form-control @error("pengalaman3TahunTerakhir.{$key}.no_kontrak") is-invalid @enderror"
                        name="pengalaman3TahunTerakhir[{{ $key }}][no_kontrak]"/>
                 @error("pengalaman3TahunTerakhir.{$key}.no_kontrak")
@@ -137,7 +139,7 @@
                 <label class="fs-6 fw-semibold form-label mt-3">
                     <span class="required">Tanggal Kontrak</span>
                 </label>
-                <input type="date" required value="{{ $oldDaftarTenagaAhli3TahunTerakhir['tanggal_kontrak'] }}"
+                <input type="date" required value="{{ $oldDaftarPengalaman3TahunTerakhir['tanggal_kontrak'] }}"
                        class="form-control @error("pengalaman3TahunTerakhir.{$key}.tanggal_kontrak") is-invalid @enderror"
                        name="pengalaman3TahunTerakhir[{{ $key }}][tanggal_kontrak]"/>
                 @error("pengalaman3TahunTerakhir.{$key}.tanggal_kontrak")
@@ -150,7 +152,7 @@
                 <label class="fs-6 fw-semibold form-label mt-3">
                     <span class="required">Nilai Kontrak</span>
                 </label>
-                <input type="text" required onkeyup="formatRupiah(this)" value="{{ $oldDaftarTenagaAhli3TahunTerakhir['nilai_kontrak'] }}"
+                <input type="text" required onkeyup="formatRupiah(this)" value="{{ $oldDaftarPengalaman3TahunTerakhir['nilai_kontrak'] }}"
                        class="form-control @error("pengalaman3TahunTerakhir.{$key}.nilai_kontrak") is-invalid @enderror" maxlength="26"
                        name="pengalaman3TahunTerakhir[{{ $key }}][nilai_kontrak]"/>
                 @error("pengalaman3TahunTerakhir.{$key}.nilai_kontrak")
@@ -159,13 +161,15 @@
                 </div>
                 @enderror
             </div>
-            <div class="row">
-                <div class="d-flex justify-content-center mt-3 mb-7">
-                    <button type="submit" class="btn btn-sm btn-danger btn-remove-row-daftar-pengalaman-kerja-3-tahun-terakhir">
-                        Hapus
-                    </button>
+            @if(!request()->routeIs('menu.**.show'))
+                <div class="row">
+                    <div class="d-flex justify-content-center mt-3 mb-7">
+                        <button type="submit" class="btn btn-sm btn-danger btn-remove-row-daftar-pengalaman-kerja-3-tahun-terakhir">
+                            Hapus
+                        </button>
+                    </div>
                 </div>
-            </div>
+            @endif
             <hr>
         </div>
     @endforeach
@@ -272,6 +276,7 @@
                            class="form-control" maxlength="26"
                            name="pengalaman3TahunTerakhir[{{ $uniqueStringPengalamanKerja }}][nilai_kontrak]"/>
                 </div>
+                @if(!request()->routeIs('menu.**.show'))
                 <div class="row">
                     <div class="d-flex justify-content-center mt-3 mb-7">
                         <button type="submit" class="btn btn-sm btn-danger btn-remove-row-daftar-pengalaman-kerja-3-tahun-terakhir">
@@ -279,6 +284,7 @@
                         </button>
                     </div>
                 </div>
+                @endif
                 <hr>
             </div>
         @endforeach
