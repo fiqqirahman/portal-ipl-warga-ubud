@@ -6,15 +6,22 @@ enum KodefikasiTabEnum: string {
     case PengalamanPekerjaan3TahunTerakhir = 'Pengalaman Pekerjaan 3 Tahun Terakhir';
     case MitraUsaha = 'Mitra Usaha';
     case PekerjaanBerjalan = 'Pekerjaan Berjalan';
-
-
+	
     public function label(): string
     {
         return match($this) {
             self::PengalamanPekerjaan3TahunTerakhir => 'Pengalaman Pekerjaan 3 Tahun Terakhir',
             self::MitraUsaha => 'Mitra Usaha',
             self::PekerjaanBerjalan => 'Pekerjaan Berjalan',
-
+        };
+    }
+	
+	public function field(): string
+    {
+        return match($this) {
+            self::PengalamanPekerjaan3TahunTerakhir => 'pengalaman_3_tahun_terakhir',
+            self::MitraUsaha => 'pengalaman_mitra_usaha',
+            self::PekerjaanBerjalan => 'pengalaman_pekerjaan_berjalan',
         };
     }
 
