@@ -10,6 +10,7 @@ use App\Enums\StatusAuditEnum;
 use App\Enums\StatusRegistrasiEnum;
 use App\Http\Requests\RegistrasiVendor\Company\RegistrasiVendorCompanyUpdateRequest;
 use App\Http\Requests\RegistrasiVendor\Company\RegistrasiVendorCompanyStoreRequest;
+use App\Models\KabKota;
 use App\Models\Master\Bank;
 use App\Models\Master\BentukBadanUsaha;
 use App\Models\Master\DokumenVendor;
@@ -109,7 +110,8 @@ class RegistrasiVendorPerusahaanController extends Controller
 			'masterJenisInventaris' => JenisInventaris::isActive()->select(['kode', 'nama'])->get(),
 			'masterJenisMerkInventaris' => JenisMerkInventaris::isActive()->select(['kode', 'nama'])->get(),
 			'masterKondisiInventaris' => KondisiInventarisEnum::getAll(),
-			'masterStatusAudit' => StatusAuditEnum::getAll()
+			'masterStatusAudit' => StatusAuditEnum::getAll(),
+			'masterKabKota' => KabKota::isActive()->select(['kode', 'nama'])->get()
 		];
 		
 		return view('menu.vendor-perusahaan.create', $data);
@@ -133,7 +135,10 @@ class RegistrasiVendorPerusahaanController extends Controller
 			$statusRegistrasi = $request->confirm_done_checkbox === 'on' ? StatusRegistrasiEnum::Analysis : StatusRegistrasiEnum::Draft;
 			
 			$requestData = [
-				...$request->except(['inventaris', 'daftar_komisaris', 'daftar_direksi', 'pemegang_saham', 'tenaga_ahli', 'neraca_keuangan']),
+				...$request->except([
+					'inventaris', 'daftar_komisaris', 'daftar_direksi', 'pemegang_saham', 'tenaga_ahli', 'neraca_keuangan',
+					'pengalaman3TahunTerakhir'
+				]),
 				'status_registrasi' => $statusRegistrasi,
 				'daftar_komisaris' => json_encode($request->daftar_komisaris),
 				'daftar_direksi' => json_encode($request->daftar_direksi),
@@ -148,6 +153,8 @@ class RegistrasiVendorPerusahaanController extends Controller
 			$create->storeDocuments($request->file());
 			
 			$create->storeInventaris($request->inventaris);
+			
+			$create->upsertPengalamanKerja($request->pengalaman3TahunTerakhir);
 			
 			if($create->status_registrasi === StatusRegistrasiEnum::Analysis){
 				sweetAlert('success', 'Berhasil Submit Data');
@@ -220,6 +227,7 @@ class RegistrasiVendorPerusahaanController extends Controller
 			'masterJenisMerkInventaris' => JenisMerkInventaris::isActive()->select(['kode', 'nama'])->get(),
 			'masterKondisiInventaris' => KondisiInventarisEnum::getAll(),
 			'masterStatusAudit' => StatusAuditEnum::getAll(),
+			'masterKabKota' => KabKota::isActive()->select(['kode', 'nama'])->get()
 		];
 		
 		return view('menu.vendor-perusahaan.edit', $data);
@@ -247,7 +255,10 @@ class RegistrasiVendorPerusahaanController extends Controller
 			$statusRegistrasi = $request->confirm_done_checkbox === 'on' ? StatusRegistrasiEnum::Analysis : StatusRegistrasiEnum::Draft;
 			
 			$requestData = [
-				...$request->except(['inventaris', 'daftar_komisaris', 'daftar_direksi', 'pemegang_saham', 'tenaga_ahli', 'neraca_keuangan']),
+				...$request->except([
+					'inventaris', 'daftar_komisaris', 'daftar_direksi', 'pemegang_saham', 'tenaga_ahli',
+					'neraca_keuangan', 'pengalaman3TahunTerakhir'
+				]),
 				'status_registrasi' => $statusRegistrasi,
 				'daftar_komisaris' => json_encode($request->daftar_komisaris),
 				'daftar_direksi' => json_encode($request->daftar_direksi),
@@ -262,6 +273,8 @@ class RegistrasiVendorPerusahaanController extends Controller
 			$registrasiVendor->updateDocuments($request->file());
 			
 			$registrasiVendor->updateInventaris($request->inventaris);
+			
+			$registrasiVendor->upsertPengalamanKerja($request->pengalaman3TahunTerakhir);
 			
 			DB::commit();
 			
@@ -336,7 +349,55 @@ class RegistrasiVendorPerusahaanController extends Controller
 	public function show(RegistrasiVendor $registrasiVendor)
 	{
 		$this->authorize(PermissionEnum::RegistrasiVendorDetail->value);
-		
-		dd($registrasiVendor);
+
+        if(!in_array($registrasiVendor->status_registrasi->value, [StatusRegistrasiEnum::Draft->value, StatusRegistrasiEnum::RevisionDocuments->value])){
+            abort(403, 'Registration Already Submitted! Can\'t be edited.');
+        }
+
+        if($registrasiVendor->created_by !== Auth::id()){
+            abort(403);
+        }
+
+        $title =  'Show ' . self::$title;
+
+        $breadcrumbs = [
+            HomeController::breadcrumb(),
+            self::breadcrumb(),
+            ['Show', route('menu.registrasi-vendor-perusahaan.show', ['registrasi_vendor' => enkrip($registrasiVendor->id)])],
+        ];
+
+        $stmtKategoriVendor = KategoriVendor::isActive()->orderBy('nama')->get();
+        $stmtProvinsi = Provinsi::isActive()->orderBy('nama')->get();
+        $stmtNegara = Negara::isActive()->orderBy('nama')->get();
+        $stmtBank = Bank::isActive()->orderBy('nama')->get();
+        $stmtJenisVendor = JenisVendor::isActive()->orderBy('nama')->get();
+        $stmtSubBidangUsaha = SubBidangUsaha::isActive()->orderBy('nama')->get();
+        $stmtKualifikasiGrade = KualifikasiGrade::isActive()->orderBy('nama')->get();
+        $stmtBentukBadanUsaha = BentukBadanUsaha::isActive()->orderBy('nama')->get();
+        $stmtStatusPerusahaan = StatusPerusahaan::isActive()->orderBy('nama')->get();
+
+        $data = [
+            'title' => $title,
+            'breadcrumbs' => $breadcrumbs,
+            'stmtKategoriVendor' => $stmtKategoriVendor,
+            'stmtProvinsi' => $stmtProvinsi,
+            'stmtNegara' => $stmtNegara,
+            'stmtBank' => $stmtBank,
+            'stmtJenisVendor' => $stmtJenisVendor,
+            'stmtBentukBadanUsaha' => $stmtBentukBadanUsaha,
+            'stmtStatusPerusahaan' => $stmtStatusPerusahaan,
+            'stmtSubBidangUsaha' => $stmtSubBidangUsaha,
+            'stmtKualifikasiGrade' => $stmtKualifikasiGrade,
+            'documentsField' => DocumentService::makeFields(DocumentForEnum::Company, $registrasiVendor),
+            'registrasiVendor' => $registrasiVendor,
+            'vendorJenisIdentitas' => JenisIdentitas::isActive()->select(['kode', 'nama'])->get(),
+            'vendorJabatan' => JabatanVendor::isActive()->select(['kode', 'nama'])->get(),
+            'masterJenisInventaris' => JenisInventaris::isActive()->select(['kode', 'nama'])->get(),
+            'masterJenisMerkInventaris' => JenisMerkInventaris::isActive()->select(['kode', 'nama'])->get(),
+            'masterKondisiInventaris' => KondisiInventarisEnum::getAll(),
+            'masterStatusAudit' => StatusAuditEnum::getAll(),
+        ];
+
+        return view('menu.vendor-perusahaan.show', $data);
 	}
 }

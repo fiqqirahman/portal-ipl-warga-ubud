@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="card-body pt-5">
-                    <form action="{{ route('menu.registrasi-vendor-perusahaan.update', ['registrasi_vendor' => enkrip($registrasiVendor->id)]) }}" method="POST" id="form-update" enctype="multipart/form-data">
+                    <form method="POST" id="form-update" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x fs-6 fw-semibold mt-6 mb-8" role="tablist">
@@ -203,16 +203,6 @@
                                     </span>
                                 </a>
                             </li>
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_contact_view_pengalaman_3_tahun_terakhir" aria-selected="false" role="tab" tabindex="-1">
-                                    <span class="svg-icon svg-icon-4 me-1">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M16.0077 19.2901L12.9293 17.5311C12.3487 17.1993 11.6407 17.1796 11.0426 17.4787L6.89443 19.5528C5.56462 20.2177 4 19.2507 4 17.7639V5C4 3.89543 4.89543 3 6 3H17C18.1046 3 19 3.89543 19 5V17.5536C19 19.0893 17.341 20.052 16.0077 19.2901Z" fill="currentColor"></path>
-                                        </svg>
-                                        Pengalaman 3 Tahun Terakhir
-                                    </span>
-                                </a>
-                            </li>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane fade active show" id="kt_contact_view_general" role="tabpanel">
@@ -254,7 +244,7 @@
                                             <option></option>
                                             @foreach ($stmtKategoriVendor as $kategoriVendor)
                                                 <option value="{{ $kategoriVendor->kode }}"
-                                                    {{ $kategoriVendor->kode == old('kode_master_kategori_vendor', $registrasiVendor->kode_master_kategori_vendor) ? 'selected' : '' }}>
+                                                        {{ $kategoriVendor->kode == old('kode_master_kategori_vendor', $registrasiVendor->kode_master_kategori_vendor) ? 'selected' : '' }}>
                                                     {{ $kategoriVendor->nama }}
                                                 </option>
                                             @endforeach
@@ -275,7 +265,7 @@
                                             <option></option>
                                             @foreach ($stmtJenisVendor as $jenisVendor)
                                                 <option value="{{ $jenisVendor->kode }}"
-                                                    {{ $jenisVendor->kode == old('kode_master_jenis_vendor', $registrasiVendor->kode_master_jenis_vendor) ? 'selected' : '' }}>
+                                                        {{ $jenisVendor->kode == old('kode_master_jenis_vendor', $registrasiVendor->kode_master_jenis_vendor) ? 'selected' : '' }}>
                                                     {{ $jenisVendor->nama }}
                                                 </option>
                                             @endforeach
@@ -296,7 +286,7 @@
                                             <option></option>
                                             @foreach ($stmtBentukBadanUsaha as $bentukBadanUsaha)
                                                 <option value="{{ $bentukBadanUsaha->kode }}"
-                                                    {{ $bentukBadanUsaha->kode == old('kode_master_bentuk_badan_usaha', $registrasiVendor->kode_master_bentuk_badan_usaha) ? 'selected' : '' }}>
+                                                        {{ $bentukBadanUsaha->kode == old('kode_master_bentuk_badan_usaha', $registrasiVendor->kode_master_bentuk_badan_usaha) ? 'selected' : '' }}>
                                                     {{ $bentukBadanUsaha->nama }}
                                                 </option>
                                             @endforeach
@@ -317,7 +307,7 @@
                                             <option></option>
                                             @foreach ($stmtStatusPerusahaan as $statusPerusahaan)
                                                 <option value="{{ $statusPerusahaan->kode }}"
-                                                    {{ $statusPerusahaan->kode == old('kode_master_status_perusahaan', $registrasiVendor->kode_master_status_perusahaan) ? 'selected' : '' }}>
+                                                        {{ $statusPerusahaan->kode == old('kode_master_status_perusahaan', $registrasiVendor->kode_master_status_perusahaan) ? 'selected' : '' }}>
                                                     {{ $statusPerusahaan->nama }}
                                                 </option>
                                             @endforeach
@@ -352,9 +342,9 @@
                                             <span class="required">Profesi / Keahlian</span>
                                         </label>
                                         <textarea
-                                            class="form-control form-control @error('profesi_keahlian') is-invalid @enderror"
-                                            id="profesi_keahlian" required maxlength="3000"
-                                            name="profesi_keahlian" rows="4">{{ old('profesi_keahlian', isset($registrasiVendor) ? $registrasiVendor?->profesi_keahlian : null) }}</textarea>
+                                                class="form-control form-control @error('profesi_keahlian') is-invalid @enderror"
+                                                id="profesi_keahlian" required maxlength="3000"
+                                                name="profesi_keahlian" rows="4">{{ old('profesi_keahlian', isset($registrasiVendor) ? $registrasiVendor?->profesi_keahlian : null) }}</textarea>
                                         @error('profesi_keahlian')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -381,23 +371,20 @@
                             <div class="tab-pane fade" id="kt_contact_view_daftar_neraca_keuangan" role="tabpanel">
                                 @include('menu.vendor-partials.daftar-neraca-keuangan')
                             </div>
-                            <div class="tab-pane fade" id="kt_contact_view_pengalaman_3_tahun_terakhir" role="tabpanel">
-                                @include('menu.vendor-partials.pengalaman-kerja.3-tahun-terakhir')
-                            </div>
                         </div>
                         <div class="col-12 mt-4">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="confirm_done_checkbox" name="confirm_done_checkbox">
-                                <label class="form-check-label" for="confirm_done_checkbox">Saya menyatakan bahwa data ini telah lengkap</label>
-                            </div>
+{{--                            <div class="form-check form-switch">--}}
+{{--                                <input class="form-check-input" type="checkbox" id="confirm_done_checkbox" name="confirm_done_checkbox">--}}
+{{--                                <label class="form-check-label" for="confirm_done_checkbox">Saya menyatakan bahwa data ini telah lengkap</label>--}}
+{{--                            </div>--}}
                         </div>
                         <div class="d-flex justify-content-center mt-7">
                             <a href="{{ route('menu.registrasi-vendor-perusahaan.index') }}">
                                 <button type="button" class="btn btn-light me-3">Kembali</button>
                             </a>
-                            <button type="submit" class="btn btn-primary" id="btn-submit">
-                                Save to Draft
-                            </button>
+{{--                            <button type="submit" class="btn btn-primary" id="btn-submit">--}}
+{{--                                Save to Draft--}}
+{{--                            </button>--}}
                         </div>
                     </form>
                 </div>
@@ -426,9 +413,6 @@
         const masterJenisMerkInventaris = @json($masterJenisMerkInventaris);
         const masterKondisiInventaris = @json($masterKondisiInventaris);
         const masterStatusAudit = @json($masterStatusAudit);
-        const stmtKategoriVendor = @json($stmtKategoriVendor);
-        const stmtSubBidangUsaha = @json($stmtSubBidangUsaha);
-        const masterKabKota = @json($masterKabKota);
     </script>
     <script src="{{ asset('js/fields/daftar-komisaris.js') }}"></script>
     <script src="{{ asset('js/fields/daftar-direksi.js') }}"></script>
@@ -436,7 +420,6 @@
     <script src="{{ asset('js/fields/daftar-tenaga-ahli.js') }}"></script>
     <script src="{{ asset('js/fields/daftar-inventaris.js') }}"></script>
     <script src="{{ asset('js/fields/daftar-neraca-keuangan.js') }}"></script>
-    <script src="{{ asset('js/fields/pengalaman-kerja/3-tahun-terakhir.js') }}"></script>
     <script>
         $(document).ready(function() {
             // Handle Province change
@@ -616,6 +599,14 @@
                 $('.has_required_label').removeClass('required')
                 $('.has_required_input').removeAttr('required')
             }
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputElements = document.querySelectorAll('input, textarea, select, .yearpicker-inventaris');
+            inputElements.forEach(element => {
+                element.disabled = true;
+            });
         });
     </script>
 @endsection

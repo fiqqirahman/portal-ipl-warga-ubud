@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\KodefikasiTabEnum;
 use App\Enums\StatusRegistrasiEnum;
 use App\Models\Master\Bank;
 use App\Models\Master\BentukBadanUsaha;
@@ -20,6 +21,7 @@ use App\Models\Master\SubBidangUsaha;
 use App\Observers\RegistrasiVendorObserver;
 use App\Traits\HasDocuments;
 use App\Traits\HasInventaris;
+use App\Traits\HasPengalamanKerja;
 use App\Traits\Model\Scope\IsActive;
 use Exception;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
@@ -31,7 +33,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 #[ObservedBy([RegistrasiVendorObserver::class])]
 class RegistrasiVendor extends Model
 {
-    use IsActive, HasDocuments, HasInventaris;
+    use IsActive, HasDocuments, HasInventaris, HasPengalamanKerja;
 
     protected $table = 'tbl_history_registrasi_vendor';
 
@@ -113,6 +115,12 @@ class RegistrasiVendor extends Model
     public function pengalamanPekerjaan(): HasMany
     {
         return $this->hasMany(PengalamanPekerjaanVendor::class, 'id_history_registrasi_vendor', 'id');
+    }
+	
+	public function pengalaman3TahunTerakhir(): HasMany
+    {
+        return $this->hasMany(PengalamanPekerjaanVendor::class, 'id_history_registrasi_vendor', 'id')
+	        ->where('kodefikasi_tab', KodefikasiTabEnum::PengalamanPekerjaan3TahunTerakhir);
     }
 	
 	public function kategoriVendor(): BelongsTo

@@ -1,14 +1,15 @@
 @php
     $uniqueStringNeracaKeuangan = uniqueString(8);
 @endphp
-
-<div class="row">
-    <div class="d-flex justify-content-end mb-4">
-        <button type="button" class="btn btn-sm btn-info" id="btn-add-row-daftar-neraca-keuangan">
-            Tambah
-        </button>
+@if(!request()->routeIs('menu.**.show'))
+    <div class="row">
+        <div class="d-flex justify-content-end mb-4">
+            <button type="button" class="btn btn-sm btn-info" id="btn-add-row-daftar-neraca-keuangan">
+                Tambah
+            </button>
+        </div>
     </div>
-</div>
+@endif
 
 @if($errors->any())
     @foreach(old('neraca_keuangan') ?? [] as $key => $oldDaftarNeracaKeuangan)
@@ -225,13 +226,15 @@
                 </div>
                 @enderror
             </div>
-            <div class="row">
-                <div class="d-flex justify-content-center mt-3 mb-7">
-                    <button type="submit" class="btn btn-sm btn-danger btn-remove-row-daftar-neraca-keuangan">
-                        Hapus
-                    </button>
+            @if(!request()->routeIs('menu.**.show'))
+                <div class="row">
+                    <div class="d-flex justify-content-center mt-3 mb-7">
+                        <button type="submit" class="btn btn-sm btn-danger btn-remove-row-daftar-neraca-keuangan">
+                            Hapus
+                        </button>
+                    </div>
                 </div>
-            </div>
+            @endif
             <hr>
         </div>
     @endforeach
@@ -379,13 +382,15 @@
                            class="form-control"
                            name="neraca_keuangan[{{ $uniqueStringNeracaKeuangan }}][tanggal_audit]" />
                 </div>
-                <div class="row">
-                    <div class="d-flex justify-content-center mt-3 mb-7">
-                        <button type="submit" class="btn btn-sm btn-danger btn-remove-row-daftar-neraca-keuangan">
-                            Hapus
-                        </button>
+                @if(!request()->routeIs('menu.**.show'))
+                    <div class="row">
+                        <div class="d-flex justify-content-center mt-3 mb-7">
+                            <button type="submit" class="btn btn-sm btn-danger btn-remove-row-daftar-neraca-keuangan">
+                                Hapus
+                            </button>
+                        </div>
                     </div>
-                </div>
+                @endif
                 <hr>
             </div>
         @endforeach

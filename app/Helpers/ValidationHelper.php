@@ -279,3 +279,41 @@ function attributesSegmentasi(): array
         'masa_berakhir_sertifikat' => 'Masa Berakhir Sertifikat',
     ];
 }
+
+function rulesPengalaman3TahunTerakhir(): array
+{
+	return [
+		'pengalaman3TahunTerakhir' => 'nullable|array',
+		'pengalaman3TahunTerakhir.*.id' => 'nullable|string',
+		'pengalaman3TahunTerakhir.*.kodefikasi_tab' => 'required|string|in:' . \App\Enums\KodefikasiTabEnum::PengalamanPekerjaan3TahunTerakhir->value,
+		'pengalaman3TahunTerakhir.*.nama_pekerjaan' => 'required|string|max:255',
+		'pengalaman3TahunTerakhir.*.lokasi_pekerjaan' => 'required|string|max:255',
+		'pengalaman3TahunTerakhir.*.pemberi_pekerjaan' => 'required|string|max:255',
+		'pengalaman3TahunTerakhir.*.kode_jenis_pekerjaan' => 'required|string|max:255',
+		'pengalaman3TahunTerakhir.*.no_telfon_perusahaan_atau_pic' => 'required|string|max:20',
+		'pengalaman3TahunTerakhir.*.kode_bidang_usaha' => 'required|string|max:255',
+		'pengalaman3TahunTerakhir.*.tanggal_mulai_kerjasama' => 'required|date',
+		'pengalaman3TahunTerakhir.*.no_kontrak' => 'required|string|max:255',
+		'pengalaman3TahunTerakhir.*.tanggal_kontrak' => 'required|date',
+		'pengalaman3TahunTerakhir.*.nilai_kontrak' => 'required|string|max:26',
+	];
+}
+
+function attributesPengalaman3TahunTerakhir(): array
+{
+	return [
+		'pengalaman3TahunTerakhir' => 'Pengalaman 3 Tahun Terakhir',
+		'pengalaman3TahunTerakhir.*.id' => 'Identifier',
+		'pengalaman3TahunTerakhir.*.kodefikasi_tab' => 'Kodefikasi Tab',
+		'pengalaman3TahunTerakhir.*.nama_pekerjaan' => 'Nama Pekerjaan',
+		'pengalaman3TahunTerakhir.*.lokasi_pekerjaan' => 'Lokasi Pekerjaan',
+		'pengalaman3TahunTerakhir.*.pemberi_pekerjaan' => 'Pemberi Pekerjaan',
+		'pengalaman3TahunTerakhir.*.kode_jenis_pekerjaan' => 'Jenis Pekerjaan',
+		'pengalaman3TahunTerakhir.*.no_telfon_perusahaan_atau_pic' => 'No. Telp Perusahaan/PIC',
+		'pengalaman3TahunTerakhir.*.kode_bidang_usaha' => 'Bidang Usaha',
+		'pengalaman3TahunTerakhir.*.tanggal_mulai_kerjasama' => 'Mulai Kerjasama',
+		'pengalaman3TahunTerakhir.*.no_kontrak' => 'No. Kontrak',
+		'pengalaman3TahunTerakhir.*.tanggal_kontrak' => 'Tanggal Kontrak',
+		'pengalaman3TahunTerakhir.*.nilai_kontrak' => 'Nilai Kontrak',
+	];
+}
