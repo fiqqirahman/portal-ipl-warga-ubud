@@ -49,6 +49,9 @@ class RegistrasiVendorIndividualUpdateRequest extends FormRequest
 	        ...rulesContactPersons(),
 	        ...rulesBanks(),
 	        ...rulesSegmentasi(),
+            ...rulesPengalaman3TahunTerakhir(),
+	        ...rulesPengalamanMitraUsaha(),
+	        ...rulesPengalamanPekerjaanBerjalan(),
         ];
     }
 	
@@ -67,6 +70,9 @@ class RegistrasiVendorIndividualUpdateRequest extends FormRequest
 			...attributesContactPersons(),
             ...attributesBanks(),
             ...attributesSegmentasi(),
+			...attributesPengalaman3TahunTerakhir(),
+			...attributesPengalamanMitraUsaha(),
+			...attributesPengalamanPekerjaanBerjalan(),
 		];
 	}
 }
