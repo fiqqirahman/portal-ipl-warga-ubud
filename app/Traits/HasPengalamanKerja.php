@@ -11,10 +11,10 @@ trait HasPengalamanKerja
 	/**
 	 * @throws Exception
 	 */
-	public function upsertPengalamanKerja(array $files): bool
+	public function upsertPengalamanKerja(?array $request = []): bool
 	{
 		try {
-			PengalamanKerjaService::upsert($this, $files);
+			PengalamanKerjaService::upsert($this, $request);
 			
 			return true;
 		} catch (Throwable $th) {

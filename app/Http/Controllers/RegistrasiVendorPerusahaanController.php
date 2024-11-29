@@ -154,9 +154,9 @@ class RegistrasiVendorPerusahaanController extends Controller
 			
 			$create->storeInventaris($request->inventaris);
 			
-			$create->upsertPengalamanKerja($request->pengalaman3TahunTerakhir);
-			$create->upsertPengalamanKerja($request->pengalamanMitraUsaha);
-			$create->upsertPengalamanKerja($request->pengalamanPekerjaanBerjalan);
+			$create->upsertPengalamanKerja($request->pengalaman3TahunTerakhir ?? []);
+			$create->upsertPengalamanKerja($request->pengalamanMitraUsaha ?? []);
+			$create->upsertPengalamanKerja($request->pengalamanPekerjaanBerjalan ?? []);
 			
 			if($create->status_registrasi === StatusRegistrasiEnum::Analysis){
 				sweetAlert('success', 'Berhasil Submit Data');
@@ -276,9 +276,9 @@ class RegistrasiVendorPerusahaanController extends Controller
 			
 			$registrasiVendor->updateInventaris($request->inventaris);
 			
-			$registrasiVendor->upsertPengalamanKerja($request->pengalaman3TahunTerakhir);
-			$registrasiVendor->upsertPengalamanKerja($request->pengalamanMitraUsaha);
-			$registrasiVendor->upsertPengalamanKerja($request->pengalamanPekerjaanBerjalan);
+			$registrasiVendor->upsertPengalamanKerja($request->pengalaman3TahunTerakhir ?? []);
+			$registrasiVendor->upsertPengalamanKerja($request->pengalamanMitraUsaha ?? []);
+			$registrasiVendor->upsertPengalamanKerja($request->pengalamanPekerjaanBerjalan ?? []);
 			
 			DB::commit();
 			

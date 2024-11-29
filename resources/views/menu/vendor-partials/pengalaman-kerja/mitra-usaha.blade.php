@@ -180,7 +180,7 @@
                 $uniqueStringPengalamanKerjaMitraUsaha = uniqueString(8);
             @endphp
             <div class="row div-group-daftar-pengalaman-kerja-mitra-usaha">
-                <input type="hidden" name="pengalamanMitraUsaha[{{ $key }}][kodefikasi_tab]" value="Mitra Usaha">
+                <input type="hidden" name="pengalamanMitraUsaha[{{ $uniqueStringPengalamanKerjaMitraUsaha }}][kodefikasi_tab]" value="Mitra Usaha">
                 <div class="col-md-4 col-sm-12 mb-4">
                     <label class="fs-6 fw-semibold form-label mt-3">
                         <span class="required">Nama Mitra</span>

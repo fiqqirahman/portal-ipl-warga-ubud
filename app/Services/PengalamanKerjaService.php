@@ -2,22 +2,22 @@
 
 namespace App\Services;
 
-use App\Enums\DocumentForEnum;
-use App\Models\Master\Dokumen;
-use App\Models\Master\DokumenVendor;
 use App\Models\RegistrasiVendor;
-use Exception;
-use Illuminate\Http\Request;
-use Throwable;
+use Arr;
+use Auth;
 
 class PengalamanKerjaService
 {
 	public static function upsert(RegistrasiVendor $model, ?array $request = []): void
 	{
-		if($request) {
-			$model->pengalamanPekerjaan()->where('kodefikasi_tab', $request[0]['kodefikasi_tab'])->delete();
+		if($request && count($request) > 0) {
+			$model->pengalamanPekerjaan()->where('kodefikasi_tab', Arr::first($request)['kodefikasi_tab'])->delete();
+			$authId = Auth::user()->id;
 			foreach ($request as $key => $value) {
-				$model->pengalamanPekerjaan()->create($value);
+				$model->pengalamanPekerjaan()->create([
+					...$value,
+					'created_by' => $authId
+				]);
 			}
 		}
 	}

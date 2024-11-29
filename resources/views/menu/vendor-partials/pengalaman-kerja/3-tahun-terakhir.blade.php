@@ -180,7 +180,7 @@
                 $uniqueStringPengalamanKerja = uniqueString(8);
             @endphp
             <div class="row div-group-daftar-pengalaman-kerja-3-tahun-terakhir">
-                <input type="hidden" name="pengalaman3TahunTerakhir[{{ $key }}][kodefikasi_tab]" value="Pengalaman Pekerjaan 3 Tahun Terakhir">
+                <input type="hidden" name="pengalaman3TahunTerakhir[{{ $uniqueStringPengalamanKerja }}][kodefikasi_tab]" value="Pengalaman Pekerjaan 3 Tahun Terakhir">
                 <div class="col-md-4 col-sm-12 mb-4">
                     <label class="fs-6 fw-semibold form-label mt-3">
                         <span class="required">Nama Pekerjaan</span>
