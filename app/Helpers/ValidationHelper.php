@@ -284,7 +284,6 @@ function rulesPengalaman3TahunTerakhir(): array
 {
 	return [
 		'pengalaman3TahunTerakhir' => 'nullable|array',
-		'pengalaman3TahunTerakhir.*.id' => 'nullable|string',
 		'pengalaman3TahunTerakhir.*.kodefikasi_tab' => 'required|string|in:' . \App\Enums\KodefikasiTabEnum::PengalamanPekerjaan3TahunTerakhir->value,
 		'pengalaman3TahunTerakhir.*.nama_pekerjaan' => 'required|string|max:255',
 		'pengalaman3TahunTerakhir.*.lokasi_pekerjaan' => 'required|string|max:255',
@@ -303,7 +302,6 @@ function attributesPengalaman3TahunTerakhir(): array
 {
 	return [
 		'pengalaman3TahunTerakhir' => 'Pengalaman 3 Tahun Terakhir',
-		'pengalaman3TahunTerakhir.*.id' => 'Identifier',
 		'pengalaman3TahunTerakhir.*.kodefikasi_tab' => 'Kodefikasi Tab',
 		'pengalaman3TahunTerakhir.*.nama_pekerjaan' => 'Nama Pekerjaan',
 		'pengalaman3TahunTerakhir.*.lokasi_pekerjaan' => 'Lokasi Pekerjaan',
@@ -322,7 +320,6 @@ function rulesPengalamanMitraUsaha(): array
 {
 	return [
 		'pengalamanMitraUsaha' => 'nullable|array',
-		'pengalamanMitraUsaha.*.id' => 'nullable|string',
 		'pengalamanMitraUsaha.*.kodefikasi_tab' => 'required|string|in:' . \App\Enums\KodefikasiTabEnum::MitraUsaha->value,
 		'pengalamanMitraUsaha.*.nama_mitra' => 'required|string|max:255',
 		'pengalamanMitraUsaha.*.lokasi_pekerjaan' => 'required|string|max:255',
@@ -340,8 +337,7 @@ function rulesPengalamanMitraUsaha(): array
 function attributesPengalamanMitraUsaha(): array
 {
 	return [
-		'pengalamanMitraUsaha' => 'Pengalaman 3 Tahun Terakhir',
-		'pengalamanMitraUsaha.*.id' => 'Identifier',
+		'pengalamanMitraUsaha' => 'Pengalaman Mitra Dagang / Mitra Usaha',
 		'pengalamanMitraUsaha.*.kodefikasi_tab' => 'Kodefikasi Tab',
 		'pengalamanMitraUsaha.*.nama_mitra' => 'Nama Mitra',
 		'pengalamanMitraUsaha.*.lokasi_pekerjaan' => 'Lokasi Pekerjaan',
@@ -360,7 +356,6 @@ function rulesPengalamanPekerjaanBerjalan(): array
 {
 	return [
 		'pengalamanPekerjaanBerjalan' => 'nullable|array',
-		'pengalamanPekerjaanBerjalan.*.id' => 'nullable|string',
 		'pengalamanPekerjaanBerjalan.*.kodefikasi_tab' => 'required|string|in:' . \App\Enums\KodefikasiTabEnum::PekerjaanBerjalan->value,
 		'pengalamanPekerjaanBerjalan.*.nama_pekerjaan' => 'required|string|max:255',
 		'pengalamanPekerjaanBerjalan.*.lokasi_pekerjaan' => 'required|string|max:255',
@@ -378,8 +373,7 @@ function rulesPengalamanPekerjaanBerjalan(): array
 function attributesPengalamanPekerjaanBerjalan(): array
 {
 	return [
-		'pengalamanPekerjaanBerjalan' => 'Pengalaman 3 Tahun Terakhir',
-		'pengalamanPekerjaanBerjalan.*.id' => 'Identifier',
+		'pengalamanPekerjaanBerjalan' => 'Pengalaman Pekerjaan Berjalan',
 		'pengalamanPekerjaanBerjalan.*.kodefikasi_tab' => 'Kodefikasi Tab',
 		'pengalamanPekerjaanBerjalan.*.nama_pekerjaan' => 'Nama Pekerjaan',
 		'pengalamanPekerjaanBerjalan.*.lokasi_pekerjaan' => 'Lokasi Pekerjaan',
