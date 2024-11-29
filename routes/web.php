@@ -147,8 +147,8 @@ Route::middleware('auth')->group(function () use($SSOIsLocal) {
 		        ->middleware(RoleMiddleware::using(RoleEnum::OperatorVendorManajemen->value))->group(function (){
 				    Route::get('/registrasi-vendor', [OperatorVendorController::class, 'index'])
 					    ->name('registrasi-vendor.index');
-					Route::get('/registrasi-vendor/approval/{registrasi_vendor}', [OperatorVendorController::class, 'approval'])
-					    ->name('registrasi-vendor.approval');
+					Route::get('/registrasi-vendor/approval/{registrasi_vendor}', [OperatorVendorController::class, 'show'])
+					    ->name('registrasi-vendor.show');
 					Route::post('/registrasi-vendor/submit/{registrasi_vendor}', [OperatorVendorController::class, 'submit'])
 					    ->name('registrasi-vendor.submit');
 		    });

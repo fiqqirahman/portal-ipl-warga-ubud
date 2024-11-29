@@ -28,7 +28,7 @@ class OperatorVendorController extends Controller
 		return $dataTable->render('menu.operator.approval.index', compact('title', 'breadcrumbs'));
 	}
 	
-    public function approval(RegistrasiVendor $registrasiVendor)
+    public function show(RegistrasiVendor $registrasiVendor)
     {
         $title = 'Data ' . self::$title;
 

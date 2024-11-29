@@ -137,7 +137,7 @@ class RegistrasiVendorPerusahaanController extends Controller
 			$requestData = [
 				...$request->except([
 					'inventaris', 'daftar_komisaris', 'daftar_direksi', 'pemegang_saham', 'tenaga_ahli', 'neraca_keuangan',
-					'pengalaman3TahunTerakhir'
+					'pengalaman3TahunTerakhir', 'pengalamanMitraUsaha', 'pengalamanPekerjaanBerjalan'
 				]),
 				'status_registrasi' => $statusRegistrasi,
 				'daftar_komisaris' => json_encode($request->daftar_komisaris),
@@ -154,7 +154,9 @@ class RegistrasiVendorPerusahaanController extends Controller
 			
 			$create->storeInventaris($request->inventaris);
 			
-			$create->upsertPengalamanKerja($request->pengalaman3TahunTerakhir);
+			$create->upsertPengalamanKerja($request->pengalaman3TahunTerakhir ?? []);
+			$create->upsertPengalamanKerja($request->pengalamanMitraUsaha ?? []);
+			$create->upsertPengalamanKerja($request->pengalamanPekerjaanBerjalan ?? []);
 			
 			if($create->status_registrasi === StatusRegistrasiEnum::Analysis){
 				sweetAlert('success', 'Berhasil Submit Data');
@@ -257,7 +259,7 @@ class RegistrasiVendorPerusahaanController extends Controller
 			$requestData = [
 				...$request->except([
 					'inventaris', 'daftar_komisaris', 'daftar_direksi', 'pemegang_saham', 'tenaga_ahli',
-					'neraca_keuangan', 'pengalaman3TahunTerakhir'
+					'neraca_keuangan', 'pengalaman3TahunTerakhir', 'pengalamanMitraUsaha', 'pengalamanPekerjaanBerjalan'
 				]),
 				'status_registrasi' => $statusRegistrasi,
 				'daftar_komisaris' => json_encode($request->daftar_komisaris),
@@ -274,7 +276,9 @@ class RegistrasiVendorPerusahaanController extends Controller
 			
 			$registrasiVendor->updateInventaris($request->inventaris);
 			
-			$registrasiVendor->upsertPengalamanKerja($request->pengalaman3TahunTerakhir);
+			$registrasiVendor->upsertPengalamanKerja($request->pengalaman3TahunTerakhir ?? []);
+			$registrasiVendor->upsertPengalamanKerja($request->pengalamanMitraUsaha ?? []);
+			$registrasiVendor->upsertPengalamanKerja($request->pengalamanPekerjaanBerjalan ?? []);
 			
 			DB::commit();
 			

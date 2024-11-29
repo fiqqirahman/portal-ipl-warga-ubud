@@ -123,6 +123,18 @@ class RegistrasiVendor extends Model
 	        ->where('kodefikasi_tab', KodefikasiTabEnum::PengalamanPekerjaan3TahunTerakhir);
     }
 	
+	public function pengalamanMitraUsaha(): HasMany
+    {
+        return $this->hasMany(PengalamanPekerjaanVendor::class, 'id_history_registrasi_vendor', 'id')
+	        ->where('kodefikasi_tab', KodefikasiTabEnum::MitraUsaha);
+    }
+	
+	public function pengalamanPekerjaanBerjalan(): HasMany
+	{
+		return $this->hasMany(PengalamanPekerjaanVendor::class, 'id_history_registrasi_vendor', 'id')
+			->where('kodefikasi_tab', KodefikasiTabEnum::PekerjaanBerjalan);
+	}
+	
 	public function kategoriVendor(): BelongsTo
 	{
 		return $this->belongsTo(KategoriVendor::class, 'kode_master_kategori_vendor','kode');
