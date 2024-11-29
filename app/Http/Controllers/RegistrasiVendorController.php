@@ -173,13 +173,10 @@ class RegistrasiVendorController extends Controller
 		    self::breadcrumb(),
 		    ['Edit', route('menu.registrasi-vendor.edit', ['registrasi_vendor' => enkrip($registrasiVendor->id)])],
 	    ];
-
-        $stmtKategoriVendor = KategoriVendor::isActive()->orderBy('nama')->get();
-        $stmtProvinsi = Provinsi::isActive()->orderBy('nama')->get();
+		
         $stmtNegara = Negara::isActive()->orderBy('nama')->get();
         $stmtBank = Bank::isActive()->orderBy('nama')->get();
         $stmtJenisVendor = JenisVendor::isActive()->orderBy('nama')->get();
-        $stmtSubBidangUsaha = SubBidangUsaha::isActive()->orderBy('nama')->get();
         $stmtKualifikasiGrade = KualifikasiGrade::isActive()->orderBy('nama')->get();
 	    
 	    $stmtKategoriVendor = KategoriVendor::isActive()->orderBy('nama')->get();
