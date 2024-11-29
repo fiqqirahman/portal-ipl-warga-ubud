@@ -203,6 +203,36 @@
                                     </span>
                                 </a>
                             </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_contact_view_pengalaman_3_tahun_terakhir" aria-selected="false" role="tab" tabindex="-1">
+                                    <span class="svg-icon svg-icon-4 me-1">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M16.0077 19.2901L12.9293 17.5311C12.3487 17.1993 11.6407 17.1796 11.0426 17.4787L6.89443 19.5528C5.56462 20.2177 4 19.2507 4 17.7639V5C4 3.89543 4.89543 3 6 3H17C18.1046 3 19 3.89543 19 5V17.5536C19 19.0893 17.341 20.052 16.0077 19.2901Z" fill="currentColor"></path>
+                                        </svg>
+                                        Pengalaman 3 Tahun Terakhir
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_contact_view_pengalaman_mitra_usaha" aria-selected="false" role="tab" tabindex="-1">
+                                    <span class="svg-icon svg-icon-4 me-1">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M16.0077 19.2901L12.9293 17.5311C12.3487 17.1993 11.6407 17.1796 11.0426 17.4787L6.89443 19.5528C5.56462 20.2177 4 19.2507 4 17.7639V5C4 3.89543 4.89543 3 6 3H17C18.1046 3 19 3.89543 19 5V17.5536C19 19.0893 17.341 20.052 16.0077 19.2901Z" fill="currentColor"></path>
+                                        </svg>
+                                        Pengalaman Mitra Usaha
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_contact_view_pengalaman_pekerjaan_berjalan" aria-selected="false" role="tab" tabindex="-1">
+                                    <span class="svg-icon svg-icon-4 me-1">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M16.0077 19.2901L12.9293 17.5311C12.3487 17.1993 11.6407 17.1796 11.0426 17.4787L6.89443 19.5528C5.56462 20.2177 4 19.2507 4 17.7639V5C4 3.89543 4.89543 3 6 3H17C18.1046 3 19 3.89543 19 5V17.5536C19 19.0893 17.341 20.052 16.0077 19.2901Z" fill="currentColor"></path>
+                                        </svg>
+                                        Pengalaman Pekerjaan Berjalan
+                                    </span>
+                                </a>
+                            </li>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane fade active show" id="kt_contact_view_general" role="tabpanel">
@@ -371,20 +401,20 @@
                             <div class="tab-pane fade" id="kt_contact_view_daftar_neraca_keuangan" role="tabpanel">
                                 @include('menu.vendor-partials.daftar-neraca-keuangan')
                             </div>
-                        </div>
-                        <div class="col-12 mt-4">
-{{--                            <div class="form-check form-switch">--}}
-{{--                                <input class="form-check-input" type="checkbox" id="confirm_done_checkbox" name="confirm_done_checkbox">--}}
-{{--                                <label class="form-check-label" for="confirm_done_checkbox">Saya menyatakan bahwa data ini telah lengkap</label>--}}
-{{--                            </div>--}}
+                            <div class="tab-pane fade" id="kt_contact_view_pengalaman_3_tahun_terakhir" role="tabpanel">
+                                @include('menu.vendor-partials.pengalaman-kerja.3-tahun-terakhir')
+                            </div>
+                            <div class="tab-pane fade" id="kt_contact_view_pengalaman_mitra_usaha" role="tabpanel">
+                                @include('menu.vendor-partials.pengalaman-kerja.mitra-usaha')
+                            </div>
+                            <div class="tab-pane fade" id="kt_contact_view_pengalaman_pekerjaan_berjalan" role="tabpanel">
+                                @include('menu.vendor-partials.pengalaman-kerja.pekerjaan-berjalan')
+                            </div>
                         </div>
                         <div class="d-flex justify-content-center mt-7">
                             <a href="{{ route('menu.registrasi-vendor-perusahaan.index') }}">
                                 <button type="button" class="btn btn-light me-3">Kembali</button>
                             </a>
-{{--                            <button type="submit" class="btn btn-primary" id="btn-submit">--}}
-{{--                                Save to Draft--}}
-{{--                            </button>--}}
                         </div>
                     </form>
                 </div>
@@ -422,59 +452,68 @@
     <script src="{{ asset('js/fields/daftar-neraca-keuangan.js') }}"></script>
     <script>
         $(document).ready(function() {
-            // Handle Province change
             $('#kode_provinsi').change(function () {
                 let kode_provinsi = $(this).val();
-                console.log('provinsiId', kode_provinsi)
                 $.ajax({
                     url: '{{ route("menu.getKabKotaByProvinsi") }}',
                     type: 'GET',
                     data: {kode_provinsi},
                     success: function (data) {
+                        const oldValue = parseInt('{{ old('kode_kabupaten_kota', $registrasiVendor->kode_kabupaten_kota ?? '') }}'.trim())
+
                         $('#kode_kabupaten_kota').empty().append('<option></option>');
                         $.each(data, function (key, value) {
-                            $('#kode_kabupaten_kota').append('<option value="' + value.kode + '">' + value.nama + '</option>');
+                            $('#kode_kabupaten_kota').append(`<option value="${value.kode}" ${oldValue === value.kode ? 'selected' : ''}>${value.nama}</option>`);
                         });
+                        if(oldValue > 0){
+                            $('#kode_kabupaten_kota').trigger('change')
+                        }
                     }
                 });
-            });
+            }).trigger('change');
 
-            // Handle Kab/Kota change
             $('#kode_kabupaten_kota').change(function () {
                 let kode_kabupaten_kota = $(this).val();
-                console.log('kode_kabupaten_kota', kode_kabupaten_kota)
                 $.ajax({
                     url: '{{ route("menu.getKecamatanByKabKota") }}',
                     type: 'GET',
                     data: {kode_kabupaten_kota},
                     success: function (data) {
+                        const oldValue = parseInt('{{ old('kode_kecamatan', $registrasiVendor->kode_kecamatan ?? '') }}'.trim())
+
                         $('#kode_kecamatan').empty().append('<option></option>');
                         $.each(data, function (key, value) {
-                            $('#kode_kecamatan').append('<option value="' + value.kode + '">' + value.nama + '</option>');
+                            $('#kode_kecamatan').append(`<option value="${value.kode}" ${oldValue === value.kode ? 'selected' : ''}>${value.nama}</option>`);
                         });
+                        if(oldValue > 0){
+                            $('#kode_kecamatan').trigger('change')
+                        }
                     }
                 });
             });
 
-            // Handle Kecamatan change
             $('#kode_kecamatan').change(function () {
                 let kode_kecamatan = $(this).val();
-                console.log('kecamatan', kode_kecamatan)
                 $.ajax({
                     url: '{{ route("menu.getKelurahanByKecamatan") }}',
                     type: 'GET',
                     data: {kode_kecamatan},
                     success: function (data) {
+                        const oldValue = parseInt('{{ old('kode_kelurahan', $registrasiVendor->kode_kelurahan ?? '') }}'.trim())
+
                         $('#kode_kelurahan').empty().append('<option></option>');
                         $.each(data, function (key, value) {
-                            $('#kode_kelurahan').append('<option value="' + value.kode + '">' + value.nama + '</option>');
+                            $('#kode_kelurahan').append(`<option value="${value.kode}" ${oldValue === value.kode ? 'selected' : ''}>${value.nama}</option>`);
                         });
+                        if(oldValue > 0){
+                            $('#kode_kelurahan').trigger('change')
+                        }
                     }
                 });
             });
 
             $('#kode_kelurahan').on('change', function(){
-                console.log($(this).val())
+                // console.log($(this).val())
             })
 
             $('#btn-submit').click(function (){
