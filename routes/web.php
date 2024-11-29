@@ -159,7 +159,7 @@ Route::middleware('auth')->group(function () use($SSOIsLocal) {
 	            ->group(function () {
 	                // registrasi vendor perorangan
 	                Route::resource('/registrasi-vendor', RegistrasiVendorController::class)
-		                ->except(['show', 'destroy']);
+		                ->except(['destroy']);
 	                Route::delete('/registrasi-vendor/remove-document/{dokumen_vendor}', [RegistrasiVendorController::class, 'removeDocument'])
 		                ->name('registrasi-vendor.remove-document');
 					

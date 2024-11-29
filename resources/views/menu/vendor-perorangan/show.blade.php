@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="card-body pt-5">
-                    <form action="{{ route('menu.registrasi-vendor.update', ['registrasi_vendor' => enkrip($registrasiVendor->id)]) }}" method="POST" id="form-update" enctype="multipart/form-data">
+                    <form method="POST" id="form-update" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x fs-6 fw-semibold mt-6 mb-8"
@@ -132,27 +132,6 @@
                             <li class="nav-item" role="presentation">
                                 <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
                                    href="#kt_contact_view_keahlian" aria-selected="false" role="tab" tabindex="-1">
-                                <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_contact_view_pengalaman_3_tahun_terakhir" aria-selected="false" role="tab" tabindex="-1">
-                                    <span class="svg-icon svg-icon-4 me-1">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M16.0077 19.2901L12.9293 17.5311C12.3487 17.1993 11.6407 17.1796 11.0426 17.4787L6.89443 19.5528C5.56462 20.2177 4 19.2507 4 17.7639V5C4 3.89543 4.89543 3 6 3H17C18.1046 3 19 3.89543 19 5V17.5536C19 19.0893 17.341 20.052 16.0077 19.2901Z" fill="currentColor"></path>
-                                        </svg>
-                                        Pengalaman 3 Tahun Terakhir
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_contact_view_pengalaman_mitra_usaha" aria-selected="false" role="tab" tabindex="-1">
-                                    <span class="svg-icon svg-icon-4 me-1">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M16.0077 19.2901L12.9293 17.5311C12.3487 17.1993 11.6407 17.1796 11.0426 17.4787L6.89443 19.5528C5.56462 20.2177 4 19.2507 4 17.7639V5C4 3.89543 4.89543 3 6 3H17C18.1046 3 19 3.89543 19 5V17.5536C19 19.0893 17.341 20.052 16.0077 19.2901Z" fill="currentColor"></path>
-                                        </svg>
-                                        Pengalaman Mitra Usaha
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_contact_view_pengalaman_pekerjaan_berjalan" aria-selected="false" role="tab" tabindex="-1">
                                     <span class="svg-icon svg-icon-4 me-1">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                              xmlns="http://www.w3.org/2000/svg">
@@ -177,7 +156,7 @@
                                             <path d="M16.0077 19.2901L12.9293 17.5311C12.3487 17.1993 11.6407 17.1796 11.0426 17.4787L6.89443 19.5528C5.56462 20.2177 4 19.2507 4 17.7639V5C4 3.89543 4.89543 3 6 3H17C18.1046 3 19 3.89543 19 5V17.5536C19 19.0893 17.341 20.052 16.0077 19.2901Z"
                                                   fill="currentColor"></path>
                                         </svg>
-                                        Pengalaman Pekerjaan Berjalan
+                                        Activity
                                     </span>
                                 </a>
                             </li>
@@ -189,7 +168,7 @@
                                         <label for="nama" class="fs-6 fw-semibold form-label mt-3">
                                             <span class="required">Nama Perorangan</span>
                                         </label>
-                                        <input type="text" required maxlength="255"
+                                        <input type="text" required maxlength="255" readonly
                                                class="form-control @error('nama') is-invalid @enderror"
                                                name="nama" value="{{ old('nama', $registrasiVendor->nama) }}"
                                                id="nama"/>
@@ -203,7 +182,7 @@
                                         <label for="nama_singkatan" class="fs-6 fw-semibold form-label mt-3">
                                             <span class="required">Nama Singkatan</span>
                                         </label>
-                                        <input type="text" required maxlength="255"
+                                        <input type="text" required maxlength="255" readonly
                                                class="form-control @error('nama_singkatan') is-invalid @enderror"
                                                name="nama_singkatan"
                                                value="{{ old('nama_singkatan', $registrasiVendor->nama_singkatan) }}"
@@ -222,7 +201,7 @@
                                         </label>
                                         <input type="text"
                                                class="form-control @error('npwp') is-invalid @enderror positive-numeric"
-                                               required pattern="^\d{15,16}$"
+                                               required pattern="^\d{15,16}$" readonly
                                                title="NPWP harus terdiri dari 15 atau 16 digit"
                                                name="npwp" value="{{ old('npwp', $registrasiVendor->npwp) }}" id="npwp"
                                                maxlength="16"/>
@@ -233,24 +212,14 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-4 col-sm-12 mb-4">
-                                        <label for="kode_master_kategori_vendor"
-                                               class="fs-6 fw-semibold form-label mt-3">
+                                        <label for="kode_master_kategori_vendor" class="fs-6 fw-semibold form-label mt-3">
                                             <span class="required">Kategori Vendor</span>
-                                            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                               title="Hanya Kategori Vendor yang aktif saja yang dapat dipilih"></i>
                                         </label>
-                                        <select class="form-select  @error('kode_master_kategori_vendor') is-invalid @enderror"
-                                                id="kode_master_kategori_vendor" name="kode_master_kategori_vendor"
-                                                data-control="select2" required
-                                                data-placeholder="---Pilih Kategori Vendor---">
-                                            <option></option>
-                                            @foreach ($stmtKategoriVendor as $kategoriVendor)
-                                                <option value="{{ $kategoriVendor->kode }}"
-                                                        {{ old('kode_master_kategori_vendor', isset($registrasiVendor) ? $registrasiVendor->kode_master_kategori_vendor ?? '' : '') == $kategoriVendor->kode ? 'selected' : '' }}>
-                                                    {{ $kategoriVendor->nama }}
-                                                </option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" required maxlength="255" readonly
+                                               class="form-control @error('kode_master_kategori_vendor') is-invalid @enderror"
+                                               name="kode_master_kategori_vendor"
+                                               value="{{ old('kode_master_kategori_vendor', $registrasiVendor->kategoriVendor->nama) }}"
+                                               id="kode_master_kategori_vendor"/>
                                         @error('kode_master_kategori_vendor')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -261,7 +230,7 @@
                                         <label for="no_ktp_perorangan" class="fs-6 fw-semibold form-label mt-3">
                                             <span class="required">Nomor KTP/SIM/Passport</span>
                                         </label>
-                                        <input type="text" required
+                                        <input type="text" required readonly
                                                class="form-control positive-numeric @error('no_ktp_perorangan') is-invalid @enderror"
                                                name="no_ktp_perorangan"
                                                value="{{ old('no_ktp_perorangan', $registrasiVendor->no_ktp_perorangan) }}"
@@ -276,7 +245,7 @@
                                         <label for="tanggal_berakhir_ktp" class="fs-6 fw-semibold form-label mt-3">
                                             <span class="required">Tanggal Berakhir</span>
                                         </label>
-                                        <input type="date" required
+                                        <input type="date" required readonly
                                                class="form-control @error('tanggal_berakhir_ktp') is-invalid @enderror"
                                                name="tanggal_berakhir_ktp"
                                                value="{{ old('tanggal_berakhir_ktp', $registrasiVendor->tanggal_berakhir_ktp) }}"
@@ -290,19 +259,19 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="kt_contact_view_address" role="tabpanel">
-                                @include('menu.vendor-partials.address')
+                                @include('menu.vendor-partials-readonly.address-readonly')
                             </div>
                             <div class="tab-pane fade" id="kt_contact_view_contact_person" role="tabpanel">
-                                @include('menu.vendor-partials.contact-persons')
+                                @include('menu.vendor-partials-readonly.contact-persons-readonly')
                             </div>
                             <div class="tab-pane fade" id="kt_contact_view_banks" role="tabpanel">
-                                @include('menu.vendor-partials.banks')
+                                @include('menu.vendor-partials-readonly.banks-readonly')
                             </div>
                             <div class="tab-pane fade" id="kt_contact_view_segmentasi" role="tabpanel">
-                                @include('menu.vendor-partials.segmentasi')
+                                @include('menu.vendor-partials-readonly.segmentasi-readonly')
                             </div>
                             <div class="tab-pane fade" id="kt_contact_view_documents" role="tabpanel">
-                                @include('menu.vendor-partials.documents.edit')
+                                @include('menu.vendor-partials.documents.show')
                             </div>
                             <div class="tab-pane fade" id="kt_contact_view_keahlian" role="tabpanel">
                                 <div class="row">
@@ -312,7 +281,7 @@
                                         </label>
                                         <textarea
                                                 class="form-control form-control @error('profesi_keahlian') is-invalid @enderror"
-                                                id="profesi_keahlian" required maxlength="3000"
+                                                id="profesi_keahlian" required maxlength="3000" readonly
                                                 name="profesi_keahlian"
                                                 rows="4">{{ old('profesi_keahlian', $registrasiVendor->profesi_keahlian) }}</textarea>
                                         @error('profesi_keahlian')
@@ -323,29 +292,23 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="kt_contact_view_pengalaman_3_tahun_terakhir" role="tabpanel">
-                                @include('menu.vendor-partials.pengalaman-kerja.3-tahun-terakhir')
-                            </div>
-                            <div class="tab-pane fade" id="kt_contact_view_pengalaman_mitra_usaha" role="tabpanel">
-                                @include('menu.vendor-partials.pengalaman-kerja.mitra-usaha')
-                            </div>
-                            <div class="tab-pane fade" id="kt_contact_view_pengalaman_pekerjaan_berjalan" role="tabpanel">
-                                @include('menu.vendor-partials.pengalaman-kerja.pekerjaan-berjalan')
-                            </div>
+{{--                            <div class="tab-pane fade" id="kt_contact_view_activity" role="tabpanel">--}}
+{{--                                <h3>Last</h3>--}}
+{{--                            </div>--}}
                         </div>
-                        <div class="col-12 mt-4">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="confirm_done_checkbox" name="confirm_done_checkbox">
-                                <label class="form-check-label" for="confirm_done_checkbox">Saya menyatakan bahwa data ini telah lengkap</label>
-                            </div>
-                        </div>
+{{--                        <div class="col-12 mt-4">--}}
+{{--                            <div class="form-check form-switch">--}}
+{{--                                <input class="form-check-input" type="checkbox" id="confirm_done_checkbox" name="confirm_done_checkbox">--}}
+{{--                                <label class="form-check-label" for="confirm_done_checkbox">Saya menyatakan bahwa data ini telah lengkap</label>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
                         <div class="d-flex justify-content-center mt-7">
                             <a href="{{ route('menu.registrasi-vendor.index') }}">
                                 <button type="button" class="btn btn-light me-3">Kembali</button>
                             </a>
-                            <button type="submit" class="btn btn-primary" id="btn-submit">
-                                Save to Draft
-                            </button>
+{{--                            <button type="submit" class="btn btn-primary" id="btn-submit">--}}
+{{--                                Save to Draft--}}
+{{--                            </button>--}}
                         </div>
                     </form>
                 </div>
@@ -361,77 +324,60 @@
 
 @section('scripts')
     <script>
-        const stmtKategoriVendor = @json($stmtKategoriVendor);
-        const stmtSubBidangUsaha = @json($stmtSubBidangUsaha);
-        const masterKabKota = @json($masterKabKota);
-    </script>
-    <script src="{{ asset('js/fields/pengalaman-kerja/3-tahun-terakhir.js') }}"></script>
-    <script src="{{ asset('js/fields/pengalaman-kerja/mitra-dagang-mitra-usaha.js') }}"></script>
-    <script src="{{ asset('js/fields/pengalaman-kerja/pekerjaan-berjalan.js') }}"></script>
-    <script>
         $(document).ready(function() {
+            // Handle Province change
             $('#kode_provinsi').change(function () {
                 let kode_provinsi = $(this).val();
+                console.log('provinsiId', kode_provinsi)
                 $.ajax({
                     url: '{{ route("menu.getKabKotaByProvinsi") }}',
                     type: 'GET',
                     data: {kode_provinsi},
                     success: function (data) {
-                        const oldValue = parseInt('{{ old('kode_kabupaten_kota', $registrasiVendor->kode_kabupaten_kota ?? '') }}'.trim())
-
                         $('#kode_kabupaten_kota').empty().append('<option></option>');
                         $.each(data, function (key, value) {
-                            $('#kode_kabupaten_kota').append(`<option value="${value.kode}" ${oldValue === value.kode ? 'selected' : ''}>${value.nama}</option>`);
+                            $('#kode_kabupaten_kota').append('<option value="' + value.kode + '">' + value.nama + '</option>');
                         });
-                        if(oldValue > 0){
-                            $('#kode_kabupaten_kota').trigger('change')
-                        }
                     }
                 });
-            }).trigger('change');
+            });
 
+            // Handle Kab/Kota change
             $('#kode_kabupaten_kota').change(function () {
                 let kode_kabupaten_kota = $(this).val();
+                console.log('kode_kabupaten_kota', kode_kabupaten_kota)
                 $.ajax({
                     url: '{{ route("menu.getKecamatanByKabKota") }}',
                     type: 'GET',
                     data: {kode_kabupaten_kota},
                     success: function (data) {
-                        const oldValue = parseInt('{{ old('kode_kecamatan', $registrasiVendor->kode_kecamatan ?? '') }}'.trim())
-
                         $('#kode_kecamatan').empty().append('<option></option>');
                         $.each(data, function (key, value) {
-                            $('#kode_kecamatan').append(`<option value="${value.kode}" ${oldValue === value.kode ? 'selected' : ''}>${value.nama}</option>`);
+                            $('#kode_kecamatan').append('<option value="' + value.kode + '">' + value.nama + '</option>');
                         });
-                        if(oldValue > 0){
-                            $('#kode_kecamatan').trigger('change')
-                        }
                     }
                 });
             });
 
+            // Handle Kecamatan change
             $('#kode_kecamatan').change(function () {
                 let kode_kecamatan = $(this).val();
+                console.log('kecamatan', kode_kecamatan)
                 $.ajax({
                     url: '{{ route("menu.getKelurahanByKecamatan") }}',
                     type: 'GET',
                     data: {kode_kecamatan},
                     success: function (data) {
-                        const oldValue = parseInt('{{ old('kode_kelurahan', $registrasiVendor->kode_kelurahan ?? '') }}'.trim())
-
                         $('#kode_kelurahan').empty().append('<option></option>');
                         $.each(data, function (key, value) {
-                            $('#kode_kelurahan').append(`<option value="${value.kode}" ${oldValue === value.kode ? 'selected' : ''}>${value.nama}</option>`);
+                            $('#kode_kelurahan').append('<option value="' + value.kode + '">' + value.nama + '</option>');
                         });
-                        if(oldValue > 0){
-                            $('#kode_kelurahan').trigger('change')
-                        }
                     }
                 });
             });
 
             $('#kode_kelurahan').on('change', function(){
-                // console.log($(this).val())
+                console.log($(this).val())
             })
 
             $('#btn-submit').click(function (){
@@ -455,7 +401,7 @@
             });
 
             @if(session()->has('last_opened_tab') && !$errors->any())
-                $(`.nav a[href="#` + '{{ session()->get('last_opened_tab') }}' + `"]`).tab('show');
+            $(`.nav a[href="#` + '{{ session()->get('last_opened_tab') }}' + `"]`).tab('show');
             @endif
 
             $(document).on('submit', '#form-update', function (e) {

@@ -1,14 +1,15 @@
 @php
     $uniqueStringKomisaris = uniqueString(8);
 @endphp
-
-<div class="row">
-    <div class="d-flex justify-content-end mb-4">
-        <button type="button" class="btn btn-sm btn-info" id="btn-add-row-daftar-komisaris">
-            Tambah
-        </button>
+@if(!request()->routeIs('menu.**.show'))
+    <div class="row">
+        <div class="d-flex justify-content-end mb-4">
+            <button type="button" class="btn btn-sm btn-info" id="btn-add-row-daftar-komisaris">
+                Tambah
+            </button>
+        </div>
     </div>
-</div>
+@endif
 
 @if($errors->any())
     @foreach(old('daftar_komisaris') ?? [] as $key => $oldDaftarKomisaris)
@@ -99,14 +100,16 @@
                 </div>
                 @enderror
             </div>
-            @if(!$loop->first)
-                <div class="row">
-                    <div class="d-flex justify-content-center mt-3 mb-7">
-                        <button type="submit" class="btn btn-sm btn-danger btn-remove-row-daftar-komisaris">
-                            Hapus
-                        </button>
+            @if(!request()->routeIs('menu.**.show'))
+                @if(!$loop->first)
+                    <div class="row">
+                        <div class="d-flex justify-content-center mt-3 mb-7">
+                            <button type="submit" class="btn btn-sm btn-danger btn-remove-row-daftar-komisaris">
+                                Hapus
+                            </button>
+                        </div>
                     </div>
-                </div>
+                @endif
             @endif
             <hr>
         </div>
@@ -174,14 +177,16 @@
                            class="form-control" value="{{ $daftarKomisaris->tanggal_lahir_komisaris }}"
                            name="daftar_komisaris[{{ $uniqueStringKomisaris }}][tanggal_lahir_komisaris]" />
                 </div>
-                @if(!$loop->first)
-                    <div class="row">
-                        <div class="d-flex justify-content-center mt-3 mb-7">
-                            <button type="submit" class="btn btn-sm btn-danger btn-remove-row-daftar-komisaris">
-                                Hapus
-                            </button>
+                @if(!request()->routeIs('menu.**.show'))
+                    @if(!$loop->first)
+                        <div class="row">
+                            <div class="d-flex justify-content-center mt-3 mb-7">
+                                <button type="submit" class="btn btn-sm btn-danger btn-remove-row-daftar-komisaris">
+                                    Hapus
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 @endif
                 <hr>
             </div>

@@ -353,7 +353,55 @@ class RegistrasiVendorPerusahaanController extends Controller
 	public function show(RegistrasiVendor $registrasiVendor)
 	{
 		$this->authorize(PermissionEnum::RegistrasiVendorDetail->value);
-		
-		dd($registrasiVendor);
+
+        if(!in_array($registrasiVendor->status_registrasi->value, [StatusRegistrasiEnum::Draft->value, StatusRegistrasiEnum::RevisionDocuments->value])){
+            abort(403, 'Registration Already Submitted! Can\'t be edited.');
+        }
+
+        if($registrasiVendor->created_by !== Auth::id()){
+            abort(403);
+        }
+
+        $title =  'Show ' . self::$title;
+
+        $breadcrumbs = [
+            HomeController::breadcrumb(),
+            self::breadcrumb(),
+            ['Show', route('menu.registrasi-vendor-perusahaan.show', ['registrasi_vendor' => enkrip($registrasiVendor->id)])],
+        ];
+
+        $stmtKategoriVendor = KategoriVendor::isActive()->orderBy('nama')->get();
+        $stmtProvinsi = Provinsi::isActive()->orderBy('nama')->get();
+        $stmtNegara = Negara::isActive()->orderBy('nama')->get();
+        $stmtBank = Bank::isActive()->orderBy('nama')->get();
+        $stmtJenisVendor = JenisVendor::isActive()->orderBy('nama')->get();
+        $stmtSubBidangUsaha = SubBidangUsaha::isActive()->orderBy('nama')->get();
+        $stmtKualifikasiGrade = KualifikasiGrade::isActive()->orderBy('nama')->get();
+        $stmtBentukBadanUsaha = BentukBadanUsaha::isActive()->orderBy('nama')->get();
+        $stmtStatusPerusahaan = StatusPerusahaan::isActive()->orderBy('nama')->get();
+
+        $data = [
+            'title' => $title,
+            'breadcrumbs' => $breadcrumbs,
+            'stmtKategoriVendor' => $stmtKategoriVendor,
+            'stmtProvinsi' => $stmtProvinsi,
+            'stmtNegara' => $stmtNegara,
+            'stmtBank' => $stmtBank,
+            'stmtJenisVendor' => $stmtJenisVendor,
+            'stmtBentukBadanUsaha' => $stmtBentukBadanUsaha,
+            'stmtStatusPerusahaan' => $stmtStatusPerusahaan,
+            'stmtSubBidangUsaha' => $stmtSubBidangUsaha,
+            'stmtKualifikasiGrade' => $stmtKualifikasiGrade,
+            'documentsField' => DocumentService::makeFields(DocumentForEnum::Company, $registrasiVendor),
+            'registrasiVendor' => $registrasiVendor,
+            'vendorJenisIdentitas' => JenisIdentitas::isActive()->select(['kode', 'nama'])->get(),
+            'vendorJabatan' => JabatanVendor::isActive()->select(['kode', 'nama'])->get(),
+            'masterJenisInventaris' => JenisInventaris::isActive()->select(['kode', 'nama'])->get(),
+            'masterJenisMerkInventaris' => JenisMerkInventaris::isActive()->select(['kode', 'nama'])->get(),
+            'masterKondisiInventaris' => KondisiInventarisEnum::getAll(),
+            'masterStatusAudit' => StatusAuditEnum::getAll(),
+        ];
+
+        return view('menu.vendor-perusahaan.show', $data);
 	}
 }
