@@ -456,59 +456,68 @@
     <script src="{{ asset('js/fields/pengalaman-kerja/pekerjaan-berjalan.js') }}"></script>
     <script>
         $(document).ready(function() {
-            // Handle Province change
             $('#kode_provinsi').change(function () {
                 let kode_provinsi = $(this).val();
-                console.log('provinsiId', kode_provinsi)
                 $.ajax({
                     url: '{{ route("menu.getKabKotaByProvinsi") }}',
                     type: 'GET',
                     data: {kode_provinsi},
                     success: function (data) {
+                        const oldValue = parseInt('{{ old('kode_kabupaten_kota') }}'.trim())
+
                         $('#kode_kabupaten_kota').empty().append('<option></option>');
                         $.each(data, function (key, value) {
-                            $('#kode_kabupaten_kota').append('<option value="' + value.kode + '">' + value.nama + '</option>');
+                            $('#kode_kabupaten_kota').append(`<option value="${value.kode}" ${oldValue === value.kode ? 'selected' : ''}>${value.nama}</option>`);
                         });
+                        if(oldValue > 0){
+                            $('#kode_kabupaten_kota').trigger('change')
+                        }
                     }
                 });
-            });
+            }).trigger('change');
 
-            // Handle Kab/Kota change
             $('#kode_kabupaten_kota').change(function () {
                 let kode_kabupaten_kota = $(this).val();
-                console.log('kode_kabupaten_kota', kode_kabupaten_kota)
                 $.ajax({
                     url: '{{ route("menu.getKecamatanByKabKota") }}',
                     type: 'GET',
                     data: {kode_kabupaten_kota},
                     success: function (data) {
+                        const oldValue = parseInt('{{ old('kode_kecamatan') }}'.trim())
+
                         $('#kode_kecamatan').empty().append('<option></option>');
                         $.each(data, function (key, value) {
-                            $('#kode_kecamatan').append('<option value="' + value.kode + '">' + value.nama + '</option>');
+                            $('#kode_kecamatan').append(`<option value="${value.kode}" ${oldValue === value.kode ? 'selected' : ''}>${value.nama}</option>`);
                         });
+                        if(oldValue > 0){
+                            $('#kode_kecamatan').trigger('change')
+                        }
                     }
                 });
             });
 
-            // Handle Kecamatan change
             $('#kode_kecamatan').change(function () {
                 let kode_kecamatan = $(this).val();
-                console.log('kecamatan', kode_kecamatan)
                 $.ajax({
                     url: '{{ route("menu.getKelurahanByKecamatan") }}',
                     type: 'GET',
                     data: {kode_kecamatan},
                     success: function (data) {
+                        const oldValue = parseInt('{{ old('kode_kelurahan') }}'.trim())
+
                         $('#kode_kelurahan').empty().append('<option></option>');
                         $.each(data, function (key, value) {
-                            $('#kode_kelurahan').append('<option value="' + value.kode + '">' + value.nama + '</option>');
+                            $('#kode_kelurahan').append(`<option value="${value.kode}" ${oldValue === value.kode ? 'selected' : ''}>${value.nama}</option>`);
                         });
+                        if(oldValue > 0){
+                            $('#kode_kelurahan').trigger('change')
+                        }
                     }
                 });
             });
 
             $('#kode_kelurahan').on('change', function(){
-                console.log($(this).val())
+                // console.log($(this).val())
             })
 
             $('#btn-submit').click(function (){
