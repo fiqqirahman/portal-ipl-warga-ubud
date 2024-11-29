@@ -52,6 +52,7 @@ class RegistrasiVendorCompanyStoreRequest extends FormRequest
 	        ...rulesContactPersons(),
 	        ...rulesBanks(),
 	        ...rulesSegmentasi(),
+	        ...rulesPengalaman3TahunTerakhir(),
         ];
     }
 	
@@ -59,8 +60,11 @@ class RegistrasiVendorCompanyStoreRequest extends FormRequest
 	{
 		return [
 			'nama' => 'Nama',
-			'nama_singkatan' => 'Nama Singkatan',
 			'npwp' => 'NPWP',
+			'kode_master_kategori_vendor' => 'Kategori Vendor',
+			'kode_master_jenis_vendor' => 'Jenis Vendor',
+			'kode_master_bentuk_badan_usaha' => 'Bentuk Badan Usaha',
+			'kode_master_status_perusahaan' => 'Status Perusahaan',
 			...DocumentService::makeValidationAttributes(DocumentForEnum::Company),
 			...attributesDaftarKomisaris(),
 			...attributesDaftarDireksi(),
@@ -72,6 +76,7 @@ class RegistrasiVendorCompanyStoreRequest extends FormRequest
 			...attributesContactPersons(),
 			...attributesBanks(),
 			...attributesSegmentasi(),
+			...attributesPengalaman3TahunTerakhir(),
 		];
 	}
 }
