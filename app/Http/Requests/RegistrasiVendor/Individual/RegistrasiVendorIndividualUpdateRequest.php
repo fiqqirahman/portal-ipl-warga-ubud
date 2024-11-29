@@ -36,11 +36,19 @@ class RegistrasiVendorIndividualUpdateRequest extends FormRequest
 		$registrasiVendor = $this->route('registrasi_vendor');
 		
         return [
-			'nama' => [$isRequired, 'string', 'max:255'],
-			'nama_singkatan' => [$isRequired, 'string', 'max:255'],
-			'npwp' => [$isRequired, 'numeric', 'digits_between:15,16'],
+	        'nama' => [$isRequired, 'string', 'max:255'],
+	        'nama_singkatan' => [$isRequired, 'string', 'max:255'],
+	        'npwp' => [$isRequired, 'numeric', 'digits_between:15,16'],
+	        'kode_master_kategori_vendor' => [$isRequired,],
+	        'no_ktp_perorangan' => [$isRequired, 'numeric'],
+	        'tanggal_berakhir_ktp' => [$isRequired, 'date'],
+	        'profesi_keahlian' => [$isRequired, 'string', 'max:3000'],
 	        'confirm_done_checkbox' => ['nullable', Rule::in(['on'])],
-	        ...DocumentService::makeValidationRules(DocumentForEnum::Individual, $isRequired, $registrasiVendor)
+	        ...DocumentService::makeValidationRules(DocumentForEnum::Individual, $isRequired, $registrasiVendor),
+            ...rulesAlamat(),
+	        ...rulesContactPersons(),
+	        ...rulesBanks(),
+	        ...rulesSegmentasi(),
         ];
     }
 	
@@ -50,7 +58,15 @@ class RegistrasiVendorIndividualUpdateRequest extends FormRequest
 			'nama' => 'Nama',
 			'nama_singkatan' => 'Nama Singkatan',
 			'npwp' => 'NPWP',
+			'kode_master_kategori_vendor' => 'Kategori Vendor',
+			'no_ktp_perorangan' => 'KTP / SIM / Passport',
+			'tanggal_berakhir_ktp' => 'Tanggal Berakhir KTP / SIM / Passport',
+			'profesi_keahlian' => 'Profesi Keahlian',
 			...DocumentService::makeValidationAttributes(DocumentForEnum::Individual),
+            ...attributesAlamat(),
+			...attributesContactPersons(),
+            ...attributesBanks(),
+            ...attributesSegmentasi(),
 		];
 	}
 }

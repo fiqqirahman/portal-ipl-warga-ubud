@@ -37,8 +37,11 @@ class RegistrasiVendorCompanyUpdateRequest extends FormRequest
 		
         return [
 			'nama' => [$isRequired, 'string', 'max:255'],
-			'nama_singkatan' => [$isRequired, 'string', 'max:255'],
 			'npwp' => [$isRequired, 'numeric', 'digits_between:15,16'],
+			'kode_master_kategori_vendor' => [$isRequired, 'string'],
+			'kode_master_jenis_vendor' => [$isRequired, 'string'],
+			'kode_master_bentuk_badan_usaha' => [$isRequired, 'string'],
+			'kode_master_status_perusahaan' => [$isRequired, 'string'],
 	        'confirm_done_checkbox' => ['nullable', Rule::in(['on'])],
 	        ...DocumentService::makeValidationRules(DocumentForEnum::Company, $isRequired, $registrasiVendor),
 	        ...rulesDaftarKomisaris(),
@@ -46,6 +49,11 @@ class RegistrasiVendorCompanyUpdateRequest extends FormRequest
 	        ...rulesPemegangSaham(),
 	        ...rulesTenagaAhli(),
 	        ...rulesInventaris(),
+	        ...rulesNeracaKeuangan(),
+	        ...rulesAlamat(),
+	        ...rulesContactPersons(),
+	        ...rulesBanks(),
+	        ...rulesSegmentasi(),
         ];
     }
 	
@@ -61,6 +69,11 @@ class RegistrasiVendorCompanyUpdateRequest extends FormRequest
 			...attributesPemegangSaham(),
 			...attributesTenagaAhli(),
 			...attributesInventaris(),
+			...attributesNeracaKeuangan(),
+			...attributesAlamat(),
+			...attributesContactPersons(),
+			...attributesBanks(),
+			...attributesSegmentasi(),
 		];
 	}
 }

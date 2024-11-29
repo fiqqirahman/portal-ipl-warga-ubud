@@ -18,7 +18,7 @@ enum KondisiInventarisEnum: string {
     {
         return match($this) {
             self::Baik => '<span class="badge badge-outline badge-primary '. $class .'">'. self::Baik->label() .'</span>',
-            self::TidakBaik => '<span class="badge badge-outline badge-primary '. $class .'">'. self::TidakBaik->label() .'</span>',
+            self::TidakBaik => '<span class="badge badge-outline badge-warning '. $class .'">'. self::TidakBaik->label() .'</span>',
         };
     }
 

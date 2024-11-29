@@ -26,9 +26,6 @@ class VendorPerusahaanDataTable extends DataTable
 			->editColumn('nama', function ($row) {
 				return $row->nama ?? '-';
 			})
-			->editColumn('nama_singkatan', function ($row) {
-				return $row->nama_singkatan ?? '-';
-			})
 			->editColumn('status_registrasi', function ($row) {
 				return $row->status_registrasi->badge();
 			})
@@ -49,7 +46,13 @@ class VendorPerusahaanDataTable extends DataTable
 						</a>';
 					}
 				}
-				return $buttonEdit;
+				
+				$buttonDetail = '<a href="'. route('menu.registrasi-vendor-perusahaan.show', ['registrasi_vendor' => enkrip($row->id)]) .'">
+					<button type="button" class="btn btn-sm btn-primary me-3">
+						<i class="fa fa-eye"></i> Detail
+					</button>
+				</a>';
+				return $buttonEdit . $buttonDetail;
 			})
 			->rawColumns(['aksi','status_registrasi']);
 	}
@@ -96,7 +99,6 @@ class VendorPerusahaanDataTable extends DataTable
 		return [
 			Column::make('DT_RowIndex')->title('No.')->searchable(false)->orderable(false)->addClass('text-center'),
 			Column::make('nama'),
-			Column::make('nama_singkatan'),
 			Column::computed('status_registrasi'),
 			Column::make('created_at')->title('Dibuat Pada'),
 			Column::make('updated_at')->title('Diupdate Pada'),

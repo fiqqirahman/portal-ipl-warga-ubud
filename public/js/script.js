@@ -158,6 +158,22 @@ function formatRupiah(element) {
     element.value = rupiah ? 'Rp ' + rupiah : '';
 }
 
+function formatCommonCurrency(element) {
+    let value = element.value.replace(/[^,\d]/g, '').toString();
+    let splitValue = value.split(',');
+    let sisa = splitValue[0].length % 3;
+    let rupiah = splitValue[0].substr(0, sisa);
+    let ribuan = splitValue[0].substr(sisa).match(/\d{3}/gi);
+
+    if (ribuan) {
+        let separator = sisa ? '.' : '';
+        rupiah += separator + ribuan.join('.');
+    }
+
+    rupiah = splitValue[1] !== undefined ? rupiah + ',' + splitValue[1] : rupiah;
+    element.value = rupiah ? rupiah : '';
+}
+
 function cleanFormatRupiah(formattedRupiah) {
     if (!formattedRupiah) {
         return 0;

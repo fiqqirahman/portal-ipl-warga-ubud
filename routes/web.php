@@ -166,7 +166,7 @@ Route::middleware('auth')->group(function () use($SSOIsLocal) {
 		            // registrasi vendor perorangan
 	                Route::resource('/registrasi-vendor-perusahaan', RegistrasiVendorPerusahaanController::class)
 		                ->parameters(['registrasi-vendor-perusahaan' => 'registrasi-vendor'])
-		                ->except(['show', 'destroy']);
+		                ->except(['destroy']);
 					Route::delete('/registrasi-vendor-perusahaan/remove-document/{dokumen_vendor}', [RegistrasiVendorPerusahaanController::class, 'removeDocument'])
 		                ->name('registrasi-vendor-perusahaan.remove-document');
 					Route::delete('/registrasi-vendor-perusahaan/remove-path-file-proof-inventaris/{registrasi_vendor}/{path}', [RegistrasiVendorPerusahaanController::class, 'removePathFileProofInventaris'])

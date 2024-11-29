@@ -18,7 +18,7 @@ enum StatusAuditEnum: string {
     {
         return match($this) {
             self::Audited => '<span class="badge badge-outline badge-primary '. $class .'">'. self::Audited->label() .'</span>',
-            self::NotAudited => '<span class="badge badge-outline badge-primary '. $class .'">'. self::NotAudited->label() .'</span>',
+            self::NotAudited => '<span class="badge badge-outline badge-warning '. $class .'">'. self::NotAudited->label() .'</span>',
         };
     }
 

@@ -73,7 +73,7 @@
                                                       fill="currentColor" fill-rule="nonzero"/>
                                             </g>
                                         </svg>
-                                        Contact Person
+                                        Kontak Person
                                     </span>
                                 </a>
                             </li>
@@ -169,19 +169,6 @@
                             <div class="tab-pane fade active show" id="kt_contact_view_general" role="tabpanel">
                                 <div class="row">
                                     <div class="col-md-4 col-sm-12 mb-4">
-                                        <label for="no_vendor" class="fs-6 fw-semibold form-label mt-3">
-                                            <span class="required">No. Vendor</span>
-                                        </label>
-                                        <input type="text" required maxlength="255"
-                                               class="form-control @error('no_vendor') is-invalid @enderror"
-                                               name="no_vendor" value="{{ old('no_vendor') }}" id="no_vendor"/>
-                                        @error('no_vendor')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-4 col-sm-12 mb-4">
                                         <label for="nama" class="fs-6 fw-semibold form-label mt-3">
                                             <span class="required">Nama Perorangan</span>
                                         </label>
@@ -211,11 +198,13 @@
                                     <div class="col-md-4 col-sm-12 mb-4">
                                         <label for="npwp" class="fs-6 fw-semibold form-label mt-3">
                                             <span class="required">NPWP</span>
+                                            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
+                                               title="NPWP harus terdiri dari 15 atau 16 digit"></i>
                                         </label>
                                         <input type="text"
                                                class="form-control @error('npwp') is-invalid @enderror positive-numeric"
-                                               required minlength="15"
-                                               name="npwp" value="{{ old('npwp') }}" id="npwp" maxlength="16"/>
+                                               required pattern="^\d{15,16}$" title="NPWP harus terdiri dari 15 atau 16 digit"
+                                               name="npwp" value="{{ old('npwp') }}" id="npwp" maxlength="16" />
                                         @error('npwp')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -225,18 +214,18 @@
                                     <div class="col-md-4 col-sm-12 mb-4">
                                         <label for="kode_master_kategori_vendor"
                                                class="fs-6 fw-semibold form-label mt-3">
-                                            <span>Kategori Vendor</span>
+                                            <span class="required">Kategori Vendor</span>
                                             <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
                                                title="Hanya Kategori Vendor yang aktif saja yang dapat dipilih"></i>
                                         </label>
                                         <select class="form-select  @error('kode_master_kategori_vendor') is-invalid @enderror"
                                                 id="kode_master_kategori_vendor" name="kode_master_kategori_vendor"
-                                                data-control="select2"
+                                                data-control="select2" required
                                                 data-placeholder="---Pilih Kategori Vendor---">
                                             <option></option>
                                             @foreach ($stmtKategoriVendor as $kategoriVendor)
                                                 <option value="{{ $kategoriVendor->kode }}"
-                                                        {{ $kategoriVendor->kode ?  : '' }}>
+                                                        {{ old('kode_master_kategori_vendor') == $kategoriVendor->kode ? 'selected' : '' }}>
                                                     {{ $kategoriVendor->nama }}
                                                 </option>
                                             @endforeach
@@ -248,27 +237,27 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-4 col-sm-12 mb-4">
-                                        <label for="no_identitas" class="fs-6 fw-semibold form-label mt-3">
-                                            <span>Nomor KTP/SIM/Passport</span>
+                                        <label for="no_ktp_perorangan" class="fs-6 fw-semibold form-label mt-3">
+                                            <span class="required">Nomor KTP/SIM/Passport</span>
                                         </label>
-                                        <input type="text"
-                                               class="form-control @error('no_identitas') is-invalid @enderror"
-                                               name="no_identitas" value="{{ old('no_identitas') }}" id="no_identitas"/>
-                                        @error('no_identitas')
+                                        <input type="text" required
+                                               class="form-control positive-numeric @error('no_ktp_perorangan') is-invalid @enderror"
+                                               name="no_ktp_perorangan" value="{{ old('no_ktp_perorangan') }}" id="no_ktp_perorangan"/>
+                                        @error('no_ktp_perorangan')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
                                         @enderror
                                     </div>
                                     <div class="col-md-4 col-sm-12 mb-4">
-                                        <label for="tanggal_berakhir" class="fs-6 fw-semibold form-label mt-3">
-                                            <span>Tanggal Berakhir</span>
+                                        <label for="tanggal_berakhir_ktp" class="fs-6 fw-semibold form-label mt-3">
+                                            <span class="required">Tanggal Berakhir</span>
                                         </label>
-                                        <input type="date"
-                                               class="form-control @error('tanggal_berakhir') is-invalid @enderror"
-                                               name="tanggal_berakhir" value="{{ old('tanggal_berakhir') }}"
-                                               id="tanggal_berakhir"/>
-                                        @error('tanggal_berakhir')
+                                        <input type="date" required
+                                               class="form-control @error('tanggal_berakhir_ktp') is-invalid @enderror"
+                                               name="tanggal_berakhir_ktp" value="{{ old('tanggal_berakhir_ktp') }}"
+                                               id="tanggal_berakhir_ktp"/>
+                                        @error('tanggal_berakhir_ktp')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -295,12 +284,12 @@
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12 mb-4">
                                         <label for="profesi_keahlian" class="fs-6 fw-semibold form-label mt-3">
-                                            <span>Profesi / Keahlian</span>
+                                            <span class="required">Profesi / Keahlian</span>
                                         </label>
                                         <textarea
                                                 class="form-control form-control @error('profesi_keahlian') is-invalid @enderror"
-                                                id="profesi_keahlian"
-                                                name="profesi_keahlian" rows="2">{{ old('profesi_keahlian') }}</textarea>
+                                                id="profesi_keahlian" required maxlength="3000"
+                                                name="profesi_keahlian" rows="4">{{ old('profesi_keahlian') }}</textarea>
                                         @error('profesi_keahlian')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -351,7 +340,7 @@
                     success: function (data) {
                         $('#kode_kabupaten_kota').empty().append('<option></option>');
                         $.each(data, function (key, value) {
-                            $('#kode_kabupaten_kota').append('<option value="' + value.kode_kabupaten_kota + '">' + value.nama + '</option>');
+                            $('#kode_kabupaten_kota').append('<option value="' + value.kode + '">' + value.nama + '</option>');
                         });
                     }
                 });
@@ -385,7 +374,7 @@
                     success: function (data) {
                         $('#kode_kelurahan').empty().append('<option></option>');
                         $.each(data, function (key, value) {
-                            $('#kode_kelurahan').append('<option value="' + value.kode_kelurahan + '">' + value.nama + '</option>');
+                            $('#kode_kelurahan').append('<option value="' + value.kode + '">' + value.nama + '</option>');
                         });
                     }
                 });
