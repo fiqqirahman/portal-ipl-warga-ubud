@@ -1,7 +1,7 @@
 @php
     $uniqueStringInventaris = uniqueString(8);
 @endphp
-
+@if(!request()->routeIs('menu.**.show'))
 <div class="row">
     <div class="d-flex justify-content-end mb-4">
         <button type="button" class="btn btn-sm btn-info" id="btn-add-row-daftar-inventaris">
@@ -9,6 +9,7 @@
         </button>
     </div>
 </div>
+@endif
 
 @if($errors->any())
     @foreach(old('inventaris') ?? [] as $key => $oldInventaris)
@@ -173,6 +174,7 @@
                     @enderror
                 @endif
             </div>
+            @if(!request()->routeIs('menu.**.show'))
             <div class="row">
                 <div class="d-flex justify-content-center mt-3 mb-7">
                     <button type="button" class="btn btn-sm btn-danger btn-remove-row-daftar-inventaris">
@@ -180,6 +182,7 @@
                     </button>
                 </div>
             </div>
+            @endif
             <hr>
         </div>
     @endforeach
@@ -307,6 +310,7 @@
                         </div>
                     </div>
                 </div>
+                @if(!request()->routeIs('menu.**.show'))
                 <div class="row">
                     <div class="d-flex justify-content-center mt-3 mb-7">
                         <button type="button" class="btn btn-sm btn-danger btn-remove-row-daftar-inventaris">
@@ -314,8 +318,11 @@
                         </button>
                     </div>
                 </div>
+                @endif
                 <hr>
             </div>
         @endforeach
     @endif
 @endif
+
+

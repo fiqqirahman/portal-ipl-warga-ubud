@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="card-body pt-5">
-                    <form action="{{ route('menu.registrasi-vendor.update', ['registrasi_vendor' => enkrip($registrasiVendor->id)]) }}" method="POST" id="form-update" enctype="multipart/form-data">
+                    <form method="POST" id="form-update" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x fs-6 fw-semibold mt-6 mb-8"
@@ -168,7 +168,7 @@
                                         <label for="nama" class="fs-6 fw-semibold form-label mt-3">
                                             <span class="required">Nama Perorangan</span>
                                         </label>
-                                        <input type="text" required maxlength="255"
+                                        <input type="text" required maxlength="255" readonly
                                                class="form-control @error('nama') is-invalid @enderror"
                                                name="nama" value="{{ old('nama', $registrasiVendor->nama) }}"
                                                id="nama"/>
@@ -182,7 +182,7 @@
                                         <label for="nama_singkatan" class="fs-6 fw-semibold form-label mt-3">
                                             <span class="required">Nama Singkatan</span>
                                         </label>
-                                        <input type="text" required maxlength="255"
+                                        <input type="text" required maxlength="255" readonly
                                                class="form-control @error('nama_singkatan') is-invalid @enderror"
                                                name="nama_singkatan"
                                                value="{{ old('nama_singkatan', $registrasiVendor->nama_singkatan) }}"
@@ -201,7 +201,7 @@
                                         </label>
                                         <input type="text"
                                                class="form-control @error('npwp') is-invalid @enderror positive-numeric"
-                                               required pattern="^\d{15,16}$"
+                                               required pattern="^\d{15,16}$" readonly
                                                title="NPWP harus terdiri dari 15 atau 16 digit"
                                                name="npwp" value="{{ old('npwp', $registrasiVendor->npwp) }}" id="npwp"
                                                maxlength="16"/>
@@ -212,24 +212,14 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-4 col-sm-12 mb-4">
-                                        <label for="kode_master_kategori_vendor"
-                                               class="fs-6 fw-semibold form-label mt-3">
+                                        <label for="kode_master_kategori_vendor" class="fs-6 fw-semibold form-label mt-3">
                                             <span class="required">Kategori Vendor</span>
-                                            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                               title="Hanya Kategori Vendor yang aktif saja yang dapat dipilih"></i>
                                         </label>
-                                        <select class="form-select  @error('kode_master_kategori_vendor') is-invalid @enderror"
-                                                id="kode_master_kategori_vendor" name="kode_master_kategori_vendor"
-                                                data-control="select2" required
-                                                data-placeholder="---Pilih Kategori Vendor---">
-                                            <option></option>
-                                            @foreach ($stmtKategoriVendor as $kategoriVendor)
-                                                <option value="{{ $kategoriVendor->kode }}"
-                                                        {{ old('kode_master_kategori_vendor', isset($registrasiVendor) ? $registrasiVendor->kode_master_kategori_vendor ?? '' : '') == $kategoriVendor->kode ? 'selected' : '' }}>
-                                                    {{ $kategoriVendor->nama }}
-                                                </option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" required maxlength="255" readonly
+                                               class="form-control @error('kode_master_kategori_vendor') is-invalid @enderror"
+                                               name="kode_master_kategori_vendor"
+                                               value="{{ old('kode_master_kategori_vendor', $registrasiVendor->kategoriVendor->nama) }}"
+                                               id="kode_master_kategori_vendor"/>
                                         @error('kode_master_kategori_vendor')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -240,7 +230,7 @@
                                         <label for="no_ktp_perorangan" class="fs-6 fw-semibold form-label mt-3">
                                             <span class="required">Nomor KTP/SIM/Passport</span>
                                         </label>
-                                        <input type="text" required
+                                        <input type="text" required readonly
                                                class="form-control positive-numeric @error('no_ktp_perorangan') is-invalid @enderror"
                                                name="no_ktp_perorangan"
                                                value="{{ old('no_ktp_perorangan', $registrasiVendor->no_ktp_perorangan) }}"
@@ -255,7 +245,7 @@
                                         <label for="tanggal_berakhir_ktp" class="fs-6 fw-semibold form-label mt-3">
                                             <span class="required">Tanggal Berakhir</span>
                                         </label>
-                                        <input type="date" required
+                                        <input type="date" required readonly
                                                class="form-control @error('tanggal_berakhir_ktp') is-invalid @enderror"
                                                name="tanggal_berakhir_ktp"
                                                value="{{ old('tanggal_berakhir_ktp', $registrasiVendor->tanggal_berakhir_ktp) }}"
@@ -269,19 +259,19 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="kt_contact_view_address" role="tabpanel">
-                                @include('menu.vendor-partials.address')
+                                @include('menu.vendor-partials-readonly.address-readonly')
                             </div>
                             <div class="tab-pane fade" id="kt_contact_view_contact_person" role="tabpanel">
-                                @include('menu.vendor-partials.contact-persons')
+                                @include('menu.vendor-partials-readonly.contact-persons-readonly')
                             </div>
                             <div class="tab-pane fade" id="kt_contact_view_banks" role="tabpanel">
-                                @include('menu.vendor-partials.banks')
+                                @include('menu.vendor-partials-readonly.banks-readonly')
                             </div>
                             <div class="tab-pane fade" id="kt_contact_view_segmentasi" role="tabpanel">
-                                @include('menu.vendor-partials.segmentasi')
+                                @include('menu.vendor-partials-readonly.segmentasi-readonly')
                             </div>
                             <div class="tab-pane fade" id="kt_contact_view_documents" role="tabpanel">
-                                @include('menu.vendor-partials.documents.edit')
+                                @include('menu.vendor-partials.documents.show')
                             </div>
                             <div class="tab-pane fade" id="kt_contact_view_keahlian" role="tabpanel">
                                 <div class="row">
@@ -291,7 +281,7 @@
                                         </label>
                                         <textarea
                                                 class="form-control form-control @error('profesi_keahlian') is-invalid @enderror"
-                                                id="profesi_keahlian" required maxlength="3000"
+                                                id="profesi_keahlian" required maxlength="3000" readonly
                                                 name="profesi_keahlian"
                                                 rows="4">{{ old('profesi_keahlian', $registrasiVendor->profesi_keahlian) }}</textarea>
                                         @error('profesi_keahlian')
@@ -302,23 +292,23 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="kt_contact_view_activity" role="tabpanel">
-                                <h3>Last</h3>
-                            </div>
+{{--                            <div class="tab-pane fade" id="kt_contact_view_activity" role="tabpanel">--}}
+{{--                                <h3>Last</h3>--}}
+{{--                            </div>--}}
                         </div>
-                        <div class="col-12 mt-4">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="confirm_done_checkbox" name="confirm_done_checkbox">
-                                <label class="form-check-label" for="confirm_done_checkbox">Saya menyatakan bahwa data ini telah lengkap</label>
-                            </div>
-                        </div>
+{{--                        <div class="col-12 mt-4">--}}
+{{--                            <div class="form-check form-switch">--}}
+{{--                                <input class="form-check-input" type="checkbox" id="confirm_done_checkbox" name="confirm_done_checkbox">--}}
+{{--                                <label class="form-check-label" for="confirm_done_checkbox">Saya menyatakan bahwa data ini telah lengkap</label>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
                         <div class="d-flex justify-content-center mt-7">
                             <a href="{{ route('menu.registrasi-vendor.index') }}">
                                 <button type="button" class="btn btn-light me-3">Kembali</button>
                             </a>
-                            <button type="submit" class="btn btn-primary" id="btn-submit">
-                                Save to Draft
-                            </button>
+{{--                            <button type="submit" class="btn btn-primary" id="btn-submit">--}}
+{{--                                Save to Draft--}}
+{{--                            </button>--}}
                         </div>
                     </form>
                 </div>
@@ -411,7 +401,7 @@
             });
 
             @if(session()->has('last_opened_tab') && !$errors->any())
-                $(`.nav a[href="#` + '{{ session()->get('last_opened_tab') }}' + `"]`).tab('show');
+            $(`.nav a[href="#` + '{{ session()->get('last_opened_tab') }}' + `"]`).tab('show');
             @endif
 
             $(document).on('submit', '#form-update', function (e) {

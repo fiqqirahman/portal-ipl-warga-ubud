@@ -123,48 +123,8 @@ class RegistrasiVendorController extends Controller
 		        'status_registrasi' => $statusRegistrasi,
 		        'created_by' => Auth::id()
 	        ];
-	        
+
 	        $create = RegistrasiVendor::create($requestData);
-			
-			// $create = RegistrasiVendor::create([
-            //     'nama' => $request->nama,
-			// 	'nama_singkatan' => $request->nama_singkatan,
-			// 	'npwp' => $request->npwp,
-            //     'kode_master_kategori_vendor' => $request->kode_master_kategori_vendor,
-            //     'no_ktp_perorangan' => $request->no_ktp_perorangan,
-            //     'tanggal_berakhir_ktp' => $request->tanggal_berakhir_ktp,
-            //     'alamat' => $request->alamat,
-            //     'kode_master_negara' => $request->kode_master_negara,
-            //     'kode_provinsi' => $request->kode_provinsi,
-            //     'kode_kabupaten_kota' => $request->kode_kabupaten_kota,
-            //     'kode_kecamatan' => $request->kode_kecamatan,
-            //     'kode_kelurahan' => $request->kode_kelurahan,
-            //     'kode_pos' => $request->kode_pos,
-            //     'no_telepon' => $request->no_telepon,
-            //     'no_fax' => $request->no_fax,
-            //     'website' => $request->website,
-            //     'email' => $request->email,
-            //     'nama_pic_perorangan' => $request->nama_pic_perorangan,
-            //     'no_hp_pic_perorangan' => $request->no_hp_pic_perorangan,
-            //     'email_pic_perorangan' => $request->email_pic_perorangan,
-            //     'kode_master_nama_bank' => $request->kode_master_nama_bank,
-            //     'cabang_bank' => $request->cabang_bank,
-            //     'nomor_rekening' => $request->nomor_rekening,
-            //     'nama_nasabah' => $request->nama_nasabah,
-            //     'mata_uang' => $request->mata_uang,
-            //     'kode_master_bentuk_badan_usaha_segmentasi' => $request->kode_master_bentuk_badan_usaha_segmentasi,
-            //     'kode_master_kelompok_usaha_segmentasi' => $request->kode_master_kelompok_usaha_segmentasi,
-            //     'kode_master_sub_bidang_usaha' => $request->kode_master_sub_bidang_usaha,
-            //     'kode_master_kualifikasi_grade' => $request->kode_master_kualifikasi_grade,
-            //     'asosiasi' => $request->asosiasi,
-            //     'no_sertifikat' => $request->no_sertifikat,
-            //     'masa_berlaku_sertifikat' => $request->masa_berlaku_sertifikat,
-            //     'masa_berakhir_sertifikat' => $request->masa_berakhir_sertifikat,
-            //     'profesi_keahlian' => $request->profesi_keahlian,
-            //     'status_registrasi' => $statusRegistrasi,
-			// 	'created_by' => Auth::id()
-			// ]);
-            // dd($create);
 
 	        $create->storeDocuments($request->file());
 			
@@ -208,15 +168,25 @@ class RegistrasiVendorController extends Controller
 		    self::breadcrumb(),
 		    ['Edit', route('menu.registrasi-vendor.edit', ['registrasi_vendor' => enkrip($registrasiVendor->id)])],
 	    ];
-	    
-	    $stmtKategoriVendor = KategoriVendor::isActive()->orderBy('nama')->get();
-	    $stmtProvinsi = Provinsi::isActive()->orderBy('nama')->get();
+
+        $stmtKategoriVendor = KategoriVendor::isActive()->orderBy('nama')->get();
+        $stmtProvinsi = Provinsi::isActive()->orderBy('nama')->get();
+        $stmtNegara = Negara::isActive()->orderBy('nama')->get();
+        $stmtBank = Bank::isActive()->orderBy('nama')->get();
+        $stmtJenisVendor = JenisVendor::isActive()->orderBy('nama')->get();
+        $stmtSubBidangUsaha = SubBidangUsaha::isActive()->orderBy('nama')->get();
+        $stmtKualifikasiGrade = KualifikasiGrade::isActive()->orderBy('nama')->get();
 	    
 	    $data = [
 		    'title' => $title,
 		    'breadcrumbs' => $breadcrumbs,
-		    'stmtKategoriVendor' => $stmtKategoriVendor,
-		    'stmtProvinsi' => $stmtProvinsi,
+            'stmtKategoriVendor' => $stmtKategoriVendor,
+            'stmtProvinsi' => $stmtProvinsi,
+            'stmtNegara' => $stmtNegara,
+            'stmtBank' => $stmtBank,
+            'stmtJenisVendor' => $stmtJenisVendor,
+            'stmtSubBidangUsaha' => $stmtSubBidangUsaha,
+            'stmtKualifikasiGrade' => $stmtKualifikasiGrade,
 		    'documentsField' => DocumentService::makeFields(DocumentForEnum::Individual, $registrasiVendor),
 		    'registrasiVendor' => $registrasiVendor
 	    ];
@@ -311,4 +281,28 @@ class RegistrasiVendorController extends Controller
         $kelurahan = Kelurahan::where('kode_kecamatan', $request->kode_kecamatan)->aktif()->get();
         return response()->json($kelurahan);
     }
+    public function show(RegistrasiVendor $registrasiVendor)
+    {
+        $this->authorize(PermissionEnum::RegistrasiVendorDetail->value);
+
+        if($registrasiVendor->created_by !== Auth::id()){
+            abort(403);
+        }
+
+        $title =  'Edit ' . self::$title;
+
+        $breadcrumbs = [
+            HomeController::breadcrumb(),
+            self::breadcrumb(),
+            ['Detail', route('menu.registrasi-vendor.show', ['registrasi_vendor' => enkrip($registrasiVendor->id)])],
+        ];
+
+        $data = [
+            'title' => $title,
+            'breadcrumbs' => $breadcrumbs,
+            'documentsField' => DocumentService::makeFields(DocumentForEnum::Individual, $registrasiVendor),
+            'registrasiVendor' => $registrasiVendor
+        ];
+
+        return view('menu.vendor-perorangan.show', $data);    }
 }

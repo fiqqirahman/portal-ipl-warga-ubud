@@ -49,7 +49,13 @@ class VendorPeroranganDataTable extends DataTable
 						</a>';
 	                }
 				}
-				return $buttonEdit;
+
+                $buttonDetail = '<a href="'. route('menu.registrasi-vendor.show', ['registrasi_vendor' => enkrip($row->id)]) .'">
+					<button type="button" class="btn btn-sm btn-primary me-3">
+						<i class="fa fa-eye"></i> Detail
+					</button>
+				</a>';
+				return $buttonEdit . $buttonDetail;
             })
             ->rawColumns(['aksi','status_registrasi']);
     }
