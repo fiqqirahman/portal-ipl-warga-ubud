@@ -308,11 +308,17 @@ class RegistrasiVendorController extends Controller
             ['Detail', route('menu.registrasi-vendor.show', ['registrasi_vendor' => enkrip($registrasiVendor->id)])],
         ];
 
+        $stmtSubBidangUsaha = SubBidangUsaha::isActive()->orderBy('nama')->get();
+        $stmtKategoriVendor = KategoriVendor::isActive()->orderBy('nama')->get();
+			
         $data = [
             'title' => $title,
             'breadcrumbs' => $breadcrumbs,
             'documentsField' => DocumentService::makeFields(DocumentForEnum::Individual, $registrasiVendor),
-            'registrasiVendor' => $registrasiVendor
+            'registrasiVendor' => $registrasiVendor,
+	        'stmtKategoriVendor' => $stmtKategoriVendor,
+	        'stmtSubBidangUsaha' => $stmtSubBidangUsaha,
+	        'masterKabKota' => KabKota::isActive()->select(['kode', 'nama'])->get()
         ];
 
         return view('menu.vendor-perorangan.show', $data);    }

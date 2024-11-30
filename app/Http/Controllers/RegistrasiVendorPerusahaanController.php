@@ -400,6 +400,7 @@ class RegistrasiVendorPerusahaanController extends Controller
             'masterJenisMerkInventaris' => JenisMerkInventaris::isActive()->select(['kode', 'nama'])->get(),
             'masterKondisiInventaris' => KondisiInventarisEnum::getAll(),
             'masterStatusAudit' => StatusAuditEnum::getAll(),
+	        'masterKabKota' => KabKota::isActive()->select(['kode', 'nama'])->get()
         ];
 
         return view('menu.vendor-perusahaan.show', $data);
