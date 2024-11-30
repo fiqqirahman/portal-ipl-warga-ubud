@@ -7,6 +7,10 @@
 @section('content')
     @include('layouts.toolbar')
 
+    @can(\App\Enums\PermissionEnum::RegistrasiVendorApproval->value)
+        @include('menu.operator.approval.approval-form')
+    @endcan
+
     <div class="row mb-4">
         <div class="col-12">
             <div class="card card-flush h-lg-100">

@@ -300,7 +300,7 @@ class RegistrasiVendorController extends Controller
             abort(403);
         }
 
-        $title =  'Edit ' . self::$title;
+        $title =  'Detail ' . self::$title;
 
         $breadcrumbs = [
             HomeController::breadcrumb(),

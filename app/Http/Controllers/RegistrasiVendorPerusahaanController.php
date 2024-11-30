@@ -362,12 +362,12 @@ class RegistrasiVendorPerusahaanController extends Controller
             abort(403);
         }
 
-        $title =  'Show ' . self::$title;
+        $title =  'Detail ' . self::$title;
 
         $breadcrumbs = [
             HomeController::breadcrumb(),
             self::breadcrumb(),
-            ['Show', route('menu.registrasi-vendor-perusahaan.show', ['registrasi_vendor' => enkrip($registrasiVendor->id)])],
+            ['Detail', route('menu.registrasi-vendor-perusahaan.show', ['registrasi_vendor' => enkrip($registrasiVendor->id)])],
         ];
 
         $stmtKategoriVendor = KategoriVendor::isActive()->orderBy('nama')->get();
