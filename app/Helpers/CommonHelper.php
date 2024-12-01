@@ -169,3 +169,12 @@ function generateNumberVendor(): string
 	
 	return $prefix . $vendorType . $sequence . $year;
 }
+
+function allowUpdateStatusRegistrasi(\App\Models\RegistrasiVendor $registrasiVendor): bool
+{
+	return !in_array($registrasiVendor->status_registrasi, [
+		\App\Enums\StatusRegistrasiEnum::Approved,
+		\App\Enums\StatusRegistrasiEnum::Rejected,
+		\App\Enums\StatusRegistrasiEnum::Draft,
+	]);
+}

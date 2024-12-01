@@ -40,10 +40,10 @@ class VendorApprovalDataTable extends DataTable
 			    return ($row->created_at != $row->updated_at) ? dateWithFullMonthAndTimeFormat($row->updated_at, FALSE) : '-';
 		    })
             ->addColumn('aksi', function ($row) {
-	            if(!in_array($row->status_registrasi->value, [StatusRegistrasiEnum::Rejected->value, StatusRegistrasiEnum::Draft->value])){
+	            if($row->status_registrasi != StatusRegistrasiEnum::Draft){
 		            return '<a href="'. route('menu.operator.registrasi-vendor.show', ['registrasi_vendor' => enkrip($row->id)]) .'">
 						<button type="button" class="btn btn-sm btn-primary me-3">
-							Approval
+							'. ($row->status_registrasi == StatusRegistrasiEnum::Approved ? "Detail" : "Approval") .'
 						</button>
 					</a>';
 	            } else {

@@ -162,22 +162,22 @@ class RegistrasiVendor extends Model
 	
 	public function provinsi(): BelongsTo
 	{
-		return $this->belongsTo(Provinsi::class, 'kode_master_provinsi','kode');
+		return $this->belongsTo(Provinsi::class, 'kode_provinsi','kode');
 	}
 	
 	public function kabupaten(): BelongsTo
 	{
-		return $this->belongsTo(KabKota::class, 'kode_master_kab_kota','kode');
+		return $this->belongsTo(KabKota::class, 'kode_kabupaten_kota','kode');
 	}
 	
 	public function kecamatan(): BelongsTo
 	{
-		return $this->belongsTo(Kecamatan::class, 'kode_master_kecamatan','kode');
+		return $this->belongsTo(Kecamatan::class, 'kode_kecamatan','kode');
 	}
 	
 	public function kelurahan(): BelongsTo
 	{
-		return $this->belongsTo(Kelurahan::class, 'kode_master_kelurahan','kode');
+		return $this->belongsTo(Kelurahan::class, 'kode_kelurahan','kode');
 	}
 	
 	public function bank(): BelongsTo

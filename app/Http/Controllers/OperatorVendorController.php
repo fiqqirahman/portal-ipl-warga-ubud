@@ -6,7 +6,9 @@ use App\DataTables\Menu\VendorApprovalDataTable;
 use App\Enums\DocumentForEnum;
 use App\Enums\KondisiInventarisEnum;
 use App\Enums\StatusAuditEnum;
+use App\Enums\StatusRegistrasiEnum;
 use App\Enums\UserVendorTypeEnum;
+use App\Http\Requests\RegistrasiVendor\Operator\ApprovalRequest;
 use App\Models\KabKota;
 use App\Models\Master\Bank;
 use App\Models\Master\BentukBadanUsaha;
@@ -49,11 +51,16 @@ class OperatorVendorController extends Controller
 	
     public function show(RegistrasiVendor $registrasiVendor)
     {
+		if($registrasiVendor->status_registrasi == StatusRegistrasiEnum::Draft){
+			abort(403, 'Registrasi Vendor is Draft');
+		}
+		
         $title = 'Data ' . self::$title;
 
         $breadcrumbs = [
             HomeController::breadcrumb(),
             self::breadcrumb(),
+	        ['Detail', route('menu.operator.registrasi-vendor.show', ['registrasi_vendor' => enkrip($registrasiVendor->id)])],
         ];
 		
 	    $data = [
@@ -75,7 +82,13 @@ class OperatorVendorController extends Controller
 		    'masterJenisMerkInventaris' => JenisMerkInventaris::isActive()->select(['kode', 'nama'])->get(),
 		    'masterKondisiInventaris' => KondisiInventarisEnum::getAll(),
 		    'masterStatusAudit' => StatusAuditEnum::getAll(),
-		    'masterKabKota' => KabKota::isActive()->select(['kode', 'nama'])->get()
+		    'masterKabKota' => KabKota::isActive()->select(['kode', 'nama'])->get(),
+		    'availableStatus' => [
+				StatusRegistrasiEnum::VerificationDocuments,
+				StatusRegistrasiEnum::RevisionDocuments,
+				StatusRegistrasiEnum::Approved,
+				StatusRegistrasiEnum::Rejected,
+		    ]
 	    ];
 		
 		if($registrasiVendor->createdBy->vendor_type === UserVendorTypeEnum::Individual) {
@@ -89,13 +102,27 @@ class OperatorVendorController extends Controller
 		}
     }
 	
-	public function submit(RegistrasiVendor $registrasiVendor)
+	public function submit(ApprovalRequest $request, RegistrasiVendor $registrasiVendor)
 	{
-		$title = 'Data ' . self::$title;
-		
-		$breadcrumbs = [
-			HomeController::breadcrumb(),
-			self::breadcrumb(),
-		];
+		try {
+			if(!allowUpdateStatusRegistrasi($registrasiVendor)){
+				abort(403, 'Not Allowed update status registrasi vendor');
+			}
+			
+			$registrasiVendor->status_registrasi = $request->status_registrasi;
+			$registrasiVendor->status_registrasi_notes = trim($request->status_registrasi_notes);
+			$registrasiVendor->appointment_date = $request->status_registrasi == StatusRegistrasiEnum::VerificationDocuments->value ?
+				$request->appointment_date : null;
+			
+			$registrasiVendor->save();
+
+			sweetAlert('success', 'Berhasil update status registrasi!');
+			
+			return to_route('menu.operator.registrasi-vendor.show', ['registrasi_vendor' => enkrip($registrasiVendor->id)]);
+		} catch (\Throwable $th) {
+			sweetAlertException('Gagal update status registrasi vendor!', $th);
+			
+			return to_route('menu.operator.registrasi-vendor.show', ['registrasi_vendor' => enkrip($registrasiVendor->id)]);
+		}
 	}
 }

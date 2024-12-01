@@ -511,19 +511,5 @@
             }
         });
     </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const select2Elements = document.querySelectorAll('[aria-controls^="select2-"][aria-controls$="-container"]');
-
-            select2Elements.forEach(element => {
-                element.classList.add('form-select-solid');
-            });
-
-            const inputElements = document.querySelectorAll('input, textarea, select, .yearpicker-inventaris');
-            inputElements.forEach(element => {
-                element.disabled = true;
-                element.classList.add('form-control-solid')
-            });
-        });
-    </script>
+    <script src="{{ asset('js/fields/readonly.js') }}"></script>
 @endsection

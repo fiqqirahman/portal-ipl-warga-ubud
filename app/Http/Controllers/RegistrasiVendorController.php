@@ -275,23 +275,6 @@ class RegistrasiVendorController extends Controller
 		}
 	}
 	
-    public function getKabKotaByProvinsi(Request $request): JsonResponse
-    {
-        $kabKota = KabKota::where('kode_provinsi', $request->kode_provinsi)->aktif()->get();
-        return response()->json($kabKota);
-    }
-	
-    public function getKecamatanByKabKota(Request $request): JsonResponse
-    {
-        $kecamatan = Kecamatan::where('kode_kab_kota', $request->kode_kabupaten_kota)->aktif()->get();
-        return response()->json($kecamatan);
-    }
-	
-    public function getKelurahanByKecamatan(Request $request): JsonResponse
-    {
-        $kelurahan = Kelurahan::where('kode_kecamatan', $request->kode_kecamatan)->aktif()->get();
-        return response()->json($kelurahan);
-    }
     public function show(RegistrasiVendor $registrasiVendor)
     {
         $this->authorize(PermissionEnum::RegistrasiVendorDetail->value);
@@ -321,5 +304,6 @@ class RegistrasiVendorController extends Controller
 	        'masterKabKota' => KabKota::isActive()->select(['kode', 'nama'])->get()
         ];
 
-        return view('menu.vendor-perorangan.show', $data);    }
+        return view('menu.vendor-perorangan.show', $data);
+	}
 }

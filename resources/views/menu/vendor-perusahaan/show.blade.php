@@ -355,16 +355,16 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="kt_contact_view_address" role="tabpanel">
-                                @include('menu.vendor-partials.address')
+                                @include('menu.vendor-partials-readonly.address-readonly')
                             </div>
                             <div class="tab-pane fade" id="kt_contact_view_contact_person" role="tabpanel">
-                                @include('menu.vendor-partials.contact-persons')
+                                @include('menu.vendor-partials-readonly.contact-persons-readonly')
                             </div>
                             <div class="tab-pane fade" id="kt_contact_view_banks" role="tabpanel">
-                                @include('menu.vendor-partials.banks')
+                                @include('menu.vendor-partials-readonly.banks-readonly')
                             </div>
                             <div class="tab-pane fade" id="kt_contact_view_segmentasi" role="tabpanel">
-                                @include('menu.vendor-partials.segmentasi')
+                                @include('menu.vendor-partials-readonly.segmentasi-readonly')
                             </div>
                             <div class="tab-pane fade" id="kt_contact_view_documents" role="tabpanel">
                                 @include('menu.vendor-partials.documents.edit')
@@ -644,19 +644,5 @@
             }
         });
     </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const select2Elements = document.querySelectorAll('[aria-controls^="select2-"][aria-controls$="-container"]');
-
-            select2Elements.forEach(element => {
-                element.classList.add('form-select-solid');
-            });
-
-            const inputElements = document.querySelectorAll('input, textarea, select, .yearpicker-inventaris');
-            inputElements.forEach(element => {
-                element.disabled = true;
-                element.classList.add('form-control-solid')
-            });
-        });
-    </script>
+    <script src="{{ asset('js/fields/readonly.js') }}"></script>
 @endsection
