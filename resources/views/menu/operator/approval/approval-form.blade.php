@@ -65,7 +65,7 @@
                             </label>
                             <div class="input-group">
                                 <input class="form-control @error('appointment_date') is-invalid @enderror @if(!allowUpdateStatusRegistrasi($registrasiVendor)) form-control-solid @endif"
-                                       @if(!allowUpdateStatusRegistrasi($registrasiVendor)) disabled @endif
+                                       @if(!allowUpdateStatusRegistrasi($registrasiVendor)) disabled @endif autocomplete="off"
                                        type="text" required placeholder="YYYY-MM-DD HH:MM" value="{{ substr(old('appointment_date', $registrasiVendor->appointment_date), 0, 16)  }}"
                                        id="appointment_date" name="appointment_date"/>
                                 <label class="input-group-append" for="appointment_date">
@@ -137,6 +137,26 @@
             $(this).val(startDate);
         }).on('cancel.daterangepicker', function (ev, picker) {
             $(this).val('');
+        })
+
+        $(document).on('submit', '#form-approve', function (e) {
+            e.preventDefault()
+
+            Swal.fire({
+                title: 'Anda Yakin?',
+                html: 'Ingin mengupdate Status Registrasi ini?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, update!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#loader-overlay').show();
+                    $('#form-approve')[0].submit()
+                }
+            })
         })
     });
 </script>
