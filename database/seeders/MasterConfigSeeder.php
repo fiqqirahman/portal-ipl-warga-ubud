@@ -37,7 +37,14 @@ class MasterConfigSeeder extends Seeder
 		        'description' => 'Apakah authentication menggunakan SSO local atau public',
 		        'type' => MasterConfigTypeEnum::Boolean,
 		        'is_private' => true
-	        ]
+	        ],
+	        [
+		        'key' => MasterConfigKeyEnum::EmailPICNotification->value,
+		        'value' => 'email_pic_notification_eproc@yopmail.com',
+		        'description' => 'Notifikasi perihal Registrasi Vendor dari status Draft ke Analysis akan dikirimkan ke Email ini',
+		        'type' => MasterConfigTypeEnum::Text,
+		        'is_private' => true
+	        ],
         ];
 		
         collect($collections)->each(function ($data) {
