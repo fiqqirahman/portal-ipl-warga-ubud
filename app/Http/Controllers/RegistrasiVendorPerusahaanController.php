@@ -354,10 +354,6 @@ class RegistrasiVendorPerusahaanController extends Controller
 	{
 		$this->authorize(PermissionEnum::RegistrasiVendorDetail->value);
 
-        if(!in_array($registrasiVendor->status_registrasi->value, [StatusRegistrasiEnum::Draft->value, StatusRegistrasiEnum::RevisionDocuments->value])){
-            abort(403, 'Registration Already Submitted! Can\'t be edited.');
-        }
-
         if($registrasiVendor->created_by !== Auth::id()){
             abort(403);
         }
