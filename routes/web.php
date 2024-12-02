@@ -19,6 +19,7 @@ use App\Http\Controllers\Master\KualifikasiGradeController;
 use App\Http\Controllers\Master\StatusPerusahaanController;
 use App\Http\Controllers\Master\SubBidangUsahaController;
 use App\Http\Controllers\OperatorVendorController;
+use App\Http\Controllers\ParametersController;
 use App\Http\Controllers\RegistrasiVendorController;
 use App\Http\Controllers\RegistrasiVendorPerusahaanController;
 use App\Http\Controllers\Utility\MasterConfigController;
@@ -147,8 +148,8 @@ Route::middleware('auth')->group(function () use($SSOIsLocal) {
 		        ->middleware(RoleMiddleware::using(RoleEnum::OperatorVendorManajemen->value))->group(function (){
 				    Route::get('/registrasi-vendor', [OperatorVendorController::class, 'index'])
 					    ->name('registrasi-vendor.index');
-					Route::get('/registrasi-vendor/approval/{registrasi_vendor}', [OperatorVendorController::class, 'approval'])
-					    ->name('registrasi-vendor.approval');
+					Route::get('/registrasi-vendor/approval/{registrasi_vendor}', [OperatorVendorController::class, 'show'])
+					    ->name('registrasi-vendor.show');
 					Route::post('/registrasi-vendor/submit/{registrasi_vendor}', [OperatorVendorController::class, 'submit'])
 					    ->name('registrasi-vendor.submit');
 		    });
@@ -176,6 +177,14 @@ Route::middleware('auth')->group(function () use($SSOIsLocal) {
 	                Route::get('/getKecamatanByKabKota', [RegistrasiVendorController::class, 'getKecamatanByKabKota'])->name('getKecamatanByKabKota');
 	                Route::get('/getKelurahanByKecamatan', [RegistrasiVendorController::class, 'getKelurahanByKecamatan'])->name('getKelurahanByKecamatan');
 	            });
+		    
+		    Route::prefix('menu')
+			    ->name('menu.')
+			    ->group(function () {
+				    Route::get('/getKabKotaByProvinsi', [ParametersController::class, 'getKabKotaByProvinsi'])->name('getKabKotaByProvinsi');
+				    Route::get('/getKecamatanByKabKota', [ParametersController::class, 'getKecamatanByKabKota'])->name('getKecamatanByKabKota');
+				    Route::get('/getKelurahanByKecamatan', [ParametersController::class, 'getKelurahanByKecamatan'])->name('getKelurahanByKecamatan');
+			    });
         });
     });
 });

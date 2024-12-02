@@ -39,7 +39,7 @@ class VendorPeroranganDataTable extends DataTable
 			    return ($row->created_at != $row->updated_at) ? dateWithFullMonthAndTimeFormat($row->updated_at, FALSE) : '-';
 		    })
             ->addColumn('aksi', function ($row) {
-	            $buttonEdit = '-';
+	            $buttonEdit = '';
 				if(Auth::user()->hasPermissionTo(PermissionEnum::RegistrasiVendorEdit)){
 	                if(in_array($row->status_registrasi->value, [StatusRegistrasiEnum::Draft->value, StatusRegistrasiEnum::RevisionDocuments->value])){
 		                $buttonEdit = '<a href="'. route('menu.registrasi-vendor.edit', ['registrasi_vendor' => enkrip($row->id)]) .'">

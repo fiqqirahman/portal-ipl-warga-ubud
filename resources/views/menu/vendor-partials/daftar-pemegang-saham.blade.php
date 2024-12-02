@@ -31,8 +31,8 @@
                 <label class="fs-6 fw-semibold form-label mt-3">
                     <span class="required">Jenis Identitas Pemegang Saham</span>
                 </label>
-                <select type="text" maxlength="255" required
-                        class="form-control @error("pemegang_saham.{$key}.kode_master_jenis_identitas_pemegang_saham") is-invalid @enderror" data-control="select2"
+                <select maxlength="255" required
+                        class="form-select @error("pemegang_saham.{$key}.kode_master_jenis_identitas_pemegang_saham") is-invalid @enderror" data-control="select2"
                         name="pemegang_saham[{{ $key }}][kode_master_jenis_identitas_pemegang_saham]">
                     @foreach($vendorJenisIdentitas as $jenisIdentitas)
                         <option value="{{ $jenisIdentitas->kode }}" {{ $jenisIdentitas->kode == $oldDaftarPemegangSaham['kode_master_jenis_identitas_pemegang_saham'] ? 'selected' : '' }}>{{ $jenisIdentitas->nama }}</option>
@@ -127,8 +127,8 @@
                     <label class="fs-6 fw-semibold form-label mt-3">
                         <span class="required">Jenis Identitas Pemegang Saham</span>
                     </label>
-                    <select type="text" maxlength="255" required
-                            class="form-control" data-control="select2"
+                    <select maxlength="255" required
+                            class="form-select" data-control="select2"
                             name="pemegang_saham[{{ $uniqueStringPemegangSaham }}][kode_master_jenis_identitas_pemegang_saham]">
                         @foreach($vendorJenisIdentitas as $jenisIdentitas)
                             <option value="{{ $jenisIdentitas->kode }}" {{ $jenisIdentitas->kode == $daftarPemegangSaham->kode_master_jenis_identitas_pemegang_saham ? 'selected' : '' }}>{{ $jenisIdentitas->nama }}</option>

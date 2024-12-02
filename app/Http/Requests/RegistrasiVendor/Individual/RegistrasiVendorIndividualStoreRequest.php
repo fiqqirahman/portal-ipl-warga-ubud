@@ -47,6 +47,9 @@ class RegistrasiVendorIndividualStoreRequest extends FormRequest
 	        ...rulesContactPersons(),
 	        ...rulesBanks(),
 	        ...rulesSegmentasi(),
+            ...rulesPengalaman3TahunTerakhir(),
+	        ...rulesPengalamanMitraUsaha(),
+	        ...rulesPengalamanPekerjaanBerjalan(),
         ];
     }
 	
@@ -65,6 +68,9 @@ class RegistrasiVendorIndividualStoreRequest extends FormRequest
 			...attributesContactPersons(),
             ...attributesBanks(),
             ...attributesSegmentasi(),
+			...attributesPengalaman3TahunTerakhir(),
+			...attributesPengalamanMitraUsaha(),
+			...attributesPengalamanPekerjaanBerjalan(),
         ];
 	}
 }

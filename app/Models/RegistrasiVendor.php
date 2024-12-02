@@ -123,6 +123,18 @@ class RegistrasiVendor extends Model
 	        ->where('kodefikasi_tab', KodefikasiTabEnum::PengalamanPekerjaan3TahunTerakhir);
     }
 	
+	public function pengalamanMitraUsaha(): HasMany
+    {
+        return $this->hasMany(PengalamanPekerjaanVendor::class, 'id_history_registrasi_vendor', 'id')
+	        ->where('kodefikasi_tab', KodefikasiTabEnum::MitraUsaha);
+    }
+	
+	public function pengalamanPekerjaanBerjalan(): HasMany
+	{
+		return $this->hasMany(PengalamanPekerjaanVendor::class, 'id_history_registrasi_vendor', 'id')
+			->where('kodefikasi_tab', KodefikasiTabEnum::PekerjaanBerjalan);
+	}
+	
 	public function kategoriVendor(): BelongsTo
 	{
 		return $this->belongsTo(KategoriVendor::class, 'kode_master_kategori_vendor','kode');
@@ -150,22 +162,22 @@ class RegistrasiVendor extends Model
 	
 	public function provinsi(): BelongsTo
 	{
-		return $this->belongsTo(Provinsi::class, 'kode_master_provinsi','kode');
+		return $this->belongsTo(Provinsi::class, 'kode_provinsi','kode');
 	}
 	
 	public function kabupaten(): BelongsTo
 	{
-		return $this->belongsTo(KabKota::class, 'kode_master_kab_kota','kode');
+		return $this->belongsTo(KabKota::class, 'kode_kabupaten_kota','kode');
 	}
 	
 	public function kecamatan(): BelongsTo
 	{
-		return $this->belongsTo(Kecamatan::class, 'kode_master_kecamatan','kode');
+		return $this->belongsTo(Kecamatan::class, 'kode_kecamatan','kode');
 	}
 	
 	public function kelurahan(): BelongsTo
 	{
-		return $this->belongsTo(Kelurahan::class, 'kode_master_kelurahan','kode');
+		return $this->belongsTo(Kelurahan::class, 'kode_kelurahan','kode');
 	}
 	
 	public function bank(): BelongsTo

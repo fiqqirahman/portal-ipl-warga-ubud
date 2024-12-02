@@ -284,7 +284,6 @@ function rulesPengalaman3TahunTerakhir(): array
 {
 	return [
 		'pengalaman3TahunTerakhir' => 'nullable|array',
-		'pengalaman3TahunTerakhir.*.id' => 'nullable|string',
 		'pengalaman3TahunTerakhir.*.kodefikasi_tab' => 'required|string|in:' . \App\Enums\KodefikasiTabEnum::PengalamanPekerjaan3TahunTerakhir->value,
 		'pengalaman3TahunTerakhir.*.nama_pekerjaan' => 'required|string|max:255',
 		'pengalaman3TahunTerakhir.*.lokasi_pekerjaan' => 'required|string|max:255',
@@ -303,7 +302,6 @@ function attributesPengalaman3TahunTerakhir(): array
 {
 	return [
 		'pengalaman3TahunTerakhir' => 'Pengalaman 3 Tahun Terakhir',
-		'pengalaman3TahunTerakhir.*.id' => 'Identifier',
 		'pengalaman3TahunTerakhir.*.kodefikasi_tab' => 'Kodefikasi Tab',
 		'pengalaman3TahunTerakhir.*.nama_pekerjaan' => 'Nama Pekerjaan',
 		'pengalaman3TahunTerakhir.*.lokasi_pekerjaan' => 'Lokasi Pekerjaan',
@@ -315,5 +313,77 @@ function attributesPengalaman3TahunTerakhir(): array
 		'pengalaman3TahunTerakhir.*.no_kontrak' => 'No. Kontrak',
 		'pengalaman3TahunTerakhir.*.tanggal_kontrak' => 'Tanggal Kontrak',
 		'pengalaman3TahunTerakhir.*.nilai_kontrak' => 'Nilai Kontrak',
+	];
+}
+
+function rulesPengalamanMitraUsaha(): array
+{
+	return [
+		'pengalamanMitraUsaha' => 'nullable|array',
+		'pengalamanMitraUsaha.*.kodefikasi_tab' => 'required|string|in:' . \App\Enums\KodefikasiTabEnum::MitraUsaha->value,
+		'pengalamanMitraUsaha.*.nama_mitra' => 'required|string|max:255',
+		'pengalamanMitraUsaha.*.lokasi_pekerjaan' => 'required|string|max:255',
+		'pengalamanMitraUsaha.*.pemberi_pekerjaan' => 'required|string|max:255',
+		'pengalamanMitraUsaha.*.kode_jenis_pekerjaan' => 'required|string|max:255',
+		'pengalamanMitraUsaha.*.no_telfon_perusahaan_atau_pic' => 'required|string|max:20',
+		'pengalamanMitraUsaha.*.kode_bidang_usaha' => 'required|string|max:255',
+		'pengalamanMitraUsaha.*.tanggal_mulai_kerjasama' => 'required|date',
+		'pengalamanMitraUsaha.*.no_kontrak' => 'required|string|max:255',
+		'pengalamanMitraUsaha.*.tanggal_kontrak' => 'required|date',
+		'pengalamanMitraUsaha.*.nilai_kontrak' => 'required|string|max:26',
+	];
+}
+
+function attributesPengalamanMitraUsaha(): array
+{
+	return [
+		'pengalamanMitraUsaha' => 'Pengalaman Mitra Dagang / Mitra Usaha',
+		'pengalamanMitraUsaha.*.kodefikasi_tab' => 'Kodefikasi Tab',
+		'pengalamanMitraUsaha.*.nama_mitra' => 'Nama Mitra',
+		'pengalamanMitraUsaha.*.lokasi_pekerjaan' => 'Lokasi Pekerjaan',
+		'pengalamanMitraUsaha.*.pemberi_pekerjaan' => 'Pemberi Pekerjaan',
+		'pengalamanMitraUsaha.*.kode_jenis_pekerjaan' => 'Jenis Pekerjaan',
+		'pengalamanMitraUsaha.*.no_telfon_perusahaan_atau_pic' => 'No. Telp Perusahaan/PIC',
+		'pengalamanMitraUsaha.*.kode_bidang_usaha' => 'Bidang Usaha',
+		'pengalamanMitraUsaha.*.tanggal_mulai_kerjasama' => 'Mulai Kerjasama',
+		'pengalamanMitraUsaha.*.no_kontrak' => 'No. Kontrak',
+		'pengalamanMitraUsaha.*.tanggal_kontrak' => 'Tanggal Kontrak',
+		'pengalamanMitraUsaha.*.nilai_kontrak' => 'Nilai Kontrak',
+	];
+}
+
+function rulesPengalamanPekerjaanBerjalan(): array
+{
+	return [
+		'pengalamanPekerjaanBerjalan' => 'nullable|array',
+		'pengalamanPekerjaanBerjalan.*.kodefikasi_tab' => 'required|string|in:' . \App\Enums\KodefikasiTabEnum::PekerjaanBerjalan->value,
+		'pengalamanPekerjaanBerjalan.*.nama_pekerjaan' => 'required|string|max:255',
+		'pengalamanPekerjaanBerjalan.*.lokasi_pekerjaan' => 'required|string|max:255',
+		'pengalamanPekerjaanBerjalan.*.pemberi_pekerjaan' => 'required|string|max:255',
+		'pengalamanPekerjaanBerjalan.*.kode_jenis_pekerjaan' => 'required|string|max:255',
+		'pengalamanPekerjaanBerjalan.*.no_telfon_perusahaan_atau_pic' => 'required|string|max:20',
+		'pengalamanPekerjaanBerjalan.*.kode_bidang_usaha' => 'required|string|max:255',
+		'pengalamanPekerjaanBerjalan.*.tanggal_mulai_kerjasama' => 'required|date',
+		'pengalamanPekerjaanBerjalan.*.no_kontrak' => 'required|string|max:255',
+		'pengalamanPekerjaanBerjalan.*.tanggal_kontrak' => 'required|date',
+		'pengalamanPekerjaanBerjalan.*.nilai_kontrak' => 'required|string|max:26',
+	];
+}
+
+function attributesPengalamanPekerjaanBerjalan(): array
+{
+	return [
+		'pengalamanPekerjaanBerjalan' => 'Pengalaman Pekerjaan Berjalan',
+		'pengalamanPekerjaanBerjalan.*.kodefikasi_tab' => 'Kodefikasi Tab',
+		'pengalamanPekerjaanBerjalan.*.nama_pekerjaan' => 'Nama Pekerjaan',
+		'pengalamanPekerjaanBerjalan.*.lokasi_pekerjaan' => 'Lokasi Pekerjaan',
+		'pengalamanPekerjaanBerjalan.*.pemberi_pekerjaan' => 'Pemberi Pekerjaan',
+		'pengalamanPekerjaanBerjalan.*.kode_jenis_pekerjaan' => 'Jenis Pekerjaan',
+		'pengalamanPekerjaanBerjalan.*.no_telfon_perusahaan_atau_pic' => 'No. Telp Perusahaan/PIC',
+		'pengalamanPekerjaanBerjalan.*.kode_bidang_usaha' => 'Bidang Usaha',
+		'pengalamanPekerjaanBerjalan.*.tanggal_mulai_kerjasama' => 'Mulai Kerjasama',
+		'pengalamanPekerjaanBerjalan.*.no_kontrak' => 'No. Kontrak',
+		'pengalamanPekerjaanBerjalan.*.tanggal_kontrak' => 'Tanggal Kontrak',
+		'pengalamanPekerjaanBerjalan.*.nilai_kontrak' => 'Nilai Kontrak',
 	];
 }

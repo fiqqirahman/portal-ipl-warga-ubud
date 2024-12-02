@@ -33,8 +33,8 @@
                 <label class="fs-6 fw-semibold form-label mt-3">
                     <span class="required">Jenis Identitas Direksi</span>
                 </label>
-                <select type="text" required maxlength="255"
-                        class="form-control @error("daftar_direksi.{$key}.kode_master_jenis_identitas_direksi") is-invalid @enderror"
+                <select required maxlength="255"
+                        class="form-select @error("daftar_direksi.{$key}.kode_master_jenis_identitas_direksi") is-invalid @enderror"
                         data-control="select2"
                         name="daftar_direksi[{{ $key }}][kode_master_jenis_identitas_direksi]">
                     @foreach($vendorJenisIdentitas as $jenisIdentitas)
@@ -80,7 +80,7 @@
                     <span class="required">Jabatan Direksi</span>
                 </label>
                 <select required
-                        class="form-control @error("daftar_direksi.{$key}.kode_master_jabatan_vendor_direksi") is-invalid @enderror"
+                        class="form-select @error("daftar_direksi.{$key}.kode_master_jabatan_vendor_direksi") is-invalid @enderror"
                         data-control="select2"
                         name="daftar_direksi[{{ $key }}][kode_master_jabatan_vendor_direksi]">
                     @foreach($vendorJabatan as $direksiJabatan)
@@ -140,8 +140,8 @@
                     <label class="fs-6 fw-semibold form-label mt-3">
                         <span class="required">Jenis Identitas Direksi</span>
                     </label>
-                    <select type="text" required maxlength="255"
-                            class="form-control" data-control="select2"
+                    <select required maxlength="255"
+                            class="form-select" data-control="select2"
                             name="daftar_direksi[{{ $uniqueStringDireksi }}][kode_master_jenis_identitas_direksi]">
                         @foreach($vendorJenisIdentitas as $jenisIdentitas)
                             <option value="{{ $jenisIdentitas->kode }}" {{ $jenisIdentitas->kode == $daftarDireksi->kode_master_jenis_identitas_direksi ? 'selected' : '' }}>{{ $jenisIdentitas->nama }}</option>
@@ -169,7 +169,7 @@
                         <span class="required">Jabatan Direksi</span>
                     </label>
                     <select required
-                            class="form-control" data-control="select2"
+                            class="form-select" data-control="select2"
                             name="daftar_direksi[{{ $uniqueStringDireksi }}][kode_master_jabatan_vendor_direksi]">
                         @foreach($vendorJabatan as $direksiJabatan)
                             <option value="{{ $direksiJabatan->kode }}" {{ $direksiJabatan->kode == $daftarDireksi->kode_master_jabatan_vendor_direksi ? 'selected' : '' }}>{{ $direksiJabatan->nama }}</option>
@@ -212,8 +212,8 @@
                 <label class="fs-6 fw-semibold form-label mt-3">
                     <span class="required">Jenis Identitas Direksi</span>
                 </label>
-                <select type="text" required maxlength="255"
-                        class="form-control" data-control="select2"
+                <select required maxlength="255"
+                        class="form-select" data-control="select2"
                         name="daftar_direksi[{{ $uniqueStringDireksi }}][kode_master_jenis_identitas_direksi]">
                     @foreach($vendorJenisIdentitas as $jenisIdentitas)
                         <option value="{{ $jenisIdentitas->kode }}">{{ $jenisIdentitas->nama }}</option>
@@ -241,7 +241,7 @@
                     <span class="required">Jabatan Direksi</span>
                 </label>
                 <select required
-                        class="form-control" data-control="select2"
+                        class="form-select" data-control="select2"
                         name="daftar_direksi[{{ $uniqueStringDireksi }}][kode_master_jabatan_vendor_direksi]">
                     @foreach($vendorJabatan as $direksiJabatan)
                         <option value="{{ $direksiJabatan->kode }}">{{ $direksiJabatan->nama }}</option>

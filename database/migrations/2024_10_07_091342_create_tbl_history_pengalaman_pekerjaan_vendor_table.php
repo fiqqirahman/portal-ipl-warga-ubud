@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('id_history_registrasi_vendor')->references('id')->on('tbl_history_registrasi_vendor');
             $table->enum('kodefikasi_tab', ['Pengalaman Pekerjaan 3 Tahun Terakhir','Mitra Usaha','Pekerjaan Berjalan']);
             $table->string('nama_mitra')->nullable();
-            $table->string('nama_pekerjaan');
+            $table->string('nama_pekerjaan')->nullable();
             $table->foreignId('lokasi_pekerjaan')->references('kode')->on('tbl_master_provinsi');
             $table->string('pemberi_pekerjaan');
             $table->foreignId('kode_jenis_pekerjaan')->references('kode')->on('tbl_master_jenis_vendor');

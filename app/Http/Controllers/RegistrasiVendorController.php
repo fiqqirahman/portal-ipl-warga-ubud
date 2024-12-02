@@ -95,7 +95,8 @@ class RegistrasiVendorController extends Controller
             'stmtJenisVendor' => $stmtJenisVendor,
             'stmtSubBidangUsaha' => $stmtSubBidangUsaha,
             'stmtKualifikasiGrade' => $stmtKualifikasiGrade,
-            'documentsField' => DocumentService::makeFields(DocumentForEnum::Individual)
+            'documentsField' => DocumentService::makeFields(DocumentForEnum::Individual),
+	        'masterKabKota' => KabKota::isActive()->select(['kode', 'nama'])->get()
 		];
 
         return view('menu.vendor-perorangan.create', $data);
@@ -127,6 +128,10 @@ class RegistrasiVendorController extends Controller
 	        $create = RegistrasiVendor::create($requestData);
 
 	        $create->storeDocuments($request->file());
+	        
+	        $create->upsertPengalamanKerja($request->pengalaman3TahunTerakhir ?? []);
+	        $create->upsertPengalamanKerja($request->pengalamanMitraUsaha ?? []);
+	        $create->upsertPengalamanKerja($request->pengalamanPekerjaanBerjalan ?? []);
 			
 			if($create->status_registrasi === StatusRegistrasiEnum::Analysis){
 				sweetAlert('success', 'Berhasil Submit Data');
@@ -168,14 +173,15 @@ class RegistrasiVendorController extends Controller
 		    self::breadcrumb(),
 		    ['Edit', route('menu.registrasi-vendor.edit', ['registrasi_vendor' => enkrip($registrasiVendor->id)])],
 	    ];
-
-        $stmtKategoriVendor = KategoriVendor::isActive()->orderBy('nama')->get();
-        $stmtProvinsi = Provinsi::isActive()->orderBy('nama')->get();
+		
         $stmtNegara = Negara::isActive()->orderBy('nama')->get();
         $stmtBank = Bank::isActive()->orderBy('nama')->get();
         $stmtJenisVendor = JenisVendor::isActive()->orderBy('nama')->get();
-        $stmtSubBidangUsaha = SubBidangUsaha::isActive()->orderBy('nama')->get();
         $stmtKualifikasiGrade = KualifikasiGrade::isActive()->orderBy('nama')->get();
+	    
+	    $stmtKategoriVendor = KategoriVendor::isActive()->orderBy('nama')->get();
+	    $stmtProvinsi = Provinsi::isActive()->orderBy('nama')->get();
+	    $stmtSubBidangUsaha = SubBidangUsaha::isActive()->orderBy('nama')->get();
 	    
 	    $data = [
 		    'title' => $title,
@@ -188,7 +194,8 @@ class RegistrasiVendorController extends Controller
             'stmtSubBidangUsaha' => $stmtSubBidangUsaha,
             'stmtKualifikasiGrade' => $stmtKualifikasiGrade,
 		    'documentsField' => DocumentService::makeFields(DocumentForEnum::Individual, $registrasiVendor),
-		    'registrasiVendor' => $registrasiVendor
+		    'registrasiVendor' => $registrasiVendor,
+		    'masterKabKota' => KabKota::isActive()->select(['kode', 'nama'])->get(),
 	    ];
 	    
 	    return view('menu.vendor-perorangan.edit', $data);
@@ -224,6 +231,10 @@ class RegistrasiVendorController extends Controller
 		    $registrasiVendor->update($requestData);
 			
 		    $registrasiVendor->updateDocuments($request->file());
+		    
+		    $registrasiVendor->upsertPengalamanKerja($request->pengalaman3TahunTerakhir ?? []);
+		    $registrasiVendor->upsertPengalamanKerja($request->pengalamanMitraUsaha ?? []);
+		    $registrasiVendor->upsertPengalamanKerja($request->pengalamanPekerjaanBerjalan ?? []);
 		    
 		    DB::commit();
 			
@@ -264,23 +275,6 @@ class RegistrasiVendorController extends Controller
 		}
 	}
 	
-    public function getKabKotaByProvinsi(Request $request): JsonResponse
-    {
-        $kabKota = KabKota::where('kode_provinsi', $request->kode_provinsi)->aktif()->get();
-        return response()->json($kabKota);
-    }
-	
-    public function getKecamatanByKabKota(Request $request): JsonResponse
-    {
-        $kecamatan = Kecamatan::where('kode_kab_kota', $request->kode_kabupaten_kota)->aktif()->get();
-        return response()->json($kecamatan);
-    }
-	
-    public function getKelurahanByKecamatan(Request $request): JsonResponse
-    {
-        $kelurahan = Kelurahan::where('kode_kecamatan', $request->kode_kecamatan)->aktif()->get();
-        return response()->json($kelurahan);
-    }
     public function show(RegistrasiVendor $registrasiVendor)
     {
         $this->authorize(PermissionEnum::RegistrasiVendorDetail->value);
@@ -289,7 +283,7 @@ class RegistrasiVendorController extends Controller
             abort(403);
         }
 
-        $title =  'Edit ' . self::$title;
+        $title =  'Detail ' . self::$title;
 
         $breadcrumbs = [
             HomeController::breadcrumb(),
@@ -297,12 +291,19 @@ class RegistrasiVendorController extends Controller
             ['Detail', route('menu.registrasi-vendor.show', ['registrasi_vendor' => enkrip($registrasiVendor->id)])],
         ];
 
+        $stmtSubBidangUsaha = SubBidangUsaha::isActive()->orderBy('nama')->get();
+        $stmtKategoriVendor = KategoriVendor::isActive()->orderBy('nama')->get();
+			
         $data = [
             'title' => $title,
             'breadcrumbs' => $breadcrumbs,
             'documentsField' => DocumentService::makeFields(DocumentForEnum::Individual, $registrasiVendor),
-            'registrasiVendor' => $registrasiVendor
+            'registrasiVendor' => $registrasiVendor,
+	        'stmtKategoriVendor' => $stmtKategoriVendor,
+	        'stmtSubBidangUsaha' => $stmtSubBidangUsaha,
+	        'masterKabKota' => KabKota::isActive()->select(['kode', 'nama'])->get()
         ];
 
-        return view('menu.vendor-perorangan.show', $data);    }
+        return view('menu.vendor-perorangan.show', $data);
+	}
 }
