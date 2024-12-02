@@ -7,19 +7,30 @@ use App\Models\Utility\MasterConfig;
 use Illuminate\Support\Facades\Cache;
 use Exception;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Log;
-use Psr\SimpleCache\InvalidArgumentException;
+use Throwable;
 
+/**
+ * Class CacheForeverHelper
+ *
+ * This class provides various helper functions for handling
+ * caching using Laravel's cache facade. It supports fetching,
+ * storing, and destroying cached data.
+ *
+ * @package App\Helpers
+ */
 class CacheForeverHelper
 {
-	public static string $defaultModelKey = 'master_config';
+	/**
+	 * @var string $defaultModelKey The default model key used for caching.
+	 */
+	private static string $defaultModelKey = 'master_config';
 	
 	/**
-	 * Fetch single Cached Key ($key) by $modelKey
+	 * Fetch single Cached Key ($key) by $modelKey.
 	 *
-	 * @param string|object $key
-	 * @param string|null $modelKey
-	 * @return string|NULL
+	 * @param string|object $key The key to fetch from the cache.
+	 * @param string|null $modelKey The model key, default is `master_config`.
+	 * @return string|null The cached value, or NULL if not found.
 	 */
 	public static function getSingle(string|object $key, string|null $modelKey = null): ?string
 	{
@@ -32,35 +43,20 @@ class CacheForeverHelper
 				$key = $key->value;
 			}
 			
-			if($modelKey === self::$defaultModelKey
-				AND !Cache::driver(self::getDriver())->has(self::$defaultModelKey)) {
-				if(MasterConfig::query()->exists()){
-					self::syncMasterConfig();
-				} else {
-					if($key === MasterConfigKeyEnum::SecuritySessionLifetime->value){
-						return 120;
-					}
-				}
-			}
-			
-			if(Cache::driver(self::getDriver())->has($modelKey)){
-				return Cache::driver(self::getDriver())
-					->get($modelKey)
-					->where('key', $key)
-					->first()->value ?? NULL;
-			}
-			
-			return NULL;
-		} catch (InvalidArgumentException|Exception $e) {
+			return Cache::driver(self::getDriver())
+				->get($modelKey)
+				->where('key', $key)
+				->first()->value ?? NULL;
+		} catch (Throwable $e) {
 			return NULL;
 		}
 	}
 	
 	/**
-	 * Fetch all Cached Key Value by $modelKey
+	 * Fetch all Cached Key Value by $modelKey.
 	 *
-	 * @param string|null $modelKey
-	 * @return Collection
+	 * @param string|null $modelKey The model key, default is `master_config`.
+	 * @return Collection The collection of cached values.
 	 */
 	public static function getAll(string|null $modelKey = null): Collection
 	{
@@ -69,33 +65,28 @@ class CacheForeverHelper
 				$modelKey = self::$defaultModelKey;
 			}
 			
-			if($modelKey === self::$defaultModelKey
-				AND !Cache::driver(self::getDriver())->has(self::$defaultModelKey)) {
-				if(MasterConfig::query()->exists()){
-					self::syncMasterConfig();
-				} else {
-					return collect([]);
-				}
+			if($modelKey === self::$defaultModelKey AND !Cache::driver(self::getDriver())->has(self::$defaultModelKey)){
+				return collect([]);
 			}
 			
 			if(Cache::driver(self::getDriver())->has($modelKey)){
-				return Cache::driver(self::getDriver())->get($modelKey);
+				return Cache::driver(self::getDriver())->get($modelKey) ?? collect([]);
 			}
 			
 			return collect([]);
-		} catch (InvalidArgumentException|Exception $e) {
+		} catch (Throwable $e) {
 			return collect([]);
 		}
 	}
 	
 	/**
-	 * Store Collection to Cache
+	 * Store Collection to Cache.
 	 *
-	 * @param Collection $collection
-	 * @param string|null $modelKey
-	 * @param bool $destroyOld
-	 * @return bool
-	 * @throws Exception
+	 * @param Collection $collection The collection to store.
+	 * @param string|null $modelKey The model key, default is `master_config`.
+	 * @param bool $destroyOld Flag to destroy old cache, default is true.
+	 * @return bool True on success, throws Exception on failure.
+	 * @throws Exception If storing to cache fails.
 	 */
 	public static function store(Collection $collection, string|null $modelKey = null, bool $destroyOld = true): bool
 	{
@@ -110,7 +101,7 @@ class CacheForeverHelper
 			
 			$store = Cache::driver(self::getDriver())->forever($modelKey, $collection);
 			if(!$store){
-				throw new Exception('Failed store cache key ['.  $modelKey .']');
+				throw new Exception('Failed store cache key [' . $modelKey . ']');
 			}
 			
 			return true;
@@ -120,11 +111,11 @@ class CacheForeverHelper
 	}
 	
 	/**
-	 * Destroy Cache
+	 * Destroy Cache.
 	 *
-	 * @param string|null $modelKey
-	 * @return bool
-	 * @throws Exception
+	 * @param string|null $modelKey The model key, default is `master_config`.
+	 * @return bool True on success.
+	 * @throws Exception If destroying the cache fails.
 	 */
 	public static function destroy(string|null $modelKey = null): bool
 	{
@@ -134,22 +125,23 @@ class CacheForeverHelper
 			}
 			
 			if(Cache::driver(self::getDriver())->has($modelKey)){
-				$destroy = Cache::driver(self::getDriver())->delete($modelKey);
+				$destroy = Cache::driver(self::getDriver())->forget($modelKey);
 				if(!$destroy){
-					throw new Exception('Failed destroy cache key ['.  $modelKey .']');
+					throw new Exception('Failed destroy cache key [' . $modelKey . ']');
 				}
 			}
 			
 			return true;
-		} catch (InvalidArgumentException|Exception $e) {
+		} catch (Throwable $e) {
 			throw new Exception($e->getMessage());
 		}
 	}
 	
 	/**
-	 * Sync Master Config rows to Cache
-	 * @return Collection
-	 * @throws Exception
+	 * Sync Master Config rows to Cache.
+	 *
+	 * @return Collection The collection of synchronized master config rows.
+	 * @throws Exception If synchronization fails.
 	 */
 	public static function syncMasterConfig(): Collection
 	{
@@ -158,6 +150,11 @@ class CacheForeverHelper
 		return self::getAll();
 	}
 	
+	/**
+	 * Get the cache driver from configuration.
+	 *
+	 * @return string The cache driver.
+	 */
 	private static function getDriver(): string
 	{
 		return config('cache.default');

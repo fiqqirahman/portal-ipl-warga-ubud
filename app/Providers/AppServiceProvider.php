@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-	    config(['session.lifetime' => (int) CacheForeverHelper::getSingle(MasterConfigKeyEnum::SecuritySessionLifetime->value)]);
+	    config(['session.lifetime' => (int) (CacheForeverHelper::getSingle(MasterConfigKeyEnum::SecuritySessionLifetime) ?? 120)]);
 		
         Paginator::useBootstrap();
 
