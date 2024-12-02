@@ -93,6 +93,10 @@ php artisan master-config:sync
 
 ## Jobs
 - `RegistrationJob` Send the activation link, username, and password to the vendor after successful sign-up
+- **Status Registrasi Vendor**
+  - `ApprovedJob`
+  - `AnalysisJob`
+  - `RejectedJob`
 
 <p align="right">(<a href="#project-setup">back to top</a>)</p>
 
