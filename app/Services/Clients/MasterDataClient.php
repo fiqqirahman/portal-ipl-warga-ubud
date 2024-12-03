@@ -30,7 +30,7 @@ class MasterDataClient
     public function masterDataProvinsi(): PromiseInterface|Response
     {
         try {
-            return Http::timeout($this->timeout)->post($this->url . '/service-ikd/sync-provinsi');
+            return Http::timeout($this->timeout)->post($this->url . '/service-master-core/provinsi');
         } catch (Exception $e) {
             logException('[masterDataProvinsi] MasterDataClient', $e);
 
@@ -41,7 +41,7 @@ class MasterDataClient
     public function masterDataKabKota(): PromiseInterface|Response
     {
         try {
-            return Http::timeout($this->timeout)->post($this->url . '/service-ikd/sync-kabupaten-kota');
+            return Http::timeout($this->timeout)->post($this->url . '/service-master-core/kabupaten-kota');
         } catch (Exception $e) {
             logException('[masterDataKabKota] MasterDataClient', $e);
 
@@ -52,7 +52,7 @@ class MasterDataClient
     public function masterDataKecamatan(): PromiseInterface|Response
     {
         try {
-            return Http::timeout($this->timeout)->post($this->url . '/service-ikd/sync-kecamatan');
+            return Http::timeout($this->timeout)->post($this->url . '/service-master-core/kecamatan');
         } catch (Exception $e) {
             logException('[masterDataKecamatan] MasterDataClient', $e);
 
@@ -63,7 +63,7 @@ class MasterDataClient
     public function masterDataKelurahan(): PromiseInterface|Response
     {
         try {
-            return Http::timeout($this->timeout)->post($this->url . '/service-ikd/sync-kelurahan');
+            return Http::timeout($this->timeout)->post($this->url . '/service-master-core/kelurahan');
         } catch (Exception $e) {
             logException('[masterDataKelurahan] MasterDataClient', $e);
 
