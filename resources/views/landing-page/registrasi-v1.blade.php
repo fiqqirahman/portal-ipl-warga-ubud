@@ -75,7 +75,7 @@
                             <h1 class="text-dark mb-3 fs-3x" data-kt-translate="sign-up-title">Create an Account</h1>
                             <!--end::Title-->
                             <!--begin::Text-->
-                            <div class="text-gray-400 fw-semibold fs-6" data-kt-translate="general-desc">Get unlimited access & earn money</div>
+                            <div class="text-gray-400 fw-semibold fs-6" data-kt-translate="general-desc">User Registration for E-Procurement Application</div>
                             <!--end::Link-->
                         </div>
                         <!--end::Heading-->
@@ -137,13 +137,13 @@
                             <input class="form-control form-control-lg" required type="password" placeholder="Confirm Password" name="password_confirmation" autocomplete="off" data-kt-translate="sign-up-input-confirm-password" />
                         </div>
                         <!--end::Input group-->
-                        <div class="fv-row mb-3">
-                            {!! NoCaptcha::renderJs() !!}
-                            {!! NoCaptcha::display() !!}
-                            @error('g-recaptcha-response')
-                            <div class="text-danger mt-2">{{ $message }}</div>
-                            @enderror
-                        </div>
+{{--                        <div class="fv-row mb-3">--}}
+{{--                            {!! NoCaptcha::renderJs() !!}--}}
+{{--                            {!! NoCaptcha::display() !!}--}}
+{{--                            @error('g-recaptcha-response')--}}
+{{--                            <div class="text-danger mt-2">{{ $message }}</div>--}}
+{{--                            @enderror--}}
+{{--                        </div>--}}
                         <!--begin::Actions-->
                         <div class="d-flex flex-stack">
                             <!--begin::Submit-->

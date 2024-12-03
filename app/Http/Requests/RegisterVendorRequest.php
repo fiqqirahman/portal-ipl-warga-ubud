@@ -30,7 +30,7 @@ class RegisterVendorRequest extends FormRequest
             'name' => 'required|string|max:255',
             'password_confirmation' => 'required|string',
 	        'vendor_type' => ['required', Rule::in([UserVendorTypeEnum::Company, UserVendorTypeEnum::Individual])],
-            'g-recaptcha-response' => 'required|captcha',
+//            'g-recaptcha-response' => 'required|captcha',
         ];
     }
 
