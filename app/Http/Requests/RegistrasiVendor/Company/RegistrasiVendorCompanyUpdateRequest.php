@@ -36,12 +36,12 @@ class RegistrasiVendorCompanyUpdateRequest extends FormRequest
 		$registrasiVendor = $this->route('registrasi_vendor');
 		
         return [
-			'nama' => [$isRequired, 'string', 'max:255'],
-			'npwp' => [$isRequired, 'numeric', 'digits_between:15,16'],
-			'kode_master_kategori_vendor' => [$isRequired, 'string'],
-			'kode_master_jenis_vendor' => [$isRequired, 'string'],
-			'kode_master_bentuk_badan_usaha' => [$isRequired, 'string'],
-			'kode_master_status_perusahaan' => [$isRequired, 'string'],
+			'nama' => ['required', 'string', 'max:255'],
+			'npwp' => ['required', 'numeric', 'digits_between:15,16'],
+			'kode_master_kategori_vendor' => ['required', 'string'],
+			'kode_master_jenis_vendor' => ['required', 'string'],
+			'kode_master_bentuk_badan_usaha' => ['required', 'string'],
+			'kode_master_status_perusahaan' => ['required', 'string'],
 	        'confirm_done_checkbox' => ['nullable', Rule::in(['on'])],
 	        ...DocumentService::makeValidationRules(DocumentForEnum::Company, $isRequired, $registrasiVendor),
 	        ...rulesDaftarKomisaris(),

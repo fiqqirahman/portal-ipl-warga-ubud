@@ -36,13 +36,13 @@ class RegistrasiVendorIndividualUpdateRequest extends FormRequest
 		$registrasiVendor = $this->route('registrasi_vendor');
 		
         return [
-	        'nama' => [$isRequired, 'string', 'max:255'],
-	        'nama_singkatan' => [$isRequired, 'string', 'max:255'],
-	        'npwp' => [$isRequired, 'numeric', 'digits_between:15,16'],
-	        'kode_master_kategori_vendor' => [$isRequired,],
-	        'no_ktp_perorangan' => [$isRequired, 'numeric'],
-	        'tanggal_berakhir_ktp' => [$isRequired, 'date'],
-	        'profesi_keahlian' => [$isRequired, 'string', 'max:3000'],
+	        'nama' => ['required', 'string', 'max:255'],
+	        'nama_singkatan' => ['required', 'string', 'max:255'],
+	        'npwp' => ['required', 'numeric', 'digits_between:15,16'],
+	        'kode_master_kategori_vendor' => ['required',],
+	        'no_ktp_perorangan' => ['required', 'numeric'],
+	        'tanggal_berakhir_ktp' => ['required', 'date'],
+	        'profesi_keahlian' => ['required', 'string', 'max:3000'],
 	        'confirm_done_checkbox' => ['nullable', Rule::in(['on'])],
 	        ...DocumentService::makeValidationRules(DocumentForEnum::Individual, $isRequired, $registrasiVendor),
             ...rulesAlamat(),
