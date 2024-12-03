@@ -66,7 +66,7 @@ class UserSeeder extends Seeder
 	    }
 	    
 	    collect($collections)->each(function ($data) {
-		    User::query()->create($data);
+		    User::query()->updateOrCreate($data);
 	    });
     }
 }
