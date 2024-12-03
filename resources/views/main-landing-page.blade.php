@@ -56,7 +56,7 @@
     <div class="mb-0" id="home">
         <!--begin::Wrapper-->
         <div class="bgi-no-repeat bgi-size-cover bgi-position-center landing-dark-bg"
-             style="background-image: url('{{asset('metronic/demo2/assets/media/svg/illustrations/jakarta.jpeg')}}')">
+             style="background-image: url('{{asset('metronic/demo2/assets/media/svg/illustrations/Jakarta.jpeg')}}')">
 
             @include('layouts.landing-page.navbar')
 
