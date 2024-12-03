@@ -1,0 +1,5 @@
+# This is an empty crontab file for apps without scheduled tasks.
+# Leave it as-is for applications that do not require cron jobs.
+
+* * * * * php /var/www/html/artisan schedule:run >> /var/log/crontab/cron.log 2>&1
+
