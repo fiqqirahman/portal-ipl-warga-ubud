@@ -140,6 +140,14 @@ class Role
                     PermissionEnum::MasterJenisMerkInventarisCreate->value,
                     PermissionEnum::MasterJenisMerkInventarisEdit->value,
 
+                    PermissionEnum::MasterStatusPerusahaanAccess->value,
+                    PermissionEnum::MasterStatusPerusahaanEdit->value,
+                    PermissionEnum::MasterStatusPerusahaanCreate->value,
+
+                    PermissionEnum::MasterKategoriVendorAccess->value,
+                    PermissionEnum::MasterKategoriVendorCreate->value,
+                    PermissionEnum::MasterKategoriVendorEdit->value,
+
                  ],
 	            'menus' => [
                     Menu::$DASHBOARD,

@@ -17,7 +17,7 @@
                             </div>
                         </div>
                         <div class="card-body pt-5">
-                            <form action="{{ route('master.kategori-vendor.store') }}" class="form" method="POST"
+                            <form action="{{ route('master.jenis-invetaris.store') }}" class="form" method="POST"
                                   id="form">
                                 @csrf
                                 <div class="fv-row mb-7">
@@ -41,19 +41,6 @@
                                            class="form-control @error('kode') is-invalid @enderror"
                                            name="kode" value="{{ old('kode') }}" id="kode" />
                                     @error('kode')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div>
-                                <div class="fv-row mb-7">
-                                    <label for="keterangan" class="fs-6 fw-semibold form-label mt-3">
-                                        <span class="required">Keterangan</span>
-                                    </label>
-                                    <input type="text"
-                                           class="form-control @error('keterangan') is-invalid @enderror"
-                                           name="keterangan" value="{{ old('keterangan') }}" id="keterangan" />
-                                    @error('keterangan')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>

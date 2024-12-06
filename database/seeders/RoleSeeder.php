@@ -46,8 +46,8 @@ class RoleSeeder extends Seeder
             ['id' => StaticMenu::$MASTER_KUALIFIKASI_GRADE, 'name' => 'Master Kualifikasi Grade', 'route' => 'master.kualifikasi-grade.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 8],
             ['id' => StaticMenu::$MASTER_JENIS_IDENTITAS, 'name' => 'Master Jenis Identitas', 'route' => 'master.jenis-identitas.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 9],
             ['id' => StaticMenu::$MASTER_JABATAN_VENDOR, 'name' => 'Master Jabatan Vendor', 'route' => 'master.jabatan-vendor.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 10],
-            ['id' => StaticMenu::$MASTER_JENIS_INVENTARIS, 'name' => 'Master Jenis Inventaris', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 11],
-            ['id' => StaticMenu::$MASTER_JENIS_MERK_INVENTARIS, 'name' => 'Master Jenis Merk Inventaris', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 12],
+            ['id' => StaticMenu::$MASTER_JENIS_INVENTARIS, 'name' => 'Master Jenis Inventaris', 'route' => 'master.jenis-invetaris.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 11],
+            ['id' => StaticMenu::$MASTER_JENIS_MERK_INVENTARIS, 'name' => 'Master Jenis Merk Inventaris', 'route' => 'master.jenis-merk-inventaris.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$MASTER_DATA, 'order' => 12],
 
 
             ['id' => StaticMenu::$REGISTRASI_VENDOR, 'name' => 'Registrasi Vendor', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => 0, 'order' => 3],
