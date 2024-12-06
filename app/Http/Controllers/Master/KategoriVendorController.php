@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Master;
 
 use App\DataTables\Master\KategoriVendorDataTable;
+use App\Enums\PermissionEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
 use App\Http\Requests\KategoriVendorRequest;
 use App\Models\Master\JenisVendor;
 use App\Models\Master\KategoriVendor;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -29,7 +33,7 @@ class KategoriVendorController extends Controller
      */
     public function index(KategoriVendorDataTable $dataTable)
     {
-        $this->authorize('master_kategori_vendor_access');
+        $this->authorize(PermissionEnum::MasterKategoriVendorAccess->value);
         $title = 'Data ' . self::$title;
 
         $breadcrumbs = [
@@ -44,9 +48,9 @@ class KategoriVendorController extends Controller
      * Show the form for creating a new resource.
      * @throws AuthorizationException
      */
-    public function create()
+    public function create(): View|Factory|Application
     {
-        $this->authorize('master_kategori_vendor_access');
+        $this->authorize(PermissionEnum::MasterKategoriVendorAccess->value);
         $title = 'Tambah ' . self::$title;
 
         $breadcrumbs = [
@@ -64,7 +68,7 @@ class KategoriVendorController extends Controller
      */
     public function store(KategoriVendorRequest $request)
     {
-        $this->authorize('master_kategori_vendor_create');
+        $this->authorize(PermissionEnum::MasterKategoriVendorCreate->value);
         KategoriVendor::create($request->validated() + ['created_by' => Auth::id()]);
 
         createLogActivity('Membuat Master Data Kategori Vendor');
@@ -88,7 +92,7 @@ class KategoriVendorController extends Controller
      */
     public function edit(string $id)
     {
-        $this->authorize('master_kategori_vendor_edit');
+        $this->authorize(PermissionEnum::MasterKategoriVendorEdit->value);
         $title = 'Ubah Data ' . self::$title;
         $id = dekrip($id);
         $stmtKategoriVendor = KategoriVendor::find($id);
@@ -109,7 +113,7 @@ class KategoriVendorController extends Controller
      */
     public function update(KategoriVendorRequest $request, string $id)
     {
-        $this->authorize('master_kategori_vendor_edit');
+        $this->authorize(PermissionEnum::MasterKategoriVendorEdit->value);
         $id = dekrip($id);
         $stmtKategoriVendor = KategoriVendor::find($id);
         $stmtKategoriVendor->update($request->validated() + ['updated_by' => Auth::id()]);
@@ -134,7 +138,7 @@ class KategoriVendorController extends Controller
      */
     public function aktif($id)
     {
-        $this->authorize('master_jenis_vendor_edit');
+        $this->authorize(PermissionEnum::MasterKategoriVendorEdit->value);
         $id = dekrip($id);
         $stmtKategoriVendor = KategoriVendor::find($id);
         $stmtKategoriVendor->update(['status_data' => 1, 'updated_by' => Auth::id()]);
@@ -151,7 +155,7 @@ class KategoriVendorController extends Controller
      */
     public function nonaktif($id)
     {
-        $this->authorize('master_jenis_vendor_edit');
+        $this->authorize(PermissionEnum::MasterKategoriVendorEdit->value);
         $id = dekrip($id);
         $stmtKategoriVendor = KategoriVendor::find($id);
         $stmtKategoriVendor->update(['status_data' => 2, 'updated_by' => Auth::id()]);

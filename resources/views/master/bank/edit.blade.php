@@ -38,7 +38,7 @@
                                     <label for="kode" class="fs-6 fw-semibold form-label mt-3">
                                         <span class="required">Kode</span>
                                     </label>
-                                    <input type="text"
+                                    <input type="number"
                                            class="form-control form-control-solid @error('kode') is-invalid @enderror"
                                            name="kode" value="{{ old('kode', $stmtBank->kode) }}" id="kode" />
                                     @error('kode')

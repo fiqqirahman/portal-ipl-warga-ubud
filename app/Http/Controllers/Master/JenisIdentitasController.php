@@ -51,7 +51,7 @@ class JenisIdentitasController extends Controller
      */
     public function create(): View|Factory|Application
     {
-        $this->authorize(PermissionEnum::MasterJenisIdentitasAccess->value);
+        $this->authorize(PermissionEnum::MasterJenisIdentitasCreate->value);
         $title = 'Tambah ' . self::$title;
 
         $breadcrumbs = [
@@ -69,7 +69,7 @@ class JenisIdentitasController extends Controller
      */
     public function store(JenisIdentitasRequest $request): RedirectResponse
     {
-        $this->authorize(PermissionEnum::MasterJenisIdentitasAccess->value);
+        $this->authorize(PermissionEnum::MasterJenisIdentitasCreate->value);
         JenisIdentitas::create($request->validated() + ['created_by' => Auth::id()]);
         createLogActivity('Membuat Master Jenis Identitas');
 

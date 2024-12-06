@@ -13,6 +13,8 @@ use App\Http\Controllers\Master\BentukBadanUsahaController;
 use App\Http\Controllers\Master\DokumenController;
 use App\Http\Controllers\Master\JabatanVendorController;
 use App\Http\Controllers\Master\JenisIdentitasController;
+use App\Http\Controllers\Master\JenisInventarisController;
+use App\Http\Controllers\Master\JenisMerkInventarisController;
 use App\Http\Controllers\Master\JenisVendorController;
 use App\Http\Controllers\Master\KategoriVendorController;
 use App\Http\Controllers\Master\KualifikasiGradeController;
@@ -23,6 +25,7 @@ use App\Http\Controllers\ParametersController;
 use App\Http\Controllers\RegistrasiVendorController;
 use App\Http\Controllers\RegistrasiVendorPerusahaanController;
 use App\Http\Controllers\Utility\MasterConfigController;
+use App\Models\Master\JenisInventaris;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 use Spatie\Permission\Middleware\RoleMiddleware;
@@ -130,6 +133,14 @@ Route::middleware('auth')->group(function () use($SSOIsLocal) {
                 Route::resource('/jabatan-vendor', JabatanVendorController::class, ['parameters' => ['jabatan-vendor' => 'id']])->except(['show', 'destroy']);
                 Route::get('/jabatan-vendor/{id}/nonaktif', [JabatanVendorController::class, 'nonaktif'])->name('jabatan-vendor.nonaktif');
                 Route::get('/jabatan-vendor/{id}/aktif', [JabatanVendorController::class, 'aktif'])->name('jabatan-vendor.aktif');
+                // jenis inventaris
+                Route::resource('/jenis-invetaris', JenisInventarisController::class, ['parameters' => ['jenis-invetaris' => 'id']])->except(['show', 'destroy']);
+                Route::get('/jenis-invetaris/{id}/nonaktif', [JenisInventarisController::class, 'nonaktif'])->name('jenis-invetaris.nonaktif');
+                Route::get('/jenis-invetaris/{id}/aktif', [JenisInventarisController::class, 'aktif'])->name('jenis-invetaris.aktif');
+                // jenis merk inventaris
+                Route::resource('/jenis-merk-inventaris', JenisMerkInventarisController::class, ['parameters' => ['jenis-merk-inventaris' => 'id']])->except(['show', 'destroy']);
+                Route::get('/jenis-merk-inventaris/{id}/nonaktif', [JenisMerkInventarisController::class, 'nonaktif'])->name('jenis-merk-inventaris.nonaktif');
+                Route::get('/jenis-merk-inventaris/{id}/aktif', [JenisMerkInventarisController::class, 'aktif'])->name('jenis-merk-inventaris.aktif');
 				
                 // dokumen
                 Route::resource('/dokumen', DokumenController::class)

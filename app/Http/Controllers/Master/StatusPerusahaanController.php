@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Master;
 
 use App\DataTables\Master\StatusPerusahaanDataTable;
+use App\Enums\PermissionEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
 use App\Http\Requests\StatusPerusahaanRequest;
@@ -30,7 +31,7 @@ class StatusPerusahaanController extends Controller
      */
     public function index(StatusPerusahaanDataTable $dataTable)
     {
-        $this->authorize('master_status_perusahaan_access');
+        $this->authorize(PermissionEnum::MasterStatusPerusahaanAccess->value);
         $title = 'Data ' . self::$title;
 
         $breadcrumbs = [
@@ -47,7 +48,7 @@ class StatusPerusahaanController extends Controller
      */
     public function create()
     {
-        $this->authorize('master_status_perusahaan_access');
+        $this->authorize(PermissionEnum::MasterStatusPerusahaanAccess->value);
         $title = 'Tambah ' . self::$title;
 
         $breadcrumbs = [
@@ -65,7 +66,7 @@ class StatusPerusahaanController extends Controller
      */
     public function store(StatusPerusahaanRequest $request)
     {
-        $this->authorize('master_status_perusahaan_create');
+        $this->authorize(PermissionEnum::MasterStatusPerusahaanCreate->value);
         StatusPerusahaan::create($request->validated() + ['created_by' => Auth::id()]);
 
         createLogActivity('Membuat Master Data Status Perusahaan');
@@ -89,7 +90,7 @@ class StatusPerusahaanController extends Controller
      */
     public function edit(string $id)
     {
-        $this->authorize('master_status_perusahaan_edit');
+        $this->authorize(PermissionEnum::MasterStatusPerusahaanEdit->value);
         $title = 'Ubah Data ' . self::$title;
         $id = dekrip($id);
         $stmtStatusPerusahaan = StatusPerusahaan::find($id);
@@ -110,7 +111,7 @@ class StatusPerusahaanController extends Controller
      */
     public function update(StatusPerusahaanRequest $request, string $id)
     {
-        $this->authorize('master_status_perusahaan_edit');
+        $this->authorize(PermissionEnum::MasterStatusPerusahaanEdit->value);
         $id = dekrip($id);
         $stmtStatusPerusahaan = StatusPerusahaan::find($id);
         $stmtStatusPerusahaan->update($request->validated() + ['updated_by' => Auth::id()]);
@@ -131,7 +132,7 @@ class StatusPerusahaanController extends Controller
     }
     public function aktif($id)
     {
-        $this->authorize('master_status_perusahaan_edit');
+        $this->authorize(PermissionEnum::MasterStatusPerusahaanEdit->value);
         $id = dekrip($id);
         $stmtStatusPerusahaan = StatusPerusahaan::find($id);
         $stmtStatusPerusahaan->update(['status_data' => 1, 'updated_by' => Auth::id()]);
@@ -145,7 +146,7 @@ class StatusPerusahaanController extends Controller
 
     public function nonaktif($id)
     {
-        $this->authorize('master_status_perusahaan_edit');
+        $this->authorize(PermissionEnum::MasterStatusPerusahaanEdit->value);
         $id = dekrip($id);
         $stmtStatusPerusahaan = StatusPerusahaan::find($id);
         $stmtStatusPerusahaan->update(['status_data' => 2, 'updated_by' => Auth::id()]);
