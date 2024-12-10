@@ -7,7 +7,6 @@ use App\Enums\PermissionEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
 use App\Http\Requests\JenisInventarisRequest;
-use App\Models\Master\JenisIdentitas;
 use App\Models\Master\JenisInventaris;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\Factory;
@@ -142,11 +141,11 @@ class JenisInventarisController extends Controller
         $stmtJenisInventaris = JenisInventaris::find($id);
         $stmtJenisInventaris->update(['status_data' => 1, 'updated_by' => Auth::id()]);
 
-        createLogActivity("Mengaktifkan kembali master data Jenis Identitas dengan Id {$id}");
+        createLogActivity("Mengaktifkan kembali master data Jenis Inventaris dengan Id {$id}");
 
-        return Redirect::route('master.jenis-identitas.index')
+        return Redirect::route('master.jenis-invetaris.index')
             ->with('alert.status', '00')
-            ->with('alert.message', "Master Data Jenis Identitas dengan Nama {$stmtJenisInventaris->nama} berhasil diaktifkan kembali");
+            ->with('alert.message', "Master Data Jenis Inventaris dengan Nama {$stmtJenisInventaris->nama} berhasil diaktifkan kembali");
     }
 
     /**

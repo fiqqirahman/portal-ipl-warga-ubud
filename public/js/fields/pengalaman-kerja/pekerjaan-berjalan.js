@@ -61,7 +61,7 @@ $('#btn-add-row-daftar-pengalaman-pekerjaan-berjalan').on('click', function (){
                 <label class="fs-6 fw-semibold form-label mt-3">
                     <span class="required">No. Telp Perusahaan/PIC</span>
                 </label>
-                <input type="text" maxlength="20" required
+                <input type="text" maxlength="20" required id="no_telfon_perusahaan_atau_pic-${rand}"
                         class="form-control positive-numeric"
                         name="pengalamanPekerjaanBerjalan[${rand}][no_telfon_perusahaan_atau_pic]"/>
             </div>
@@ -125,6 +125,10 @@ $('#btn-add-row-daftar-pengalaman-pekerjaan-berjalan').on('click', function (){
     $(`#pengalamanPekerjaanBerjalan-kode_jenis_pekerjaan-${rand}`).select2()
 
     $(`#pengalamanPekerjaanBerjalan-kode_bidang_usaha-${rand}`).select2()
+
+    $(`#no_telfon_perusahaan_atau_pic-${rand}`).numeric({
+        negative: false
+    })
 })
 
 $(document).on('click', '.btn-remove-row-daftar-pengalaman-pekerjaan-berjalan', function (){
