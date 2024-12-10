@@ -19,7 +19,7 @@
                     <span class="required">Nomor Identitas Pemegang Saham</span>
                 </label>
                 <input type="text" maxlength="255" required
-                       class="form-control @error("pemegang_saham.{$key}.no_identitas_pemegang_saham") is-invalid @enderror" value="{{ $oldDaftarPemegangSaham['no_identitas_pemegang_saham'] }}"
+                       class="form-control @error("pemegang_saham.{$key}.no_identitas_pemegang_saham") is-invalid @enderror positive-numeric" value="{{ $oldDaftarPemegangSaham['no_identitas_pemegang_saham'] }}"
                        name="pemegang_saham[{{ $key }}][no_identitas_pemegang_saham]"/>
                 @error("pemegang_saham.{$key}.no_identitas_pemegang_saham")
                 <div class="invalid-feedback">
@@ -120,7 +120,7 @@
                         <span class="required">Nomor Identitas Pemegang Saham</span>
                     </label>
                     <input type="text" maxlength="255" required
-                           class="form-control" value="{{ $daftarPemegangSaham->no_identitas_pemegang_saham }}"
+                           class="form-control positive-numeric" value="{{ $daftarPemegangSaham->no_identitas_pemegang_saham }}"
                            name="pemegang_saham[{{ $uniqueStringPemegangSaham }}][no_identitas_pemegang_saham]"/>
                 </div>
                 <div class="col-md-4 col-sm-12 mb-4">

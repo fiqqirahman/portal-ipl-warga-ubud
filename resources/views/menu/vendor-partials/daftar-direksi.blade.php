@@ -20,7 +20,7 @@
                     <span class="required">Nomor Identitas Direksi</span>
                 </label>
                 <input type="text" required maxlength="255"
-                       class="form-control @error("daftar_direksi.{$key}.no_identitas_direksi") is-invalid @enderror"
+                       class="form-control @error("daftar_direksi.{$key}.no_identitas_direksi") is-invalid @enderror positive-numeric"
                        value="{{ $oldDaftarDireksi['no_identitas_direksi'] }}"
                        name="daftar_direksi[{{ $key }}][no_identitas_direksi]"/>
                 @error("daftar_direksi.{$key}.no_identitas_direksi")
@@ -133,7 +133,7 @@
                         <span class="required">Nomor Identitas Direksi</span>
                     </label>
                     <input type="text" required maxlength="255"
-                           class="form-control" value="{{ $daftarDireksi->no_identitas_direksi }}"
+                           class="form-control positive-numeric" value="{{ $daftarDireksi->no_identitas_direksi }}"
                            name="daftar_direksi[{{ $uniqueStringDireksi }}][no_identitas_direksi]"/>
                 </div>
                 <div class="col-md-4 col-sm-12 mb-4">
@@ -205,7 +205,7 @@
                     <span class="required">Nomor Identitas Direksi</span>
                 </label>
                 <input type="text" required maxlength="255"
-                       class="form-control"
+                       class="form-control positive-numeric"
                        name="daftar_direksi[{{ $uniqueStringDireksi }}][no_identitas_direksi]"/>
             </div>
             <div class="col-md-4 col-sm-12 mb-4">
