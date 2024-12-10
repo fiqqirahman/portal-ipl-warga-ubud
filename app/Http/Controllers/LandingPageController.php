@@ -92,9 +92,9 @@ class LandingPageController extends Controller
         try {
             $name = $request->input('name');
             $cleanName = preg_replace('/[^A-Za-z0-9]/', '', $name);
-
+            $newName = substr(strtoupper($cleanName), 0, 3);
             $createdAt = User::whereMonth('created_at', date('m'))->whereYear('created_at', date('Y'))->count() + 1;
-            $username = '9999' . str_pad($createdAt, 6, "0", STR_PAD_LEFT);
+            $username = $newName . str_pad($createdAt, 6, "0", STR_PAD_LEFT);
             $password = $request->input('password');
             $activationToken = Str::random(64);
 
