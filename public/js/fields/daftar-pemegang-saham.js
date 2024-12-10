@@ -12,7 +12,7 @@ $('#btn-add-row-daftar-pemegang-saham').on('click', function (){
                 <label class="fs-6 fw-semibold form-label mt-3">
                     <span class="required">Nomor Identitas Pemegang Saham</span>
                 </label>
-                <input type="text" maxlength="255"
+                <input type="text" maxlength="255" id="no_identitas_pemegang_saham-${rand}"
                        class="form-control" required
                        name="pemegang_saham[${rand}][no_identitas_pemegang_saham]" />
             </div>
@@ -70,6 +70,10 @@ $('#btn-add-row-daftar-pemegang-saham').on('click', function (){
     `;
 
     $('#kt_contact_view_daftar_pemegang_saham').append(divToCopy)
+
+    $(`#no_identitas_pemegang_saham-${rand}`).numeric({
+        negative: false
+    })
 })
 
 $(document).on('click', '.btn-remove-row-daftar-pemegang-saham', function (){

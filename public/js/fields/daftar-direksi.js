@@ -19,7 +19,7 @@ $('#btn-add-row-daftar-direksi').on('click', function (){
                     <span class="required">Nomor Identitas Direksi</span>
                 </label>
                 <input type="text" required maxlength="255"
-                       class="form-control"
+                       class="form-control" id="no_identitas_direksi-${rand}"
                        name="daftar_direksi[${rand}][no_identitas_direksi]" />
             </div>
             <div class="col-md-4 col-sm-12 mb-4">
@@ -78,6 +78,10 @@ $('#btn-add-row-daftar-direksi').on('click', function (){
     `;
 
     $('#kt_contact_view_daftar_direksi').append(divToCopy)
+
+    $(`#no_identitas_direksi-${rand}`).numeric({
+        negative: false
+    })
 })
 
 $(document).on('click', '.btn-remove-row-daftar-direksi', function (){
