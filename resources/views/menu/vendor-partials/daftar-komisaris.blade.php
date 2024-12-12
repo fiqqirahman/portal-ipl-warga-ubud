@@ -19,7 +19,7 @@
                     <span class="required">Nomor Identitas Komisaris</span>
                 </label>
                 <input type="text" required maxlength="255"
-                       class="form-control @error("daftar_komisaris.{$key}.no_identitas_komisaris") is-invalid @enderror" value="{{ $oldDaftarKomisaris['no_identitas_komisaris'] }}"
+                       class="form-control @error("daftar_komisaris.{$key}.no_identitas_komisaris") is-invalid @enderror positive-numeric" value="{{ $oldDaftarKomisaris['no_identitas_komisaris'] }}"
                        name="daftar_komisaris[{{ $key }}][no_identitas_komisaris]"/>
                 @error("daftar_komisaris.{$key}.no_identitas_komisaris")
                 <div class="invalid-feedback">
@@ -126,7 +126,7 @@
                         <span class="required">Nomor Identitas Komisaris</span>
                     </label>
                     <input type="text" required maxlength="255"
-                           class="form-control" value="{{ $daftarKomisaris->no_identitas_komisaris }}"
+                           class="form-control positive-numeric" value="{{ $daftarKomisaris->no_identitas_komisaris }}"
                            name="daftar_komisaris[{{ $uniqueStringKomisaris }}][no_identitas_komisaris]"/>
                 </div>
                 <div class="col-md-4 col-sm-12 mb-4">
@@ -198,7 +198,7 @@
                 <span class="required">Nomor Identitas Komisaris</span>
             </label>
             <input type="text" required maxlength="255"
-                    class="form-control"
+                    class="form-control positive-numeric"
                     name="daftar_komisaris[{{ $uniqueStringKomisaris }}][no_identitas_komisaris]"/>
         </div>
         <div class="col-md-4 col-sm-12 mb-4">

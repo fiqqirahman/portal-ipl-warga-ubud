@@ -19,7 +19,7 @@ $('#btn-add-row-daftar-komisaris').on('click', function (){
                     <span class="required">Nomor Identitas Komisaris</span>
                 </label>
                 <input type="text" required maxlength="255"
-                       class="form-control"
+                       class="form-control" id="no_identitas_komisaris-${rand}"
                        name="daftar_komisaris[${rand}][no_identitas_komisaris]" />
             </div>
             <div class="col-md-4 col-sm-12 mb-4">
@@ -78,6 +78,10 @@ $('#btn-add-row-daftar-komisaris').on('click', function (){
     `;
 
     $('#kt_contact_view_daftar_komisaris').append(divToCopy)
+
+    $(`#no_identitas_komisaris-${rand}`).numeric({
+        negative: false
+    })
 })
 
 $(document).on('click', '.btn-remove-row-daftar-komisaris', function (){
