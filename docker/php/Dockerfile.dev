@@ -5,19 +5,40 @@ FROM php:8.3.13-fpm-alpine
 WORKDIR /var/www/html
 
 # Install system dependencies
-RUN apk add --no-cache git curl nano \
+RUN apk add --no-cache \
+    git curl nano nodejs npm \
     libpng libpng-dev libpq-dev libjpeg-turbo-dev libwebp-dev \
-    zlib-dev gd-dev zip libzip-dev supervisor \
-    && docker-php-ext-install exif pcntl pdo_pgsql pgsql fileinfo zip bcmath calendar gd opcache
+    zlib-dev gd-dev zip libzip-dev supervisor icu-dev cronie sudo
+
+# Install PHP extensions
+RUN docker-php-ext-configure intl \
+    && docker-php-ext-install \
+    exif pcntl pdo_pgsql pgsql \
+    fileinfo zip bcmath calendar \
+    gd opcache intl
 
 # Copy Composer from the official Composer image
-COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
+COPY --from=composer:2.8.3 /usr/bin/composer /usr/local/bin/composer
 
 # Set permissions for Laravel writable directories
 RUN addgroup -g 1000 laravel && adduser -G laravel -u 1000 -D laravel
 
+# Add folder and set owner for supervisor log folder
+RUN mkdir -p /var/log/supervisor && mkdir -p /var/log/crontab \
+    && chown -R laravel:laravel /var/log/supervisor && chown laravel:laravel /var/log/crontab
+
+# Modify sudo to allow crond without password
+RUN echo "laravel ALL=(ALL) NOPASSWD: /usr/sbin/crond" >> /etc/sudoers
+
 # Expose port 9000 for PHP-FPM
 EXPOSE 9000
 
-# Run Supervisor
-CMD ["/usr/bin/supervisord", "-c", "/var/www/html/docker/supervisor/supervisord.conf"]
+# Start Supervisor and optionally Cron
+# Updated CMD to handle cron with proper permissions
+CMD ["/bin/sh", "-c", "if [ \"$CRON_ENABLED\" = \"true\" ]; then \
+    crontab /var/www/html/docker/crontab/laravel-cron && \
+    sudo crond && \
+    /usr/bin/supervisord -c /var/www/html/docker/supervisor/supervisord.conf; \
+    else \
+    /usr/bin/supervisord -c /var/www/html/docker/supervisor/supervisord.conf; \
+    fi"]
