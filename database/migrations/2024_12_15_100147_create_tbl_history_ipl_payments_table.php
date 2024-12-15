@@ -14,17 +14,19 @@ return new class extends Migration
     {
         Schema::create('tbl_history_ipl_payments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->decimal('amount', 10, 2);
+            $table->string('amount');
             $table->string('method');
+            $table->string('periode');
             $table->enum('status', StatusPembayaranIPLEnum::getAll())->default(StatusPembayaranIPLEnum::Pending); // pending, checked, approved, rejected
             $table->string('proof')->nullable();
             $table->text('rejection_reason')->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
+            $table->integer('checked_by')->nullable();
+            $table->timestamp('checked_at')->nullable();
+            $table->integer('approved_by')->nullable();
+            $table->timestamp('approved_at')->nullable();
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

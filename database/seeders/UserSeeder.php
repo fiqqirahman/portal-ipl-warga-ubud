@@ -64,10 +64,10 @@ class UserSeeder extends Seeder
                 ],
 			    [
 				    'id_peg' => 4,
-				    'name' => 'Operator Vendor',
-				    'nrik' => NRIK::$RENDY,
-				    'username' => 'OV' . NRIK::$RENDY,
-				    'email' => 'operator_vendor_bdki@yopmail.com',
+				    'name' => 'Kusdhian Herlambang',
+				    'nrik' => NRIK::$KUSDHIAN,
+				    'username' => 'KH' . NRIK::$KUSDHIAN,
+				    'email' => 'operators_vendor_bdki@yopmail.com',
 				    'tanggal_lahir' => '1999-01-09',
 				    'id_jabatan' => null,
 				    'id_tingkatan' => null,
@@ -75,6 +75,19 @@ class UserSeeder extends Seeder
 				    'password' => '$2y$10$W.tOb.bMYNlsvX0KaJxBlO.Hf9UUd06ONV3t1v5HpTEJYqRYV7Wvm', // Lenovoa706!
 				    'expired_password' => '2030-09-01'
 			    ],
+                [
+                    'id_peg' => 5,
+                    'name' => 'Rendy Agustian',
+                    'nrik' => NRIK::$RENDY,
+                    'username' => 'RA' . NRIK::$RENDY,
+                    'email' => 'operator_vendor_bdki@yopmail.com',
+                    'tanggal_lahir' => '1999-01-09',
+                    'id_jabatan' => null,
+                    'id_tingkatan' => null,
+                    'id_unit_kerja' => null,
+                    'password' => '$2y$10$W.tOb.bMYNlsvX0KaJxBlO.Hf9UUd06ONV3t1v5HpTEJYqRYV7Wvm', // Lenovoa706!
+                    'expired_password' => '2030-09-01'
+                ],
 		    ];
 		    
 		    $collections = array_merge($collections, $userDeveloper);

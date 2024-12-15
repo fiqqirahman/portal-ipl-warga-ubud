@@ -27,10 +27,13 @@ class IplPayment extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
-
     public function updatedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'updated_by');
+    }
+    public function file(): BelongsTo
+    {
+        return $this->belongsTo(HistoryFile::class, 'proof')->withDefault();
     }
 
 }

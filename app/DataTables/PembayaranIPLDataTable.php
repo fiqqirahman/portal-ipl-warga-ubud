@@ -26,7 +26,7 @@ class PembayaranIPLDataTable extends DataTable
     {
         return datatables()
             ->eloquent(
-                $query->with(['createdBy', 'updatedBy'])
+                $query->with(['createdBy', 'updatedBy','file'])
             )
             ->addIndexColumn()
             ->editColumn('created_by', function ($row) {
@@ -35,6 +35,10 @@ class PembayaranIPLDataTable extends DataTable
 
             ->editColumn('updated_by', function ($row) {
                 return $row->updatedBy->name ?? '-';
+            })
+            ->editColumn('proof', function ($row) {
+                $path = "/storage/" . $row->file->path_file;
+                return '<a href="' . $path . '" target="_blank">Download</a>';
             })
             ->addColumn('aksi', function ($row) {
                 $routeEdit = route('menu.pembayaran-ipl.edit', enkrip($row->id));
@@ -51,7 +55,7 @@ class PembayaranIPLDataTable extends DataTable
             ->editColumn('created_at', function ($row) {
                 return Carbon::parse($row->created_at)->locale(config('app.locale'))->translatedFormat('j F Y, H:i:s');
             })
-            ->rawColumns(['aksi',]);
+            ->rawColumns(['aksi','proof']);
     }
 
     /**
@@ -95,8 +99,8 @@ class PembayaranIPLDataTable extends DataTable
         return [
             Column::make('DT_RowIndex')->title('No.')->searchable(false)->orderable(false)
                 ->addClass('text-center'),
-            Column::make('user-id')->title('Nama')->searchable(false)->orderable(false),
             Column::make('amount')->title('Jumlah Pembayaran')->searchable(false)->orderable(false),
+            Column::make('periode')->title('Periode Pembayaran')->searchable(false)->orderable(false),
             Column::make('method')->title('Metode Pembayaran')->searchable(false)->orderable(false),
             Column::make('proof')->title('Bukti Pembayaran')->searchable(false)->orderable(false),
             Column::make('created_by')
