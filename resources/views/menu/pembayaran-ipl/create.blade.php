@@ -17,7 +17,7 @@
                             </div>
                         </div>
                         <div class="card-body pt-5">
-                            <form action="{{ route('master.bank.store') }}" class="form" method="POST"
+                            <form action="{{ route('menu.pembayaran-ipl.store') }}" class="form" method="POST" enctype="multipart/form-data"
                                   id="form">
                                 @csrf
                                 <div class="fv-row mb-7">
@@ -33,9 +33,22 @@
                                     </div>
                                     @enderror
                                 </div>
+                                <div class="fv-row mb-7">
+                                    <label for="periode" class="fs-6 fw-semibold form-label mt-3">
+                                        <span class="required">Periode</span>
+                                    </label>
+                                    <input type="month" required
+                                           class="form-control @error('periode') is-invalid @enderror"
+                                           name="periode" value="{{ old('periode') }}" id="periode"/>
+                                    @error('periode')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
                                 <div class="col-md-4 col-sm-12 mb-4">
                                     <label for="method" class="fs-6 fw-semibold form-label mt-3">
-                                        <span class="required">Provinsi</span>
+                                        <span class="required">Jenis Pembayaran</span>
                                     </label>
                                     <select class="form-select  @error('method') is-invalid @enderror"
                                             id="method" name="method" data-control="select2" required
@@ -56,11 +69,11 @@
                                 </div>
                                 <div class="fv-row mb-7">
                                     <label for="proof" class="fs-6 fw-semibold form-label mt-3">
-                                        <span>Upload Bukti Pembayaran</span>
+                                        <span class="required">Upload Bukti Pembayaran</span>
                                     </label>
                                     <input type="file"
                                            class="form-control @error('proof') is-invalid @enderror"
-                                           name="proof" id="proof" accept=".pdf,.png,.jpg,.jpeg"/>
+                                           name="proof" id="proof"/>
                                     @error('proof')
                                     <div class="invalid-feedback">
                                         {{ $message }}

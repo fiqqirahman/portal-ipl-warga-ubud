@@ -26,8 +26,8 @@ class NRIK
                 ['nrik' => self::$DEVELOPER, 'roles' => [Role::$DEVELOPER, Role::$SUPER_ADMIN]],
                 ['nrik' => self::$ADI, 'roles' => [Role::$DEVELOPER]],
                 ['nrik' => self::$RENDY, 'roles' => [Role::$WARGA]],
-                ['nrik' => self::$KUSDHIAN, 'roles' => [Role::$DEVELOPER]],
-                ['nrik' => self::$FIQQI, 'roles' => [Role::$DEVELOPER]],
+                ['nrik' => self::$KUSDHIAN, 'roles' => [Role::$BENDAHARA]],
+                ['nrik' => self::$FIQQI, 'roles' => [Role::$DEVELOPER, Role::$KETUA_RT]],
                 ['nrik' => self::$KAUTSAR, 'roles' => [Role::$DEVELOPER]],
                 ['nrik' => self::$WILDAN, 'roles' => [Role::$DEVELOPER]],
             ];
