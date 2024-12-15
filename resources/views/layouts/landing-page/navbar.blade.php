@@ -7,7 +7,7 @@
     }
 
     .menu-link:hover {
-        color: white;
+        color: black;
         border-bottom: 2px solid white;
     }
 
@@ -46,37 +46,37 @@
                     <!--begin::Menu-->
                     <div class="menu menu-column flex-nowrap menu-rounded menu-lg-row menu-title-gray-500 menu-state-title-primary nav nav-flush fs-5 fw-semibold" id="kt_landing_menu">
                         <!--begin::Menu item-->
+                        <!--end::Menu item-->
+                        <!--begin::Menu item-->
                         <div class="menu-item">
                             <!--begin::Menu link-->
-                            <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Beranda</a>
+                            <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#" style="color: white;" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Berita dan Pengumuman</a>
+                            <!--end::Menu link-->
+                        </div>
+                        <!--end::Menu item-->
+                        <!--begin::Menu item-->
+                            <div class="menu-item">
+                                <!--begin::Menu link-->
+                                <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#" style="color: white;" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Dokumen dan Formulir</a>
+                                <!--end::Menu link-->
+                            </div>
+                        <!--end::Menu item-->
+                        <!--begin::Menu item-->
+                        <div class="menu-item">
+                            <!--begin::Menu link-->
+                            <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#" style="color: white;" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Layanan Pengaduan</a>
                             <!--end::Menu link-->
                         </div>
                         <!--end::Menu item-->
                         <!--begin::Menu item-->
                         <div class="menu-item">
                             <!--begin::Menu link-->
-                            <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#" style="color: white;" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Kebijakan Vendor</a>
+                            <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#" style="color: white;" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Forum Komunitas</a>
                             <!--end::Menu link-->
                         </div>
-                        <!--end::Menu item-->
-                        <!--begin::Menu item-->
                         <div class="menu-item">
                             <!--begin::Menu link-->
-                            <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#" style="color: white;" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Tata Cara Pengadaan</a>
-                            <!--end::Menu link-->
-                        </div>
-                        <!--end::Menu item-->
-                        <!--begin::Menu item-->
-                        <div class="menu-item">
-                            <!--begin::Menu link-->
-                            <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#" style="color: white;" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">FAQ</a>
-                            <!--end::Menu link-->
-                        </div>
-                        <!--end::Menu item-->
-                        <!--begin::Menu item-->
-                        <div class="menu-item">
-                            <!--begin::Menu link-->
-                            <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#" style="color: white;" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Daftar Hitam</a>
+                            <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#" style="color: white;" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Jadwal Kegiatan</a>
                             <!--end::Menu link-->
                         </div>
                         <!--end::Menu item-->

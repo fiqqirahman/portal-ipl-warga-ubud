@@ -62,6 +62,10 @@ enum PermissionEnum: string
     case MasterStatusPerusahaanCreate = 'master_status_perusahaan_create';
     case MasterStatusPerusahaanEdit = 'master_status_perusahaan_edit';
 
+    case PembayaranIPLAccess = 'pembayaran_ipl_access';
+    case PembayaranIPLCreate = 'pembayaran_ipl_create';
+    case PembayaranIPLEdit = 'pembayaran_ipl_edit';
+
 
 
     public static function getAll(bool $withKey = false, string $keyName = 'name'): array

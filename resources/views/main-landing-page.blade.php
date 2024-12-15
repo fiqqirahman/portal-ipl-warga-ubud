@@ -14,7 +14,7 @@
     <meta property="og:title" content="{{ config('app.name') }} | Bank DKI" />
     <meta property="og:url" content="{{ config('app.url') }}" />
     <meta property="og:site_name" content="{{ config('app.name') }}" />
-    <link rel="shortcut icon" href="{{ asset('assets/images/bdki-favicon.png') }}"/>
+    <link rel="shortcut icon" href="{{ asset('assets/images/logoubud.png') }}"/>
     <!--begin::Fonts-->
 {{--    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700"/>--}}
     <!--end::Fonts-->
@@ -56,7 +56,7 @@
     <div class="mb-0" id="home">
         <!--begin::Wrapper-->
         <div class="bgi-no-repeat bgi-size-cover bgi-position-center landing-dark-bg"
-             style="background-image: url('{{asset('metronic/demo2/assets/media/svg/illustrations/Jakarta.jpeg')}}')">
+             style="background-image: url('{{asset('metronic/demo2/assets/media/svg/illustrations/ubud.jpeg')}}')">
 
             @include('layouts.landing-page.navbar')
 

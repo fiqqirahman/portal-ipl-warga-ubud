@@ -7,6 +7,7 @@ use App\Helpers\CacheForeverHelper;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\IplPaymentController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\Master\BankController;
 use App\Http\Controllers\Master\BentukBadanUsahaController;
@@ -185,13 +186,14 @@ Route::middleware('auth')->group(function () use($SSOIsLocal) {
 		                ->name('registrasi-vendor-perusahaan.remove-path-file-proof-inventaris');
 	            });
 		    
-		    Route::prefix('menu')
-			    ->name('menu.')
-			    ->group(function () {
+		    Route::prefix('menu')->name('menu.')->group(function () {
 				    Route::get('/getKabKotaByProvinsi', [ParametersController::class, 'getKabKotaByProvinsi'])->name('getKabKotaByProvinsi');
 				    Route::get('/getKecamatanByKabKota', [ParametersController::class, 'getKecamatanByKabKota'])->name('getKecamatanByKabKota');
 				    Route::get('/getKelurahanByKecamatan', [ParametersController::class, 'getKelurahanByKecamatan'])->name('getKelurahanByKecamatan');
-			    });
+
+                    //pembayaran IPL
+                     Route::resource('/pembayaran-ipl', IplPaymentController::class, ['parameters' => ['pembayaran-ipl' => 'id']])->except(['show', 'destroy']);
+            });
         });
     });
 });

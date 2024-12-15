@@ -34,13 +34,13 @@
                 <!--begin::Title-->
                 <h3 class="fs-2hx text-dark mb-5" id="how-it-works" data-kt-scroll-offset="{default: 100, lg: 150}">Portal Warga Ubud Garden
                     <br />
-                    Aplikasi Pengadaan Barang dan Jasa Elektronik</h3>
+                    </h3>
                 <!--end::Title-->
                 <!--begin::Text-->
                 <div class="fs-5 text-muted fw-bold">
-                    Registrasi e-Procurement Bank DKI adalah proses pendaftaran vendor untuk menjadi mitra
-                    penyedia barang/jasa melalui sistem elektronik yang dimiliki oleh Bank DKI.
-                    <br/>Proses ini bertujuan untuk memastikan transparansi, akuntabilitas, dan efisiensi dalam pengadaan.
+                    platform atau saluran yang digunakan untuk memberikan informasi, layanan, atau interaksi khusus bagi warga komunitas Ubud Garden.
+                    Biasanya, portal seperti ini dirancang untuk mempermudah warga dalam mengakses berita, pengumuman, dokumen penting,
+                    <br/>atau layanan administratif terkait dengan lingkungan mereka.
                 </div>
                 <!--end::Text-->
             </div>

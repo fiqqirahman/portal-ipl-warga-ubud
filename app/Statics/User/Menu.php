@@ -25,5 +25,8 @@ class Menu
     static int $MASTER_JABATAN_VENDOR = 10000017;
     static int $MASTER_JENIS_INVENTARIS = 10000018;
     static int $MASTER_JENIS_MERK_INVENTARIS = 10000019;
+    static int $MENU_IPL = 10000020;
+    static int $PEMBAYARAN_IPL = 10000021;
+    static int $APPROVAL_PEMBAYARAN_IPL = 10000022;
 
 }
