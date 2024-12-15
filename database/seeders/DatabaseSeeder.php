@@ -15,11 +15,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
 			// Get from Service Go
-	        DailyDepartemenSeeder::class,
-	        DailyDivisiSeeder::class,
-	        DailyUnitKerjaSeeder::class,
-	        DailyTingkatanSeeder::class,
-	        DailyJabatanSeeder::class,
+//	        DailyDepartemenSeeder::class,
+//	        DailyDivisiSeeder::class,
+//	        DailyUnitKerjaSeeder::class,
+//	        DailyTingkatanSeeder::class,
+//	        DailyJabatanSeeder::class,
 	        
 	        // Get from Service Go
 	        UserSeeder::class,
@@ -38,10 +38,10 @@ class DatabaseSeeder extends Seeder
             BentukBadanUsahaSeeder::class,
             StatusPerusahaanSeeder::class,
             KategoriVendorSeeder::class,
-            ProvinsiSeeder::class,
-            KabKotaSeeder::class,
-            KecamatanSeeder::class,
-            KelurahanSeeder::class,
+//            ProvinsiSeeder::class,
+//            KabKotaSeeder::class,
+//            KecamatanSeeder::class,
+//            KelurahanSeeder::class,
             MasterDokumenSeeder::class,
             JenisIdentitasSeeder::class,
             JenisJabatanVendorSeeder::class,
