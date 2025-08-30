@@ -22,11 +22,9 @@ class DatabaseSeeder extends Seeder
 //	        DailyJabatanSeeder::class,
 	        
 	        // Get from Service Go
-	        UserSeeder::class,
-			
+
 	        // Get from Service Go
-	        UpdateUserSeeder::class,
-			
+
 			// Spatie Permission, Role and Menu
 	        RoleSeeder::class,
 	        
@@ -51,6 +49,9 @@ class DatabaseSeeder extends Seeder
             NegaraSeeder::class,
             KualifikasiGradeSeeder::class,
             JenisMerkInventarisSeeder::class,
+            UserSeeder::class,
+//            UpdateUserSeeder::class,
+
         ]);
     }
 }
