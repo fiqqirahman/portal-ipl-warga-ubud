@@ -12,6 +12,7 @@ class Role
     static int $WARGA = 3;
     static int $BENDAHARA = 4;
     static int $KETUA_RT = 5;
+    static int $VENDOR = 6;
 
     public static function getAllForCreate(): array
     {
@@ -20,33 +21,19 @@ class Role
                 'id' => self::$SUPER_ADMIN,
                 'name' => RoleEnum::SuperAdmin,
 	            'permissions' => PermissionEnum::getAll(),
-                'menus' => [
-                    Menu::$DASHBOARD,
-                    Menu::$MENU_IPL,
-                    Menu::$PEMBAYARAN_IPL,
-                    Menu::$APPROVAL_PEMBAYARAN_IPL,
-
-
-	                Menu::$UTILITY,
-	                Menu::$DEBUG_EAGLE_EYE,
-	                Menu::$MASTER_CONFIG,
-                ],
+                'menus' => Menu::getAll(),
             ],
             [
                 'id' => self::$DEVELOPER,
                 'name' => RoleEnum::Developer,
                 'permissions' => PermissionEnum::getAll(),
-                'menus' => [
-	                Menu::$DASHBOARD,
-
-                    Menu::$MENU_IPL,
-                    Menu::$PEMBAYARAN_IPL,
-                    Menu::$APPROVAL_PEMBAYARAN_IPL,
-
-	                Menu::$UTILITY,
-	                Menu::$DEBUG_EAGLE_EYE,
-	                Menu::$MASTER_CONFIG,
-                ],
+                'menus' => Menu::getAll(),
+            ],
+            [
+                'id' => self::$VENDOR,
+                'name' => RoleEnum::Vendor,
+                'permissions' => PermissionEnum::getAll(),
+                'menus' => Menu::getAll(),
             ],
 	        [
 		        'id' => self::$WARGA,
