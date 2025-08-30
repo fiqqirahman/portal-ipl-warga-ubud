@@ -29,4 +29,8 @@ class Menu
     static int $PEMBAYARAN_IPL = 10000021;
     static int $APPROVAL_PEMBAYARAN_IPL = 10000022;
 
+    public static function getAll(): array
+    {
+        return array_values(get_class_vars(self::class));
+    }
 }
